@@ -1,0 +1,110 @@
+name: career_swipe_ai
+description: AI-powered career and job discovery platform
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase
+  firebase_core: ^3.0.0
+  firebase_auth: ^5.0.0
+  cloud_firestore: ^5.0.0
+  firebase_storage: ^12.0.0
+  firebase_messaging: ^15.0.0
+  firebase_analytics: ^11.0.0
+  firebase_crashlytics: ^4.0.0
+
+  # State Management
+  flutter_riverpod: ^2.4.9
+
+  # Navigation
+  go_router: ^13.0.1
+
+  # UI & Animations
+  glassmorphism: ^3.0.0
+  lottie: ^3.0.0
+  flutter_animate: ^4.3.0
+  shimmer: ^3.0.0
+  confetti: ^0.7.0
+  smooth_page_indicator: ^1.1.0
+
+  # Fonts & Icons
+  google_fonts: ^6.1.0
+  font_awesome_flutter: ^10.7.0
+  cupertino_icons: ^1.0.6
+
+  # File & Media
+  file_picker: ^8.0.0
+  image_picker: ^1.0.7
+  path_provider: ^2.1.1
+  path: ^1.8.3
+
+  # PDF Processing
+  syncfusion_flutter_pdf: ^26.1.35
+
+  # Networking
+  http: ^1.1.2
+  dio: ^5.4.0
+  connectivity_plus: ^5.0.2
+
+  # Local Storage
+  shared_preferences: ^2.2.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # Utils
+  intl: ^0.18.1
+  uuid: ^4.3.3
+  equatable: ^2.0.5
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  flutter_dotenv: ^5.1.0
+
+  # Security
+  crypto: ^3.0.3
+  encrypt: ^5.0.1
+  local_auth: ^2.1.8
+
+  # Maps & Location (for job proximity)
+  google_maps_flutter: ^2.5.0
+  geolocator: ^10.1.0
+
+  # Notifications
+  flutter_local_notifications: ^16.3.0
+
+  # Social Auth
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^8.0.0
+
+  # Swipe Cards
+  flutter_card_swiper: ^7.2.0
+
+  # Charts
+  fl_chart: ^0.66.0
+
+  # URL Launcher
+  url_launcher: ^6.2.2
+  share_plus: ^7.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  build_runner: ^2.4.7
+  freezed: ^2.4.5
+  json_serializable: ^6.7.1
+  mockito: ^5.4.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/images/
+    - assets/animations/
+    - assets/fonts/
