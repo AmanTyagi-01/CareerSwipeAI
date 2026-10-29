@@ -12,6 +12,7 @@ class GlassCard extends StatelessWidget {
   final double opacity;
   final Color? borderColor;
   final List<BoxShadow>? boxShadow;
+  final VoidCallback? onTap;
 
   const GlassCard({
     super.key,
@@ -25,6 +26,7 @@ class GlassCard extends StatelessWidget {
     this.opacity = 0.15,
     this.borderColor,
     this.boxShadow,
+    this.onTap,
   });
 
   @override
@@ -68,7 +70,13 @@ class GlassCard extends StatelessWidget {
                 ],
               ),
             ),
-            child: child,
+            child: onTap != null
+                ? InkWell(
+                    onTap: onTap,
+                    borderRadius: effectiveBorderRadius,
+                    child: child,
+                  )
+                : child,
           ),
         ),
       ),

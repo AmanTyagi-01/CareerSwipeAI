@@ -20,11 +20,21 @@ import '../presentation/screens/jobs/job_swipe_screen.dart';
 import '../presentation/screens/jobs/job_details_screen.dart';
 import '../presentation/screens/jobs/saved_jobs_screen.dart';
 import '../presentation/screens/jobs/applied_jobs_screen.dart';
+import '../presentation/screens/jobs/internships_screen.dart';
+import '../presentation/screens/ai/career_assistant_screen.dart';
 import '../presentation/screens/profile/profile_screen.dart';
 import '../presentation/screens/profile/edit_profile_screen.dart';
 import '../presentation/screens/profile/settings_screen.dart';
 import '../presentation/screens/profile/notifications_screen.dart';
 import '../presentation/screens/admin/admin_dashboard_screen.dart';
+import '../presentation/screens/recruiter/recruiter_dashboard_screen.dart';
+import '../presentation/screens/recruiter/job_management_screen.dart';
+import '../presentation/screens/recruiter/create_job_screen.dart';
+import '../presentation/screens/recruiter/applicant_pipeline_screen.dart';
+import '../presentation/screens/recruiter/candidate_details_screen.dart';
+import '../presentation/screens/recruiter/interview_scheduling_screen.dart';
+import '../presentation/screens/recruiter/company_profile_screen.dart';
+import '../presentation/screens/recruiter/hiring_analytics_screen.dart';
 import '../presentation/providers/auth_provider.dart';
 
 class GoRouterRefreshStream extends ChangeNotifier {
@@ -164,6 +174,55 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/admin',
         builder: (context, state) => const AdminDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/internships',
+        builder: (context, state) => const InternshipsScreen(),
+      ),
+      GoRoute(
+        path: '/career-assistant',
+        builder: (context, state) => const CareerAssistantScreen(),
+      ),
+      GoRoute(
+        path: '/recruiter/dashboard',
+        builder: (context, state) => const RecruiterDashboardScreen(),
+      ),
+      GoRoute(
+        path: '/recruiter/jobs',
+        builder: (context, state) => const JobManagementScreen(),
+      ),
+      GoRoute(
+        path: '/recruiter/create-job',
+        builder: (context, state) => const CreateJobScreen(),
+      ),
+      GoRoute(
+        path: '/recruiter/pipeline',
+        builder: (context, state) {
+          final jobId = state.extra as String?;
+          return ApplicantPipelineScreen(jobId: jobId);
+        },
+      ),
+      GoRoute(
+        path: '/recruiter/candidate-details',
+        builder: (context, state) {
+          final name = (state.extra as String?) ?? 'Rahul Sharma';
+          return CandidateDetailsScreen(candidateName: name);
+        },
+      ),
+      GoRoute(
+        path: '/recruiter/schedule-interview',
+        builder: (context, state) {
+          final name = (state.extra as String?) ?? 'Rahul Sharma';
+          return InterviewSchedulingScreen(candidateName: name);
+        },
+      ),
+      GoRoute(
+        path: '/recruiter/company-profile',
+        builder: (context, state) => const CompanyProfileScreen(),
+      ),
+      GoRoute(
+        path: '/recruiter/analytics',
+        builder: (context, state) => const HiringAnalyticsScreen(),
       ),
     ],
     errorBuilder: (context, state) => Scaffold(

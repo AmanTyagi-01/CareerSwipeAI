@@ -36,6 +36,16 @@ final recommendedJobsProvider = FutureProvider.family<List<JobModel>, String>((r
   return await service.getRecommendedJobs(userId);
 });
 
+final recruiterJobsProvider = FutureProvider.family<List<JobModel>, String>((ref, recruiterId) async {
+  final service = ref.watch(jobServiceProvider);
+  return await service.getRecruiterJobs(recruiterId);
+});
+
+final jobApplicantsProvider = FutureProvider.family<List<JobApplicationModel>, String>((ref, jobId) async {
+  final service = ref.watch(jobServiceProvider);
+  return await service.getJobApplicants(jobId);
+});
+
 class JobNotifier extends StateNotifier<AsyncValue<void>> {
   final JobService _jobService;
 
@@ -70,6 +80,34 @@ class JobNotifier extends StateNotifier<AsyncValue<void>> {
   Future<void> unsaveJob(String userId, String jobId) async {
     try {
       await _jobService.unsaveJob(userId, jobId);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<JobModel> createJob(JobModel job) async {
+    state = const AsyncValue.loading();
+    try {
+      final created = await _jobService.createJob(job);
+      state = const AsyncValue.data(null);
+      return created;
+    } catch (e, stackTrace) {
+      state = AsyncValue.error(e, stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<void> updateJobStatus(String jobId, bool isActive) async {
+    try {
+      await _jobService.updateJobStatus(jobId, isActive);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateApplicationStatus(String applicationId, String newStatus) async {
+    try {
+      await _jobService.updateApplicationStatus(applicationId, newStatus);
     } catch (e) {
       rethrow;
     }

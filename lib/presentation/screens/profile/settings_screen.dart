@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../config/theme.dart';
 import '../../../config/constants.dart';
+import '../../../data/models/user_model.dart';
+import '../../providers/auth_provider.dart';
 import '../../../presentation/widgets/common/animated_background.dart';
 import '../../../presentation/widgets/common/glass_card.dart';
 
@@ -184,9 +186,26 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Widget _buildAccountSettings(BuildContext context, bool isDark) {
+    final user = ref.watch(currentUserProvider).value;
+    final isRecruiter = user?.userType == UserType.recruiter;
+
     return GlassCard(
       child: Column(
         children: [
+          _buildNavigationTile(
+            context,
+            icon: Icons.switch_account_rounded,
+            title: 'Workspace Role',
+            subtitle: isRecruiter ? 'Recruiter Mode (Tap to switch to Candidate)' : 'Candidate Mode (Tap to switch to Recruiter)',
+            color: AppTheme.primaryColor,
+            onTap: () {
+              final newRole = isRecruiter ? UserType.talent : UserType.recruiter;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Switched to ${newRole == UserType.recruiter ? "Recruiter" : "Candidate"} Mode')),
+              );
+            },
+          ),
+          Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
           _buildNavigationTile(
             context,
             icon: Icons.download_outlined,

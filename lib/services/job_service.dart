@@ -533,4 +533,182 @@ class JobService {
       throw ServerException(message: 'Failed to search jobs.');
     }
   }
+
+  // ---------------------------------------------------------------------------
+  // RECRUITER METHODS
+  // ---------------------------------------------------------------------------
+
+  /// Post a new job or internship
+  Future<JobModel> createJob(JobModel job) async {
+    final firestore = _firestore;
+    if (firestore == null) {
+      _mockJobs.insert(0, job);
+      AppLogger.info('Job created in local state: ${job.id}', tag: 'JobService');
+      return job;
+    }
+
+    try {
+      final docRef = firestore.collection('jobs').doc(job.id);
+      await docRef.set({
+        ...job.toMap(),
+        'postedAt': FieldValue.serverTimestamp(),
+      });
+      AppLogger.info('Job posted to Firestore: ${job.id}', tag: 'JobService');
+      return job;
+    } on FirebaseException catch (e) {
+      AppLogger.error('Firestore error creating job', tag: 'JobService', error: e);
+      throw ServerException(message: 'Failed to create job: ${e.message}');
+    } catch (e, stackTrace) {
+      AppLogger.error('Unexpected error creating job', tag: 'JobService', error: e, stackTrace: stackTrace);
+      throw ServerException(message: 'Failed to create job.');
+    }
+  }
+
+  /// Get all jobs posted by a specific recruiter
+  Future<List<JobModel>> getRecruiterJobs(String recruiterId) async {
+    final firestore = _firestore;
+    if (firestore == null) {
+      // In demo mode return jobs owned by recruiter or all active mock jobs
+      final owned = _mockJobs.where((j) => j.recruiterId == recruiterId).toList();
+      return owned.isNotEmpty ? owned : _mockJobs;
+    }
+
+    try {
+      final snapshot = await firestore
+          .collection('jobs')
+          .where('recruiterId', isEqualTo: recruiterId)
+          .orderBy('postedAt', descending: true)
+          .get();
+
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return JobModel.fromMap({...data, 'id': doc.id});
+      }).toList();
+    } on FirebaseException catch (e) {
+      AppLogger.error('Firestore error fetching recruiter jobs', tag: 'JobService', error: e);
+      throw ServerException(message: 'Failed to fetch your job listings.');
+    } catch (e, stackTrace) {
+      AppLogger.error('Unexpected error fetching recruiter jobs', tag: 'JobService', error: e, stackTrace: stackTrace);
+      throw ServerException(message: 'Failed to fetch your job listings.');
+    }
+  }
+
+  /// Update active status or edit job
+  Future<void> updateJobStatus(String jobId, bool isActive) async {
+    final firestore = _firestore;
+    if (firestore == null) {
+      final idx = _mockJobs.indexWhere((j) => j.id == jobId);
+      if (idx != -1) {
+        _mockJobs[idx] = _mockJobs[idx].copyWith(isActive: isActive);
+      }
+      return;
+    }
+
+    try {
+      await firestore.collection('jobs').doc(jobId).update({
+        'isActive': isActive,
+        'updatedAt': FieldValue.serverTimestamp(),
+      });
+    } on FirebaseException catch (e) {
+      throw ServerException(message: 'Failed to update job status: ${e.message}');
+    }
+  }
+
+  /// Get applicants for a specific job listing
+  Future<List<JobApplicationModel>> getJobApplicants(String jobId) async {
+    final firestore = _firestore;
+    if (firestore == null) {
+      // Seed demo applicants if empty for realistic evaluation
+      if (_demoApplications.isEmpty) {
+        _demoApplications.addAll([
+          JobApplicationModel(
+            id: 'app-1',
+            userId: 'usr_rahul_sharma',
+            jobId: jobId,
+            status: 'shortlisted',
+            appliedAt: DateTime.now().subtract(const Duration(days: 2)),
+            updatedAt: DateTime.now().subtract(const Duration(days: 1)),
+            coverLetter: 'Passionate Flutter & Dart Engineer with 3+ years experience.',
+          ),
+          JobApplicationModel(
+            id: 'app-2',
+            userId: 'usr_priya_singh',
+            jobId: jobId,
+            status: 'pending',
+            appliedAt: DateTime.now().subtract(const Duration(days: 3)),
+            updatedAt: DateTime.now().subtract(const Duration(days: 3)),
+            coverLetter: 'Frontend & mobile developer experienced with Riverpod and Firebase.',
+          ),
+          JobApplicationModel(
+            id: 'app-3',
+            userId: 'usr_arjun_verma',
+            jobId: jobId,
+            status: 'interview',
+            appliedAt: DateTime.now().subtract(const Duration(days: 5)),
+            updatedAt: DateTime.now().subtract(const Duration(hours: 12)),
+            coverLetter: 'Senior cross-platform developer specializing in clean architecture.',
+          ),
+          JobApplicationModel(
+            id: 'app-4',
+            userId: 'usr_neha_patel',
+            jobId: jobId,
+            status: 'pending',
+            appliedAt: DateTime.now().subtract(const Duration(days: 6)),
+            updatedAt: DateTime.now().subtract(const Duration(days: 6)),
+            coverLetter: 'Mobile developer eager to contribute to AI-driven products.',
+          ),
+        ]);
+      }
+      return _demoApplications.where((a) => a.jobId == jobId || jobId.isEmpty).toList();
+    }
+
+    try {
+      Query query = firestore.collection('applications');
+      if (jobId.isNotEmpty) {
+        query = query.where('jobId', isEqualTo: jobId);
+      }
+      final snapshot = await query.orderBy('appliedAt', descending: true).get();
+      return snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return JobApplicationModel.fromMap({...data, 'id': doc.id});
+      }).toList();
+    } on FirebaseException catch (e) {
+      AppLogger.error('Firestore error fetching applicants', tag: 'JobService', error: e);
+      throw ServerException(message: 'Failed to fetch applicants.');
+    }
+  }
+
+  /// Update application status (e.g. 'shortlisted', 'rejected', 'interview', 'offered')
+  Future<void> updateApplicationStatus(String applicationId, String newStatus) async {
+    final firestore = _firestore;
+    if (firestore == null) {
+      final idx = _demoApplications.indexWhere((a) => a.id == applicationId);
+      if (idx != -1) {
+        final old = _demoApplications[idx];
+        _demoApplications[idx] = JobApplicationModel(
+          id: old.id,
+          userId: old.userId,
+          jobId: old.jobId,
+          status: newStatus,
+          coverLetter: old.coverLetter,
+          resumeUrl: old.resumeUrl,
+          appliedAt: old.appliedAt,
+          updatedAt: DateTime.now(),
+          timeline: {...old.timeline, newStatus: DateTime.now().toIso8601String()},
+        );
+      }
+      return;
+    }
+
+    try {
+      await firestore.collection('applications').doc(applicationId).update({
+        'status': newStatus,
+        'updatedAt': FieldValue.serverTimestamp(),
+        'timeline.$newStatus': FieldValue.serverTimestamp(),
+      });
+    } on FirebaseException catch (e) {
+      AppLogger.error('Firestore error updating status', tag: 'JobService', error: e);
+      throw ServerException(message: 'Failed to update application status.');
+    }
+  }
 }
