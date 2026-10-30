@@ -141,6 +141,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const JobSwipeScreen(),
       ),
       GoRoute(
+        path: '/jobs/details',
+        builder: (context, state) {
+          final jobId = state.extra as String?;
+          return JobDetailsScreen(jobId: jobId);
+        },
+      ),
+      GoRoute(
         path: '/jobs/details/:id',
         builder: (context, state) {
           final jobId = state.pathParameters['id'] ?? '';
@@ -149,6 +156,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/jobs/saved',
+        builder: (context, state) => const SavedJobsScreen(),
+      ),
+      GoRoute(
+        path: '/profile/saved-jobs',
         builder: (context, state) => const SavedJobsScreen(),
       ),
       GoRoute(
@@ -181,6 +192,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/career-assistant',
+        builder: (context, state) => const CareerAssistantScreen(),
+      ),
+      GoRoute(
+        path: '/ai/assistant',
         builder: (context, state) => const CareerAssistantScreen(),
       ),
       GoRoute(

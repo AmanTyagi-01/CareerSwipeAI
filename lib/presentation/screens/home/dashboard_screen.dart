@@ -1,163 +1,264 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:fl_chart/fl_chart.dart';
-import '../../../config/theme.dart';
-import '../../../config/constants.dart';
-import '../../../data/models/user_model.dart';
-import '../../../data/models/resume_model.dart';
-import '../../../data/models/job_model.dart';
 import '../../../presentation/providers/auth_provider.dart';
-import '../../../presentation/providers/resume_provider.dart';
 import '../../../presentation/providers/job_provider.dart';
-import '../../../presentation/widgets/common/animated_background.dart';
-import '../../../presentation/widgets/common/glass_card.dart';
-import '../../../presentation/widgets/common/loading_indicator.dart';
 
-class DashboardScreen extends ConsumerWidget {
+/// Candidate Home Dashboard matching Poster 1 Screen 4 & Poster 2 Screen 6:
+/// - User avatar with green online badge + "Good Morning, Aman!"
+/// - Notification bell with badge
+/// - Search bar ("Search jobs, internships...") with filter button
+/// - Horizontal filter pills: [ All ], Remote, Full Time, Internship
+/// - 3-Metric KPI bar: 12 Applied | 5 Saved | 3 Interviews
+/// - ATS Quick Score Card (78/100, Good Match)
+/// - "Recommended for You" job list: Google, Amazon, Microsoft, Swiggy
+class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final userAsync = ref.watch(currentUserProvider);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  int _selectedFilterIndex = 0;
+  final List<String> _filters = ['All', 'Remote', 'Full Time', 'Internship'];
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final user = ref.watch(currentUserProvider).value;
+    final userName = user?.displayName?.split(' ').first ?? 'Aman';
+    final appliedJobsAsync = user != null
+        ? ref.watch(appliedJobsProvider(user.id))
+        : null;
+    final appliedCount = appliedJobsAsync?.value?.length ?? 12;
+    final savedCount = user?.savedJobIds.length ?? 5;
 
     return Scaffold(
-      body: AnimatedBackground(
-        child: SafeArea(
-          child: userAsync.when(
-            data: (user) => _buildContent(context, user, isDark, ref),
-            loading: () => const Center(child: AppLoadingIndicator(message: 'Loading your dashboard...')),
-            error: (error, _) => _buildErrorState(context, error, ref),
+      backgroundColor: const Color(0xFF0A0E17),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // 1. Header: Avatar + "Good Morning, Aman!" + Notification Bell
+              _buildHeader(context, userName),
+
+              const SizedBox(height: 20),
+
+              // 2. Search Bar + Filter Icon
+              _buildSearchBar(context),
+
+              const SizedBox(height: 16),
+
+              // 3. Filter Pills: [ All ], Remote, Full Time, Internship
+              _buildFilterPills(),
+
+              const SizedBox(height: 20),
+
+              // 4. 3-Metric KPI Bar: 12 Applied | 5 Saved | 3 Interviews
+              _buildKpiBar(context, appliedCount, savedCount),
+
+              const SizedBox(height: 20),
+
+              // 5. ATS Quick Banner: "78/100 - Good Match"
+              _buildAtsBanner(context),
+
+              const SizedBox(height: 24),
+
+              // 6. "Recommended for You" Section
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Recommended for You',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => context.push('/jobs/swipe'),
+                    child: const Text(
+                      'See All',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF8B5CF6),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 14),
+
+              // 7. Recommended Job Cards List
+              _buildJobCard(
+                context,
+                company: 'Google',
+                title: 'Software Engineer',
+                location: 'Bengaluru, India · Remote',
+                salary: '₹12-25 LPA',
+                type: 'Full Time',
+                logoColor: const Color(0xFF4285F4),
+                logoText: 'G',
+                skills: ['Python', 'React', 'System Design'],
+                isSaved: true,
+              ),
+
+              const SizedBox(height: 12),
+
+              _buildJobCard(
+                context,
+                company: 'Amazon',
+                title: 'Frontend Developer',
+                location: 'Hyderabad, India · Hybrid',
+                salary: '₹10-20 LPA',
+                type: 'Full Time',
+                logoColor: const Color(0xFFFF9900),
+                logoText: 'a',
+                skills: ['Flutter', 'TypeScript', 'Redux'],
+                isSaved: false,
+              ),
+
+              const SizedBox(height: 12),
+
+              _buildJobCard(
+                context,
+                company: 'Microsoft',
+                title: 'AI/ML Intern',
+                location: 'Noida, India · On-site',
+                salary: '₹80k/month',
+                type: 'Internship',
+                logoColor: const Color(0xFF00A4EF),
+                logoText: 'M',
+                skills: ['PyTorch', 'LLMs', 'NLP'],
+                isSaved: true,
+              ),
+
+              const SizedBox(height: 12),
+
+              _buildJobCard(
+                context,
+                company: 'Swiggy',
+                title: 'Product Manager',
+                location: 'Bengaluru, India · Remote',
+                salary: '₹18-30 LPA',
+                type: 'Full Time',
+                logoColor: const Color(0xFFFC8019),
+                logoText: 'S',
+                skills: ['Product Strategy', 'Analytics', 'Agile'],
+                isSaved: false,
+              ),
+
+              const SizedBox(height: 24),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildErrorState(BuildContext context, Object error, WidgetRef ref) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+  // --- Header ---------------------------------------------------------------
+  Widget _buildHeader(BuildContext context, String userName) {
+    return Row(
+      children: [
+        // Avatar with green online dot
+        Stack(
           children: [
-            const Icon(Icons.cloud_off_outlined, size: 64, color: AppTheme.errorColor),
-            const SizedBox(height: 16),
-            Text(
-              'Something went wrong',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF8B5CF6), Color(0xFF06B6D4)],
+                ),
+                border: Border.all(color: const Color(0xFF2A334A), width: 1.5),
+              ),
+              child: Center(
+                child: Text(
+                  userName.isNotEmpty ? userName[0].toUpperCase() : 'A',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              error.toString(),
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppTheme.darkTextSecondary),
-              textAlign: TextAlign.center,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: () => ref.invalidate(currentUserProvider),
-              icon: const Icon(Icons.refresh),
-              label: const Text('Retry'),
+            Positioned(
+              right: 1,
+              bottom: 1,
+              child: Container(
+                width: 13,
+                height: 13,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF10B981),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: const Color(0xFF0A0E17), width: 2),
+                ),
+              ),
             ),
           ],
         ),
-      ),
-    );
-  }
+        const SizedBox(width: 14),
 
-  Widget _buildContent(BuildContext context, UserModel? user, bool isDark, WidgetRef ref) {
-    // Watch user's resumes and applications dynamically
-    final resumesAsync = user != null 
-        ? ref.watch(userResumesProvider(user.id)) 
-        : const AsyncValue<List<ResumeModel>>.data([]);
-    final applicationsAsync = user != null 
-        ? ref.watch(appliedJobsProvider(user.id)) 
-        : const AsyncValue<List<JobApplicationModel>>.data([]);
-
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppConstants.defaultPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildHeader(context, user, isDark),
-          const SizedBox(height: 20),
-          _buildQuickStats(context, user, isDark, ref),
-          const SizedBox(height: 20),
-          _buildPremiumFeaturesRow(context),
-          const SizedBox(height: 20),
-          resumesAsync.when(
-            data: (resumes) => _buildResumeScoreCard(context, resumes, isDark),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text('Error loading resumes: $e')),
-          ),
-          const SizedBox(height: 20),
-          resumesAsync.when(
-            data: (resumes) => _buildAtsScoreProgressionChart(context, resumes, isDark),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text('Error loading chart: $e')),
-          ),
-          const SizedBox(height: 20),
-          applicationsAsync.when(
-            data: (applications) => _buildJobApplicationsChart(context, applications, isDark),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text('Error loading chart: $e')),
-          ),
-          const SizedBox(height: 20),
-          _buildRecentActivity(context, isDark),
-          const SizedBox(height: 20),
-          _buildCareerInsights(context, isDark),
-          const SizedBox(height: 100),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHeader(BuildContext context, UserModel? user, bool isDark) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+        // Greeting
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Welcome back,',
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
+              const Text(
+                'Good Morning,',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Color(0xFF94A3B8),
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 4),
               Text(
-                user?.displayName ?? 'Career Seeker',
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+                '$userName!',
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  letterSpacing: -0.3,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
         ),
-        GestureDetector(
+
+        // Notification Icon with red dot
+        InkWell(
           onTap: () => context.push('/profile/notifications'),
+          borderRadius: BorderRadius.circular(14),
           child: Container(
-            width: 48,
-            height: 48,
+            width: 44,
+            height: 44,
             decoration: BoxDecoration(
-              color: isDark ? AppTheme.darkElevated : AppTheme.lightElevated,
+              color: const Color(0xFF121622),
               borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: const Color(0xFF232A3B)),
             ),
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Icon(
-                  Icons.notifications_outlined,
-                  color: isDark ? AppTheme.darkTextPrimary : AppTheme.lightTextPrimary,
+                const Icon(
+                  Icons.notifications_none_rounded,
+                  color: Colors.white,
+                  size: 22,
                 ),
                 Positioned(
                   top: 10,
@@ -166,7 +267,7 @@ class DashboardScreen extends ConsumerWidget {
                     width: 8,
                     height: 8,
                     decoration: const BoxDecoration(
-                      color: AppTheme.errorColor,
+                      color: Color(0xFFEF4444),
                       shape: BoxShape.circle,
                     ),
                   ),
@@ -176,91 +277,133 @@ class DashboardScreen extends ConsumerWidget {
           ),
         ),
       ],
-    )
-        .animate()
-        .fadeIn()
-        .slideY(begin: -0.2, end: 0);
+    );
   }
 
-  Widget _buildQuickStats(BuildContext context, UserModel? user, bool isDark, WidgetRef ref) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildStatCard(
-            context,
-            icon: Icons.description,
-            label: 'Resume Score',
-            value: '82',
-            sublabel: 'Good',
-            color: AppTheme.primaryColor,
-            isDark: isDark,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            context,
-            icon: Icons.work,
-            label: 'Jobs Viewed',
-            value: '47',
-            sublabel: 'This week',
-            color: AppTheme.accentColor,
-            isDark: isDark,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            context,
-            icon: Icons.favorite,
-            label: 'Saved',
-            value: '${user?.savedJobIds.length ?? 0}',
-            sublabel: 'Jobs',
-            color: AppTheme.warningColor,
-            isDark: isDark,
-          ),
-        ),
-      ],
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 100))
-        .slideY(begin: 0.1, end: 0);
-  }
-
-  Widget _buildStatCard(BuildContext context, {
-    required IconData icon,
-    required String label,
-    required String value,
-    required String sublabel,
-    required Color color,
-    required bool isDark,
-  }) {
-    return GlassCard(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  // --- Search Bar -----------------------------------------------------------
+  Widget _buildSearchBar(BuildContext context) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFF232A3B)),
+      ),
+      child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
+          const SizedBox(width: 14),
+          const Icon(Icons.search_rounded, color: Color(0xFF64748B), size: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextField(
+              controller: _searchController,
+              style: const TextStyle(color: Colors.white, fontSize: 14),
+              decoration: const InputDecoration(
+                hintText: 'Search jobs, internships...',
+                hintStyle: TextStyle(color: Color(0xFF64748B), fontSize: 13),
+                border: InputBorder.none,
+                isDense: true,
+                contentPadding: EdgeInsets.zero,
+              ),
             ),
-            child: Icon(icon, color: color, size: 20),
           ),
-          const SizedBox(height: 12),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: color,
+          IconButton(
+            icon: const Icon(Icons.tune_rounded, color: Color(0xFF8B5CF6), size: 20),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
+  // --- Filter Pills ---------------------------------------------------------
+  Widget _buildFilterPills() {
+    return SizedBox(
+      height: 34,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: _filters.length,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, idx) {
+          final isSelected = _selectedFilterIndex == idx;
+          return GestureDetector(
+            onTap: () => setState(() => _selectedFilterIndex = idx),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: isSelected ? const Color(0xFF7C3AED) : const Color(0xFF121622),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF232A3B),
+                ),
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFF7C3AED).withValues(alpha: 0.35),
+                          blurRadius: 10,
+                        ),
+                      ]
+                    : null,
+              ),
+              child: Text(
+                _filters[idx],
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                  color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // --- 3-Metric KPI Bar -----------------------------------------------------
+  Widget _buildKpiBar(BuildContext context, int appliedCount, int savedCount) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: const Color(0xFF232A3B)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.3),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: _buildMetricItem(
+              count: '$appliedCount',
+              label: 'Applied',
+              countColor: const Color(0xFF38BDF8),
+              onTap: () => context.push('/jobs/applied'),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
+          Container(width: 1, height: 36, color: const Color(0xFF232A3B)),
+          Expanded(
+            child: _buildMetricItem(
+              count: '$savedCount',
+              label: 'Saved',
+              countColor: const Color(0xFFA78BFA),
+              onTap: () => context.push('/profile/saved-jobs'),
+            ),
+          ),
+          Container(width: 1, height: 36, color: const Color(0xFF232A3B)),
+          Expanded(
+            child: _buildMetricItem(
+              count: '3',
+              label: 'Interviews',
+              countColor: const Color(0xFF34D399),
+              onTap: () => context.push('/resume/interview-prep'),
             ),
           ),
         ],
@@ -268,666 +411,259 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildPremiumFeaturesRow(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Premium AI Features',
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
+  Widget _buildMetricItem({
+    required String count,
+    required String label,
+    required Color countColor,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Column(
+        children: [
+          Text(
+            count,
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              color: countColor,
+              letterSpacing: -0.5,
+            ),
           ),
-        ),
-        const SizedBox(height: 12),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _buildFeatureButton(
-                context,
-                title: 'Skill Gap',
-                subtitle: 'Match requirements',
-                icon: Icons.analytics_outlined,
-                color: AppTheme.accentColor,
-                route: '/resume/skill-gap',
-              ),
-              const SizedBox(width: 12),
-              _buildFeatureButton(
-                context,
-                title: 'Interview Prep',
-                subtitle: 'Flip flashcards',
-                icon: Icons.question_answer_outlined,
-                color: AppTheme.primaryColor,
-                route: '/resume/interview-prep',
-              ),
-              const SizedBox(width: 12),
-              _buildFeatureButton(
-                context,
-                title: 'PDF Template',
-                subtitle: 'Preview layouts',
-                icon: Icons.picture_as_pdf_outlined,
-                color: AppTheme.successColor,
-                route: '/resume/pdf-preview',
-              ),
-              const SizedBox(width: 12),
-              _buildFeatureButton(
-                context,
-                title: 'Career AI Coach',
-                subtitle: 'Ask anything',
-                icon: Icons.auto_awesome_rounded,
-                color: AppTheme.primaryColor,
-                route: '/career-assistant',
-              ),
-              const SizedBox(width: 12),
-              _buildFeatureButton(
-                context,
-                title: 'Internships',
-                subtitle: 'Discover stipends',
-                icon: Icons.school_outlined,
-                color: AppTheme.accentColor,
-                route: '/internships',
-              ),
-            ],
+          const SizedBox(height: 2),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF94A3B8),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _buildFeatureButton(BuildContext context, {
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required Color color,
-    required String route,
-  }) {
-    return GestureDetector(
-      onTap: () => context.push(route),
-      child: GlassCard(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: Row(
+  // --- ATS Quick Banner -----------------------------------------------------
+  Widget _buildAtsBanner(BuildContext context) {
+    return InkWell(
+      onTap: () => context.push('/resume/analysis'),
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0xFF1E1B4B), Color(0xFF121622)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+            width: 1.2,
+          ),
+        ),
+        child: const Row(
           children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: color, size: 22),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+            // Mini circular indicator
+            Stack(
+              alignment: Alignment.center,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                SizedBox(
+                  width: 52,
+                  height: 52,
+                  child: CircularProgressIndicator(
+                    value: 0.78,
+                    strokeWidth: 4.5,
+                    backgroundColor: Color(0xFF232A3B),
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF10B981)),
+                  ),
                 ),
                 Text(
-                  subtitle,
-                  style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6), fontSize: 11),
+                  '78',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
+            SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'ATS Resume Score',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(width: 6),
+                      Icon(Icons.bolt, color: Color(0xFFFBBF24), size: 16),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Good Match · 3 suggestions available',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF34D399),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFF94A3B8), size: 16),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildResumeScoreCard(BuildContext context, List<ResumeModel> resumes, bool isDark) {
-    final activeResume = resumes.isEmpty 
-        ? null 
-        : resumes.firstWhere((r) => r.isActive, orElse: () => resumes.first);
-        
-    final score = activeResume?.atsScore ?? 82.0;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Resume Health',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
+  // --- Job Card -------------------------------------------------------------
+  Widget _buildJobCard(
+    BuildContext context, {
+    required String company,
+    required String title,
+    required String location,
+    required String salary,
+    required String type,
+    required Color logoColor,
+    required String logoText,
+    required List<String> skills,
+    required bool isSaved,
+  }) {
+    return InkWell(
+      onTap: () => context.push('/jobs/details', extra: title),
+      borderRadius: BorderRadius.circular(18),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF121622),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: const Color(0xFF232A3B)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                // Company Logo Badge
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: logoColor.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: logoColor.withValues(alpha: 0.4)),
+                  ),
+                  child: Center(
+                    child: Text(
+                      logoText,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: logoColor,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () => context.push('/resume/upload'),
-                child: const Text('Improve'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: SizedBox(
-                  height: 120,
-                  child: Stack(
-                    alignment: Alignment.center,
+                const SizedBox(width: 12),
+
+                // Job Title & Company
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PieChart(
-                        PieChartData(
-                          sectionsSpace: 4,
-                          centerSpaceRadius: 35,
-                          sections: [
-                            PieChartSectionData(
-                              value: score,
-                              color: AppTheme.successColor,
-                              radius: 25,
-                              showTitle: false,
-                            ),
-                            PieChartSectionData(
-                              value: 100 - score,
-                              color: isDark ? AppTheme.darkElevated : AppTheme.lightElevated,
-                              radius: 25,
-                              showTitle: false,
-                            ),
-                          ],
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            score.toStringAsFixed(0),
-                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppTheme.successColor,
-                            ),
-                          ),
-                          Text(
-                            '/100',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                            ),
-                          ),
-                        ],
+                      const SizedBox(height: 2),
+                      Text(
+                        location,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF94A3B8),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: [
-                    _buildScoreBar(context, 'ATS Score', score / 100, AppTheme.successColor, isDark),
-                    const SizedBox(height: 12),
-                    _buildScoreBar(context, 'Keywords', (activeResume?.atsBreakdown['Keywords'] ?? 72.0) / 100, AppTheme.accentColor, isDark),
-                    const SizedBox(height: 12),
-                    _buildScoreBar(context, 'Formatting', (activeResume?.atsBreakdown['Formatting'] ?? 91.0) / 100, AppTheme.primaryColor, isDark),
-                    const SizedBox(height: 12),
-                    _buildScoreBar(context, 'Content', (activeResume?.atsBreakdown['Readability'] ?? 78.0) / 100, AppTheme.warningColor, isDark),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 200))
-        .slideY(begin: 0.1, end: 0);
-  }
 
-  Widget _buildScoreBar(BuildContext context, String label, double value, Color color, bool isDark) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              label,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-              ),
+                // Bookmark icon
+                IconButton(
+                  icon: Icon(
+                    isSaved ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
+                    color: isSaved ? const Color(0xFF8B5CF6) : const Color(0xFF64748B),
+                    size: 22,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
             ),
-            Text(
-              '${(value * 100).toInt()}%',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: color,
-              ),
+
+            const SizedBox(height: 12),
+
+            // Tags row: Salary, Type, Skills
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E2436),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    salary,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF38BDF8),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E2436),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    type,
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFCBD5E1),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                const Text(
+                  'Quick Apply',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF8B5CF6),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-        const SizedBox(height: 6),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: value,
-            backgroundColor: isDark ? AppTheme.darkElevated : AppTheme.lightElevated,
-            valueColor: AlwaysStoppedAnimation<Color>(color),
-            minHeight: 6,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAtsScoreProgressionChart(BuildContext context, List<ResumeModel> resumes, bool isDark) {
-    final sortedResumes = List<ResumeModel>.from(resumes);
-    sortedResumes.sort((a, b) => a.uploadedAt?.compareTo(b.uploadedAt ?? DateTime.now()) ?? 0);
-
-    final List<FlSpot> spots = [];
-    if (sortedResumes.isEmpty) {
-      spots.addAll([
-        const FlSpot(0, 55),
-        const FlSpot(1, 62),
-        const FlSpot(2, 70),
-        const FlSpot(3, 82),
-      ]);
-    } else {
-      for (int i = 0; i < sortedResumes.length; i++) {
-        spots.add(FlSpot(i.toDouble(), sortedResumes[i].atsScore));
-      }
-    }
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'ATS Score Progression',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 150,
-            child: LineChart(
-              LineChartData(
-                gridData: FlGridData(
-                  show: true,
-                  drawVerticalLine: false,
-                  horizontalInterval: 20,
-                  getDrawingHorizontalLine: (value) {
-                    return FlLine(
-                      color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
-                      strokeWidth: 1,
-                    );
-                  },
-                ),
-                titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 20,
-                      reservedSize: 30,
-                      getTitlesWidget: (value, meta) {
-                        return Text(
-                          value.toInt().toString(),
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 1,
-                      getTitlesWidget: (value, meta) {
-                        return Text(
-                          'v${(value.toInt() + 1)}',
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
-                borderData: FlBorderData(show: false),
-                minX: 0,
-                maxX: max(3.0, (spots.length - 1).toDouble()),
-                minY: 0,
-                maxY: 100,
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: spots,
-                    isCurved: true,
-                    gradient: const LinearGradient(
-                      colors: [AppTheme.primaryColor, AppTheme.accentColor],
-                    ),
-                    barWidth: 3,
-                    isStrokeCapRound: true,
-                    dotData: FlDotData(
-                      show: true,
-                      getDotPainter: (spot, percent, bar, index) {
-                        return FlDotCirclePainter(
-                          radius: 4,
-                          color: AppTheme.primaryColor,
-                          strokeWidth: 2,
-                          strokeColor: isDark ? AppTheme.darkSurface : Colors.white,
-                        );
-                      },
-                    ),
-                    belowBarData: BarAreaData(
-                      show: true,
-                      gradient: LinearGradient(
-                        colors: [
-                          AppTheme.primaryColor.withValues(alpha: 0.2),
-                          AppTheme.primaryColor.withValues(alpha: 0.0),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildJobApplicationsChart(BuildContext context, List<JobApplicationModel> applications, bool isDark) {
-    int applied = 0;
-    int interviewing = 0;
-    int offers = 0;
-    int rejected = 0;
-
-    if (applications.isEmpty) {
-      // High fidelity default values for SaaS dashboard representation
-      applied = 12;
-      interviewing = 4;
-      offers = 2;
-      rejected = 1;
-    } else {
-      for (final app in applications) {
-        if (app.status == 'pending' || app.status == 'reviewing') {
-          applied++;
-        } else if (app.status == 'interview') {
-          interviewing++;
-        } else if (app.status == 'offered') {
-          offers++;
-        } else if (app.status == 'rejected') {
-          rejected++;
-        }
-      }
-    }
-
-    final double maxVal = max(4.0, [applied, interviewing, offers, rejected].reduce(max).toDouble() + 2.0);
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Job Applications Analytics',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            height: 160,
-            child: BarChart(
-              BarChartData(
-                alignment: BarChartAlignment.spaceAround,
-                maxY: maxVal,
-                barTouchData: BarTouchData(enabled: true),
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (double value, TitleMeta meta) {
-                        const style = TextStyle(fontSize: 10, fontWeight: FontWeight.bold);
-                        switch (value.toInt()) {
-                          case 0: return const Text('Applied', style: style);
-                          case 1: return const Text('Interview', style: style);
-                          case 2: return const Text('Offers', style: style);
-                          case 3: return const Text('Rejected', style: style);
-                          default: return const Text('');
-                        }
-                      },
-                    ),
-                  ),
-                  leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
-                gridData: const FlGridData(show: false),
-                borderData: FlBorderData(show: false),
-                barGroups: [
-                  BarChartGroupData(
-                    x: 0,
-                    barRods: [BarChartRodData(toY: applied.toDouble(), color: AppTheme.primaryColor, width: 16, borderRadius: BorderRadius.circular(4))],
-                  ),
-                  BarChartGroupData(
-                    x: 1,
-                    barRods: [BarChartRodData(toY: interviewing.toDouble(), color: AppTheme.accentColor, width: 16, borderRadius: BorderRadius.circular(4))],
-                  ),
-                  BarChartGroupData(
-                    x: 2,
-                    barRods: [BarChartRodData(toY: offers.toDouble(), color: AppTheme.successColor, width: 16, borderRadius: BorderRadius.circular(4))],
-                  ),
-                  BarChartGroupData(
-                    x: 3,
-                    barRods: [BarChartRodData(toY: rejected.toDouble(), color: AppTheme.errorColor, width: 16, borderRadius: BorderRadius.circular(4))],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRecentActivity(BuildContext context, bool isDark) {
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Recent Activity',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              TextButton(
-                onPressed: () => context.push('/jobs/applied'),
-                child: const Text('View All'),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          _buildActivityItem(
-            context,
-            icon: Icons.check_circle,
-            color: AppTheme.successColor,
-            title: 'Applied to Senior Flutter Developer',
-            subtitle: 'TechCorp Inc.',
-            time: '2 hours ago',
-            isDark: isDark,
-          ),
-          Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildActivityItem(
-            context,
-            icon: Icons.favorite,
-            color: AppTheme.errorColor,
-            title: 'Saved Product Designer role',
-            subtitle: 'DesignStudio',
-            time: '5 hours ago',
-            isDark: isDark,
-          ),
-          Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildActivityItem(
-            context,
-            icon: Icons.analytics,
-            color: AppTheme.primaryColor,
-            title: 'Resume analysis completed',
-            subtitle: 'Score: 82/100',
-            time: '1 day ago',
-            isDark: isDark,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActivityItem(BuildContext context, {
-    required IconData icon,
-    required Color color,
-    required String title,
-    required String subtitle,
-    required String time,
-    required bool isDark,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(icon, color: color, size: 20),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  subtitle,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Text(
-            time,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCareerInsights(BuildContext context, bool isDark) {
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Career Insights',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          _buildInsightCard(
-            context,
-            icon: Icons.trending_up,
-            color: AppTheme.successColor,
-            title: 'High Demand Skills',
-            description: 'Flutter, React Native, and Cloud Architecture are trending in your field.',
-            isDark: isDark,
-          ),
-          const SizedBox(height: 12),
-          _buildInsightCard(
-            context,
-            icon: Icons.attach_money,
-            color: AppTheme.warningColor,
-            title: 'Salary Benchmark',
-            description: 'Your target role pays 15% above market average in your location.',
-            isDark: isDark,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInsightCard(BuildContext context, {
-    required IconData icon,
-    required Color color,
-    required String title,
-    required String description,
-    required bool isDark,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkElevated.withValues(alpha: 0.5) : AppTheme.lightElevated.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
-          width: 1,
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: color, size: 20),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  description,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

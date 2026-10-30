@@ -20,42 +20,13 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Upload Your Resume'), findsOneWidget);
-      expect(find.text('Get AI-powered analysis and optimization insights'), findsOneWidget);
-      expect(find.text('Tap to Upload Resume'), findsOneWidget);
-      expect(find.text('PDF, DOC, or DOCX (max 10MB)'), findsOneWidget);
-      expect(find.text('Select File'), findsOneWidget);
-    });
-
-    testWidgets('shows supported formats section', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(
-            home: ResumeUploadScreen(),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      expect(find.text('Supported Formats'), findsOneWidget);
-      expect(find.text('PDF'), findsOneWidget);
-      expect(find.text('DOC'), findsOneWidget);
-      expect(find.text('DOCX'), findsOneWidget);
-    });
-
-    testWidgets('shows tips section', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(
-            home: ResumeUploadScreen(),
-          ),
-        ),
-      );
-      await tester.pumpAndSettle();
-
-      expect(find.text('Tips for best results:'), findsOneWidget);
-      expect(find.text('Use standard fonts (Arial, Calibri, Times New Roman)'), findsOneWidget);
-      expect(find.text('Avoid tables, images, and complex formatting'), findsOneWidget);
+      expect(find.text('My Resume'), findsOneWidget);
+      expect(find.text('Aman_Tyagi_Resume.pdf'), findsOneWidget);
+      expect(find.text('Tap to Upload New Resume'), findsOneWidget);
+      expect(find.text('Supports PDF, DOC, DOCX up to 10MB'), findsOneWidget);
+      expect(find.text('Extracted Information'), findsOneWidget);
+      expect(find.text('AI Suggestions'), findsOneWidget);
+      expect(find.text('Improve with AI'), findsOneWidget);
     });
   });
 }

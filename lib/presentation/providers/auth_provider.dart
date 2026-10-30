@@ -7,6 +7,8 @@ import '../../core/utils/logger.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService());
 
+final selectedUserTypeProvider = StateProvider<UserType>((ref) => UserType.talent);
+
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepositoryImpl(ref.watch(authServiceProvider));
 });
@@ -120,6 +122,18 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
       state = AsyncValue.error(e, stackTrace);
     } finally {
       _operationInProgress = false;
+    }
+  }
+
+  Future<void> updateRole(UserType newRole) async {
+    try {
+      final current = state.value;
+      if (current != null) {
+        final updated = current.copyWith(userType: newRole);
+        state = AsyncValue.data(updated);
+      }
+    } catch (e, stackTrace) {
+      AppLogger.error('Role update failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
     }
   }
 

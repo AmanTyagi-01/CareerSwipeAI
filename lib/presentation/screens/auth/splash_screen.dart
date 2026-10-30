@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../config/theme.dart';
-import '../../../config/constants.dart';
 import '../../../presentation/providers/auth_provider.dart';
+import '../../widgets/common/app_brand_logo.dart';
 
-/// Splash screen that waits for Firebase auth state before navigating.
-/// - If user is already logged in  → go to /home
-/// - If user is not logged in      → go to /onboarding
-/// Prevents the flash of unauthenticated content.
+/// Splash screen matching the visual blueprint in reference poster:
+/// - Ethereal dark obsidian background (#0A0E17)
+/// - Glowing 3D delta CareerSwipe AI ribbon logo
+/// - Brand typography: "CareerSwipe AI"
+/// - Tagline: "Your Career, Supercharged."
+/// - Sub-tagline: "Find jobs, Build skills, Grow your career."
+/// - Glowing bottom neon cosmic swirl ring
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
@@ -21,10 +23,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  late Animation<double> _scaleAnimation;
   bool _hasNavigated = false;
-
   Timer? _splashTimer;
 
   @override
@@ -32,21 +31,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
-    );
+      duration: const Duration(milliseconds: 2400),
+    )..forward();
 
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: const Interval(0, 0.5, curve: Curves.easeOut)),
-    );
-
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
-
-    _controller.forward();
-
-    // Give the auth stream time to emit before navigating
-    _splashTimer = Timer(AppConstants.splashDuration, _navigate);
+    // Give splash time to display animations then navigate
+    _splashTimer = Timer(const Duration(milliseconds: 2500), _navigate);
   }
 
   void _navigate() {
@@ -77,94 +66,152 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    // Also react if auth resolves before the timer fires
     ref.listen(authProvider, (_, next) {
       if (!next.isLoading && !_hasNavigated) {
         _navigate();
       }
     });
 
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: isDark
-                ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
-                : [const Color(0xFFF8FAFC), const Color(0xFFEEF2FF)],
-          ),
-        ),
-        child: Center(
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: ScaleTransition(
-              scale: _scaleAnimation,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      gradient: AppTheme.primaryGradient,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppTheme.primaryColor.withValues(alpha: 0.4),
-                          blurRadius: 30,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.work_outline,
-                      size: 60,
-                      color: Colors.white,
-                    ),
-                  )
-                      .animate()
-                      .shimmer(duration: const Duration(milliseconds: 1200)),
-                  const SizedBox(height: 32),
-                  Text(
-                    AppConstants.appName,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: isDark ? AppTheme.darkTextPrimary : AppTheme.lightTextPrimary,
-                    ),
-                  )
-                      .animate()
-                      .fadeIn(delay: const Duration(milliseconds: 500))
-                      .slideY(begin: 0.2, end: 0),
-                  const SizedBox(height: 12),
-                  Text(
-                    AppConstants.appTagline,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                    ),
-                  )
-                      .animate()
-                      .fadeIn(delay: const Duration(milliseconds: 800)),
-                  const SizedBox(height: 60),
-                  SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3,
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        AppTheme.primaryColor.withValues(alpha: 0.6),
-                      ),
-                    ),
-                  )
-                      .animate()
-                      .fadeIn(delay: const Duration(milliseconds: 1000)),
-                ],
+      backgroundColor: const Color(0xFF0A0E17),
+      body: Stack(
+        children: [
+          // Ambient neon glow in top center
+          Positioned(
+            top: -120,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: 320,
+                height: 320,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFF7C3AED).withValues(alpha: 0.18),
+                ),
               ),
             ),
           ),
-        ),
+
+          // Central branding
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(flex: 3),
+
+                // Glowing geometric delta logo
+                const AppBrandLogo(size: 110, showGlow: true)
+                    .animate()
+                    .fadeIn(duration: 800.ms)
+                    .scale(begin: const Offset(0.7, 0.7), end: const Offset(1, 1), curve: Curves.easeOutBack)
+                    .shimmer(duration: 1800.ms, delay: 500.ms),
+
+                const SizedBox(height: 28),
+
+                // Brand Title
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Colors.white, Color(0xFFE0E7FF), Color(0xFFA78BFA)],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'CareerSwipe AI',
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+                    .animate()
+                    .fadeIn(delay: 300.ms, duration: 600.ms)
+                    .slideY(begin: 0.2, end: 0),
+
+                const SizedBox(height: 10),
+
+                // Neon violet punchy hook
+                ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+                  ).createShader(bounds),
+                  child: const Text(
+                    'Your Career, Supercharged.',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.2,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+                    .animate()
+                    .fadeIn(delay: 500.ms, duration: 600.ms),
+
+                const SizedBox(height: 12),
+
+                // Three-pillar subtitle
+                const Text(
+                  'Find jobs, Build skills, Grow your career.',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF94A3B8),
+                    letterSpacing: 0.1,
+                  ),
+                )
+                    .animate()
+                    .fadeIn(delay: 700.ms, duration: 600.ms),
+
+                const Spacer(flex: 2),
+
+                // Glowing cosmic swirl orb at bottom
+                Container(
+                  width: 220,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(110)),
+                    gradient: const RadialGradient(
+                      center: Alignment.bottomCenter,
+                      radius: 0.9,
+                      colors: [
+                        Color(0xFF38BDF8),
+                        Color(0xFF8B5CF6),
+                        Color(0x000A0E17),
+                      ],
+                      stops: [0.0, 0.45, 1.0],
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+                        blurRadius: 40,
+                        spreadRadius: 8,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 40),
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2.2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white.withValues(alpha: 0.8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                    .animate()
+                    .fadeIn(delay: 900.ms, duration: 900.ms)
+                    .scale(begin: const Offset(0.9, 0.9), end: const Offset(1, 1)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

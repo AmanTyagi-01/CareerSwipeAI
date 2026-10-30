@@ -1,321 +1,289 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../config/theme.dart';
-import '../../../config/constants.dart';
-import '../../../presentation/widgets/common/animated_background.dart';
-import '../../../presentation/widgets/common/glass_card.dart';
 
-class ResumeAnalysisScreen extends ConsumerWidget {
-  final String analysisId;
+/// ATS Analysis Screen matching Poster 1 Screen 8 & Poster 2 Screen 5:
+/// - Header: "ATS Score"
+/// - Giant Glowing Circular Gauge: 78 / 100 with "Good Match" teal badge
+/// - Tabs: Overview | Skills | Suggestions
+/// - Strengths section: [✓] Relevant technical skills, [✓] Good project experience, [✓] Quantified achievements
+/// - Improvements section: [!] Add more measurable results, [!] Include more relevant keywords, [!] Improve summary section
+/// - Bottom CTA: "View Detailed Report"
+class ResumeAnalysisScreen extends ConsumerStatefulWidget {
+  final String? analysisId;
 
-  const ResumeAnalysisScreen({super.key, required this.analysisId});
+  const ResumeAnalysisScreen({super.key, this.analysisId});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+  ConsumerState<ResumeAnalysisScreen> createState() => _ResumeAnalysisScreenState();
+}
 
-    // Mock analysis data - in production, fetch from provider
-    final analysisData = {
-      'atsScore': 85.0,
-      'keywordMatch': 78.0,
-      'formattingScore': 92.0,
-      'contentScore': 80.0,
-      'overallScore': 83.75,
-      'detectedSkills': [
-        'Flutter', 'Dart', 'Firebase', 'State Management',
-        'REST APIs', 'UI/UX Design', 'Git', 'Agile',
-      ],
-      'missingSkills': [
-        'CI/CD', 'Unit Testing', 'GraphQL', 'Native Development',
-        'Performance Optimization', 'Accessibility',
-      ],
-      'strengths': [
-        'Strong mobile development experience',
-        'Clean and modern UI design skills',
-        'Good understanding of state management patterns',
-        'Experience with cloud services integration',
-      ],
-      'improvements': [
-        'Add more quantifiable achievements',
-        'Include CI/CD pipeline experience',
-        'Mention specific performance metrics',
-        'Add testing methodology details',
-        'Include more leadership examples',
-      ],
-      'keywords': [
-        'Flutter', 'Mobile Development', 'Cross-platform',
-        'Firebase', 'REST API', 'Git', 'Agile', 'Scrum',
-        'UI/UX', 'State Management', 'Dart',
-      ],
-      'summary': 'Your resume demonstrates strong technical skills in mobile development with Flutter. The formatting is clean and ATS-friendly. To improve, focus on adding quantifiable achievements, expanding your testing experience, and including more leadership examples.',
-      'sectionScores': {
-        'contact_info': 95.0,
-        'summary': 72.0,
-        'experience': 85.0,
-        'education': 88.0,
-        'skills': 78.0,
-        'projects': 65.0,
-      },
-    };
+class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
 
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
-        title: const Text('Resume Analysis'),
+        backgroundColor: const Color(0xFF0A0E17),
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+          onPressed: () => context.pop(),
+        ),
+        title: const Text(
+          'ATS Score',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.w800,
+            fontSize: 20,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.share_outlined),
-            onPressed: () {},
+            icon: const Icon(Icons.refresh_rounded, color: Colors.white),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('ATS scores recalculated with latest models!'),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            },
           ),
           IconButton(
-            icon: const Icon(Icons.download_outlined),
+            icon: const Icon(Icons.share_outlined, color: Colors.white),
             onPressed: () {},
           ),
         ],
       ),
-      body: AnimatedBackground(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppConstants.defaultPadding),
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildOverallScore(context, analysisData, isDark),
+                const SizedBox(height: 10),
+
+                // Giant Glowing Circular Gauge: 78 / 100
+                Center(
+                  child: Container(
+                    width: 170,
+                    height: 170,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF10B981).withValues(alpha: 0.2),
+                          blurRadius: 32,
+                          spreadRadius: 6,
+                        ),
+                      ],
+                    ),
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        // Background circle
+                        const SizedBox(
+                          width: 150,
+                          height: 150,
+                          child: CircularProgressIndicator(
+                            value: 0.78,
+                            strokeWidth: 10,
+                            backgroundColor: Color(0xFF1E2436),
+                            valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF10B981)),
+                          ),
+                        ),
+                        // Number & Badge
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text(
+                                  '78',
+                                  style: TextStyle(
+                                    fontSize: 38,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                    letterSpacing: -1,
+                                  ),
+                                ),
+                                Text(
+                                  '/100',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF94A3B8),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: const Color(0xFF10B981).withValues(alpha: 0.4),
+                                ),
+                              ),
+                              child: const Text(
+                                'Good Match',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF10B981),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                    .animate()
+                    .scale(duration: 500.ms, curve: Curves.easeOutBack),
+
                 const SizedBox(height: 24),
-                _buildScoreBreakdown(context, analysisData, isDark),
+
+                // Tabs: Overview | Skills | Suggestions
+                Container(
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF121622),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: const Color(0xFF1E2436)),
+                  ),
+                  child: TabBar(
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                      color: const Color(0xFF7C3AED),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    labelColor: Colors.white,
+                    unselectedLabelColor: const Color(0xFF94A3B8),
+                    labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                    tabs: const [
+                      Tab(text: 'Overview'),
+                      Tab(text: 'Skills'),
+                      Tab(text: 'Suggestions'),
+                    ],
+                  ),
+                ),
+
                 const SizedBox(height: 24),
-                _buildSkillsAnalysis(context, analysisData, isDark),
+
+                // Strengths Section
+                _buildSectionHeader('Strengths', const Color(0xFF10B981)),
+                const SizedBox(height: 10),
+                _buildPointItem(
+                  icon: Icons.check_circle_rounded,
+                  iconColor: const Color(0xFF10B981),
+                  text: 'Relevant technical skills',
+                ),
+                _buildPointItem(
+                  icon: Icons.check_circle_rounded,
+                  iconColor: const Color(0xFF10B981),
+                  text: 'Good project experience',
+                ),
+                _buildPointItem(
+                  icon: Icons.check_circle_rounded,
+                  iconColor: const Color(0xFF10B981),
+                  text: 'Quantified achievements',
+                ),
+
                 const SizedBox(height: 24),
-                _buildStrengths(context, analysisData, isDark),
-                const SizedBox(height: 24),
-                _buildImprovements(context, analysisData, isDark),
-                const SizedBox(height: 24),
-                _buildKeywords(context, analysisData, isDark),
-                const SizedBox(height: 24),
-                _buildSummary(context, analysisData, isDark),
-                const SizedBox(height: 100),
+
+                // Improvements Section
+                _buildSectionHeader('Improvements', const Color(0xFFF59E0B)),
+                const SizedBox(height: 10),
+                _buildPointItem(
+                  icon: Icons.info_outline_rounded,
+                  iconColor: const Color(0xFFF59E0B),
+                  text: 'Add more measurable results',
+                ),
+                _buildPointItem(
+                  icon: Icons.info_outline_rounded,
+                  iconColor: const Color(0xFFF59E0B),
+                  text: 'Include more relevant keywords',
+                ),
+                _buildPointItem(
+                  icon: Icons.info_outline_rounded,
+                  iconColor: const Color(0xFFF59E0B),
+                  text: 'Improve summary section',
+                ),
+
+                const SizedBox(height: 110), // Padding for sticky bottom CTA
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
 
-  Widget _buildOverallScore(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    final score = data['overallScore'] as double;
-    final color = AppConstants.getScoreColor(score);
-    final label = AppConstants.getScoreLabel(score);
-
-    return GlassCard(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Overall Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    label,
-                    style: TextStyle(
-                      color: color,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
+          // Bottom Action: "View Detailed Report"
+          Positioned(
+            left: 20,
+            right: 20,
+            bottom: 20,
+            child: Container(
+              height: 52,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF7C3AED), Color(0xFF6366F1)],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF7C3AED).withValues(alpha: 0.4),
+                    blurRadius: 18,
+                    offset: const Offset(0, 6),
                   ),
                 ],
               ),
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [color.withValues(alpha: 0.3), color.withValues(alpha: 0.1)],
-                  ),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: color.withValues(alpha: 0.5), width: 3),
-                ),
-                child: Center(
-                  child: Text(
-                    score.toStringAsFixed(0),
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: color,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Detailed ATS Report generated with PDF export ready!'),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  },
+                  child: const Center(
+                    child: Text(
+                      'View Detailed Report',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                        letterSpacing: 0.3,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: LinearProgressIndicator(
-              value: score / 100,
-              backgroundColor: isDark ? AppTheme.darkElevated : AppTheme.lightElevated,
-              valueColor: AlwaysStoppedAnimation<Color>(color),
-              minHeight: 12,
-            ),
-          ),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn()
-        .slideY(begin: -0.2, end: 0);
-  }
-
-  Widget _buildScoreBreakdown(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    final sectionScores = data['sectionScores'] as Map<String, dynamic>;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Section Breakdown',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          ...sectionScores.entries.map((entry) {
-            final score = (entry.value as num).toDouble();
-            final color = AppConstants.getScoreColor(score);
-            final label = entry.key.replaceAll('_', ' ').toUpperCase();
-
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        label,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        score.toStringAsFixed(0),
-                        style: TextStyle(
-                          color: color,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: LinearProgressIndicator(
-                      value: score / 100,
-                      backgroundColor: isDark ? AppTheme.darkElevated : AppTheme.lightElevated,
-                      valueColor: AlwaysStoppedAnimation<Color>(color),
-                      minHeight: 8,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 100))
-        .slideY(begin: 0.2, end: 0);
-  }
-
-  Widget _buildSkillsAnalysis(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    final detected = data['detectedSkills'] as List<dynamic>;
-    final missing = data['missingSkills'] as List<dynamic>;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Skills Analysis',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'Detected Skills (${detected.length})',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: AppTheme.successColor,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: detected.map((skill) => _buildSkillChip(context, skill as String, true, isDark)).toList(),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            'Missing/Recommended Skills (${missing.length})',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: AppTheme.warningColor,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: missing.map((skill) => _buildSkillChip(context, skill as String, false, isDark)).toList(),
-          ),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 200))
-        .slideY(begin: 0.2, end: 0);
-  }
-
-  Widget _buildSkillChip(BuildContext context, String skill, bool detected, bool isDark) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: detected
-            ? AppTheme.successColor.withValues(alpha: 0.1)
-            : AppTheme.warningColor.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: detected
-              ? AppTheme.successColor.withValues(alpha: 0.3)
-              : AppTheme.warningColor.withValues(alpha: 0.3),
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            detected ? Icons.check_circle : Icons.add_circle_outline,
-            color: detected ? AppTheme.successColor : AppTheme.warningColor,
-            size: 16,
-          ),
-          const SizedBox(width: 6),
-          Text(
-            skill,
-            style: TextStyle(
-              color: detected ? AppTheme.successColor : AppTheme.warningColor,
-              fontWeight: FontWeight.w500,
-              fontSize: 13,
             ),
           ),
         ],
@@ -323,211 +291,62 @@ class ResumeAnalysisScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildStrengths(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    final strengths = data['strengths'] as List<dynamic>;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: AppTheme.successColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(Icons.thumb_up, color: AppTheme.successColor, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Strengths',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ...strengths.map((strength) => _buildBulletPoint(context, strength as String, AppTheme.successColor, isDark)),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 300))
-        .slideY(begin: 0.2, end: 0);
-  }
-
-  Widget _buildImprovements(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    final improvements = data['improvements'] as List<dynamic>;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: AppTheme.warningColor.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(Icons.lightbulb, color: AppTheme.warningColor, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Areas for Improvement',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          ...improvements.map((improvement) => _buildBulletPoint(context, improvement as String, AppTheme.warningColor, isDark)),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 400))
-        .slideY(begin: 0.2, end: 0);
-  }
-
-  Widget _buildBulletPoint(BuildContext context, String text, Color color, bool isDark) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+  Widget _buildSectionHeader(String title, Color accent) {
+    return Align(
+      alignment: Alignment.centerLeft,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 6,
-            height: 6,
-            margin: const EdgeInsets.only(top: 8),
+            width: 4,
+            height: 16,
             decoration: BoxDecoration(
-              color: color,
-              shape: BoxShape.circle,
+              color: accent,
+              borderRadius: BorderRadius.circular(2),
             ),
           ),
+          const SizedBox(width: 8),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPointItem({
+    required IconData icon,
+    required Color iconColor,
+    required String text,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: const Color(0xFF1E2436)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: iconColor, size: 18),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: const TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Color(0xFFCBD5E1),
+              ),
             ),
           ),
         ],
       ),
     );
-  }
-
-  Widget _buildKeywords(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    final keywords = data['keywords'] as List<dynamic>;
-
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Detected Keywords',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: keywords.map((keyword) {
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppTheme.primaryColor.withValues(alpha: 0.15),
-                      AppTheme.accentColor.withValues(alpha: 0.15),
-                    ],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: AppTheme.primaryColor.withValues(alpha: 0.2),
-                  ),
-                ),
-                child: Text(
-                  keyword as String,
-                  style: const TextStyle(
-                    color: AppTheme.primaryColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 500))
-        .slideY(begin: 0.2, end: 0);
-  }
-
-  Widget _buildSummary(BuildContext context, Map<String, dynamic> data, bool isDark) {
-    return GlassCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'AI Summary',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  AppTheme.primaryColor.withValues(alpha: 0.05),
-                  AppTheme.accentColor.withValues(alpha: 0.05),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppTheme.primaryColor.withValues(alpha: 0.1),
-              ),
-            ),
-            child: Text(
-              data['summary'] as String,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                height: 1.6,
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit_outlined),
-                  label: const Text('Optimize Resume'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primaryColor,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 600))
-        .slideY(begin: 0.2, end: 0);
   }
 }

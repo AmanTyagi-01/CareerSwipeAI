@@ -22,14 +22,13 @@ void main() {
 
       // Verify form elements exist
       expect(find.text('Welcome Back'), findsOneWidget);
-      expect(find.text('Sign in to continue your career journey'), findsOneWidget);
+      expect(find.text('Sign in to continue your journey'), findsOneWidget);
       expect(find.byType(TextFormField), findsNWidgets(2));
       expect(find.text('Email'), findsOneWidget);
       expect(find.text('Password'), findsOneWidget);
       expect(find.text('Sign In'), findsOneWidget);
-      expect(find.text('Continue with Google'), findsOneWidget);
-      expect(find.text("Don't have an account?"), findsOneWidget);
-      expect(find.text('Sign Up'), findsOneWidget);
+      expect(find.text('Or continue with'), findsOneWidget);
+      expect(find.text('Create an account'), findsOneWidget);
     });
 
     testWidgets('validates email field', (WidgetTester tester) async {
@@ -62,7 +61,7 @@ void main() {
 
       // Enter email but no password
       await tester.enterText(
-        find.widgetWithText(TextFormField, 'Email'),
+        find.byType(TextFormField).first,
         'test@example.com',
       );
       await tester.tap(find.text('Sign In'));
