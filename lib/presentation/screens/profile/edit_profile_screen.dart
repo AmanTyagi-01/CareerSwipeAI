@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../config/theme.dart';
 import '../../../config/constants.dart';
 import '../../../presentation/providers/auth_provider.dart';
-import '../../../presentation/widgets/common/animated_background.dart';
 import '../../../core/utils/app_utils.dart';
-import '../../../presentation/widgets/common/custom_buttons.dart';
-import '../../../presentation/widgets/common/glass_card.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
   const EditProfileScreen({super.key});
@@ -69,7 +65,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Profile updated successfully!'),
-            backgroundColor: AppTheme.successColor,
+            backgroundColor: Color(0xFF10B981),
           ),
         );
         context.pop();
@@ -77,9 +73,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Error: \$e'),
-            backgroundColor: AppTheme.errorColor,
+          SnackBar(
+            content: Text('Error: $e'),
+            backgroundColor: const Color(0xFFEF4444),
           ),
         );
       }
@@ -89,14 +85,33 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   void _addSkill() {
+    final skillController = TextEditingController();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Add Skill'),
+        backgroundColor: const Color(0xFF121622),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: Color(0xFF232A3B)),
+        ),
+        title: const Text('Add Skill', style: TextStyle(color: Color(0xFFF1F5F9))),
         content: TextField(
+          controller: skillController,
           autofocus: true,
-          decoration: const InputDecoration(
-            hintText: 'Enter a skill (e.g., Flutter, Python)',
+          style: const TextStyle(color: Color(0xFFF1F5F9)),
+          decoration: InputDecoration(
+            hintText: 'e.g. Flutter, PyTorch, Figma',
+            hintStyle: const TextStyle(color: Color(0xFF64748B)),
+            filled: true,
+            fillColor: const Color(0xFF0A0E17),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF232A3B)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF8B5CF6)),
+            ),
           ),
           onSubmitted: (value) {
             if (value.trim().isNotEmpty && !_skills.contains(value.trim())) {
@@ -108,11 +123,20 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Cancel', style: TextStyle(color: Color(0xFF94A3B8))),
           ),
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF8B5CF6),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
             onPressed: () {
-              // Handle add
+              final val = skillController.text.trim();
+              if (val.isNotEmpty && !_skills.contains(val)) {
+                setState(() => _skills.add(val));
+              }
+              Navigator.pop(context);
             },
             child: const Text('Add'),
           ),
@@ -123,49 +147,46 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        backgroundColor: const Color(0xFF0A0E17),
+        elevation: 0,
+        foregroundColor: const Color(0xFFF1F5F9),
+        title: const Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         actions: [
           TextButton(
             onPressed: _isLoading ? null : _saveProfile,
             child: _isLoading
                 ? const SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
+                    width: 18,
+                    height: 18,
+                    child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF8B5CF6)),
                   )
-                : const Text('Save'),
+                : const Text('Save', style: TextStyle(color: Color(0xFF8B5CF6), fontWeight: FontWeight.bold, fontSize: 16)),
           ),
+          const SizedBox(width: 8),
         ],
       ),
-      body: AnimatedBackground(
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppConstants.defaultPadding),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildAvatarSection(context, isDark),
-                  const SizedBox(height: 24),
-                  _buildPersonalInfo(context, isDark),
-                  const SizedBox(height: 24),
-                  _buildProfessionalInfo(context, isDark),
-                  const SizedBox(height: 24),
-                  _buildSkillsSection(context, isDark),
-                  const SizedBox(height: 32),
-                  PrimaryButton(
-                    text: 'Save Changes',
-                    onPressed: _saveProfile,
-                    isLoading: _isLoading,
-                  ),
-                  const SizedBox(height: 100),
-                ],
-              ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildAvatarSection(),
+                const SizedBox(height: 24),
+                _buildPersonalInfo(),
+                const SizedBox(height: 20),
+                _buildProfessionalInfo(),
+                const SizedBox(height: 20),
+                _buildSkillsSection(),
+                const SizedBox(height: 28),
+                _buildSaveButton(),
+                const SizedBox(height: 40),
+              ],
             ),
           ),
         ),
@@ -173,214 +194,346 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     );
   }
 
-  Widget _buildAvatarSection(BuildContext context, bool isDark) {
+  Widget _buildAvatarSection() {
+    final initials = AppUtils.getInitials(_nameController.text.isEmpty ? 'Aman Tyagi' : _nameController.text);
     return Center(
       child: Stack(
         alignment: Alignment.bottomRight,
         children: [
           Container(
-            width: 120,
-            height: 120,
+            width: 104,
+            height: 104,
             decoration: BoxDecoration(
-              gradient: AppTheme.primaryGradient,
               shape: BoxShape.circle,
-              boxShadow: AppTheme.glowShadow,
+              gradient: const LinearGradient(
+                colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+                  blurRadius: 20,
+                  spreadRadius: 2,
+                ),
+              ],
             ),
             child: Center(
               child: Text(
-                AppUtils.getInitials(_nameController.text),
+                initials,
                 style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 40,
+                  fontSize: 34,
                 ),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              // Handle avatar change
-            },
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: AppTheme.primaryColor,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isDark ? AppTheme.darkSurface : Colors.white,
-                  width: 3,
-                ),
-              ),
-              child: const Icon(Icons.camera_alt, color: Colors.white, size: 20),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF8B5CF6),
+              shape: BoxShape.circle,
+              border: Border.all(color: const Color(0xFF0A0E17), width: 3),
             ),
+            child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 16),
           ),
         ],
       ),
-    );
+    ).animate().fadeIn().scale(begin: const Offset(0.9, 0.9));
   }
 
-  Widget _buildPersonalInfo(BuildContext context, bool isDark) {
-    return GlassCard(
+  Widget _buildPersonalInfo() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF232A3B)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Personal Information',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
           ),
-          const SizedBox(height: 20),
-          TextFormField(
+          const SizedBox(height: 18),
+          _buildTextField(
             controller: _nameController,
-            decoration: const InputDecoration(
-              labelText: 'Full Name',
-              hintText: 'Enter your full name',
-              prefixIcon: Icon(Icons.person_outline),
-            ),
-            validator: (value) {
-              if (value == null || value.trim().isEmpty) return 'Name is required';
-              return null;
-            },
+            label: 'Full Name',
+            hint: 'Aman Tyagi',
+            icon: Icons.person_outline_rounded,
+            validator: (value) => (value == null || value.trim().isEmpty) ? 'Name is required' : null,
           ),
-          const SizedBox(height: 16),
-          TextFormField(
+          const SizedBox(height: 14),
+          _buildTextField(
             controller: _bioController,
-            maxLines: 3,
-            maxLength: AppConstants.maxBioLength,
-            decoration: const InputDecoration(
-              labelText: 'Bio',
-              hintText: 'Tell us about yourself...',
-              prefixIcon: Icon(Icons.edit_note),
-            ),
+            label: 'Bio / Headline',
+            hint: 'Full Stack & Mobile Engineer | AI Enthusiast',
+            icon: Icons.edit_note_rounded,
+            maxLines: 2,
           ),
-          const SizedBox(height: 16),
-          TextFormField(
+          const SizedBox(height: 14),
+          _buildTextField(
             controller: _locationController,
-            decoration: const InputDecoration(
-              labelText: 'Location',
-              hintText: 'City, Country',
-              prefixIcon: Icon(Icons.location_on_outlined),
-            ),
+            label: 'Location',
+            hint: 'Bengaluru, India',
+            icon: Icons.location_on_outlined,
           ),
-          const SizedBox(height: 16),
-          TextFormField(
+          const SizedBox(height: 14),
+          _buildTextField(
             controller: _phoneController,
+            label: 'Phone Number',
+            hint: '+91 98765 43210',
+            icon: Icons.phone_outlined,
             keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              labelText: 'Phone Number',
-              hintText: '+1 (555) 000-0000',
-              prefixIcon: Icon(Icons.phone_outlined),
-            ),
           ),
         ],
       ),
-    )
-        .animate()
-        .fadeIn()
-        .slideY(begin: 0.2, end: 0);
+    ).animate().fadeIn().slideY(begin: 0.1, end: 0);
   }
 
-  Widget _buildProfessionalInfo(BuildContext context, bool isDark) {
-    return GlassCard(
+  Widget _buildProfessionalInfo() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF232A3B)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Professional Information',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+          const Text(
+            'Professional Details',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
           ),
-          const SizedBox(height: 20),
-          DropdownButtonFormField<String>(
-            initialValue: _selectedExperience,
-            decoration: const InputDecoration(
-              labelText: 'Experience Level',
-              prefixIcon: Icon(Icons.trending_up_outlined),
-            ),
-            items: AppConstants.experienceLevels.map((level) {
-              return DropdownMenuItem(
-                value: level,
-                child: Text(level),
-              );
-            }).toList(),
-            onChanged: (value) => setState(() => _selectedExperience = value),
+          const SizedBox(height: 18),
+          _buildDropdown(
+            label: 'Experience Level',
+            value: _selectedExperience,
+            icon: Icons.trending_up_rounded,
+            items: AppConstants.experienceLevels,
+            onChanged: (val) => setState(() => _selectedExperience = val),
           ),
-          const SizedBox(height: 16),
-          DropdownButtonFormField<String>(
-            initialValue: _selectedIndustry,
-            decoration: const InputDecoration(
-              labelText: 'Industry',
-              prefixIcon: Icon(Icons.business_outlined),
-            ),
-            items: AppConstants.industries.map((industry) {
-              return DropdownMenuItem(
-                value: industry,
-                child: Text(industry),
-              );
-            }).toList(),
-            onChanged: (value) => setState(() => _selectedIndustry = value),
+          const SizedBox(height: 14),
+          _buildDropdown(
+            label: 'Industry / Domain',
+            value: _selectedIndustry,
+            icon: Icons.business_center_outlined,
+            items: AppConstants.industries,
+            onChanged: (val) => setState(() => _selectedIndustry = val),
           ),
         ],
       ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 100))
-        .slideY(begin: 0.2, end: 0);
+    ).animate().fadeIn(delay: 100.ms).slideY(begin: 0.1, end: 0);
   }
 
-  Widget _buildSkillsSection(BuildContext context, bool isDark) {
-    return GlassCard(
+  Widget _buildSkillsSection() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF232A3B)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Skills',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+              const Text(
+                'Skills & Expertise',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
               ),
-              TextButton.icon(
-                onPressed: _addSkill,
-                icon: const Icon(Icons.add, size: 18),
-                label: const Text('Add'),
+              InkWell(
+                onTap: _addSkill,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add, size: 14, color: Color(0xFF8B5CF6)),
+                      SizedBox(width: 4),
+                      Text('Add Skill', style: TextStyle(color: Color(0xFF8B5CF6), fontSize: 12, fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
           const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _skills.map((skill) {
-              return Chip(
-                label: Text(skill),
-                deleteIcon: const Icon(Icons.close, size: 18),
-                onDeleted: () => setState(() => _skills.remove(skill)),
-                backgroundColor: AppTheme.primaryColor.withValues(alpha: 0.1),
-                side: BorderSide(color: AppTheme.primaryColor.withValues(alpha: 0.2)),
-                labelStyle: const TextStyle(
-                  color: AppTheme.primaryColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              );
-            }).toList(),
-          ),
           if (_skills.isEmpty)
-            Text(
-              'Add skills to improve your job matches',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-              ),
+            const Text(
+              'Add skills to optimize AI ATS score and matching.',
+              style: TextStyle(color: Color(0xFF94A3B8), fontSize: 13),
+            )
+          else
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: _skills.map((skill) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1E2638),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.4)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(skill, style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 13, fontWeight: FontWeight.w500)),
+                      const SizedBox(width: 6),
+                      GestureDetector(
+                        onTap: () => setState(() => _skills.remove(skill)),
+                        child: const Icon(Icons.close_rounded, size: 14, color: Color(0xFF94A3B8)),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
             ),
         ],
       ),
-    )
-        .animate()
-        .fadeIn(delay: const Duration(milliseconds: 200))
-        .slideY(begin: 0.2, end: 0);
+    ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.1, end: 0);
+  }
+
+  Widget _buildSaveButton() {
+    return Container(
+      width: double.infinity,
+      height: 52,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+            blurRadius: 16,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+        onPressed: _isLoading ? null : _saveProfile,
+        child: _isLoading
+            ? const SizedBox(
+                width: 22,
+                height: 22,
+                child: CircularProgressIndicator(strokeWidth: 2.5, color: Colors.white),
+              )
+            : const Text(
+                'Save Changes',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+    int maxLines = 1,
+    TextInputType? keyboardType,
+    String? Function(String?)? validator,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500)),
+        const SizedBox(height: 6),
+        TextFormField(
+          controller: controller,
+          maxLines: maxLines,
+          keyboardType: keyboardType,
+          validator: validator,
+          style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14),
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: const TextStyle(color: Color(0xFF475569), fontSize: 14),
+            prefixIcon: Icon(icon, color: const Color(0xFF8B5CF6), size: 20),
+            filled: true,
+            fillColor: const Color(0xFF0A0E17),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF232A3B)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF232A3B)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDropdown({
+    required String label,
+    required String? value,
+    required IconData icon,
+    required List<String> items,
+    required ValueChanged<String?> onChanged,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500)),
+        const SizedBox(height: 6),
+        DropdownButtonFormField<String>(
+          initialValue: value,
+          dropdownColor: const Color(0xFF121622),
+          style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14),
+          icon: const Icon(Icons.arrow_drop_down, color: Color(0xFF94A3B8)),
+          decoration: InputDecoration(
+            prefixIcon: Icon(icon, color: const Color(0xFF8B5CF6), size: 20),
+            filled: true,
+            fillColor: const Color(0xFF0A0E17),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF232A3B)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF232A3B)),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
+            ),
+          ),
+          items: items.map((item) {
+            return DropdownMenuItem(
+              value: item,
+              child: Text(item, style: const TextStyle(color: Color(0xFFF1F5F9))),
+            );
+          }).toList(),
+          onChanged: onChanged,
+        ),
+      ],
+    );
   }
 }

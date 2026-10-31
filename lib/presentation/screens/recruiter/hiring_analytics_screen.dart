@@ -1,88 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../../theme/app_theme.dart';
-import '../../widgets/common/animated_background.dart';
-import '../../widgets/common/glass_card.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HiringAnalyticsScreen extends StatelessWidget {
   const HiringAnalyticsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
-        title: const Text('Hiring Analytics', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
+        foregroundColor: const Color(0xFFF1F5F9),
+        title: const Text('Hiring Analytics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
-      body: AnimatedBackground(
+      body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSpacing.lg),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Summary KPI Row
+              // Summary KPI 2x2 Grid
               Row(
                 children: [
                   Expanded(
-                    child: _buildMetric(
+                    child: _buildMetricCard(
                       title: 'Total Applications',
                       val: '312',
-                      isDark: isDark,
-                      accent: AppColors.darkPrimary,
+                      accent: const Color(0xFF8B5CF6),
+                      icon: Icons.people_outline_rounded,
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
+                  const SizedBox(width: 14),
                   Expanded(
-                    child: _buildMetric(
+                    child: _buildMetricCard(
                       title: 'Active Roles',
                       val: '24',
-                      isDark: isDark,
-                      accent: AppColors.darkSecondary,
+                      accent: const Color(0xFF38BDF8),
+                      icon: Icons.work_outline_rounded,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: AppSpacing.md),
+              const SizedBox(height: 14),
               Row(
                 children: [
                   Expanded(
-                    child: _buildMetric(
-                      title: 'Interview Stage',
+                    child: _buildMetricCard(
+                      title: 'Interviews Scheduled',
                       val: '18',
-                      isDark: isDark,
-                      accent: AppColors.darkWarning,
+                      accent: const Color(0xFFF59E0B),
+                      icon: Icons.event_available_rounded,
                     ),
                   ),
-                  const SizedBox(width: AppSpacing.md),
+                  const SizedBox(width: 14),
                   Expanded(
-                    child: _buildMetric(
-                      title: 'Accepted Offers',
+                    child: _buildMetricCard(
+                      title: 'Offers Accepted',
                       val: '7',
-                      isDark: isDark,
-                      accent: AppColors.darkSuccess,
+                      accent: const Color(0xFF10B981),
+                      icon: Icons.check_circle_outline_rounded,
                     ),
                   ),
                 ],
               ),
 
-              const SizedBox(height: AppSpacing.xl),
+              const SizedBox(height: 24),
 
               // Bar Chart: Applications Over Time
-              GlassCard(
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF121622),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFF232A3B)),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Applications Over Time (Weekly)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    const SizedBox(height: AppSpacing.md),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Applications Over Time',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9)),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF1E2638),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: const Color(0xFF232A3B)),
+                          ),
+                          child: const Text('Last 30 Days', style: TextStyle(color: Color(0xFF38BDF8), fontSize: 11, fontWeight: FontWeight.bold)),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
                     SizedBox(
-                      height: 220,
+                      height: 180,
                       child: BarChart(
                         BarChartData(
                           alignment: BarChartAlignment.spaceAround,
-                          maxY: 60,
+                          maxY: 65,
                           barTouchData: BarTouchData(enabled: true),
                           titlesData: FlTitlesData(
                             leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -95,7 +116,10 @@ class HiringAnalyticsScreen extends StatelessWidget {
                                   const titles = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'];
                                   final idx = value.toInt();
                                   if (idx >= 0 && idx < titles.length) {
-                                    return Text(titles[idx], style: const TextStyle(fontSize: 11));
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: Text(titles[idx], style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+                                    );
                                   }
                                   return const SizedBox.shrink();
                                 },
@@ -106,39 +130,49 @@ class HiringAnalyticsScreen extends StatelessWidget {
                           gridData: const FlGridData(show: false),
                           barGroups: [
                             _barGroup(0, 32),
-                            _barGroup(1, 45),
+                            _barGroup(1, 46),
                             _barGroup(2, 28),
-                            _barGroup(3, 52),
+                            _barGroup(3, 54),
                             _barGroup(4, 48),
-                            _barGroup(5, 58),
+                            _barGroup(5, 62),
                           ],
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
+              ).animate().fadeIn(delay: 100.ms).slideY(begin: 0.1, end: 0),
 
-              const SizedBox(height: AppSpacing.lg),
+              const SizedBox(height: 20),
 
-              // Top Candidate Acquisition Sources
-              GlassCard(
+              // Top Sources
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF121622),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: const Color(0xFF232A3B)),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Top Acquisition Sources', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    const SizedBox(height: AppSpacing.md),
-                    _buildSourceProgress('LinkedIn Jobs', 0.45, '45%', AppColors.darkPrimary),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildSourceProgress('Direct CareerSwipe AI', 0.25, '25%', AppColors.darkSecondary),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildSourceProgress('Naukri / Job Portals', 0.20, '20%', AppColors.darkWarning),
-                    const SizedBox(height: AppSpacing.sm),
-                    _buildSourceProgress('Employee Referrals', 0.10, '10%', AppColors.darkSuccess),
+                    const Text(
+                      'Top Candidate Sources',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9)),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildSourceProgress('LinkedIn Network', 0.45, '45%', const Color(0xFF8B5CF6)),
+                    const SizedBox(height: 14),
+                    _buildSourceProgress('CareerSwipe AI Direct', 0.25, '25%', const Color(0xFF38BDF8)),
+                    const SizedBox(height: 14),
+                    _buildSourceProgress('Naukri / Job Portals', 0.20, '20%', const Color(0xFFF59E0B)),
+                    const SizedBox(height: 14),
+                    _buildSourceProgress('Employee Referrals', 0.10, '10%', const Color(0xFF10B981)),
                   ],
                 ),
-              ),
-              const SizedBox(height: AppSpacing.xxl),
+              ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.1, end: 0),
+
+              const SizedBox(height: 40),
             ],
           ),
         ),
@@ -152,35 +186,48 @@ class HiringAnalyticsScreen extends StatelessWidget {
       barRods: [
         BarChartRodData(
           toY: y,
-          gradient: AppColors.primaryGradient,
-          width: 16,
+          gradient: const LinearGradient(
+            colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+          ),
+          width: 18,
           borderRadius: BorderRadius.circular(6),
         ),
       ],
     );
   }
 
-  Widget _buildMetric({
+  Widget _buildMetricCard({
     required String title,
     required String val,
-    required bool isDark,
     required Color accent,
+    required IconData icon,
   }) {
-    return GlassCard(
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF121622),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF232A3B)),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 12,
-              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8), fontWeight: FontWeight.w500),
+              ),
+              Icon(icon, size: 16, color: accent),
+            ],
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           Text(
             val,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: accent),
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: accent),
           ),
         ],
       ),
@@ -194,20 +241,21 @@ class HiringAnalyticsScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(name, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
+            Text(name, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFFF1F5F9))),
             Text(pct, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 13)),
           ],
         ),
         const SizedBox(height: 6),
-        LinearProgressIndicator(
-          value: val,
-          backgroundColor: color.withValues(alpha: 0.15),
-          color: color,
-          minHeight: 6,
-          borderRadius: BorderRadius.circular(3),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: val,
+            backgroundColor: const Color(0xFF1E2638),
+            valueColor: AlwaysStoppedAnimation<Color>(color),
+            minHeight: 6,
+          ),
         ),
       ],
     );
   }
 }
-

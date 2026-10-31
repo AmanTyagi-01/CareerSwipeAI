@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../theme/app_theme.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/job_provider.dart';
-import '../../widgets/common/animated_background.dart';
-import '../../widgets/common/glass_card.dart';
 
 class RecruiterDashboardScreen extends ConsumerWidget {
   const RecruiterDashboardScreen({super.key});
@@ -14,14 +11,15 @@ class RecruiterDashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider).value;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final displayName = user?.displayName?.split(' ').first ?? 'Recruiter';
     final companyName = user?.industry?.isNotEmpty == true ? user!.industry! : 'Aman Traders Tech';
 
     final applicantsAsync = ref.watch(jobApplicantsProvider(''));
 
     return Scaffold(
-      body: AnimatedBackground(
+      backgroundColor: const Color(0xFF0A0E17),
+      body: Container(
+        color: const Color(0xFF0A0E17),
         child: SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
@@ -30,7 +28,7 @@ class RecruiterDashboardScreen extends ConsumerWidget {
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -42,22 +40,27 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         children: [
                           CircleAvatar(
                             radius: 24,
-                            backgroundColor: AppColors.darkPrimary.withValues(alpha: 0.2),
-                            child: const Icon(Icons.business_rounded, color: AppColors.darkPrimary, size: 28),
+                            backgroundColor: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
+                            child: const Icon(Icons.business_rounded, color: Color(0xFF8B5CF6), size: 28),
                           ),
-                          const SizedBox(width: AppSpacing.md),
+                          const SizedBox(width: 16.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'Good Evening, $displayName!',
-                                style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xFFF1F5F9),
+                                ),
                               ),
                               Text(
                                 companyName,
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-                                    ),
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color(0xFF94A3B8),
+                                ),
                               ),
                             ],
                           ),
@@ -65,40 +68,44 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                       ),
                       IconButton(
                         onPressed: () => context.push('/profile/notifications'),
-                        icon: const Icon(Icons.notifications_outlined),
+                        icon: const Icon(Icons.notifications_outlined, color: Color(0xFFF1F5F9)),
                       ),
                     ],
-                  ).animate().fadeIn(duration: AppMotion.standard),
+                  ).animate().fadeIn(duration: const Duration(milliseconds: 300)),
 
-                  const SizedBox(height: AppSpacing.lg),
+                  const SizedBox(height: 24.0),
 
                   // Overview Header with Range Tag
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Overview',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0xFFF1F5F9),
+                        ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: AppSpacing.xs),
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
-                          color: isDark ? AppColors.darkSurfaceElevated : AppColors.lightSurfaceElevated,
-                          borderRadius: BorderRadius.circular(AppRadii.sm),
-                          border: Border.all(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                          color: const Color(0xFF1A2035),
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: const Color(0xFF232A3B)),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Last 30 Days',
                           style: TextStyle(
                             fontSize: 12,
-                            color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                            color: Color(0xFF94A3B8),
                           ),
                         ),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: 16.0),
 
                   // 4 Metric KPI Cards
                   Row(
@@ -109,91 +116,96 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                           title: 'Active Jobs',
                           value: '24',
                           icon: Icons.work_outline_rounded,
-                          accentColor: AppColors.darkPrimary,
+                          accentColor: const Color(0xFF8B5CF6),
                           onTap: () => context.push('/recruiter/jobs'),
                         ),
                       ),
-                      const SizedBox(width: AppSpacing.md),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: _buildMetricCard(
                           context,
                           title: 'Applicants',
                           value: '312',
                           icon: Icons.people_outline_rounded,
-                          accentColor: AppColors.darkSecondary,
+                          accentColor: const Color(0xFF38BDF8),
                           onTap: () => context.push('/recruiter/pipeline'),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: AppSpacing.md),
+                  const SizedBox(height: 16.0),
                   Row(
                     children: [
                       Expanded(
                         child: _buildMetricCard(
                           context,
-                          title: 'Shortlisted',
+                          title: 'Hired',
                           value: '18',
                           icon: Icons.star_outline_rounded,
-                          accentColor: AppColors.darkWarning,
+                          accentColor: const Color(0xFF10B981),
                           onTap: () => context.push('/recruiter/pipeline'),
                         ),
                       ),
-                      const SizedBox(width: AppSpacing.md),
+                      const SizedBox(width: 16.0),
                       Expanded(
                         child: _buildMetricCard(
                           context,
                           title: 'Offers',
                           value: '7',
                           icon: Icons.check_circle_outline_rounded,
-                          accentColor: AppColors.darkSuccess,
+                          accentColor: const Color(0xFFF59E0B),
                           onTap: () => context.push('/recruiter/pipeline'),
                         ),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: AppSpacing.xl),
+                  const SizedBox(height: 32.0),
 
                   // Quick Action Banner: Post a Job
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(AppSpacing.lg),
+                    padding: const EdgeInsets.all(24.0),
                     decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
-                      borderRadius: AppRadii.card,
-                      boxShadow: AppElevation.darkCardShadow(intensity: 0.5),
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Post a Job or Internship',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                        const Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Post a Job or Internship',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'Reach verified candidates matched by AI',
-                              style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.85),
-                                fontSize: 13,
+                              SizedBox(height: 4),
+                              Text(
+                                'Reach verified candidates matched by AI',
+                                style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 13,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         ElevatedButton.icon(
                           onPressed: () => context.push('/recruiter/create-job'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            foregroundColor: AppColors.darkPrimary,
-                            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
+                            foregroundColor: const Color(0xFF8B5CF6),
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                           ),
                           icon: const Icon(Icons.add_rounded, size: 20),
                           label: const Text('Post', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -202,24 +214,28 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                     ),
                   ).animate().scale(delay: const Duration(milliseconds: 100)),
 
-                  const SizedBox(height: AppSpacing.xl),
+                  const SizedBox(height: 32.0),
 
                   // Recent Applications Header
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Recent Applications',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0xFFF1F5F9),
+                        ),
                       ),
                       TextButton(
                         onPressed: () => context.push('/recruiter/pipeline'),
-                        child: const Text('View All'),
+                        child: const Text('View All', style: TextStyle(color: Color(0xFF8B5CF6))),
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: AppSpacing.sm),
+                  const SizedBox(height: 8.0),
 
                   // Applicant List
                   applicantsAsync.when(
@@ -228,95 +244,117 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         {
                           'name': 'Rahul Sharma',
                           'role': 'Software Developer',
-                          'match': '92% Match',
-                          'tone': AppStatusTone.success,
                           'status': 'Shortlisted',
+                          'time': '2h ago',
                         },
                         {
                           'name': 'Priya Singh',
                           'role': 'Frontend Developer',
-                          'match': '88% Match',
-                          'tone': AppStatusTone.success,
-                          'status': 'Reviewing',
+                          'status': 'Applied',
+                          'time': '4h ago',
                         },
                         {
                           'name': 'Arjun Verma',
                           'role': 'Backend Developer',
-                          'match': '85% Match',
-                          'tone': AppStatusTone.warning,
                           'status': 'Interview',
+                          'time': '1d ago',
                         },
                         {
                           'name': 'Neha Patel',
                           'role': 'Data Analyst',
-                          'match': '77% Match',
-                          'tone': AppStatusTone.neutral,
                           'status': 'Applied',
+                          'time': '2d ago',
                         },
                       ];
 
                       return Column(
                         children: candidates.map((c) {
+                          final statusColor = _statusColor(c['status'] as String);
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: AppSpacing.md),
-                            child: GlassCard(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: GestureDetector(
                               onTap: () => context.push('/recruiter/candidate-details', extra: c['name']),
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor: AppColors.darkPrimary.withValues(alpha: 0.15),
-                                    child: Text(
-                                      (c['name'] as String).substring(0, 1),
-                                      style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.darkPrimary),
+                              child: Container(
+                                padding: const EdgeInsets.all(16.0),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF121622),
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: const Color(0xFF232A3B)),
+                                ),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 20,
+                                      backgroundColor: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
+                                      child: Text(
+                                        (c['name'] as String).substring(0, 1),
+                                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF8B5CF6)),
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: AppSpacing.md),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          c['name'] as String,
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                                        ),
-                                        Text(
-                                          c['role'] as String,
-                                          style: TextStyle(
-                                            fontSize: 13,
-                                            color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                                    const SizedBox(width: 16.0),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            c['name'] as String,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Color(0xFFF1F5F9),
+                                            ),
                                           ),
+                                          Text(
+                                            c['role'] as String,
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: Color(0xFF94A3B8),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                          decoration: BoxDecoration(
+                                            color: statusColor.withValues(alpha: 0.15),
+                                            borderRadius: BorderRadius.circular(20),
+                                            border: Border.all(color: statusColor.withValues(alpha: 0.4)),
+                                          ),
+                                          child: Text(
+                                            c['status'] as String,
+                                            style: TextStyle(
+                                              color: statusColor,
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          c['time'] as String,
+                                          style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: statusColor(context, c['tone'] as AppStatusTone).withValues(alpha: 0.15),
-                                      borderRadius: BorderRadius.circular(AppRadii.pill),
-                                      border: Border.all(
-                                        color: statusColor(context, c['tone'] as AppStatusTone).withValues(alpha: 0.4),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      c['match'] as String,
-                                      style: TextStyle(
-                                        color: statusColor(context, c['tone'] as AppStatusTone),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           );
                         }).toList(),
                       );
                     },
-                    loading: () => const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator())),
-                    error: (e, _) => Center(child: Text('Failed to load applicants: $e')),
+                    loading: () => const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(24),
+                        child: CircularProgressIndicator(color: Color(0xFF8B5CF6)),
+                      ),
+                    ),
+                    error: (e, _) => Center(child: Text('Failed to load applicants: $e', style: const TextStyle(color: Color(0xFF94A3B8)))),
                   ),
                 ],
               ),
@@ -327,6 +365,20 @@ class RecruiterDashboardScreen extends ConsumerWidget {
     );
   }
 
+  Color _statusColor(String status) {
+    switch (status) {
+      case 'Shortlisted':
+        return const Color(0xFF38BDF8);
+      case 'Interview':
+        return const Color(0xFFF59E0B);
+      case 'Rejected':
+        return const Color(0xFFEF4444);
+      case 'Applied':
+      default:
+        return const Color(0xFF8B5CF6);
+    }
+  }
+
   Widget _buildMetricCard(
     BuildContext context, {
     required String title,
@@ -335,39 +387,44 @@ class RecruiterDashboardScreen extends ConsumerWidget {
     required Color accentColor,
     required VoidCallback onTap,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return GlassCard(
+    return GestureDetector(
       onTap: onTap,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: const Color(0xFF121622),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF232A3B)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF94A3B8),
+                  ),
                 ),
-              ),
-              Icon(icon, size: 18, color: accentColor),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
+                Icon(icon, size: 18, color: accentColor),
+              ],
             ),
-          ),
-        ],
+            const SizedBox(height: 8.0),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+                color: accentColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-

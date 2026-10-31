@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../theme/app_theme.dart';
-import '../../widgets/common/animated_background.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class CareerAssistantScreen extends ConsumerStatefulWidget {
   const CareerAssistantScreen({super.key});
@@ -17,7 +16,7 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
   final List<Map<String, dynamic>> _messages = [
     {
       'isUser': false,
-      'text': 'Hello! I am your CareerSwipe AI Career Coach. How can I help boost your career today? I can explain job descriptions, highlight missing resume skills, suggest projects, or conduct mock interview questions.',
+      'text': 'Hello Aman! I am your CareerSwipe AI Career Coach. How can I accelerate your job hunt or interview prep today?',
       'time': 'Just now',
     },
   ];
@@ -25,9 +24,9 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
   final List<String> _suggestedPrompts = [
     'How can I improve my resume?',
     'What skills are missing for Senior Flutter roles?',
-    'Help me prepare for an interview',
-    'Suggest a relevant portfolio project',
-    'Explain the ATS scoring criteria',
+    'Conduct a mock interview question',
+    'Suggest portfolio projects for ATS ranking',
+    'Explain how ATS scores are calculated',
   ];
 
   @override
@@ -52,28 +51,28 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
 
     _scrollToBottom();
 
-    // Generate grounded contextual response
-    Future.delayed(const Duration(milliseconds: 600), () {
+    // Grounded AI response logic
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (!mounted) return;
       String response = '';
 
       final lower = text.toLowerCase();
       if (lower.contains('improve') || lower.contains('resume')) {
-        response = 'Here are 3 evidence-grounded ways to improve your resume:\n'
-            '1. Quantify achievements: e.g. "Reduced app load time by 35% using selective widget rebuilds."\n'
-            '2. Align keywords: Ensure your resume explicitly includes required skills like Riverpod, Clean Architecture, and REST APIs.\n'
-            '3. Format clarity: Keep standard sections (Experience, Education, Projects, Skills) in a single-column layout for ATS readability.';
-      } else if (lower.contains('interview') || lower.contains('prepare')) {
-        response = 'Let\'s practice a technical interview question for Mobile Engineering:\n\n'
-            'Q: How does Flutter\'s rendering pipeline work, and how do BuildContext and the Element tree manage state transitions under high load?\n\n'
-            'Take a moment to draft your response, or tap below to see structural tips.';
+        response = 'Here are 3 evidence-grounded resume optimizations:\n\n'
+            '1. Quantify achievements: Replace "Worked on checkout flow" with "Redesigned payment checkout reducing drop-off by 22%".\n\n'
+            '2. Align keywords: Ensure your resume explicitly includes required job keywords like Riverpod, Clean Architecture, and REST APIs.\n\n'
+            '3. Single-column format: Keep standard sections (Experience, Education, Projects, Skills) in a single-column layout for ATS readability.';
+      } else if (lower.contains('interview') || lower.contains('mock')) {
+        response = 'Technical Interview Drill:\n\n'
+            'Q: How does Flutter\'s rendering pipeline work, and what is the difference between Widget, Element, and RenderObject trees under high rebuild frequency?\n\n'
+            'Structure your answer using the 3-tree explanation, highlighting that RenderObjects handle layout & painting while Elements handle lifecycle!';
       } else if (lower.contains('project') || lower.contains('portfolio')) {
-        response = 'Recommended Portfolio Project for Mobile & AI:\n\n'
-            'Title: On-Device AI Document Scanner & Classifier\n'
-            'Tech Stack: Flutter, Riverpod, TensorFlow Lite / Google ML Kit\n'
-            'Impact: Demonstrates high-performance UI, asynchronous background isolates, and real on-device model inference.';
+        response = 'High-Impact Portfolio Project Idea:\n\n'
+            'Title: Real-Time Offline-First Mobile Dashboard\n'
+            'Tech Stack: Flutter 3.x, Riverpod 2.x, SQLite/Isar, WebSocket\n'
+            'Impact: Highlights local caching, reactive streams, and resilient background synchronization.';
       } else {
-        response = 'Based on your profile, focusing on demonstrated projects with measurable impact and keeping your skills up-to-date with Flutter 3.x and AI integrations will put you in the top 10% of applicants.';
+        response = 'Your profile is currently rated 78/100 ("Good Match"). Adding 2 quantitative metric points and highlighting unit testing experience will elevate your profile to top 5% applicant standing.';
       }
 
       setState(() {
@@ -101,150 +100,199 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF0A0E17),
+        elevation: 0,
+        foregroundColor: const Color(0xFFF1F5F9),
         title: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(6),
+              padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
-                gradient: AppColors.primaryGradient,
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+                ),
                 borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+                    blurRadius: 10,
+                  ),
+                ],
               ),
-              child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 18),
+              child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16),
             ),
-            const SizedBox(width: AppSpacing.sm),
-            const Text('Career Assistant (AI)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(width: 10),
+            const Text(
+              'Career Assistant (AI)',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+            ),
           ],
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.refresh_rounded),
+            icon: const Icon(Icons.refresh_rounded, color: Color(0xFF94A3B8)),
             onPressed: () {
               setState(() {
                 _messages.clear();
                 _messages.add({
                   'isUser': false,
-                  'text': 'Conversation reset. How can I help you today?',
+                  'text': 'Conversation reset. How can I help boost your career today?',
                   'time': 'Just now',
                 });
               });
             },
           ),
+          const SizedBox(width: 4),
         ],
       ),
-      body: AnimatedBackground(
-        child: Column(
-          children: [
-            // Prompt Pills Carousel
-            Container(
-              height: 44,
-              padding: const EdgeInsets.symmetric(vertical: 4),
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-                scrollDirection: Axis.horizontal,
-                itemCount: _suggestedPrompts.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 8),
-                itemBuilder: (context, index) {
-                  final prompt = _suggestedPrompts[index];
-                  return ActionChip(
-                    label: Text(prompt, style: const TextStyle(fontSize: 12)),
-                    backgroundColor: isDark ? AppColors.darkSurfaceElevated : AppColors.lightSurfaceElevated,
-                    side: BorderSide(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
-                    onPressed: () => _sendMessage(prompt),
-                  );
-                },
-              ),
+      body: Column(
+        children: [
+          // Prompt suggestions
+          Container(
+            height: 48,
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              scrollDirection: Axis.horizontal,
+              itemCount: _suggestedPrompts.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              itemBuilder: (context, index) {
+                final prompt = _suggestedPrompts[index];
+                return InkWell(
+                  onTap: () => _sendMessage(prompt),
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF121622),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: const Color(0xFF232A3B)),
+                    ),
+                    child: Text(
+                      prompt,
+                      style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 12, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                );
+              },
             ),
+          ),
 
-            // Messages List
-            Expanded(
-              child: ListView.builder(
-                controller: _scrollController,
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  final m = _messages[index];
-                  final isUser = m['isUser'] as bool;
+          // Chat messages list
+          Expanded(
+            child: ListView.builder(
+              controller: _scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final m = _messages[index];
+                final isUser = m['isUser'] as bool;
 
-                  return Align(
-                    alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: AppSpacing.md),
-                      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
-                      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: AppSpacing.md),
-                      decoration: BoxDecoration(
-                        gradient: isUser ? AppColors.primaryGradient : null,
-                        color: isUser
-                            ? null
-                            : (isDark ? AppColors.darkSurfaceElevated : AppColors.lightSurfaceElevated),
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(AppRadii.lg),
-                          topRight: const Radius.circular(AppRadii.lg),
-                          bottomLeft: Radius.circular(isUser ? AppRadii.lg : AppRadii.sm),
-                          bottomRight: Radius.circular(isUser ? AppRadii.sm : AppRadii.lg),
-                        ),
-                        border: isUser ? null : Border.all(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
-                        boxShadow: isUser ? AppElevation.darkCardShadow(intensity: 0.3) : null,
+                return Align(
+                  alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.82),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      gradient: isUser
+                          ? const LinearGradient(
+                              colors: [Color(0xFF8B5CF6), Color(0xFF6D28D9)],
+                            )
+                          : null,
+                      color: isUser ? null : const Color(0xFF121622),
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(16),
+                        topRight: const Radius.circular(16),
+                        bottomLeft: Radius.circular(isUser ? 16 : 4),
+                        bottomRight: Radius.circular(isUser ? 4 : 16),
                       ),
-                      child: Text(
-                        m['text'] as String,
-                        style: TextStyle(
-                          color: isUser
-                              ? Colors.white
-                              : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
-                          fontSize: 14,
-                          height: 1.4,
-                        ),
+                      border: isUser ? null : Border.all(color: const Color(0xFF232A3B)),
+                      boxShadow: isUser
+                          ? [
+                              BoxShadow(
+                                color: const Color(0xFF8B5CF6).withValues(alpha: 0.25),
+                                blurRadius: 10,
+                                offset: const Offset(0, 3),
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Text(
+                      m['text'] as String,
+                      style: TextStyle(
+                        color: isUser ? Colors.white : const Color(0xFFF1F5F9),
+                        fontSize: 14,
+                        height: 1.45,
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                ).animate().fadeIn(duration: 200.ms).slideY(begin: 0.05, end: 0);
+              },
             ),
+          ),
 
-            // Input Bar
-            Container(
-              padding: const EdgeInsets.all(AppSpacing.md),
-              decoration: BoxDecoration(
-                color: isDark ? AppColors.darkSurface : AppColors.lightSurface,
-                border: Border(top: BorderSide(color: isDark ? AppColors.darkBorder : AppColors.lightBorder)),
-              ),
-              child: SafeArea(
-                child: Row(
-                  children: [
-                    Expanded(
+          // Input field bottom bar
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: const BoxDecoration(
+              color: Color(0xFF0A0E17),
+              border: Border(top: BorderSide(color: Color(0xFF232A3B))),
+            ),
+            child: SafeArea(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF121622),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: const Color(0xFF232A3B)),
+                      ),
                       child: TextField(
                         controller: _messageController,
+                        style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14),
                         textInputAction: TextInputAction.send,
                         onSubmitted: (_) => _sendMessage(),
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Ask anything about your career...',
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppRadii.pill)),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(AppRadii.pill),
-                            borderSide: BorderSide(color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
-                          ),
+                          hintStyle: TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                          border: InputBorder.none,
                         ),
                       ),
                     ),
-                    const SizedBox(width: AppSpacing.sm),
-                    IconButton.filled(
-                      style: IconButton.styleFrom(backgroundColor: AppColors.darkPrimary),
-                      onPressed: () => _sendMessage(),
-                      icon: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                  ),
+                  const SizedBox(width: 10),
+                  GestureDetector(
+                    onTap: () => _sendMessage(),
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+                            blurRadius: 10,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

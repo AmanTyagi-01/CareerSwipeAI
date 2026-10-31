@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../../theme/app_theme.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/job_provider.dart';
-import '../../widgets/common/animated_background.dart';
-import '../../widgets/common/glass_card.dart';
 
 class JobManagementScreen extends ConsumerStatefulWidget {
   const JobManagementScreen({super.key});
@@ -14,7 +11,8 @@ class JobManagementScreen extends ConsumerStatefulWidget {
   ConsumerState<JobManagementScreen> createState() => _JobManagementScreenState();
 }
 
-class _JobManagementScreenState extends ConsumerState<JobManagementScreen> with SingleTickerProviderStateMixin {
+class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -32,26 +30,27 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen> with 
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(currentUserProvider).value;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final jobsAsync = ref.watch(recruiterJobsProvider(user?.id ?? ''));
 
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
         title: const Text('Job Management', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
+        foregroundColor: const Color(0xFFF1F5F9),
         centerTitle: false,
         actions: [
           IconButton(
             onPressed: () => context.push('/recruiter/create-job'),
-            icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.darkPrimary),
+            icon: const Icon(Icons.add_circle_outline_rounded, color: Color(0xFF8B5CF6)),
           ),
         ],
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: AppColors.darkPrimary,
-          labelColor: isDark ? Colors.white : AppColors.lightTextPrimary,
-          unselectedLabelColor: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+          indicatorColor: const Color(0xFF8B5CF6),
+          labelColor: const Color(0xFFF1F5F9),
+          unselectedLabelColor: const Color(0xFF94A3B8),
           tabs: const [
             Tab(text: 'Active (5)'),
             Tab(text: 'Drafts (2)'),
@@ -59,19 +58,20 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen> with 
           ],
         ),
       ),
-      body: AnimatedBackground(
+      body: Container(
+        color: const Color(0xFF0A0E17),
         child: TabBarView(
           controller: _tabController,
           children: [
             _buildJobList(jobsAsync, filterActive: true),
-            _buildDraftsList(isDark),
-            _buildClosedList(isDark),
+            _buildDraftsList(),
+            _buildClosedList(),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push('/recruiter/create-job'),
-        backgroundColor: AppColors.darkPrimary,
+        backgroundColor: const Color(0xFF8B5CF6),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add_rounded),
         label: const Text('Create Job', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -85,121 +85,214 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen> with 
         final activeJobs = jobs.where((j) => j.isActive == filterActive).toList();
 
         if (activeJobs.isEmpty) {
-          return const Center(child: Text('No active listings found.'));
+          return const Center(
+            child: Text('No active listings found.', style: TextStyle(color: Color(0xFF94A3B8))),
+          );
         }
 
         return ListView.builder(
-          padding: const EdgeInsets.all(AppSpacing.lg),
+          padding: const EdgeInsets.all(24.0),
           itemCount: activeJobs.length,
           itemBuilder: (context, index) {
             final job = activeJobs[index];
             final applicantCount = job.applyCount > 0 ? job.applyCount : (index * 28 + 12);
 
             return Padding(
-              padding: const EdgeInsets.only(bottom: AppSpacing.md),
-              child: GlassCard(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: GestureDetector(
                 onTap: () => context.push('/recruiter/pipeline', extra: job.id),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            job.title,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                child: Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF121622),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: const Color(0xFF232A3B)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              job.title,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Color(0xFFF1F5F9),
+                              ),
+                            ),
                           ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: AppColors.darkSuccess.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(AppRadii.pill),
-                            border: Border.all(color: AppColors.darkSuccess.withValues(alpha: 0.4)),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.4)),
+                            ),
+                            child: const Text(
+                              'Active',
+                              style: TextStyle(
+                                color: Color(0xFF10B981),
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                          child: const Text(
-                            'Active',
-                            style: TextStyle(color: AppColors.darkSuccess, fontSize: 11, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: AppSpacing.xs),
-                    Text(
-                      job.company,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.darkTextSecondary
-                            : AppColors.lightTextSecondary,
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.people_alt_outlined, size: 16, color: AppColors.darkPrimary),
-                            const SizedBox(width: 6),
-                            Text(
-                              '$applicantCount Applicants',
-                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                      const SizedBox(height: 4),
+                      Text(
+                        job.company,
+                        style: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8)),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1A2035),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color(0xFF232A3B)),
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            TextButton(
-                              onPressed: () => context.push('/recruiter/pipeline', extra: job.id),
-                              child: const Text('View Pipeline'),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.location_on_outlined, size: 12, color: Color(0xFF94A3B8)),
+                                const SizedBox(width: 4),
+                                Text(
+                                  job.location.length > 20 ? '${job.location.substring(0, 20)}...' : job.location,
+                                  style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.more_vert_rounded, size: 18),
-                              onPressed: () => _showJobOptions(context, job.id),
+                          ),
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                            child: Text(
+                              job.jobType,
+                              style: const TextStyle(fontSize: 11, color: Color(0xFF8B5CF6)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.3)),
+                            ),
+                            child: Row(
+                              children: [
+                                const Icon(Icons.people_alt_outlined, size: 14, color: Color(0xFF38BDF8)),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '$applicantCount Applicants',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color: Color(0xFF38BDF8),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () => context.push('/recruiter/pipeline', extra: job.id),
+                                style: TextButton.styleFrom(
+                                  foregroundColor: const Color(0xFF8B5CF6),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                ),
+                                child: const Text('View', style: TextStyle(fontSize: 13)),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.more_vert_rounded, size: 18, color: Color(0xFF94A3B8)),
+                                onPressed: () => _showJobOptions(context, job.id),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
           },
         );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('Error loading jobs: $e')),
+      loading: () => const Center(child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
+      error: (e, _) => Center(child: Text('Error loading jobs: $e', style: const TextStyle(color: Color(0xFF94A3B8)))),
     );
   }
 
-  Widget _buildDraftsList(bool isDark) {
+  Widget _buildDraftsList() {
     return ListView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(24.0),
       children: [
-        GlassCard(
-          child: ListTile(
-            title: const Text('Lead AI Architect (Draft)', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text('Last edited yesterday', style: TextStyle(color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary)),
-            trailing: const Icon(Icons.edit_note_rounded),
-            onTap: () => context.push('/recruiter/create-job'),
+        GestureDetector(
+          onTap: () => context.push('/recruiter/create-job'),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: const Color(0xFF121622),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: const Color(0xFF232A3B)),
+            ),
+            child: const ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                'Lead AI Architect (Draft)',
+                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+              ),
+              subtitle: Text(
+                'Last edited yesterday',
+                style: TextStyle(color: Color(0xFF94A3B8)),
+              ),
+              trailing: Icon(Icons.edit_note_rounded, color: Color(0xFF8B5CF6)),
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildClosedList(bool isDark) {
+  Widget _buildClosedList() {
     return ListView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+      padding: const EdgeInsets.all(24.0),
       children: [
-        GlassCard(
-          child: ListTile(
-            title: const Text('Junior Flutter Engineer (Closed)', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text('Filled on Oct 15, 2026', style: TextStyle(color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary)),
-            trailing: const Icon(Icons.archive_outlined),
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: const Color(0xFF121622),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: const Color(0xFF232A3B)),
+          ),
+          child: const ListTile(
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              'Junior Flutter Engineer (Closed)',
+              style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+            ),
+            subtitle: Text(
+              'Filled on Oct 15, 2026',
+              style: TextStyle(color: Color(0xFF94A3B8)),
+            ),
+            trailing: Icon(Icons.archive_outlined, color: Color(0xFF94A3B8)),
           ),
         ),
       ],
@@ -209,21 +302,22 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen> with 
   void _showJobOptions(BuildContext context, String jobId) {
     showModalBottomSheet(
       context: context,
+      backgroundColor: const Color(0xFF121622),
       builder: (ctx) {
         return SafeArea(
           child: Wrap(
             children: [
               ListTile(
-                leading: const Icon(Icons.pause_circle_outline_rounded),
-                title: const Text('Pause Listing'),
+                leading: const Icon(Icons.pause_circle_outline_rounded, color: Color(0xFFF59E0B)),
+                title: const Text('Pause Listing', style: TextStyle(color: Color(0xFFF1F5F9))),
                 onTap: () {
                   ref.read(jobNotifierProvider.notifier).updateJobStatus(jobId, false);
                   Navigator.pop(ctx);
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.archive_outlined),
-                title: const Text('Close and Archive'),
+                leading: const Icon(Icons.archive_outlined, color: Color(0xFF94A3B8)),
+                title: const Text('Close and Archive', style: TextStyle(color: Color(0xFFF1F5F9))),
                 onTap: () {
                   ref.read(jobNotifierProvider.notifier).updateJobStatus(jobId, false);
                   Navigator.pop(ctx);
@@ -236,4 +330,3 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen> with 
     );
   }
 }
-

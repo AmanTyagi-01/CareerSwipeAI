@@ -1,13 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import '../../../config/theme.dart';
-import '../../../config/constants.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/resume_provider.dart';
-import '../../widgets/common/animated_background.dart';
-import '../../widgets/common/glass_card.dart';
 
 class InterviewPrepScreen extends ConsumerStatefulWidget {
   const InterviewPrepScreen({super.key});
@@ -17,6 +12,14 @@ class InterviewPrepScreen extends ConsumerStatefulWidget {
 }
 
 class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
+  int _selectedCategoryIndex = 0;
+  final List<String> _categories = [
+    'Technical Interview',
+    'HR Interview',
+    'Behavioral Questions',
+    'Company Specific',
+  ];
+
   final List<Map<String, String>> _questions = [
     {
       'category': 'Technical - Flutter/Dart',
@@ -47,90 +50,31 @@ class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
     final userAsync = ref.watch(currentUserProvider);
 
     return Scaffold(
+      backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
-        title: const Text('AI Interview Prep'),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.transparent],
-            ),
-          ),
-        ),
+        backgroundColor: const Color(0xFF0A0E17),
+        elevation: 0,
+        foregroundColor: const Color(0xFFF1F5F9),
+        title: const Text('AI Interview Prep', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
-      body: AnimatedBackground(
-        child: SafeArea(
-          child: userAsync.when(
-            data: (user) {
-              if (user == null) {
-                return const Center(child: Text('Please log in to prepare for interviews.'));
-              }
-              // Fetch user resumes to check if they have uploaded one
-              final resumesAsync = ref.watch(userResumesProvider(user.id));
-              return resumesAsync.when(
-                data: (resumes) {
-                  final activeResume = resumes.isEmpty 
-                      ? null 
-                      : resumes.firstWhere((r) => r.isActive, orElse: () => resumes.first);
-
-                  if (activeResume == null) {
-                    return _buildNoResumeState(context);
-                  }
-
-                  return _buildPrepContent(context);
-                },
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (e, _) => Center(child: Text('Error: $e')),
+      body: SafeArea(
+        child: userAsync.when(
+          data: (user) {
+            if (user == null) {
+              return const Center(
+                child: Text('Please log in to practice interview questions.', style: TextStyle(color: Color(0xFF94A3B8))),
               );
-            },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Center(child: Text('Error: $e')),
-          ),
+            }
+            final resumesAsync = ref.watch(userResumesProvider(user.id));
+            return resumesAsync.when(
+              data: (_) => _buildPrepContent(context),
+              loading: () => const Center(child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
+              error: (_, __) => _buildPrepContent(context),
+            );
+          },
+          loading: () => const Center(child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
+          error: (_, __) => _buildPrepContent(context),
         ),
-      ),
-    );
-  }
-
-  Widget _buildNoResumeState(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(AppConstants.defaultPadding),
-        child: GlassCard(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.question_answer_outlined,
-                  size: 80,
-                  color: AppTheme.primaryColor.withValues(alpha: 0.8),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'No Resume Uploaded',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  'Upload your resume to receive custom AI-generated interview prep questions tailored specifically to your experience and project accomplishments.',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(Icons.upload_file),
-                  label: const Text('Go to Resume Upload'),
-                ),
-              ],
-            ),
-          ),
-        ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.1),
       ),
     );
   }
@@ -140,29 +84,85 @@ class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
 
     return Column(
       children: [
-        const SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: LinearProgressIndicator(
-            value: (_currentIndex + 1) / _questions.length,
-            backgroundColor: Theme.of(context).brightness == Brightness.dark 
-                ? Colors.white10 
-                : Colors.black12,
-            valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
-            borderRadius: BorderRadius.circular(8),
-            minHeight: 6,
+        // Category Pills (from poster)
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: List.generate(_categories.length, (index) {
+              final isSelected = _selectedCategoryIndex == index;
+              return Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: InkWell(
+                  onTap: () => setState(() => _selectedCategoryIndex = index),
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? const Color(0xFF8B5CF6).withValues(alpha: 0.25)
+                          : const Color(0xFF121622),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF232A3B),
+                      ),
+                    ),
+                    child: Text(
+                      _categories[index],
+                      style: TextStyle(
+                        color: isSelected ? const Color(0xFFF1F5F9) : const Color(0xFF94A3B8),
+                        fontSize: 12,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }),
           ),
         ),
+
         const SizedBox(height: 12),
-        Text(
-          'Question ${_currentIndex + 1} of ${_questions.length}',
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+
+        // Progress bar
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Question ${_currentIndex + 1} of ${_questions.length}',
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFFF1F5F9)),
+                  ),
+                  Text(
+                    '${((_currentIndex + 1) / _questions.length * 100).toInt()}% Done',
+                    style: const TextStyle(fontSize: 12, color: Color(0xFF38BDF8), fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: (_currentIndex + 1) / _questions.length,
+                  backgroundColor: const Color(0xFF1E2638),
+                  valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF8B5CF6)),
+                  minHeight: 6,
+                ),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: 20),
-        
+
+        const SizedBox(height: 16),
+
+        // Flip Card
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: FlipCardWidget(
               key: ValueKey(_currentIndex),
               front: _buildCardFront(currentQ),
@@ -171,33 +171,58 @@ class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
           ),
         ),
 
+        // Navigation bottom bar
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              OutlinedButton(
-                onPressed: _currentIndex > 0 
-                    ? () => setState(() => _currentIndex--) 
-                    : null,
-                child: const Text('Previous'),
+              OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFFCBD5E1),
+                  side: const BorderSide(color: Color(0xFF232A3B)),
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                onPressed: _currentIndex > 0 ? () => setState(() => _currentIndex--) : null,
+                icon: const Icon(Icons.arrow_back_rounded, size: 16),
+                label: const Text('Previous'),
               ),
-              ElevatedButton(
-                onPressed: _currentIndex < _questions.length - 1 
-                    ? () => setState(() => _currentIndex++) 
-                    : () {
-                        // Reset or show completion
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Interview Prep session complete!')),
-                        );
-                        setState(() => _currentIndex = 0);
-                      },
-                child: Text(_currentIndex == _questions.length - 1 ? 'Finish' : 'Next'),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: const LinearGradient(
+                    colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+                  ),
+                ),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  onPressed: () {
+                    if (_currentIndex < _questions.length - 1) {
+                      setState(() => _currentIndex++);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Interview Prep complete! Great job!'),
+                          backgroundColor: Color(0xFF10B981),
+                        ),
+                      );
+                      setState(() => _currentIndex = 0);
+                    }
+                  },
+                  icon: Icon(_currentIndex == _questions.length - 1 ? Icons.check_circle_rounded : Icons.arrow_forward_rounded, size: 16),
+                  label: Text(_currentIndex == _questions.length - 1 ? 'Finish' : 'Next Question'),
+                ),
               ),
             ],
           ),
         ),
-        const SizedBox(height: 20),
       ],
     );
   }
@@ -205,50 +230,66 @@ class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
   Widget _buildCardFront(Map<String, String> currentQ) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor.withValues(alpha: 0.8),
+        color: const Color(0xFF121622),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white24),
+        border: Border.all(color: const Color(0xFF232A3B)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(26),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
             decoration: BoxDecoration(
-              color: AppTheme.primaryColor.withValues(alpha: 0.1),
+              color: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppTheme.primaryColor.withValues(alpha: 0.2)),
+              border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
             ),
             child: Text(
               currentQ['category'] ?? '',
               style: const TextStyle(
-                color: AppTheme.primaryColor,
+                color: Color(0xFF8B5CF6),
                 fontWeight: FontWeight.bold,
-                fontSize: 12,
+                fontSize: 11,
               ),
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 28),
           Text(
             currentQ['question'] ?? '',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+            style: const TextStyle(
+              color: Color(0xFFF1F5F9),
+              fontSize: 18,
               fontWeight: FontWeight.bold,
-              height: 1.4,
+              height: 1.45,
             ),
             textAlign: TextAlign.center,
           ),
           const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.touch_app, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)),
-              const SizedBox(width: 8),
-              Text(
-                'Tap to reveal AI Guide',
-                style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5)),
-              ),
-            ],
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E2638),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.touch_app_rounded, color: Color(0xFF38BDF8), size: 16),
+                SizedBox(width: 8),
+                Text(
+                  'Tap card to reveal AI answer model',
+                  style: TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -258,9 +299,16 @@ class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
   Widget _buildCardBack(Map<String, String> currentQ) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor.withValues(alpha: 0.8),
+        color: const Color(0xFF121622),
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.white24),
+        border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.4)),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF10B981).withValues(alpha: 0.08),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -269,43 +317,44 @@ class _InterviewPrepScreenState extends ConsumerState<InterviewPrepScreen> {
           Row(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: AppTheme.successColor.withValues(alpha: 0.1),
+                  color: const Color(0xFF10B981).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppTheme.successColor.withValues(alpha: 0.2)),
                 ),
                 child: const Text(
                   'AI SUGGESTED RESPONSE',
                   style: TextStyle(
-                    color: AppTheme.successColor,
+                    color: Color(0xFF10B981),
                     fontWeight: FontWeight.bold,
                     fontSize: 10,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ),
               const Spacer(),
-              const Icon(Icons.check_circle_outline, color: AppTheme.successColor),
+              const Icon(Icons.check_circle_outline, color: Color(0xFF10B981), size: 20),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 18),
           Expanded(
             child: SingleChildScrollView(
               child: Text(
                 currentQ['answer'] ?? '',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  height: 1.5,
-                  fontSize: 15,
+                style: const TextStyle(
+                  color: Color(0xFFF1F5F9),
+                  height: 1.55,
+                  fontSize: 14,
                 ),
               ),
             ),
           ),
-          const Divider(),
-          const SizedBox(height: 8),
-          Center(
+          const Divider(color: Color(0xFF232A3B)),
+          const SizedBox(height: 6),
+          const Center(
             child: Text(
-              'Tap to return to question',
-              style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5), fontSize: 12),
+              'Tap card to flip back to question',
+              style: TextStyle(color: Color(0xFF64748B), fontSize: 11),
             ),
           ),
         ],
@@ -332,7 +381,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> with SingleTickerProvid
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
   }
@@ -364,7 +413,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> with SingleTickerProvid
           final transformValue = _controller.value * pi;
           return Transform(
             transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.001) // perspective
+              ..setEntry(3, 2, 0.001)
               ..rotateY(transformValue),
             alignment: Alignment.center,
             child: transformValue < pi / 2
