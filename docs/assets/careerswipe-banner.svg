@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#0A0E1A" />
+    </linearGradient>
+
+    <!-- Ambient Glow Gradients -->
+    <radialGradient id="purpleGlow" cx="20%" cy="30%" r="50%">
+      <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#7C3AED" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="cyanGlow" cx="80%" cy="70%" r="50%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.30" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="emeraldGlow" cx="50%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E2436" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#111625" stop-opacity="0.98" />
+    </linearGradient>
+    <linearGradient id="cardBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#38BDF8" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#1E293B" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Brand Text Gradient -->
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="60%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#CBD5E1" />
+    </linearGradient>
+    <linearGradient id="aiTagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+
+    <!-- Grid Pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5" stroke-opacity="0.3" />
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1200" height="400" fill="url(#bgGrad)" />
+  <rect width="1200" height="400" fill="url(#grid)" />
+
+  <!-- Ambient Light Orbs -->
+  <circle cx="240" cy="120" r="320" fill="url(#purpleGlow)" />
+  <circle cx="960" cy="280" r="320" fill="url(#cyanGlow)" />
+  <circle cx="600" cy="200" r="260" fill="url(#emeraldGlow)" />
+
+  <!-- Subtle Top & Bottom Architectural Accent Lines -->
+  <line x1="0" y1="1" x2="1200" y2="1" stroke="#38BDF8" stroke-width="1.5" stroke-opacity="0.4" />
+  <line x1="0" y1="399" x2="1200" y2="399" stroke="#7C3AED" stroke-width="1.5" stroke-opacity="0.4" />
+
+  <!-- ================= LEFT HERO COLUMN: BRANDING & MOTIVATION ================= -->
+  <g transform="translate(80, 0)">
+    <!-- Pill Badge: Product Category -->
+    <g transform="translate(0, 52)">
+      <rect width="360" height="28" rx="14" fill="#1E1B4B" stroke="#6366F1" stroke-width="1" stroke-opacity="0.6" />
+      <circle cx="14" cy="14" r="4" fill="#38BDF8" />
+      <text x="26" y="18.5" fill="#E0E7FF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">
+        CAREER INTELLIGENCE &amp; TALENT SYSTEM
+      </text>
+    </g>
+
+    <!-- Main Title -->
+    <g transform="translate(0, 138)">
+      <text x="0" y="0" fill="url(#brandGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif" font-size="52" font-weight="900" letter-spacing="-1.5">
+        CAREERSWIPE
+      </text>
+      <!-- "AI" Glowing Badge -->
+      <g transform="translate(366, -42)">
+        <rect width="78" height="44" rx="12" fill="url(#aiTagGrad)" />
+        <text x="39" y="29" fill="#0A0E17" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" text-anchor="middle" letter-spacing="0.5">
+          AI
+        </text>
+      </g>
+    </g>
+
+    <!-- Tagline -->
+    <text x="0" y="180" fill="#94A3B8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="500" letter-spacing="-0.3">
+      Your Career. Your Next Opportunity.
+    </text>
+
+    <!-- Sub-description -->
+    <text x="0" y="214" fill="#64748B" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13.5" font-weight="400">
+      Dual-platform ecosystem marrying tactile swipe discovery with explainable ATS citations.
+    </text>
+
+    <!-- Feature Pillars Badges -->
+    <g transform="translate(0, 260)">
+      <!-- Pillar 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="148" height="34" rx="8" fill="#121829" stroke="#1E293B" stroke-width="1" />
+        <circle cx="16" cy="17" r="3.5" fill="#10B981" />
+        <text x="28" y="21.5" fill="#CBD5E1" font-family="sans-serif" font-size="11" font-weight="600">
+          94% ATS Fit Engine
+        </text>
+      </g>
+      <!-- Pillar 2 -->
+      <g transform="translate(158, 0)">
+        <rect width="154" height="34" rx="8" fill="#121829" stroke="#1E293B" stroke-width="1" />
+        <circle cx="16" cy="17" r="3.5" fill="#38BDF8" />
+        <text x="28" y="21.5" fill="#CBD5E1" font-family="sans-serif" font-size="11" font-weight="600">
+          Tactile Swipe Deck
+        </text>
+      </g>
+      <!-- Pillar 3 -->
+      <g transform="translate(322, 0)">
+        <rect width="156" height="34" rx="8" fill="#121829" stroke="#1E293B" stroke-width="1" />
+        <circle cx="16" cy="17" r="3.5" fill="#A855F7" />
+        <text x="28" y="21.5" fill="#CBD5E1" font-family="sans-serif" font-size="11" font-weight="600">
+          Recruiter Pipeline
+        </text>
+      </g>
+    </g>
+
+    <!-- Tech Stack Pill Row -->
+    <g transform="translate(0, 318)">
+      <text x="0" y="16" fill="#475569" font-family="monospace" font-size="11" font-weight="600" letter-spacing="1">
+        FLUTTER 3.24 • DART 3.5 • RIVERPOD • FIREBASE • PURE-DART PARSER
+      </text>
+    </g>
+  </g>
+
+  <!-- ================= RIGHT HERO COLUMN: VECTOR ARCHITECTURAL CARD ================= -->
+  <g transform="translate(730, 42)">
+    <!-- Back Card Shadow / Offset Layer -->
+    <rect x="40" y="20" width="370" height="290" rx="20" fill="#0D1322" stroke="#1E2436" stroke-width="1" opacity="0.6" transform="rotate(3, 225, 165)" />
+    
+    <!-- Main Interactive Card -->
+    <rect x="0" y="0" width="380" height="315" rx="20" fill="url(#cardGrad)" stroke="url(#cardBorder)" stroke-width="1.5" />
+
+    <!-- Card Header Banner -->
+    <path d="M 0 20 Q 0 0 20 0 L 360 0 Q 380 0 380 20 L 380 72 L 0 72 Z" fill="#1A2035" />
+    <path d="M 0 20 Q 0 0 20 0 L 360 0 Q 380 0 380 20 L 380 72 L 0 72 Z" fill="url(#purpleGlow)" opacity="0.5" />
+
+    <!-- Company Badge -->
+    <rect x="22" y="44" width="48" height="48" rx="14" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5" />
+    <text x="46" y="76" fill="#38BDF8" font-family="sans-serif" font-size="24" font-weight="800" text-anchor="middle">
+      C
+    </text>
+
+    <!-- Score Match Pill in Card Header -->
+    <g transform="translate(268, 16)">
+      <rect width="94" height="26" rx="13" fill="#0B1320" stroke="#10B981" stroke-width="1.2" />
+      <circle cx="12" cy="13" r="3.5" fill="#10B981" />
+      <text x="24" y="17.5" fill="#10B981" font-family="sans-serif" font-size="11.5" font-weight="700">
+        94% Fit
+      </text>
+    </g>
+
+    <!-- Opportunity Title & Location -->
+    <g transform="translate(22, 114)">
+      <text x="0" y="0" fill="#F8FAFC" font-family="sans-serif" font-size="18" font-weight="800">
+        Lead Mobile Engineer
+      </text>
+      <text x="0" y="19" fill="#94A3B8" font-family="sans-serif" font-size="12" font-weight="500">
+        CloudScale Technologies • Remote · Global
+      </text>
+    </g>
+
+    <!-- Tags Row -->
+    <g transform="translate(22, 154)">
+      <!-- Full Time -->
+      <rect width="66" height="22" rx="6" fill="#7C3AED" fill-opacity="0.15" stroke="#7C3AED" stroke-opacity="0.4" />
+      <text x="33" y="15" fill="#C4B5FD" font-family="sans-serif" font-size="10" font-weight="600" text-anchor="middle">Full-Time</text>
+
+      <!-- Remote -->
+      <rect x="74" width="58" height="22" rx="6" fill="#0284C7" fill-opacity="0.15" stroke="#0284C7" stroke-opacity="0.4" />
+      <text x="103" y="15" fill="#7DD3FC" font-family="sans-serif" font-size="10" font-weight="600" text-anchor="middle">Remote</text>
+
+      <!-- Salary -->
+      <rect x="140" width="86" height="22" rx="6" fill="#059669" fill-opacity="0.15" stroke="#059669" stroke-opacity="0.4" />
+      <text x="183" y="15" fill="#6EE7B7" font-family="sans-serif" font-size="10" font-weight="600" text-anchor="middle">₹18-35 LPA</text>
+    </g>
+
+    <!-- ATS Match Criteria Progress Bars -->
+    <g transform="translate(22, 196)">
+      <!-- Skills -->
+      <text x="0" y="0" fill="#64748B" font-family="sans-serif" font-size="9.5" font-weight="600">Skills Alignment</text>
+      <text x="336" y="0" fill="#38BDF8" font-family="sans-serif" font-size="9.5" font-weight="700" text-anchor="end">92%</text>
+      <rect x="0" y="5" width="336" height="4" rx="2" fill="#1E293B" />
+      <rect x="0" y="5" width="309" height="4" rx="2" fill="#38BDF8" />
+
+      <!-- Experience -->
+      <text x="0" y="24" fill="#64748B" font-family="sans-serif" font-size="9.5" font-weight="600">Experience Citations</text>
+      <text x="336" y="24" fill="#10B981" font-family="sans-serif" font-size="9.5" font-weight="700" text-anchor="end">88%</text>
+      <rect x="0" y="29" width="336" height="4" rx="2" fill="#1E293B" />
+      <rect x="0" y="29" width="295" height="4" rx="2" fill="#10B981" />
+    </g>
+
+    <!-- 3 Tactile Swipe Action Buttons at Card Base -->
+    <g transform="translate(190, 276)">
+      <!-- Pass Button (Red) -->
+      <g transform="translate(-76, 0)">
+        <circle cx="0" cy="0" r="18" fill="#1F1318" stroke="#EF4444" stroke-width="1.2" />
+        <path d="M -6 -6 L 6 6 M 6 -6 L -6 6" stroke="#EF4444" stroke-width="2" stroke-linecap="round" />
+      </g>
+      <!-- Save Button (Cyan) -->
+      <g transform="translate(0, 0)">
+        <circle cx="0" cy="0" r="16" fill="#0D2033" stroke="#38BDF8" stroke-width="1.2" />
+        <polygon points="0,-7 2,-2 7,-2 3,2 5,7 0,4 -5,7 -3,2 -7,-2 -2,-2" fill="#38BDF8" />
+      </g>
+      <!-- Apply Button (Green) -->
+      <g transform="translate(76, 0)">
+        <circle cx="0" cy="0" r="18" fill="#0D261E" stroke="#10B981" stroke-width="1.2" />
+        <path d="M -7 0 L -2 5 L 7 -4" fill="none" stroke="#10B981" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+      </g>
+    </g>
+  </g>
+</svg>
