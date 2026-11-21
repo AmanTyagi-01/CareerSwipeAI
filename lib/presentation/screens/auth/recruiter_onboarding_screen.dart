@@ -11,22 +11,40 @@ class RecruiterOnboardingScreen extends ConsumerStatefulWidget {
   const RecruiterOnboardingScreen({super.key});
 
   @override
-  ConsumerState<RecruiterOnboardingScreen> createState() => _RecruiterOnboardingScreenState();
+  ConsumerState<RecruiterOnboardingScreen> createState() =>
+      _RecruiterOnboardingScreenState();
 }
 
-class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingScreen> {
+class _RecruiterOnboardingScreenState
+    extends ConsumerState<RecruiterOnboardingScreen> {
   final _formKey = GlobalKey<FormState>();
   final _companyController = TextEditingController(text: 'Stripe Ireland Ltd.');
-  final _titleController =
-      TextEditingController(text: 'Lead Technical Recruiter — Infrastructure & Systems');
+  final _titleController = TextEditingController(
+      text: 'Lead Technical Recruiter — Infrastructure & Systems');
   final _emailController = TextEditingController(text: 'recruiter@company.com');
   String _selectedTier = 'TIER B';
 
   final List<Map<String, String>> _volumeTiers = [
-    {'tier': 'TIER A', 'volume': '1 – 10 Hires / Year', 'scope': 'Seed & Series A'},
-    {'tier': 'TIER B', 'volume': '11 – 50 Hires / Year', 'scope': 'Growth & Scale-up'},
-    {'tier': 'TIER C', 'volume': '51 – 200 Hires / Year', 'scope': 'Enterprise Division'},
-    {'tier': 'TIER D', 'volume': '200+ Hires / Year', 'scope': 'Global Technical Org'},
+    {
+      'tier': 'TIER A',
+      'volume': '1 – 10 Hires / Year',
+      'scope': 'Seed & Series A'
+    },
+    {
+      'tier': 'TIER B',
+      'volume': '11 – 50 Hires / Year',
+      'scope': 'Growth & Scale-up'
+    },
+    {
+      'tier': 'TIER C',
+      'volume': '51 – 200 Hires / Year',
+      'scope': 'Enterprise Division'
+    },
+    {
+      'tier': 'TIER D',
+      'volume': '200+ Hires / Year',
+      'scope': 'Global Technical Org'
+    },
   ];
 
   @override
@@ -56,11 +74,18 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -109,7 +134,8 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                 // Editorial Headline
                 Text(
                   'Register your hiring organization.',
-                  style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                  style:
+                      EditorialTypography.headlineXlMobile(color: textPrimary),
                 ),
                 const SizedBox(height: EditorialSpacing.spaceXs),
                 Text(
@@ -122,7 +148,9 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                 Container(
                   padding: const EdgeInsets.all(EditorialSpacing.spaceMd),
                   decoration: BoxDecoration(
-                    color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                    color: isDark
+                        ? EditorialColors.darkContainerLow
+                        : EditorialColors.paperContainerLow,
                     borderRadius: BorderRadius.circular(12.0),
                     border: Border.all(color: hairlineColor, width: 1.0),
                   ),
@@ -133,7 +161,9 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                         width: 32.0,
                         height: 32.0,
                         decoration: BoxDecoration(
-                          color: isDark ? EditorialColors.darkContainerMid : Colors.white,
+                          color: isDark
+                              ? EditorialColors.darkContainerMid
+                              : Colors.white,
                           borderRadius: EditorialRadii.roundedSm,
                         ),
                         child: const Icon(
@@ -148,22 +178,26 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 2.0),
                               decoration: BoxDecoration(
                                 color: isDark
-                                    ? EditorialColors.primaryContainer.withValues(alpha: 0.2)
+                                    ? EditorialColors.primaryContainer
+                                        .withValues(alpha: 0.2)
                                     : EditorialColors.primaryLight,
                                 borderRadius: EditorialRadii.roundedSm,
                               ),
                               child: Text(
                                 'UNVERIFIED ORG STATUS · TIER 2 REVIEW',
-                                style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                                style: EditorialTypography.labelStamp(
+                                    color: EditorialColors.primary),
                               ),
                             ),
                             const SizedBox(height: 4.0),
                             Text(
                               'New recruiter profiles undergo corporate domain DNS verification and EU pay transparency compliance review before requisitions go live.',
-                              style: EditorialTypography.bodySm(color: textSecondary),
+                              style: EditorialTypography.bodySm(
+                                  color: textSecondary),
                             ),
                           ],
                         ),
@@ -179,11 +213,13 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                   children: [
                     Text(
                       'CORPORATE DOMAIN EMAIL',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                     Row(
                       children: [
-                        const Icon(Icons.check_circle, size: 14.0, color: EditorialColors.primary),
+                        const Icon(Icons.check_circle,
+                            size: 14.0, color: EditorialColors.primary),
                         const SizedBox(width: 4.0),
                         Text(
                           'Domain Match Confirmed',
@@ -200,9 +236,12 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                 EditorialTextField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  prefixIcon: Icon(Icons.business_outlined, size: 18.0, color: textSecondary),
-                  suffixIcon: Icon(Icons.lock_outline, size: 16.0, color: textSecondary),
-                  validator: (val) => val == null || val.isEmpty ? 'Email is required' : null,
+                  prefixIcon: Icon(Icons.business_outlined,
+                      size: 18.0, color: textSecondary),
+                  suffixIcon: Icon(Icons.lock_outline,
+                      size: 16.0, color: textSecondary),
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Email is required' : null,
                 ),
                 const SizedBox(height: 4.0),
                 Text(
@@ -235,23 +274,29 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                           isDense: true,
                           contentPadding: EdgeInsets.zero,
                         ),
-                        validator: (val) =>
-                            val == null || val.trim().isEmpty ? 'Company name is required' : null,
+                        validator: (val) => val == null || val.trim().isEmpty
+                            ? 'Company name is required'
+                            : null,
                       ),
                       const SizedBox(height: 6.0),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
-                          color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                          color: isDark
+                              ? EditorialColors.darkContainerLow
+                              : EditorialColors.paperContainerLow,
                           borderRadius: EditorialRadii.roundedSm,
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.location_on_outlined, size: 14.0, color: textSecondary),
+                            Icon(Icons.location_on_outlined,
+                                size: 14.0, color: textSecondary),
                             const SizedBox(width: 4.0),
                             Text(
                               'Registered Hub: Dublin Hub / EMEA (IE9827341M)',
-                              style: EditorialTypography.bodySm(color: textSecondary),
+                              style: EditorialTypography.bodySm(
+                                  color: textSecondary),
                             ),
                           ],
                         ),
@@ -269,8 +314,11 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                 const SizedBox(height: 6.0),
                 EditorialTextField(
                   controller: _titleController,
-                  prefixIcon: Icon(Icons.badge_outlined, size: 18.0, color: textSecondary),
-                  validator: (val) => val == null || val.trim().isEmpty ? 'Role title is required' : null,
+                  prefixIcon: Icon(Icons.badge_outlined,
+                      size: 18.0, color: textSecondary),
+                  validator: (val) => val == null || val.trim().isEmpty
+                      ? 'Role title is required'
+                      : null,
                 ),
                 const SizedBox(height: EditorialSpacing.spaceMd),
 
@@ -280,7 +328,8 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                   children: [
                     Text(
                       'ANNUAL HIRING VELOCITY',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                     Text(
                       'Pipeline Allocation',
@@ -306,7 +355,9 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                           color: surfaceColor,
                           borderRadius: EditorialRadii.roundedMd,
                           border: Border.all(
-                            color: isSelected ? EditorialColors.primary : hairlineColor,
+                            color: isSelected
+                                ? EditorialColors.primary
+                                : hairlineColor,
                             width: isSelected ? 2.0 : 1.0,
                           ),
                         ),
@@ -317,7 +368,9 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                             Text(
                               t['tier']!,
                               style: EditorialTypography.labelStamp(
-                                color: isSelected ? EditorialColors.primary : textSecondary,
+                                color: isSelected
+                                    ? EditorialColors.primary
+                                    : textSecondary,
                               ),
                             ),
                             const SizedBox(height: 2.0),
@@ -332,7 +385,8 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                             ),
                             Text(
                               t['scope']!,
-                              style: EditorialTypography.bodySm(color: textSecondary),
+                              style: EditorialTypography.bodySm(
+                                  color: textSecondary),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -347,7 +401,8 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
                 // Primary CTA
                 EditorialButton(
                   label: 'Initialize Organization Ledger & Next',
-                  trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                  trailingIcon: const Icon(Icons.arrow_forward,
+                      size: 18.0, color: Colors.white),
                   onPressed: _submit,
                 ),
                 const SizedBox(height: EditorialSpacing.spaceLg),
@@ -359,4 +414,3 @@ class _RecruiterOnboardingScreenState extends ConsumerState<RecruiterOnboardingS
     );
   }
 }
-

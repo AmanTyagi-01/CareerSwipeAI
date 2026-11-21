@@ -76,7 +76,9 @@ class HackathonModel extends Equatable {
         'maxTeamSize': maxTeamSize,
         'prizePool': prizePool,
         'prizes': prizes,
-        'registrationDeadline': registrationDeadline != null ? Timestamp.fromDate(registrationDeadline!) : null,
+        'registrationDeadline': registrationDeadline != null
+            ? Timestamp.fromDate(registrationDeadline!)
+            : null,
         'startDate': startDate != null ? Timestamp.fromDate(startDate!) : null,
         'endDate': endDate != null ? Timestamp.fromDate(endDate!) : null,
         'postedAt': postedAt != null ? Timestamp.fromDate(postedAt!) : null,
@@ -110,9 +112,15 @@ class HackathonModel extends Equatable {
         registrationDeadline: map['registrationDeadline'] != null
             ? (map['registrationDeadline'] as Timestamp).toDate()
             : null,
-        startDate: map['startDate'] != null ? (map['startDate'] as Timestamp).toDate() : null,
-        endDate: map['endDate'] != null ? (map['endDate'] as Timestamp).toDate() : null,
-        postedAt: map['postedAt'] != null ? (map['postedAt'] as Timestamp).toDate() : null,
+        startDate: map['startDate'] != null
+            ? (map['startDate'] as Timestamp).toDate()
+            : null,
+        endDate: map['endDate'] != null
+            ? (map['endDate'] as Timestamp).toDate()
+            : null,
+        postedAt: map['postedAt'] != null
+            ? (map['postedAt'] as Timestamp).toDate()
+            : null,
         isActive: map['isActive'] ?? true,
         registrationUrl: map['registrationUrl'],
         websiteUrl: map['websiteUrl'],
@@ -124,10 +132,30 @@ class HackathonModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id, title, organizer, organizerLogo, description, shortDescription,
-        themes, requiredSkills, mode, location, minTeamSize, maxTeamSize,
-        prizePool, prizes, registrationDeadline, startDate, endDate, postedAt,
-        isActive, registrationUrl, websiteUrl, organizerId, participantCount,
-        eligibility, difficulty,
+        id,
+        title,
+        organizer,
+        organizerLogo,
+        description,
+        shortDescription,
+        themes,
+        requiredSkills,
+        mode,
+        location,
+        minTeamSize,
+        maxTeamSize,
+        prizePool,
+        prizes,
+        registrationDeadline,
+        startDate,
+        endDate,
+        postedAt,
+        isActive,
+        registrationUrl,
+        websiteUrl,
+        organizerId,
+        participantCount,
+        eligibility,
+        difficulty,
       ];
 }

@@ -29,7 +29,8 @@ void main() async {
         options: FirebaseOptions(
           apiKey: _requiredFirebaseConfig('FIREBASE_API_KEY'),
           appId: _requiredFirebaseConfig('FIREBASE_APP_ID'),
-          messagingSenderId: _requiredFirebaseConfig('FIREBASE_MESSAGING_SENDER_ID'),
+          messagingSenderId:
+              _requiredFirebaseConfig('FIREBASE_MESSAGING_SENDER_ID'),
           projectId: _requiredFirebaseConfig('FIREBASE_PROJECT_ID'),
           authDomain: _requiredFirebaseConfig('FIREBASE_AUTH_DOMAIN'),
           storageBucket: _requiredFirebaseConfig('FIREBASE_STORAGE_BUCKET'),
@@ -38,16 +39,21 @@ void main() async {
       );
       AppLogger.info('Firebase initialized successfully', tag: 'main');
     } catch (e) {
-      AppLogger.warning('Firebase initialization failed (falling back to demo mode)', tag: 'main', error: e);
+      AppLogger.warning(
+          'Firebase initialization failed (falling back to demo mode)',
+          tag: 'main',
+          error: e);
     }
   } else {
-    AppLogger.info('Firebase not configured. Running in Demo mode.', tag: 'main');
+    AppLogger.info('Firebase not configured. Running in Demo mode.',
+        tag: 'main');
   }
 
   // Initialize push notifications (non-blocking) only when Firebase is active
   if (Firebase.apps.isNotEmpty) {
     NotificationService().initialize().catchError((e) {
-      AppLogger.warning('Notification service init failed (non-fatal)', tag: 'main', error: e);
+      AppLogger.warning('Notification service init failed (non-fatal)',
+          tag: 'main', error: e);
     });
   }
 

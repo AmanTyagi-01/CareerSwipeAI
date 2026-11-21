@@ -30,15 +30,17 @@ class AdminDashboardScreen extends ConsumerWidget {
               Text(
                 'Access Denied',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const SizedBox(height: 8),
               Text(
                 'You do not have permission to access this page.',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                ),
+                      color: isDark
+                          ? AppTheme.darkTextSecondary
+                          : AppTheme.lightTextSecondary,
+                    ),
               ),
               const SizedBox(height: 24),
               ElevatedButton(
@@ -100,7 +102,8 @@ class AdminDashboardScreen extends ConsumerWidget {
               gradient: AppTheme.primaryGradient,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(Icons.admin_panel_settings, color: Colors.white, size: 30),
+            child: const Icon(Icons.admin_panel_settings,
+                color: Colors.white, size: 30),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -110,25 +113,24 @@ class AdminDashboardScreen extends ConsumerWidget {
                 Text(
                   'Admin Dashboard',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'Platform Overview & Analytics',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                  ),
+                        color: isDark
+                            ? AppTheme.darkTextSecondary
+                            : AppTheme.lightTextSecondary,
+                      ),
                 ),
               ],
             ),
           ),
         ],
       ),
-    )
-        .animate()
-        .fadeIn()
-        .slideY(begin: -0.2, end: 0);
+    ).animate().fadeIn().slideY(begin: -0.2, end: 0);
   }
 
   Widget _buildStatsGrid(BuildContext context, bool isDark) {
@@ -140,10 +142,14 @@ class AdminDashboardScreen extends ConsumerWidget {
       mainAxisSpacing: 12,
       childAspectRatio: 1.3,
       children: [
-        _buildStatCard(context, 'Total Users', '12,847', Icons.people, AppTheme.primaryColor, '+12%'),
-        _buildStatCard(context, 'Active Jobs', '3,421', Icons.work, AppTheme.accentColor, '+8%'),
-        _buildStatCard(context, 'Applications', '8,932', Icons.description, AppTheme.successColor, '+15%'),
-        _buildStatCard(context, 'Resumes', '9,156', Icons.upload_file, AppTheme.warningColor, '+10%'),
+        _buildStatCard(context, 'Total Users', '12,847', Icons.people,
+            AppTheme.primaryColor, '+12%'),
+        _buildStatCard(context, 'Active Jobs', '3,421', Icons.work,
+            AppTheme.accentColor, '+8%'),
+        _buildStatCard(context, 'Applications', '8,932', Icons.description,
+            AppTheme.successColor, '+15%'),
+        _buildStatCard(context, 'Resumes', '9,156', Icons.upload_file,
+            AppTheme.warningColor, '+10%'),
       ],
     )
         .animate()
@@ -151,7 +157,8 @@ class AdminDashboardScreen extends ConsumerWidget {
         .slideY(begin: 0.2, end: 0);
   }
 
-  Widget _buildStatCard(BuildContext context, String label, String value, IconData icon, Color color, String change) {
+  Widget _buildStatCard(BuildContext context, String label, String value,
+      IconData icon, Color color, String change) {
     return GlassCard(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -192,17 +199,17 @@ class AdminDashboardScreen extends ConsumerWidget {
               Text(
                 value,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               const SizedBox(height: 4),
               Text(
                 label,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppTheme.darkTextSecondary
-                      : AppTheme.lightTextSecondary,
-                ),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? AppTheme.darkTextSecondary
+                          : AppTheme.lightTextSecondary,
+                    ),
               ),
             ],
           ),
@@ -219,8 +226,8 @@ class AdminDashboardScreen extends ConsumerWidget {
           Text(
             'User Growth',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+                  fontWeight: FontWeight.w600,
+                ),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -233,7 +240,8 @@ class AdminDashboardScreen extends ConsumerWidget {
                   horizontalInterval: 500,
                   getDrawingHorizontalLine: (value) {
                     return FlLine(
-                      color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
+                      color:
+                          isDark ? AppTheme.darkBorder : AppTheme.lightBorder,
                       strokeWidth: 1,
                     );
                   },
@@ -249,7 +257,9 @@ class AdminDashboardScreen extends ConsumerWidget {
                           value.toInt().toString(),
                           style: TextStyle(
                             fontSize: 10,
-                            color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
+                            color: isDark
+                                ? AppTheme.darkTextTertiary
+                                : AppTheme.lightTextTertiary,
                           ),
                         );
                       },
@@ -259,13 +269,23 @@ class AdminDashboardScreen extends ConsumerWidget {
                     sideTitles: SideTitles(
                       showTitles: true,
                       getTitlesWidget: (value, meta) {
-                        final months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
-                        if (value.toInt() >= 0 && value.toInt() < months.length) {
+                        final months = [
+                          'Jan',
+                          'Feb',
+                          'Mar',
+                          'Apr',
+                          'May',
+                          'Jun'
+                        ];
+                        if (value.toInt() >= 0 &&
+                            value.toInt() < months.length) {
                           return Text(
                             months[value.toInt()],
                             style: TextStyle(
                               fontSize: 10,
-                              color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
+                              color: isDark
+                                  ? AppTheme.darkTextTertiary
+                                  : AppTheme.lightTextTertiary,
                             ),
                           );
                         }
@@ -273,8 +293,10 @@ class AdminDashboardScreen extends ConsumerWidget {
                       },
                     ),
                   ),
-                  rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false)),
+                  topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false)),
                 ),
                 borderData: FlBorderData(show: false),
                 barGroups: [
@@ -326,8 +348,8 @@ class AdminDashboardScreen extends ConsumerWidget {
               Text(
                 'Recent Users',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
               TextButton(
                 onPressed: () {},
@@ -336,13 +358,17 @@ class AdminDashboardScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          _buildUserRow(context, 'John Doe', 'john@example.com', '2 min ago', isDark),
+          _buildUserRow(
+              context, 'John Doe', 'john@example.com', '2 min ago', isDark),
           Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildUserRow(context, 'Jane Smith', 'jane@example.com', '15 min ago', isDark),
+          _buildUserRow(
+              context, 'Jane Smith', 'jane@example.com', '15 min ago', isDark),
           Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildUserRow(context, 'Mike Johnson', 'mike@example.com', '1 hour ago', isDark),
+          _buildUserRow(context, 'Mike Johnson', 'mike@example.com',
+              '1 hour ago', isDark),
           Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildUserRow(context, 'Sarah Williams', 'sarah@example.com', '3 hours ago', isDark),
+          _buildUserRow(context, 'Sarah Williams', 'sarah@example.com',
+              '3 hours ago', isDark),
         ],
       ),
     )
@@ -351,7 +377,8 @@ class AdminDashboardScreen extends ConsumerWidget {
         .slideY(begin: 0.2, end: 0);
   }
 
-  Widget _buildUserRow(BuildContext context, String name, String email, String time, bool isDark) {
+  Widget _buildUserRow(BuildContext context, String name, String email,
+      String time, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
@@ -382,14 +409,16 @@ class AdminDashboardScreen extends ConsumerWidget {
                 Text(
                   name,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 Text(
                   email,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                  ),
+                        color: isDark
+                            ? AppTheme.darkTextSecondary
+                            : AppTheme.lightTextSecondary,
+                      ),
                 ),
               ],
             ),
@@ -397,8 +426,10 @@ class AdminDashboardScreen extends ConsumerWidget {
           Text(
             time,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
-            ),
+                  color: isDark
+                      ? AppTheme.darkTextTertiary
+                      : AppTheme.lightTextTertiary,
+                ),
           ),
         ],
       ),
@@ -416,8 +447,8 @@ class AdminDashboardScreen extends ConsumerWidget {
               Text(
                 'Recent Job Postings',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                      fontWeight: FontWeight.w600,
+                    ),
               ),
               TextButton(
                 onPressed: () {},
@@ -426,11 +457,14 @@ class AdminDashboardScreen extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          _buildJobRow(context, 'Senior Flutter Developer', 'TechCorp Inc.', 'Full-time', '2 hours ago', isDark),
+          _buildJobRow(context, 'Senior Flutter Developer', 'TechCorp Inc.',
+              'Full-time', '2 hours ago', isDark),
           Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildJobRow(context, 'Product Designer', 'DesignStudio', 'Full-time', '5 hours ago', isDark),
+          _buildJobRow(context, 'Product Designer', 'DesignStudio', 'Full-time',
+              '5 hours ago', isDark),
           Divider(color: isDark ? AppTheme.darkBorder : AppTheme.lightBorder),
-          _buildJobRow(context, 'Full Stack Engineer', 'StartupXYZ', 'Contract', '1 day ago', isDark),
+          _buildJobRow(context, 'Full Stack Engineer', 'StartupXYZ', 'Contract',
+              '1 day ago', isDark),
         ],
       ),
     )
@@ -439,7 +473,8 @@ class AdminDashboardScreen extends ConsumerWidget {
         .slideY(begin: 0.2, end: 0);
   }
 
-  Widget _buildJobRow(BuildContext context, String title, String company, String type, String time, bool isDark) {
+  Widget _buildJobRow(BuildContext context, String title, String company,
+      String type, String time, bool isDark) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
@@ -461,14 +496,16 @@ class AdminDashboardScreen extends ConsumerWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                        fontWeight: FontWeight.w600,
+                      ),
                 ),
                 Text(
                   company,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: isDark ? AppTheme.darkTextSecondary : AppTheme.lightTextSecondary,
-                  ),
+                        color: isDark
+                            ? AppTheme.darkTextSecondary
+                            : AppTheme.lightTextSecondary,
+                      ),
                 ),
               ],
             ),
@@ -492,8 +529,10 @@ class AdminDashboardScreen extends ConsumerWidget {
           Text(
             time,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: isDark ? AppTheme.darkTextTertiary : AppTheme.lightTextTertiary,
-            ),
+                  color: isDark
+                      ? AppTheme.darkTextTertiary
+                      : AppTheme.lightTextTertiary,
+                ),
           ),
         ],
       ),

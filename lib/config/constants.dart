@@ -120,7 +120,8 @@ class AppConstants {
   static const String invalidFileFormat = 'Unsupported file format.';
   static const String emptyField = 'This field is required.';
   static const String invalidEmail = 'Please enter a valid email address.';
-  static const String invalidPassword = 'Password must be at least 8 characters.';
+  static const String invalidPassword =
+      'Password must be at least 8 characters.';
   static const String passwordsDontMatch = 'Passwords do not match.';
   static const String invalidOTP = 'Please enter a valid 6-digit code.';
 }

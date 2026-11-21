@@ -85,13 +85,13 @@ class GlassButton extends StatelessWidget {
       child: OutlinedButton(
         onPressed: isLoading ? null : onPressed,
         style: OutlinedButton.styleFrom(
-          backgroundColor: isDark 
-            ? Colors.white.withValues(alpha: 0.1)
-            : Colors.black.withValues(alpha: 0.05),
+          backgroundColor: isDark
+              ? Colors.white.withValues(alpha: 0.1)
+              : Colors.black.withValues(alpha: 0.05),
           side: BorderSide(
-            color: isDark 
-              ? Colors.white.withValues(alpha: 0.2)
-              : Colors.black.withValues(alpha: 0.1),
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.2)
+                : Colors.black.withValues(alpha: 0.1),
             width: 1.5,
           ),
         ),
@@ -152,7 +152,8 @@ class SocialButton extends StatelessWidget {
           iconPath,
           width: 24,
           height: 24,
-          errorBuilder: (context, error, stackTrace) => const Icon(Icons.account_circle),
+          errorBuilder: (context, error, stackTrace) =>
+              const Icon(Icons.account_circle),
         ),
         label: Text(text),
         style: OutlinedButton.styleFrom(

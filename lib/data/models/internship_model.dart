@@ -98,9 +98,15 @@ class InternshipModel extends Equatable {
         industry: map['industry'],
         eligibility: map['eligibility'],
         openings: map['openings'],
-        applyBy: map['applyBy'] != null ? (map['applyBy'] as Timestamp).toDate() : null,
-        startDate: map['startDate'] != null ? (map['startDate'] as Timestamp).toDate() : null,
-        postedAt: map['postedAt'] != null ? (map['postedAt'] as Timestamp).toDate() : null,
+        applyBy: map['applyBy'] != null
+            ? (map['applyBy'] as Timestamp).toDate()
+            : null,
+        startDate: map['startDate'] != null
+            ? (map['startDate'] as Timestamp).toDate()
+            : null,
+        postedAt: map['postedAt'] != null
+            ? (map['postedAt'] as Timestamp).toDate()
+            : null,
         isActive: map['isActive'] ?? true,
         applyUrl: map['applyUrl'],
         recruiterId: map['recruiterId'],
@@ -108,9 +114,27 @@ class InternshipModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id, title, company, companyLogo, description, shortDescription,
-        skills, duration, isPaid, stipend, currency, location, isRemote,
-        industry, eligibility, openings, applyBy, startDate, postedAt,
-        isActive, applyUrl, recruiterId,
+        id,
+        title,
+        company,
+        companyLogo,
+        description,
+        shortDescription,
+        skills,
+        duration,
+        isPaid,
+        stipend,
+        currency,
+        location,
+        isRemote,
+        industry,
+        eligibility,
+        openings,
+        applyBy,
+        startDate,
+        postedAt,
+        isActive,
+        applyUrl,
+        recruiterId,
       ];
 }

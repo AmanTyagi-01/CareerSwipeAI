@@ -52,14 +52,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     setState(() => _isLoading = true);
     try {
       await ref.read(authNotifierProvider.notifier).updateProfile(
-        displayName: _nameController.text.trim(),
-        bio: _bioController.text.trim(),
-        location: _locationController.text.trim(),
-        phoneNumber: _phoneController.text.trim(),
-        experienceLevel: _selectedExperience,
-        industry: _selectedIndustry,
-        skills: _skills,
-      );
+            displayName: _nameController.text.trim(),
+            bio: _bioController.text.trim(),
+            location: _locationController.text.trim(),
+            phoneNumber: _phoneController.text.trim(),
+            experienceLevel: _selectedExperience,
+            industry: _selectedIndustry,
+            skills: _skills,
+          );
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -94,7 +94,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
           borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: Color(0xFF232A3B)),
         ),
-        title: const Text('Add Skill', style: TextStyle(color: Color(0xFFF1F5F9))),
+        title:
+            const Text('Add Skill', style: TextStyle(color: Color(0xFFF1F5F9))),
         content: TextField(
           controller: skillController,
           autofocus: true,
@@ -123,13 +124,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel', style: TextStyle(color: Color(0xFF94A3B8))),
+            child: const Text('Cancel',
+                style: TextStyle(color: Color(0xFF94A3B8))),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF8B5CF6),
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
             ),
             onPressed: () {
               final val = skillController.text.trim();
@@ -153,7 +156,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Edit Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Edit Profile',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         actions: [
           TextButton(
             onPressed: _isLoading ? null : _saveProfile,
@@ -161,9 +165,14 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ? const SizedBox(
                     width: 18,
                     height: 18,
-                    child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF8B5CF6)),
+                    child: CircularProgressIndicator(
+                        strokeWidth: 2, color: Color(0xFF8B5CF6)),
                   )
-                : const Text('Save', style: TextStyle(color: Color(0xFF8B5CF6), fontWeight: FontWeight.bold, fontSize: 16)),
+                : const Text('Save',
+                    style: TextStyle(
+                        color: Color(0xFF8B5CF6),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16)),
           ),
           const SizedBox(width: 8),
         ],
@@ -195,7 +204,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   Widget _buildAvatarSection() {
-    final initials = AppUtils.getInitials(_nameController.text.isEmpty ? 'Aman Tyagi' : _nameController.text);
+    final initials = AppUtils.getInitials(
+        _nameController.text.isEmpty ? 'Aman Tyagi' : _nameController.text);
     return Center(
       child: Stack(
         alignment: Alignment.bottomRight,
@@ -236,7 +246,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: const Color(0xFF0A0E17), width: 3),
             ),
-            child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 16),
+            child: const Icon(Icons.camera_alt_rounded,
+                color: Colors.white, size: 16),
           ),
         ],
       ),
@@ -256,7 +267,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         children: [
           const Text(
             'Personal Information',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFF1F5F9)),
           ),
           const SizedBox(height: 18),
           _buildTextField(
@@ -264,7 +278,9 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             label: 'Full Name',
             hint: 'Aman Tyagi',
             icon: Icons.person_outline_rounded,
-            validator: (value) => (value == null || value.trim().isEmpty) ? 'Name is required' : null,
+            validator: (value) => (value == null || value.trim().isEmpty)
+                ? 'Name is required'
+                : null,
           ),
           const SizedBox(height: 14),
           _buildTextField(
@@ -307,7 +323,10 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         children: [
           const Text(
             'Professional Details',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFF1F5F9)),
           ),
           const SizedBox(height: 18),
           _buildDropdown(
@@ -346,24 +365,33 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             children: [
               const Text(
                 'Skills & Expertise',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFF1F5F9)),
               ),
               InkWell(
                 onTap: _addSkill,
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
+                    border: Border.all(
+                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
                   ),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.add, size: 14, color: Color(0xFF8B5CF6)),
                       SizedBox(width: 4),
-                      Text('Add Skill', style: TextStyle(color: Color(0xFF8B5CF6), fontSize: 12, fontWeight: FontWeight.w600)),
+                      Text('Add Skill',
+                          style: TextStyle(
+                              color: Color(0xFF8B5CF6),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),
@@ -382,20 +410,27 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
               runSpacing: 8,
               children: _skills.map((skill) {
                 return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E2638),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.4)),
+                    border: Border.all(
+                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.4)),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(skill, style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 13, fontWeight: FontWeight.w500)),
+                      Text(skill,
+                          style: const TextStyle(
+                              color: Color(0xFFF1F5F9),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500)),
                       const SizedBox(width: 6),
                       GestureDetector(
                         onTap: () => setState(() => _skills.remove(skill)),
-                        child: const Icon(Icons.close_rounded, size: 14, color: Color(0xFF94A3B8)),
+                        child: const Icon(Icons.close_rounded,
+                            size: 14, color: Color(0xFF94A3B8)),
                       ),
                     ],
                   ),
@@ -428,18 +463,23 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
         onPressed: _isLoading ? null : _saveProfile,
         child: _isLoading
             ? const SizedBox(
                 width: 22,
                 height: 22,
-                child: CircularProgressIndicator(strokeWidth: 2.5, color: Colors.white),
+                child: CircularProgressIndicator(
+                    strokeWidth: 2.5, color: Colors.white),
               )
             : const Text(
                 'Save Changes',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
               ),
       ),
     );
@@ -457,7 +497,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(label,
+            style: const TextStyle(
+                color: Color(0xFF94A3B8),
+                fontSize: 12,
+                fontWeight: FontWeight.w500)),
         const SizedBox(height: 6),
         TextFormField(
           controller: controller,
@@ -471,7 +515,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             prefixIcon: Icon(icon, color: const Color(0xFF8B5CF6), size: 20),
             filled: true,
             fillColor: const Color(0xFF0A0E17),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Color(0xFF232A3B)),
@@ -482,7 +527,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
+              borderSide:
+                  const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
             ),
           ),
         ),
@@ -500,7 +546,11 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(label,
+            style: const TextStyle(
+                color: Color(0xFF94A3B8),
+                fontSize: 12,
+                fontWeight: FontWeight.w500)),
         const SizedBox(height: 6),
         DropdownButtonFormField<String>(
           initialValue: value,
@@ -511,7 +561,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             prefixIcon: Icon(icon, color: const Color(0xFF8B5CF6), size: 20),
             filled: true,
             fillColor: const Color(0xFF0A0E17),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Color(0xFF232A3B)),
@@ -522,13 +573,15 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
+              borderSide:
+                  const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
             ),
           ),
           items: items.map((item) {
             return DropdownMenuItem(
               value: item,
-              child: Text(item, style: const TextStyle(color: Color(0xFFF1F5F9))),
+              child:
+                  Text(item, style: const TextStyle(color: Color(0xFFF1F5F9))),
             );
           }).toList(),
           onChanged: onChanged,

@@ -8,7 +8,16 @@ enum UserType { talent, recruiter, organizer }
 enum WorkMode { remote, hybrid, onsite, any }
 
 /// Experience level
-enum ExperienceLevel { student, fresher, intern, junior, midLevel, senior, lead, executive }
+enum ExperienceLevel {
+  student,
+  fresher,
+  intern,
+  junior,
+  midLevel,
+  senior,
+  lead,
+  executive
+}
 
 /// A single education entry
 class EducationEntry extends Equatable {
@@ -70,7 +79,8 @@ class EducationEntry extends Equatable {
       );
 
   @override
-  List<Object?> get props => [institution, degree, field, grade, startYear, endYear, isCurrent];
+  List<Object?> get props =>
+      [institution, degree, field, grade, startYear, endYear, isCurrent];
 }
 
 /// A single work experience entry
@@ -157,7 +167,19 @@ class ExperienceEntry extends Equatable {
       );
 
   @override
-  List<Object?> get props => [company, role, description, location, isRemote, startMonth, startYear, endMonth, endYear, isCurrent, skills];
+  List<Object?> get props => [
+        company,
+        role,
+        description,
+        location,
+        isRemote,
+        startMonth,
+        startYear,
+        endMonth,
+        endYear,
+        isCurrent,
+        skills
+      ];
 }
 
 /// A certification entry
@@ -187,7 +209,8 @@ class CertificationEntry extends Equatable {
         'url': url,
       };
 
-  factory CertificationEntry.fromMap(Map<String, dynamic> map) => CertificationEntry(
+  factory CertificationEntry.fromMap(Map<String, dynamic> map) =>
+      CertificationEntry(
         name: map['name'] ?? '',
         issuer: map['issuer'] ?? '',
         credentialId: map['credentialId'],
@@ -197,7 +220,8 @@ class CertificationEntry extends Equatable {
       );
 
   @override
-  List<Object?> get props => [name, issuer, credentialId, issuedYear, expiryYear, url];
+  List<Object?> get props =>
+      [name, issuer, credentialId, issuedYear, expiryYear, url];
 }
 
 /// A project entry
@@ -493,12 +517,14 @@ class UserModel extends Equatable {
       'isAdmin': isAdmin,
       'createdAt': createdAt != null ? Timestamp.fromDate(createdAt!) : null,
       'updatedAt': updatedAt != null ? Timestamp.fromDate(updatedAt!) : null,
-      'lastLoginAt': lastLoginAt != null ? Timestamp.fromDate(lastLoginAt!) : null,
+      'lastLoginAt':
+          lastLoginAt != null ? Timestamp.fromDate(lastLoginAt!) : null,
       'preferences': preferences,
       'savedJobIds': savedJobIds,
       'appliedJobIds': appliedJobIds,
       'dailySwipeCount': dailySwipeCount,
-      'lastSwipeReset': lastSwipeReset != null ? Timestamp.fromDate(lastSwipeReset!) : null,
+      'lastSwipeReset':
+          lastSwipeReset != null ? Timestamp.fromDate(lastSwipeReset!) : null,
     };
   }
 
@@ -524,11 +550,13 @@ class UserModel extends Equatable {
               .toList() ??
           [],
       experience: (map['experience'] as List<dynamic>?)
-              ?.map((e) => ExperienceEntry.fromMap(Map<String, dynamic>.from(e)))
+              ?.map(
+                  (e) => ExperienceEntry.fromMap(Map<String, dynamic>.from(e)))
               .toList() ??
           [],
       certifications: (map['certifications'] as List<dynamic>?)
-              ?.map((e) => CertificationEntry.fromMap(Map<String, dynamic>.from(e)))
+              ?.map((e) =>
+                  CertificationEntry.fromMap(Map<String, dynamic>.from(e)))
               .toList() ??
           [],
       projects: (map['projects'] as List<dynamic>?)
@@ -546,14 +574,22 @@ class UserModel extends Equatable {
       isEmailVerified: map['isEmailVerified'] ?? false,
       isProfileComplete: map['isProfileComplete'] ?? false,
       isAdmin: map['isAdmin'] ?? false,
-      createdAt: map['createdAt'] != null ? (map['createdAt'] as Timestamp).toDate() : null,
-      updatedAt: map['updatedAt'] != null ? (map['updatedAt'] as Timestamp).toDate() : null,
-      lastLoginAt: map['lastLoginAt'] != null ? (map['lastLoginAt'] as Timestamp).toDate() : null,
+      createdAt: map['createdAt'] != null
+          ? (map['createdAt'] as Timestamp).toDate()
+          : null,
+      updatedAt: map['updatedAt'] != null
+          ? (map['updatedAt'] as Timestamp).toDate()
+          : null,
+      lastLoginAt: map['lastLoginAt'] != null
+          ? (map['lastLoginAt'] as Timestamp).toDate()
+          : null,
       preferences: Map<String, dynamic>.from(map['preferences'] ?? {}),
       savedJobIds: List<String>.from(map['savedJobIds'] ?? []),
       appliedJobIds: List<String>.from(map['appliedJobIds'] ?? []),
       dailySwipeCount: map['dailySwipeCount'] ?? 0,
-      lastSwipeReset: map['lastSwipeReset'] != null ? (map['lastSwipeReset'] as Timestamp).toDate() : null,
+      lastSwipeReset: map['lastSwipeReset'] != null
+          ? (map['lastSwipeReset'] as Timestamp).toDate()
+          : null,
     );
   }
 
@@ -582,13 +618,43 @@ class UserModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id, email, displayName, photoUrl, phoneNumber, bio, userType,
-        skills, experienceLevel, industry, location, targetRole,
-        preferredIndustry, workMode, careerGoal, education, experience,
-        certifications, projects, achievements, hackathonHistory,
-        githubUrl, linkedinUrl, portfolioUrl, resumeUrl, resumeId,
-        lastAtsScore, isEmailVerified, isProfileComplete, isAdmin,
-        createdAt, updatedAt, lastLoginAt, preferences, savedJobIds,
-        appliedJobIds, dailySwipeCount, lastSwipeReset,
+        id,
+        email,
+        displayName,
+        photoUrl,
+        phoneNumber,
+        bio,
+        userType,
+        skills,
+        experienceLevel,
+        industry,
+        location,
+        targetRole,
+        preferredIndustry,
+        workMode,
+        careerGoal,
+        education,
+        experience,
+        certifications,
+        projects,
+        achievements,
+        hackathonHistory,
+        githubUrl,
+        linkedinUrl,
+        portfolioUrl,
+        resumeUrl,
+        resumeId,
+        lastAtsScore,
+        isEmailVerified,
+        isProfileComplete,
+        isAdmin,
+        createdAt,
+        updatedAt,
+        lastLoginAt,
+        preferences,
+        savedJobIds,
+        appliedJobIds,
+        dailySwipeCount,
+        lastSwipeReset,
       ];
 }

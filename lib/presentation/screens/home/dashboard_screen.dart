@@ -34,9 +34,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   Widget build(BuildContext context) {
     final user = ref.watch(currentUserProvider).value;
     final userName = user?.displayName?.split(' ').first ?? 'Aman';
-    final appliedJobsAsync = user != null
-        ? ref.watch(appliedJobsProvider(user.id))
-        : null;
+    final appliedJobsAsync =
+        user != null ? ref.watch(appliedJobsProvider(user.id)) : null;
     final appliedCount = appliedJobsAsync?.value?.length ?? 12;
     final savedCount = user?.savedJobIds.length ?? 5;
 
@@ -308,7 +307,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.tune_rounded, color: Color(0xFF8B5CF6), size: 20),
+            icon: const Icon(Icons.tune_rounded,
+                color: Color(0xFF8B5CF6), size: 20),
             onPressed: () {},
           ),
         ],
@@ -333,15 +333,20 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFF7C3AED) : const Color(0xFF121622),
+                color: isSelected
+                    ? const Color(0xFF7C3AED)
+                    : const Color(0xFF121622),
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF232A3B),
+                  color: isSelected
+                      ? const Color(0xFF8B5CF6)
+                      : const Color(0xFF232A3B),
                 ),
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
-                          color: const Color(0xFF7C3AED).withValues(alpha: 0.35),
+                          color:
+                              const Color(0xFF7C3AED).withValues(alpha: 0.35),
                           blurRadius: 10,
                         ),
                       ]
@@ -477,7 +482,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     value: 0.78,
                     strokeWidth: 4.5,
                     backgroundColor: Color(0xFF232A3B),
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF10B981)),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFF10B981)),
                   ),
                 ),
                 Text(
@@ -521,7 +527,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios_rounded, color: Color(0xFF94A3B8), size: 16),
+            Icon(Icons.arrow_forward_ios_rounded,
+                color: Color(0xFF94A3B8), size: 16),
           ],
         ),
       ),
@@ -606,8 +613,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 // Bookmark icon
                 IconButton(
                   icon: Icon(
-                    isSaved ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
-                    color: isSaved ? const Color(0xFF8B5CF6) : const Color(0xFF64748B),
+                    isSaved
+                        ? Icons.bookmark_rounded
+                        : Icons.bookmark_outline_rounded,
+                    color: isSaved
+                        ? const Color(0xFF8B5CF6)
+                        : const Color(0xFF64748B),
                     size: 22,
                   ),
                   onPressed: () {},
@@ -621,7 +632,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E2436),
                     borderRadius: BorderRadius.circular(8),
@@ -637,7 +649,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ),
                 const SizedBox(width: 8),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
                     color: const Color(0xFF1E2436),
                     borderRadius: BorderRadius.circular(8),

@@ -26,15 +26,19 @@ class ResumeService {
     FirebaseStorage? storage,
     DocumentParserService? documentParserService,
     AIService? aiService,
-  })  : _firestore = firestore ?? (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null),
-        _storage = storage ?? (Firebase.apps.isNotEmpty ? FirebaseStorage.instance : null),
-        _documentParserService = documentParserService ?? DocumentParserService(),
+  })  : _firestore = firestore ??
+            (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null),
+        _storage = storage ??
+            (Firebase.apps.isNotEmpty ? FirebaseStorage.instance : null),
+        _documentParserService =
+            documentParserService ?? DocumentParserService(),
         _aiService = aiService ?? AIService();
 
   Future<ResumeModel> uploadResume(String userId, PlatformFile file) async {
     final extension = AppUtils.getFileExtension(file.name);
     if (!['pdf', 'doc', 'docx'].contains(extension)) {
-      throw FileException(message: 'Only PDF, DOC, and DOCX files are supported.');
+      throw FileException(
+          message: 'Only PDF, DOC, and DOCX files are supported.');
     }
 
     if (file.size > 10 * 1024 * 1024) {
@@ -64,7 +68,8 @@ class ResumeService {
     );
 
     if (_firestore == null || _storage == null) {
-      final userResumes = _localResumes.where((r) => r.userId == userId).toList();
+      final userResumes =
+          _localResumes.where((r) => r.userId == userId).toList();
       final newVersion = userResumes.length + 1;
 
       final resume = preliminaryResume.copyWith(
@@ -82,7 +87,9 @@ class ResumeService {
       }
 
       _localResumes.insert(0, resume);
-      AppLogger.info('Resume stored locally with real extraction: ${resume.id} (${resume.skills.length} skills detected, ATS=${resume.atsScore})', tag: 'ResumeService');
+      AppLogger.info(
+          'Resume stored locally with real extraction: ${resume.id} (${resume.skills.length} skills detected, ATS=${resume.atsScore})',
+          tag: 'ResumeService');
       return resume;
     }
 
@@ -91,7 +98,8 @@ class ResumeService {
         throw FileException(message: 'Invalid file path.');
       }
 
-      AppLogger.info('Starting resume upload for user $userId', tag: 'ResumeService');
+      AppLogger.info('Starting resume upload for user $userId',
+          tag: 'ResumeService');
 
       final fileName = '${AppUtils.generateId()}_$userId.$extension';
       final ref = _storage.ref().child('resumes/$userId/$fileName');
@@ -102,10 +110,12 @@ class ResumeService {
         try {
           final uploadTask = await ref.putFile(File(file.path!));
           downloadUrl = await uploadTask.ref.getDownloadURL();
-          AppLogger.info('Upload successful on attempt $attempt', tag: 'ResumeService');
+          AppLogger.info('Upload successful on attempt $attempt',
+              tag: 'ResumeService');
           break;
         } on FirebaseException catch (e) {
-          AppLogger.warning('Upload attempt $attempt failed: ${e.message}', tag: 'ResumeService');
+          AppLogger.warning('Upload attempt $attempt failed: ${e.message}',
+              tag: 'ResumeService');
           if (attempt == _maxRetries) rethrow;
           await Future.delayed(Duration(seconds: attempt));
         }
@@ -121,7 +131,10 @@ class ResumeService {
         if (existing.isActive) {
           batch.update(
             _firestore.collection('resumes').doc(existing.id),
-            {'isActive': false, 'updatedAt': Timestamp.fromDate(DateTime.now())},
+            {
+              'isActive': false,
+              'updatedAt': Timestamp.fromDate(DateTime.now())
+            },
           );
         }
       }
@@ -142,7 +155,8 @@ class ResumeService {
         atsBreakdown: initialAnalysis.sectionScores,
       );
 
-      batch.set(_firestore.collection('resumes').doc(resume.id), resume.toMap());
+      batch.set(
+          _firestore.collection('resumes').doc(resume.id), resume.toMap());
 
       // Update user's active resume reference
       batch.update(_firestore.collection('users').doc(userId), {
@@ -152,16 +166,20 @@ class ResumeService {
       });
 
       await batch.commit();
-      AppLogger.info('Resume saved to Firestore: ${resume.id}', tag: 'ResumeService');
+      AppLogger.info('Resume saved to Firestore: ${resume.id}',
+          tag: 'ResumeService');
       return resume;
     } on FileException {
       rethrow;
     } on FirebaseException catch (e) {
-      AppLogger.error('Firebase error uploading resume', tag: 'ResumeService', error: e, stackTrace: e.stackTrace);
+      AppLogger.error('Firebase error uploading resume',
+          tag: 'ResumeService', error: e, stackTrace: e.stackTrace);
       throw FileException(message: 'Failed to upload resume: ${e.message}');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error uploading resume', tag: 'ResumeService', error: e, stackTrace: stackTrace);
-      throw FileException(message: 'Failed to upload resume: $e', stackTrace: stackTrace);
+      AppLogger.error('Unexpected error uploading resume',
+          tag: 'ResumeService', error: e, stackTrace: stackTrace);
+      throw FileException(
+          message: 'Failed to upload resume: $e', stackTrace: stackTrace);
     }
   }
 
@@ -177,9 +195,12 @@ class ResumeService {
           .orderBy('uploadedAt', descending: true)
           .get();
 
-      return snapshot.docs.map((doc) => ResumeModel.fromFirestore(doc)).toList();
+      return snapshot.docs
+          .map((doc) => ResumeModel.fromFirestore(doc))
+          .toList();
     } catch (e) {
-      AppLogger.warning('Failed to fetch resumes from Firestore: $e', tag: 'ResumeService');
+      AppLogger.warning('Failed to fetch resumes from Firestore: $e',
+          tag: 'ResumeService');
       return _localResumes.where((r) => r.userId == userId).toList();
     }
   }
@@ -206,7 +227,8 @@ class ResumeService {
       if (!doc.exists) return null;
       return ResumeModel.fromFirestore(doc);
     } catch (e) {
-      AppLogger.warning('Failed to fetch resume by id: $e', tag: 'ResumeService');
+      AppLogger.warning('Failed to fetch resume by id: $e',
+          tag: 'ResumeService');
       try {
         return _localResumes.firstWhere((r) => r.id == resumeId);
       } catch (_) {
@@ -226,7 +248,8 @@ class ResumeService {
     return null;
   }
 
-  Future<void> renameResume(String resumeId, String userId, String newName) async {
+  Future<void> renameResume(
+      String resumeId, String userId, String newName) async {
     if (_firestore == null) {
       final idx = _localResumes.indexWhere((r) => r.id == resumeId);
       if (idx != -1) {
@@ -245,7 +268,8 @@ class ResumeService {
     }
   }
 
-  Future<Map<String, dynamic>> compareResumes(String resumeId1, String resumeId2) async {
+  Future<Map<String, dynamic>> compareResumes(
+      String resumeId1, String resumeId2) async {
     final r1 = await getResumeById(resumeId1);
     final r2 = await getResumeById(resumeId2);
     return {
@@ -267,7 +291,8 @@ class ResumeService {
 
     try {
       await _firestore.collection('resumes').doc(resumeId).delete();
-      AppLogger.info('Resume deleted from Firestore: $resumeId', tag: 'ResumeService');
+      AppLogger.info('Resume deleted from Firestore: $resumeId',
+          tag: 'ResumeService');
     } catch (e) {
       AppLogger.error('Failed to delete resume: $e', tag: 'ResumeService');
       throw FileException(message: 'Failed to delete resume: $e');

@@ -41,15 +41,17 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
           child: userAsync.when(
             data: (user) {
               if (user == null) {
-                return const Center(child: Text('Please log in to preview your resume.'));
+                return const Center(
+                    child: Text('Please log in to preview your resume.'));
               }
               // Fetch user resumes to get the active one
               final resumesAsync = ref.watch(userResumesProvider(user.id));
               return resumesAsync.when(
                 data: (resumes) {
-                  final activeResume = resumes.isEmpty 
-                      ? null 
-                      : resumes.firstWhere((r) => r.isActive, orElse: () => resumes.first);
+                  final activeResume = resumes.isEmpty
+                      ? null
+                      : resumes.firstWhere((r) => r.isActive,
+                          orElse: () => resumes.first);
 
                   if (activeResume == null) {
                     return _buildNoResumeState(context);
@@ -94,8 +96,11 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
                 Text(
                   'Upload your resume to view a beautiful high-fidelity visual PDF template preview representation.',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withValues(alpha: 0.7),
+                      ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
@@ -114,7 +119,8 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
     );
   }
 
-  Widget _buildPreviewContent(BuildContext context, ResumeModel resume, dynamic user) {
+  Widget _buildPreviewContent(
+      BuildContext context, ResumeModel resume, dynamic user) {
     return Column(
       children: [
         // Template Selector Bar
@@ -147,7 +153,7 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
             ],
           ),
         ),
-        
+
         // PDF Document Mock Card
         Expanded(
           child: SingleChildScrollView(
@@ -177,7 +183,10 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
                 ),
               ),
             ),
-          ).animate().fadeIn(duration: 400.ms).scale(begin: const Offset(0.95, 0.95)),
+          )
+              .animate()
+              .fadeIn(duration: 400.ms)
+              .scale(begin: const Offset(0.95, 0.95)),
         ),
       ],
     );
@@ -234,7 +243,9 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
                   ),
                 ),
                 Text(
-                  user.experienceLevel != null ? '${user.experienceLevel} Software Engineer' : 'Senior Mobile Engineer',
+                  user.experienceLevel != null
+                      ? '${user.experienceLevel} Software Engineer'
+                      : 'Senior Mobile Engineer',
                   style: const TextStyle(
                     color: Color(0xFF475569),
                     fontSize: 14,
@@ -247,9 +258,12 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(email, style: const TextStyle(color: Colors.black54, fontSize: 10)),
-              Text(phone, style: const TextStyle(color: Colors.black54, fontSize: 10)),
-              Text(location, style: const TextStyle(color: Colors.black54, fontSize: 10)),
+              Text(email,
+                  style: const TextStyle(color: Colors.black54, fontSize: 10)),
+              Text(phone,
+                  style: const TextStyle(color: Colors.black54, fontSize: 10)),
+              Text(location,
+                  style: const TextStyle(color: Colors.black54, fontSize: 10)),
             ],
           ),
         ],
@@ -287,8 +301,10 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(phone, style: const TextStyle(color: Colors.white70, fontSize: 11)),
-              Text(location, style: const TextStyle(color: Colors.white70, fontSize: 11)),
+              Text(phone,
+                  style: const TextStyle(color: Colors.white70, fontSize: 11)),
+              Text(location,
+                  style: const TextStyle(color: Colors.white70, fontSize: 11)),
             ],
           ),
         ],
@@ -297,8 +313,17 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
   }
 
   Widget _buildTemplateBody(dynamic user, ResumeModel resume) {
-    final bio = user.bio ?? 'Experienced software engineer specializing in building high-performance cross-platform mobile applications with beautiful UI and maintainable architectures.';
-    final skills = resume.skills.isNotEmpty ? resume.skills : const ['Flutter', 'Dart', 'Firebase', 'State Management', 'REST APIs'];
+    final bio = user.bio ??
+        'Experienced software engineer specializing in building high-performance cross-platform mobile applications with beautiful UI and maintainable architectures.';
+    final skills = resume.skills.isNotEmpty
+        ? resume.skills
+        : const [
+            'Flutter',
+            'Dart',
+            'Firebase',
+            'State Management',
+            'REST APIs'
+          ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -308,7 +333,8 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
         const SizedBox(height: 8),
         Text(
           bio,
-          style: const TextStyle(color: Colors.black87, fontSize: 12, height: 1.4),
+          style:
+              const TextStyle(color: Colors.black87, fontSize: 12, height: 1.4),
         ),
         const SizedBox(height: 20),
 
@@ -327,7 +353,10 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
               ),
               child: Text(
                 skill,
-                style: const TextStyle(color: Colors.black87, fontSize: 10, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                    color: Colors.black87,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500),
               ),
             );
           }).toList(),
@@ -365,7 +394,10 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
           children: [
             const Text(
               'B.S. in Computer Science  |  State University',
-              style: TextStyle(color: Colors.black87, fontSize: 11, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               'Graduated 2021',
@@ -379,7 +411,8 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
 
   Widget _buildSectionHeader(String title) {
     Color underlineColor = const Color(0xFF6366F1);
-    if (_selectedTemplate == 'Executive') underlineColor = const Color(0xFF1E3A8A);
+    if (_selectedTemplate == 'Executive')
+      underlineColor = const Color(0xFF1E3A8A);
     if (_selectedTemplate == 'Minimalist') underlineColor = Colors.grey;
 
     return Column(
@@ -388,7 +421,9 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
         Text(
           title.toUpperCase(),
           style: TextStyle(
-            color: _selectedTemplate == 'Executive' ? const Color(0xFF1E3A8A) : Colors.black,
+            color: _selectedTemplate == 'Executive'
+                ? const Color(0xFF1E3A8A)
+                : Colors.black,
             fontSize: 12,
             fontWeight: FontWeight.bold,
             letterSpacing: 0.5,
@@ -404,7 +439,10 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
     );
   }
 
-  Widget _buildExperienceItem({required String company, required String period, required List<String> points}) {
+  Widget _buildExperienceItem(
+      {required String company,
+      required String period,
+      required List<String> points}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -413,7 +451,10 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
           children: [
             Text(
               company,
-              style: const TextStyle(color: Colors.black87, fontSize: 11, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Colors.black87,
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold),
             ),
             Text(
               period,
@@ -428,7 +469,8 @@ class _PdfPreviewScreenState extends ConsumerState<PdfPreviewScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('• ', style: TextStyle(color: Colors.black54, fontSize: 12)),
+                const Text('• ',
+                    style: TextStyle(color: Colors.black54, fontSize: 12)),
                 Expanded(
                   child: Text(
                     pt,

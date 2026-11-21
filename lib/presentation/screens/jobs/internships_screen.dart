@@ -90,7 +90,8 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
         foregroundColor: const Color(0xFFF1F5F9),
         title: const Text(
           'Internships',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+          style:
+              TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
         ),
         actions: [
           IconButton(
@@ -98,7 +99,8 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.bookmark_outline_rounded, color: Color(0xFFF1F5F9)),
+            icon: const Icon(Icons.bookmark_outline_rounded,
+                color: Color(0xFFF1F5F9)),
             onPressed: () => context.push('/jobs/saved'),
           ),
         ],
@@ -115,8 +117,10 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                 style: const TextStyle(color: Color(0xFFF1F5F9)),
                 decoration: InputDecoration(
                   hintText: 'Search internships, skills, or companies...',
-                  hintStyle: const TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
-                  prefixIcon: const Icon(Icons.search_rounded, color: Color(0xFF94A3B8)),
+                  hintStyle:
+                      const TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
+                  prefixIcon: const Icon(Icons.search_rounded,
+                      color: Color(0xFF94A3B8)),
                   filled: true,
                   fillColor: const Color(0xFF121622),
                   border: OutlineInputBorder(
@@ -129,7 +133,8 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 2),
+                    borderSide:
+                        const BorderSide(color: Color(0xFF8B5CF6), width: 2),
                   ),
                   contentPadding: const EdgeInsets.symmetric(vertical: 14),
                 ),
@@ -152,7 +157,8 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                     onTap: () => setState(() => _selectedFilter = filter),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         gradient: isSelected
                             ? const LinearGradient(
@@ -170,8 +176,11 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                       child: Text(
                         filter,
                         style: TextStyle(
-                          color: isSelected ? Colors.white : const Color(0xFF94A3B8),
-                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                          color: isSelected
+                              ? Colors.white
+                              : const Color(0xFF94A3B8),
+                          fontWeight:
+                              isSelected ? FontWeight.w600 : FontWeight.normal,
                           fontSize: 13,
                         ),
                       ),
@@ -266,7 +275,8 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                   ),
                   // Duration badge
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xFF38BDF8).withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(20),
@@ -294,12 +304,13 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                   const SizedBox(width: 4),
                   Text(
                     '${intern['location']}',
-                    style: const TextStyle(
-                        fontSize: 12, color: Color(0xFF94A3B8)),
+                    style:
+                        const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
                   ),
                   const SizedBox(width: 10),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
                       color: const Color(0xFF1A2035),
                       borderRadius: BorderRadius.circular(4),
@@ -322,7 +333,8 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
                 runSpacing: 6,
                 children: (intern['skills'] as List<String>).map((skill) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xFF1A2035),
                       borderRadius: BorderRadius.circular(6),
@@ -408,6 +420,9 @@ class _InternshipsScreenState extends ConsumerState<InternshipsScreen> {
           ),
         ),
       ),
-    ).animate().fadeIn(delay: Duration(milliseconds: 100 + index * 60)).slideY(begin: 0.1, end: 0);
+    )
+        .animate()
+        .fadeIn(delay: Duration(milliseconds: 100 + index * 60))
+        .slideY(begin: 0.1, end: 0);
   }
 }

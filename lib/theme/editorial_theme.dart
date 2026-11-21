@@ -44,9 +44,11 @@ class EditorialColors {
 
   // Decision Stamps
   static const Color stampInterested = Color(0xFF1E4B38);
-  static const Color stampInterestedBg = Color(0x0F1E4B38); // rgba(30, 75, 56, 0.06)
+  static const Color stampInterestedBg =
+      Color(0x0F1E4B38); // rgba(30, 75, 56, 0.06)
   static const Color stampPass = Color(0xFF636A70);
-  static const Color stampPassBg = Color(0x0F636A70); // rgba(99, 106, 112, 0.06)
+  static const Color stampPassBg =
+      Color(0x0F636A70); // rgba(99, 106, 112, 0.06)
 
   // Neutral Light (Warm Archival Paper)
   static const Color paperBackground = Color(0xFFFBFBFA); // #FBFBFA / #F9F9F8
@@ -83,8 +85,10 @@ class EditorialSpacing {
 
   static const double spaceXs = 4.0; // 0.25rem: micro gaps, inner badge padding
   static const double spaceSm = 8.0; // 0.5rem: icon-to-text, list item padding
-  static const double spaceMd = 16.0; // 1.0rem: card internal padding, field separation
-  static const double spaceLg = 24.0; // 1.5rem: card-to-control distance, section stacking
+  static const double spaceMd =
+      16.0; // 1.0rem: card internal padding, field separation
+  static const double spaceLg =
+      24.0; // 1.5rem: card-to-control distance, section stacking
   static const double spaceXl = 32.0; // 2.0rem: major contextual block breaks
   static const double gutter = 16.0; // 1.0rem
   static const double margin = 20.0; // 1.25rem: outer canvas margins
@@ -113,7 +117,8 @@ class EditorialRadii {
   static const BorderRadius roundedLg = BorderRadius.all(r16);
 
   /// Full Pill (for signal fit tags, avatar badges)
-  static const BorderRadius roundedFull = BorderRadius.all(Radius.circular(9999.0));
+  static const BorderRadius roundedFull =
+      BorderRadius.all(Radius.circular(9999.0));
 }
 
 // ---------------------------------------------------------------------------
@@ -264,74 +269,78 @@ class EditorialTypography {
           color: color,
         );
 
-  static TextStyle bodyMd({Color? color, FontWeight? fontWeight}) => debugDisableGoogleFonts
-      ? TextStyle(
-          fontFamily: 'Inter',
-          fontFamilyFallback: const ['sans-serif'],
-          fontSize: 14.0,
-          fontWeight: fontWeight ?? FontWeight.w400,
-          height: 20.0 / 14.0,
-          color: color,
-        )
-      : GoogleFonts.inter(
-          fontSize: 14.0,
-          fontWeight: fontWeight ?? FontWeight.w400,
-          height: 20.0 / 14.0,
-          color: color,
-        );
+  static TextStyle bodyMd({Color? color, FontWeight? fontWeight}) =>
+      debugDisableGoogleFonts
+          ? TextStyle(
+              fontFamily: 'Inter',
+              fontFamilyFallback: const ['sans-serif'],
+              fontSize: 14.0,
+              fontWeight: fontWeight ?? FontWeight.w400,
+              height: 20.0 / 14.0,
+              color: color,
+            )
+          : GoogleFonts.inter(
+              fontSize: 14.0,
+              fontWeight: fontWeight ?? FontWeight.w400,
+              height: 20.0 / 14.0,
+              color: color,
+            );
 
-  static TextStyle bodySm({Color? color, FontWeight? fontWeight}) => debugDisableGoogleFonts
-      ? TextStyle(
-          fontFamily: 'Inter',
-          fontFamilyFallback: const ['sans-serif'],
-          fontSize: 12.0,
-          fontWeight: fontWeight ?? FontWeight.w400,
-          height: 16.0 / 12.0,
-          color: color,
-        )
-      : GoogleFonts.inter(
-          fontSize: 12.0,
-          fontWeight: fontWeight ?? FontWeight.w400,
-          height: 16.0 / 12.0,
-          color: color,
-        );
+  static TextStyle bodySm({Color? color, FontWeight? fontWeight}) =>
+      debugDisableGoogleFonts
+          ? TextStyle(
+              fontFamily: 'Inter',
+              fontFamilyFallback: const ['sans-serif'],
+              fontSize: 12.0,
+              fontWeight: fontWeight ?? FontWeight.w400,
+              height: 16.0 / 12.0,
+              color: color,
+            )
+          : GoogleFonts.inter(
+              fontSize: 12.0,
+              fontWeight: fontWeight ?? FontWeight.w400,
+              height: 16.0 / 12.0,
+              color: color,
+            );
 
   // Inter Sans Labels & Stamps
-  static TextStyle labelLg({Color? color, FontWeight? fontWeight}) => debugDisableGoogleFonts
-      ? TextStyle(
-          fontFamily: 'Inter',
-          fontFamilyFallback: const ['sans-serif'],
-          fontSize: 14.0,
-          fontWeight: fontWeight ?? FontWeight.w600,
-          height: 18.0 / 14.0,
-          letterSpacing: 0.14,
-          color: color,
-        )
-      : GoogleFonts.inter(
-          fontSize: 14.0,
-          fontWeight: fontWeight ?? FontWeight.w600,
-          height: 18.0 / 14.0,
-          letterSpacing: 0.14,
-          color: color,
-        );
+  static TextStyle labelLg({Color? color, FontWeight? fontWeight}) =>
+      debugDisableGoogleFonts
+          ? TextStyle(
+              fontFamily: 'Inter',
+              fontFamilyFallback: const ['sans-serif'],
+              fontSize: 14.0,
+              fontWeight: fontWeight ?? FontWeight.w600,
+              height: 18.0 / 14.0,
+              letterSpacing: 0.14,
+              color: color,
+            )
+          : GoogleFonts.inter(
+              fontSize: 14.0,
+              fontWeight: fontWeight ?? FontWeight.w600,
+              height: 18.0 / 14.0,
+              letterSpacing: 0.14,
+              color: color,
+            );
 
-  static TextStyle labelMd({Color? color, FontWeight? fontWeight}) => debugDisableGoogleFonts
-      ? TextStyle(
-          fontFamily: 'Inter',
-          fontFamilyFallback: const ['sans-serif'],
-          fontSize: 12.0,
-          fontWeight: fontWeight ?? FontWeight.w500,
-          height: 16.0 / 12.0,
-          letterSpacing: 0.24,
-          color: color,
-        )
-      : GoogleFonts.inter(
-          fontSize: 12.0,
-          fontWeight: fontWeight ?? FontWeight.w500,
-          height: 16.0 / 12.0,
-          letterSpacing: 0.24,
-          color: color,
-        );
+  static TextStyle labelMd({Color? color, FontWeight? fontWeight}) =>
+      debugDisableGoogleFonts
+          ? TextStyle(
+              fontFamily: 'Inter',
+              fontFamilyFallback: const ['sans-serif'],
+              fontSize: 12.0,
+              fontWeight: fontWeight ?? FontWeight.w500,
+              height: 16.0 / 12.0,
+              letterSpacing: 0.24,
+              color: color,
+            )
+          : GoogleFonts.inter(
+              fontSize: 12.0,
+              fontWeight: fontWeight ?? FontWeight.w500,
+              height: 16.0 / 12.0,
+              letterSpacing: 0.24,
+              color: color,
+            );
 
   /// Editorial Verification Stamp: 11px uppercase, wide tracking 0.08em
   static TextStyle labelStamp({Color? color}) => debugDisableGoogleFonts
@@ -379,18 +388,30 @@ class EditorialTheme {
 
   static ThemeData get light {
     final textTheme = TextTheme(
-      headlineLarge: EditorialTypography.headlineXl(color: EditorialColors.paperTextPrimary),
-      headlineMedium: EditorialTypography.headlineLg(color: EditorialColors.paperTextPrimary),
-      headlineSmall: EditorialTypography.headlineMd(color: EditorialColors.paperTextPrimary),
-      titleLarge: EditorialTypography.headlineSm(color: EditorialColors.paperTextPrimary),
-      titleMedium: EditorialTypography.labelLg(color: EditorialColors.paperTextPrimary),
-      titleSmall: EditorialTypography.labelMd(color: EditorialColors.paperTextSecondary),
-      bodyLarge: EditorialTypography.bodyLg(color: EditorialColors.paperTextPrimary),
-      bodyMedium: EditorialTypography.bodyMd(color: EditorialColors.paperTextPrimary),
-      bodySmall: EditorialTypography.bodySm(color: EditorialColors.paperTextSecondary),
-      labelLarge: EditorialTypography.labelLg(color: EditorialColors.paperTextPrimary),
-      labelMedium: EditorialTypography.labelMd(color: EditorialColors.paperTextSecondary),
-      labelSmall: EditorialTypography.labelStamp(color: EditorialColors.paperTextTertiary),
+      headlineLarge: EditorialTypography.headlineXl(
+          color: EditorialColors.paperTextPrimary),
+      headlineMedium: EditorialTypography.headlineLg(
+          color: EditorialColors.paperTextPrimary),
+      headlineSmall: EditorialTypography.headlineMd(
+          color: EditorialColors.paperTextPrimary),
+      titleLarge: EditorialTypography.headlineSm(
+          color: EditorialColors.paperTextPrimary),
+      titleMedium:
+          EditorialTypography.labelLg(color: EditorialColors.paperTextPrimary),
+      titleSmall: EditorialTypography.labelMd(
+          color: EditorialColors.paperTextSecondary),
+      bodyLarge:
+          EditorialTypography.bodyLg(color: EditorialColors.paperTextPrimary),
+      bodyMedium:
+          EditorialTypography.bodyMd(color: EditorialColors.paperTextPrimary),
+      bodySmall:
+          EditorialTypography.bodySm(color: EditorialColors.paperTextSecondary),
+      labelLarge:
+          EditorialTypography.labelLg(color: EditorialColors.paperTextPrimary),
+      labelMedium: EditorialTypography.labelMd(
+          color: EditorialColors.paperTextSecondary),
+      labelSmall: EditorialTypography.labelStamp(
+          color: EditorialColors.paperTextTertiary),
     );
 
     return ThemeData(
@@ -432,7 +453,8 @@ class EditorialTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: EditorialTypography.headlineSm(color: EditorialColors.paperTextPrimary),
+        titleTextStyle: EditorialTypography.headlineSm(
+            color: EditorialColors.paperTextPrimary),
         iconTheme: const IconThemeData(color: EditorialColors.paperTextPrimary),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -441,7 +463,8 @@ class EditorialTheme {
           foregroundColor: EditorialColors.onPrimary,
           minimumSize: const Size(double.infinity, 48.0),
           elevation: 0,
-          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+          shape: const RoundedRectangleBorder(
+              borderRadius: EditorialRadii.roundedMd),
           textStyle: EditorialTypography.labelLg(color: Colors.white),
         ),
       ),
@@ -450,23 +473,30 @@ class EditorialTheme {
           foregroundColor: EditorialColors.paperTextPrimary,
           minimumSize: const Size(double.infinity, 48.0),
           elevation: 0,
-          side: const BorderSide(color: EditorialColors.paperHairline, width: 1.0),
-          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
-          textStyle: EditorialTypography.labelLg(color: EditorialColors.paperTextPrimary),
+          side: const BorderSide(
+              color: EditorialColors.paperHairline, width: 1.0),
+          shape: const RoundedRectangleBorder(
+              borderRadius: EditorialRadii.roundedMd),
+          textStyle: EditorialTypography.labelLg(
+              color: EditorialColors.paperTextPrimary),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: EditorialColors.paperSurface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        hintStyle: EditorialTypography.bodyMd(color: EditorialColors.paperPlaceholder),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        hintStyle:
+            EditorialTypography.bodyMd(color: EditorialColors.paperPlaceholder),
         border: const OutlineInputBorder(
           borderRadius: EditorialRadii.roundedMd,
-          borderSide: BorderSide(color: EditorialColors.paperHairline, width: 1.0),
+          borderSide:
+              BorderSide(color: EditorialColors.paperHairline, width: 1.0),
         ),
         enabledBorder: const OutlineInputBorder(
           borderRadius: EditorialRadii.roundedMd,
-          borderSide: BorderSide(color: EditorialColors.paperHairline, width: 1.0),
+          borderSide:
+              BorderSide(color: EditorialColors.paperHairline, width: 1.0),
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: EditorialRadii.roundedMd,
@@ -487,18 +517,30 @@ class EditorialTheme {
 
   static ThemeData get dark {
     final textTheme = TextTheme(
-      headlineLarge: EditorialTypography.headlineXl(color: EditorialColors.darkTextPrimary),
-      headlineMedium: EditorialTypography.headlineLg(color: EditorialColors.darkTextPrimary),
-      headlineSmall: EditorialTypography.headlineMd(color: EditorialColors.darkTextPrimary),
-      titleLarge: EditorialTypography.headlineSm(color: EditorialColors.darkTextPrimary),
-      titleMedium: EditorialTypography.labelLg(color: EditorialColors.darkTextPrimary),
-      titleSmall: EditorialTypography.labelMd(color: EditorialColors.darkTextSecondary),
-      bodyLarge: EditorialTypography.bodyLg(color: EditorialColors.darkTextPrimary),
-      bodyMedium: EditorialTypography.bodyMd(color: EditorialColors.darkTextPrimary),
-      bodySmall: EditorialTypography.bodySm(color: EditorialColors.darkTextSecondary),
-      labelLarge: EditorialTypography.labelLg(color: EditorialColors.darkTextPrimary),
-      labelMedium: EditorialTypography.labelMd(color: EditorialColors.darkTextSecondary),
-      labelSmall: EditorialTypography.labelStamp(color: EditorialColors.darkTextTertiary),
+      headlineLarge: EditorialTypography.headlineXl(
+          color: EditorialColors.darkTextPrimary),
+      headlineMedium: EditorialTypography.headlineLg(
+          color: EditorialColors.darkTextPrimary),
+      headlineSmall: EditorialTypography.headlineMd(
+          color: EditorialColors.darkTextPrimary),
+      titleLarge: EditorialTypography.headlineSm(
+          color: EditorialColors.darkTextPrimary),
+      titleMedium:
+          EditorialTypography.labelLg(color: EditorialColors.darkTextPrimary),
+      titleSmall:
+          EditorialTypography.labelMd(color: EditorialColors.darkTextSecondary),
+      bodyLarge:
+          EditorialTypography.bodyLg(color: EditorialColors.darkTextPrimary),
+      bodyMedium:
+          EditorialTypography.bodyMd(color: EditorialColors.darkTextPrimary),
+      bodySmall:
+          EditorialTypography.bodySm(color: EditorialColors.darkTextSecondary),
+      labelLarge:
+          EditorialTypography.labelLg(color: EditorialColors.darkTextPrimary),
+      labelMedium:
+          EditorialTypography.labelMd(color: EditorialColors.darkTextSecondary),
+      labelSmall: EditorialTypography.labelStamp(
+          color: EditorialColors.darkTextTertiary),
     );
 
     return ThemeData(
@@ -540,7 +582,8 @@ class EditorialTheme {
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
-        titleTextStyle: EditorialTypography.headlineSm(color: EditorialColors.darkTextPrimary),
+        titleTextStyle: EditorialTypography.headlineSm(
+            color: EditorialColors.darkTextPrimary),
         iconTheme: const IconThemeData(color: EditorialColors.darkTextPrimary),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -549,7 +592,8 @@ class EditorialTheme {
           foregroundColor: EditorialColors.onPrimary,
           minimumSize: const Size(double.infinity, 48.0),
           elevation: 0,
-          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+          shape: const RoundedRectangleBorder(
+              borderRadius: EditorialRadii.roundedMd),
           textStyle: EditorialTypography.labelLg(color: Colors.white),
         ),
       ),
@@ -558,23 +602,30 @@ class EditorialTheme {
           foregroundColor: EditorialColors.darkTextPrimary,
           minimumSize: const Size(double.infinity, 48.0),
           elevation: 0,
-          side: const BorderSide(color: EditorialColors.darkHairline, width: 1.0),
-          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
-          textStyle: EditorialTypography.labelLg(color: EditorialColors.darkTextPrimary),
+          side:
+              const BorderSide(color: EditorialColors.darkHairline, width: 1.0),
+          shape: const RoundedRectangleBorder(
+              borderRadius: EditorialRadii.roundedMd),
+          textStyle: EditorialTypography.labelLg(
+              color: EditorialColors.darkTextPrimary),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: EditorialColors.darkSurface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-        hintStyle: EditorialTypography.bodyMd(color: EditorialColors.darkPlaceholder),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        hintStyle:
+            EditorialTypography.bodyMd(color: EditorialColors.darkPlaceholder),
         border: const OutlineInputBorder(
           borderRadius: EditorialRadii.roundedMd,
-          borderSide: BorderSide(color: EditorialColors.darkHairline, width: 1.0),
+          borderSide:
+              BorderSide(color: EditorialColors.darkHairline, width: 1.0),
         ),
         enabledBorder: const OutlineInputBorder(
           borderRadius: EditorialRadii.roundedMd,
-          borderSide: BorderSide(color: EditorialColors.darkHairline, width: 1.0),
+          borderSide:
+              BorderSide(color: EditorialColors.darkHairline, width: 1.0),
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: EditorialRadii.roundedMd,

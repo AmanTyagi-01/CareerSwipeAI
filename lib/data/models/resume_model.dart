@@ -21,7 +21,9 @@ class ResumeAnalysisContext extends Equatable {
     this.customRole,
   });
 
-  String get effectiveRole => targetRole == 'Custom' ? (customRole ?? 'Software Developer') : targetRole;
+  String get effectiveRole => targetRole == 'Custom'
+      ? (customRole ?? 'Software Developer')
+      : targetRole;
 
   ResumeAnalysisContext copyWith({
     String? targetRole,
@@ -49,7 +51,8 @@ class ResumeAnalysisContext extends Equatable {
         'customRole': customRole,
       };
 
-  factory ResumeAnalysisContext.fromMap(Map<String, dynamic> map) => ResumeAnalysisContext(
+  factory ResumeAnalysisContext.fromMap(Map<String, dynamic> map) =>
+      ResumeAnalysisContext(
         targetRole: map['targetRole'] ?? 'Software Developer',
         experienceLevel: map['experienceLevel'] ?? 'fresher',
         preferredIndustry: map['preferredIndustry'],
@@ -59,7 +62,14 @@ class ResumeAnalysisContext extends Equatable {
       );
 
   @override
-  List<Object?> get props => [targetRole, experienceLevel, preferredIndustry, preferredLocation, workMode, customRole];
+  List<Object?> get props => [
+        targetRole,
+        experienceLevel,
+        preferredIndustry,
+        preferredLocation,
+        workMode,
+        customRole
+      ];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -88,7 +98,8 @@ class LearningResource extends Equatable {
         'duration': duration,
       };
 
-  factory LearningResource.fromMap(Map<String, dynamic> map) => LearningResource(
+  factory LearningResource.fromMap(Map<String, dynamic> map) =>
+      LearningResource(
         title: map['title'] ?? '',
         platform: map['platform'] ?? '',
         type: map['type'] ?? 'course',
@@ -134,7 +145,8 @@ class RoadmapMonth extends Equatable {
         theme: map['theme'] ?? '',
         goals: List<String>.from(map['goals'] ?? []),
         resources: (map['resources'] as List<dynamic>?)
-                ?.map((r) => LearningResource.fromMap(Map<String, dynamic>.from(r)))
+                ?.map((r) =>
+                    LearningResource.fromMap(Map<String, dynamic>.from(r)))
                 .toList() ??
             [],
         projects: List<String>.from(map['projects'] ?? []),
@@ -142,7 +154,8 @@ class RoadmapMonth extends Equatable {
       );
 
   @override
-  List<Object?> get props => [month, theme, goals, resources, projects, certifications];
+  List<Object?> get props =>
+      [month, theme, goals, resources, projects, certifications];
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -238,7 +251,9 @@ class ResumeModel extends Equatable {
       fileSize: map['fileSize'] ?? 0,
       fileType: map['fileType'] ?? 'pdf',
       extractedText: map['extractedText'],
-      uploadedAt: map['uploadedAt'] != null ? (map['uploadedAt'] as Timestamp).toDate() : null,
+      uploadedAt: map['uploadedAt'] != null
+          ? (map['uploadedAt'] as Timestamp).toDate()
+          : null,
       isActive: map['isActive'] ?? true,
       version: map['version'] ?? 1,
       atsScore: (map['atsScore'] ?? 0.0).toDouble(),
@@ -254,8 +269,19 @@ class ResumeModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id, userId, fileName, fileUrl, fileSize, fileType,
-        extractedText, uploadedAt, isActive, version, atsScore, skills, atsBreakdown,
+        id,
+        userId,
+        fileName,
+        fileUrl,
+        fileSize,
+        fileType,
+        extractedText,
+        uploadedAt,
+        isActive,
+        version,
+        atsScore,
+        skills,
+        atsBreakdown,
       ];
 }
 
@@ -397,8 +423,10 @@ class ResumeAnalysisModel extends Equatable {
       formattingScore: formattingScore ?? this.formattingScore,
       contentScore: contentScore ?? this.contentScore,
       jobReadinessScore: jobReadinessScore ?? this.jobReadinessScore,
-      careerCompetitivenessScore: careerCompetitivenessScore ?? this.careerCompetitivenessScore,
-      interviewReadinessScore: interviewReadinessScore ?? this.interviewReadinessScore,
+      careerCompetitivenessScore:
+          careerCompetitivenessScore ?? this.careerCompetitivenessScore,
+      interviewReadinessScore:
+          interviewReadinessScore ?? this.interviewReadinessScore,
       marketDemandScore: marketDemandScore ?? this.marketDemandScore,
       resumeStrengthScore: resumeStrengthScore ?? this.resumeStrengthScore,
       detectedSkills: detectedSkills ?? this.detectedSkills,
@@ -469,8 +497,10 @@ class ResumeAnalysisModel extends Equatable {
       formattingScore: (map['formattingScore'] ?? 0.0).toDouble(),
       contentScore: (map['contentScore'] ?? 0.0).toDouble(),
       jobReadinessScore: (map['jobReadinessScore'] ?? 0.0).toDouble(),
-      careerCompetitivenessScore: (map['careerCompetitivenessScore'] ?? 0.0).toDouble(),
-      interviewReadinessScore: (map['interviewReadinessScore'] ?? 0.0).toDouble(),
+      careerCompetitivenessScore:
+          (map['careerCompetitivenessScore'] ?? 0.0).toDouble(),
+      interviewReadinessScore:
+          (map['interviewReadinessScore'] ?? 0.0).toDouble(),
       marketDemandScore: (map['marketDemandScore'] ?? 0.0).toDouble(),
       resumeStrengthScore: (map['resumeStrengthScore'] ?? 0.0).toDouble(),
       detectedSkills: List<String>.from(map['detectedSkills'] ?? []),
@@ -496,23 +526,49 @@ class ResumeAnalysisModel extends Equatable {
               .toList() ??
           [],
       context: map['context'] != null
-          ? ResumeAnalysisContext.fromMap(Map<String, dynamic>.from(map['context']))
+          ? ResumeAnalysisContext.fromMap(
+              Map<String, dynamic>.from(map['context']))
           : null,
-      analyzedAt: map['analyzedAt'] != null ? (map['analyzedAt'] as Timestamp).toDate() : null,
+      analyzedAt: map['analyzedAt'] != null
+          ? (map['analyzedAt'] as Timestamp).toDate()
+          : null,
       isComplete: map['isComplete'] ?? false,
     );
   }
 
   @override
   List<Object?> get props => [
-        id, userId, resumeId, atsScore, keywordMatch, formattingScore,
-        contentScore, jobReadinessScore, careerCompetitivenessScore,
-        interviewReadinessScore, marketDemandScore, resumeStrengthScore,
-        detectedSkills, missingSkills, recommendedSkills, keywords,
-        missingKeywords, strengths, improvements, summary, rewriteSuggestions,
-        careerAdvice, interviewTips, sectionScores, projectAnalysis,
-        experienceRelevance, educationAnalysis, roadmap, context,
-        analyzedAt, isComplete,
+        id,
+        userId,
+        resumeId,
+        atsScore,
+        keywordMatch,
+        formattingScore,
+        contentScore,
+        jobReadinessScore,
+        careerCompetitivenessScore,
+        interviewReadinessScore,
+        marketDemandScore,
+        resumeStrengthScore,
+        detectedSkills,
+        missingSkills,
+        recommendedSkills,
+        keywords,
+        missingKeywords,
+        strengths,
+        improvements,
+        summary,
+        rewriteSuggestions,
+        careerAdvice,
+        interviewTips,
+        sectionScores,
+        projectAnalysis,
+        experienceRelevance,
+        educationAnalysis,
+        roadmap,
+        context,
+        analyzedAt,
+        isComplete,
       ];
 }
 
@@ -554,8 +610,19 @@ class JobDescriptionMatchModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id, userId, resumeId, jobDescription, jobTitle, matchPercentage,
-        matchedKeywords, missingKeywords, matchedSkills, missingSkills,
-        missingTechnologies, resumeGaps, optimizationTips, analyzedAt,
+        id,
+        userId,
+        resumeId,
+        jobDescription,
+        jobTitle,
+        matchPercentage,
+        matchedKeywords,
+        missingKeywords,
+        matchedSkills,
+        missingSkills,
+        missingTechnologies,
+        resumeGaps,
+        optimizationTips,
+        analyzedAt,
       ];
 }

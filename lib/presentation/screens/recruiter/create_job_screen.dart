@@ -31,12 +31,15 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
   void initState() {
     super.initState();
     final user = ref.read(currentUserProvider).value;
-    _companyController.text = user?.industry?.isNotEmpty == true ? user!.industry! : 'Aman Traders Tech';
+    _companyController.text = user?.industry?.isNotEmpty == true
+        ? user!.industry!
+        : 'Aman Traders Tech';
     _locationController.text = 'Bengaluru, India';
     _minSalaryController.text = '12';
     _maxSalaryController.text = '25';
     _titleController.text = 'Software Engineer';
-    _descriptionController.text = 'We are looking for a talented Software Engineer to join our team, build next-gen mobile experiences, and drive scalable solutions.';
+    _descriptionController.text =
+        'We are looking for a talented Software Engineer to join our team, build next-gen mobile experiences, and drive scalable solutions.';
   }
 
   @override
@@ -125,7 +128,8 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Post a New Job', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Post a New Job',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -162,14 +166,19 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Job Information', style: TextStyle(color: Color(0xFFF1F5F9), fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text('Job Information',
+              style: TextStyle(
+                  color: Color(0xFFF1F5F9),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 16),
           _buildTextField(
             controller: _titleController,
             label: 'Job Title *',
             hint: 'e.g. Software Engineer',
             icon: Icons.title_rounded,
-            validator: (v) => v?.trim().isEmpty == true ? 'Please enter job title' : null,
+            validator: (v) =>
+                v?.trim().isEmpty == true ? 'Please enter job title' : null,
           ),
           const SizedBox(height: 14),
           _buildTextField(
@@ -177,10 +186,15 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
             label: 'Company Name *',
             hint: 'Aman Traders Tech',
             icon: Icons.business_rounded,
-            validator: (v) => v?.trim().isEmpty == true ? 'Please enter company name' : null,
+            validator: (v) =>
+                v?.trim().isEmpty == true ? 'Please enter company name' : null,
           ),
           const SizedBox(height: 16),
-          const Text('Job Type', style: TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500)),
+          const Text('Job Type',
+              style: TextStyle(
+                  color: Color(0xFF94A3B8),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500)),
           const SizedBox(height: 8),
           Row(
             children: ['Full-time', 'Internship', 'Contract'].map((type) {
@@ -194,17 +208,25 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF0A0E17),
+                        color: isSelected
+                            ? const Color(0xFF8B5CF6)
+                            : const Color(0xFF0A0E17),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF232A3B)),
+                        border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFF8B5CF6)
+                                : const Color(0xFF232A3B)),
                       ),
                       child: Center(
                         child: Text(
                           type,
                           style: TextStyle(
-                            color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+                            color: isSelected
+                                ? Colors.white
+                                : const Color(0xFF94A3B8),
                             fontSize: 12,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                            fontWeight:
+                                isSelected ? FontWeight.bold : FontWeight.w500,
                           ),
                         ),
                       ),
@@ -230,11 +252,16 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   children: [
-                    const Text('Remote', style: TextStyle(color: Color(0xFFCBD5E1), fontSize: 13, fontWeight: FontWeight.w500)),
+                    const Text('Remote',
+                        style: TextStyle(
+                            color: Color(0xFFCBD5E1),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500)),
                     const SizedBox(width: 4),
                     Switch(
                       value: _isRemote,
-                      activeTrackColor: const Color(0xFF8B5CF6).withValues(alpha: 0.5),
+                      activeTrackColor:
+                          const Color(0xFF8B5CF6).withValues(alpha: 0.5),
                       activeThumbColor: const Color(0xFF8B5CF6),
                       inactiveTrackColor: const Color(0xFF1E2638),
                       onChanged: (v) => setState(() => _isRemote = v),
@@ -284,27 +311,38 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Required Skills *', style: TextStyle(color: Color(0xFFF1F5F9), fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text('Required Skills *',
+              style: TextStyle(
+                  color: Color(0xFFF1F5F9),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 14),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: _skills.map((skill) {
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.4)),
+                  border: Border.all(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.4)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(skill, style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 12, fontWeight: FontWeight.w500)),
+                    Text(skill,
+                        style: const TextStyle(
+                            color: Color(0xFFF1F5F9),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500)),
                     const SizedBox(width: 6),
                     GestureDetector(
                       onTap: () => setState(() => _skills.remove(skill)),
-                      child: const Icon(Icons.close_rounded, size: 14, color: Color(0xFF94A3B8)),
+                      child: const Icon(Icons.close_rounded,
+                          size: 14, color: Color(0xFF94A3B8)),
                     ),
                   ],
                 ),
@@ -323,12 +361,15 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
                   ),
                   child: TextField(
                     controller: _skillInputController,
-                    style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 13),
+                    style:
+                        const TextStyle(color: Color(0xFFF1F5F9), fontSize: 13),
                     onSubmitted: (_) => _addSkill(),
                     decoration: const InputDecoration(
                       hintText: 'Add skill (e.g. PyTorch, React, AWS)',
-                      hintStyle: TextStyle(color: Color(0xFF475569), fontSize: 13),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      hintStyle:
+                          TextStyle(color: Color(0xFF475569), fontSize: 13),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                       border: InputBorder.none,
                     ),
                   ),
@@ -365,22 +406,36 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Job Description *', style: TextStyle(color: Color(0xFFF1F5F9), fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text('Job Description *',
+              style: TextStyle(
+                  color: Color(0xFFF1F5F9),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           TextFormField(
             controller: _descriptionController,
             maxLines: 4,
             style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14),
             decoration: InputDecoration(
-              hintText: 'Describe responsibilities, requirements, and tech stack...',
-              hintStyle: const TextStyle(color: Color(0xFF475569), fontSize: 13),
+              hintText:
+                  'Describe responsibilities, requirements, and tech stack...',
+              hintStyle:
+                  const TextStyle(color: Color(0xFF475569), fontSize: 13),
               filled: true,
               fillColor: const Color(0xFF0A0E17),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF232A3B))),
-              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF232A3B))),
-              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5)),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF232A3B))),
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF232A3B))),
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide:
+                      const BorderSide(color: Color(0xFF8B5CF6), width: 1.5)),
             ),
-            validator: (v) => v?.trim().isEmpty == true ? 'Please enter a description' : null,
+            validator: (v) =>
+                v?.trim().isEmpty == true ? 'Please enter a description' : null,
           ),
         ],
       ),
@@ -408,18 +463,23 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
         ),
         onPressed: _isSubmitting ? null : _submitJob,
         child: _isSubmitting
             ? const SizedBox(
                 width: 22,
                 height: 22,
-                child: CircularProgressIndicator(strokeWidth: 2.5, color: Colors.white),
+                child: CircularProgressIndicator(
+                    strokeWidth: 2.5, color: Colors.white),
               )
             : const Text(
                 'Post Job / Opportunity',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
               ),
       ),
     );
@@ -436,7 +496,11 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500)),
+        Text(label,
+            style: const TextStyle(
+                color: Color(0xFF94A3B8),
+                fontSize: 12,
+                fontWeight: FontWeight.w500)),
         const SizedBox(height: 6),
         TextFormField(
           controller: controller,
@@ -449,10 +513,18 @@ class _CreateJobScreenState extends ConsumerState<CreateJobScreen> {
             prefixIcon: Icon(icon, color: const Color(0xFF8B5CF6), size: 18),
             filled: true,
             fillColor: const Color(0xFF0A0E17),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF232A3B))),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF232A3B))),
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5)),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Color(0xFF232A3B))),
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Color(0xFF232A3B))),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide:
+                    const BorderSide(color: Color(0xFF8B5CF6), width: 1.5)),
           ),
         ),
       ],

@@ -60,17 +60,21 @@ class ProfileScreen extends ConsumerWidget {
                             gradient: const LinearGradient(
                               colors: [Color(0xFF8B5CF6), Color(0xFF06B6D4)],
                             ),
-                            border: Border.all(color: const Color(0xFF2A334A), width: 2),
+                            border: Border.all(
+                                color: const Color(0xFF2A334A), width: 2),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                                color: const Color(0xFF8B5CF6)
+                                    .withValues(alpha: 0.3),
                                 blurRadius: 20,
                               ),
                             ],
                           ),
                           child: Center(
                             child: Text(
-                              userName.isNotEmpty ? userName[0].toUpperCase() : 'A',
+                              userName.isNotEmpty
+                                  ? userName[0].toUpperCase()
+                                  : 'A',
                               style: const TextStyle(
                                 fontSize: 36,
                                 fontWeight: FontWeight.w900,
@@ -88,7 +92,8 @@ class ProfileScreen extends ConsumerWidget {
                             decoration: BoxDecoration(
                               color: const Color(0xFF10B981),
                               shape: BoxShape.circle,
-                              border: Border.all(color: const Color(0xFF0A0E17), width: 2.5),
+                              border: Border.all(
+                                  color: const Color(0xFF0A0E17), width: 2.5),
                             ),
                           ),
                         ),
@@ -198,7 +203,8 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Support concierge available 24/7 at support@careerswipe.ai'),
+                      content: Text(
+                          'Support concierge available 24/7 at support@careerswipe.ai'),
                       behavior: SnackBarBehavior.floating,
                     ),
                   );
@@ -210,7 +216,8 @@ class ProfileScreen extends ConsumerWidget {
               // Switch to Recruiter Mode / Role Switch
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: const Color(0xFF121622),
                   borderRadius: BorderRadius.circular(16),
@@ -218,7 +225,8 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.swap_horiz_rounded, color: Color(0xFF8B5CF6), size: 24),
+                    const Icon(Icons.swap_horiz_rounded,
+                        color: Color(0xFF8B5CF6), size: 24),
                     const SizedBox(width: 14),
                     const Expanded(
                       child: Column(
@@ -234,7 +242,8 @@ class ProfileScreen extends ConsumerWidget {
                           ),
                           Text(
                             'Post jobs and discover candidates',
-                            style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                            style: TextStyle(
+                                fontSize: 11, color: Color(0xFF94A3B8)),
                           ),
                         ],
                       ),
@@ -243,8 +252,11 @@ class ProfileScreen extends ConsumerWidget {
                       value: user?.userType == UserType.recruiter,
                       activeThumbColor: const Color(0xFF8B5CF6),
                       onChanged: (val) async {
-                        final newType = val ? UserType.recruiter : UserType.talent;
-                        await ref.read(authNotifierProvider.notifier).updateRole(newType);
+                        final newType =
+                            val ? UserType.recruiter : UserType.talent;
+                        await ref
+                            .read(authNotifierProvider.notifier)
+                            .updateRole(newType);
                       },
                     ),
                   ],
@@ -310,10 +322,12 @@ class ProfileScreen extends ConsumerWidget {
                 if (trailingText != null) ...[
                   Text(
                     trailingText,
-                    style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
+                    style:
+                        const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
                   ),
                 ] else ...[
-                  const Icon(Icons.chevron_right_rounded, color: Color(0xFF64748B), size: 18),
+                  const Icon(Icons.chevron_right_rounded,
+                      color: Color(0xFF64748B), size: 18),
                 ],
               ],
             ),

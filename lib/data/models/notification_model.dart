@@ -4,7 +4,8 @@ import 'package:equatable/equatable.dart';
 class NotificationModel extends Equatable {
   final String id;
   final String userId;
-  final String type; // 'job_match', 'application_update', 'resume_analysis', 'system'
+  final String
+      type; // 'job_match', 'application_update', 'resume_analysis', 'system'
   final String title;
   final String body;
   final String? imageUrl;
@@ -78,10 +79,23 @@ class NotificationModel extends Equatable {
       actionUrl: map['actionUrl'],
       data: Map<String, dynamic>.from(map['data'] ?? {}),
       isRead: map['isRead'] ?? false,
-      createdAt: map['createdAt'] != null ? (map['createdAt'] as Timestamp).toDate() : null,
+      createdAt: map['createdAt'] != null
+          ? (map['createdAt'] as Timestamp).toDate()
+          : null,
     );
   }
 
   @override
-  List<Object?> get props => [id, userId, type, title, body, imageUrl, actionUrl, data, isRead, createdAt];
+  List<Object?> get props => [
+        id,
+        userId,
+        type,
+        title,
+        body,
+        imageUrl,
+        actionUrl,
+        data,
+        isRead,
+        createdAt
+      ];
 }

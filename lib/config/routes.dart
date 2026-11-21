@@ -48,7 +48,8 @@ class GoRouterRefreshStream extends ChangeNotifier {
 
   GoRouterRefreshStream(Stream<dynamic> stream) {
     notifyListeners();
-    _subscription = stream.asBroadcastStream().listen((dynamic _) => notifyListeners());
+    _subscription =
+        stream.asBroadcastStream().listen((dynamic _) => notifyListeners());
   }
 
   @override
@@ -64,9 +65,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/',
     debugLogDiagnostics: true,
-    refreshListenable: GoRouterRefreshStream(
-      authService.authStateChanges
-    ),
+    refreshListenable: GoRouterRefreshStream(authService.authStateChanges),
     redirect: (context, state) async {
       final isAuthenticated = authService.isAuthenticated;
       final location = state.matchedLocation;

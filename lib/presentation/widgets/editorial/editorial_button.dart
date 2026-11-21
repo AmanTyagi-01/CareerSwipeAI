@@ -49,9 +49,13 @@ class EditorialButton extends StatelessWidget {
         break;
       case EditorialButtonVariant.secondary:
         bg = isDark ? EditorialColors.darkContainerLow : Colors.transparent;
-        fg = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
+        fg = isDark
+            ? EditorialColors.darkTextPrimary
+            : EditorialColors.paperTextPrimary;
         borderSide = BorderSide(
-          color: isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline,
+          color: isDark
+              ? EditorialColors.darkHairline
+              : EditorialColors.paperHairline,
           width: 1.0,
         );
         break;
@@ -61,7 +65,9 @@ class EditorialButton extends StatelessWidget {
         break;
       case EditorialButtonVariant.ghost:
         bg = Colors.transparent;
-        fg = isDark ? EditorialColors.darkTextSecondary : EditorialColors.paperTextSecondary;
+        fg = isDark
+            ? EditorialColors.darkTextSecondary
+            : EditorialColors.paperTextSecondary;
         break;
     }
 
@@ -108,7 +114,8 @@ class EditorialButton extends StatelessWidget {
           borderRadius: EditorialRadii.roundedMd,
           splashColor: EditorialColors.primaryActive.withValues(alpha: 0.15),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: EditorialSpacing.spaceMd),
+            padding: const EdgeInsets.symmetric(
+                horizontal: EditorialSpacing.spaceMd),
             child: Center(child: buttonChild),
           ),
         ),

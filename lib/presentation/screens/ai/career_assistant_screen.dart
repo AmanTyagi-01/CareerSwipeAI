@@ -6,7 +6,8 @@ class CareerAssistantScreen extends ConsumerStatefulWidget {
   const CareerAssistantScreen({super.key});
 
   @override
-  ConsumerState<CareerAssistantScreen> createState() => _CareerAssistantScreenState();
+  ConsumerState<CareerAssistantScreen> createState() =>
+      _CareerAssistantScreenState();
 }
 
 class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
@@ -16,7 +17,8 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
   final List<Map<String, dynamic>> _messages = [
     {
       'isUser': false,
-      'text': 'Hello Aman! I am your CareerSwipe AI Career Coach. How can I accelerate your job hunt or interview prep today?',
+      'text':
+          'Hello Aman! I am your CareerSwipe AI Career Coach. How can I accelerate your job hunt or interview prep today?',
       'time': 'Just now',
     },
   ];
@@ -72,7 +74,8 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
             'Tech Stack: Flutter 3.x, Riverpod 2.x, SQLite/Isar, WebSocket\n'
             'Impact: Highlights local caching, reactive streams, and resilient background synchronization.';
       } else {
-        response = 'Your profile is currently rated 78/100 ("Good Match"). Adding 2 quantitative metric points and highlighting unit testing experience will elevate your profile to top 5% applicant standing.';
+        response =
+            'Your profile is currently rated 78/100 ("Good Match"). Adding 2 quantitative metric points and highlighting unit testing experience will elevate your profile to top 5% applicant standing.';
       }
 
       setState(() {
@@ -122,7 +125,8 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                   ),
                 ],
               ),
-              child: const Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 16),
+              child: const Icon(Icons.auto_awesome_rounded,
+                  color: Colors.white, size: 16),
             ),
             const SizedBox(width: 10),
             const Text(
@@ -139,7 +143,8 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                 _messages.clear();
                 _messages.add({
                   'isUser': false,
-                  'text': 'Conversation reset. How can I help boost your career today?',
+                  'text':
+                      'Conversation reset. How can I help boost your career today?',
                   'time': 'Just now',
                 });
               });
@@ -165,7 +170,8 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                   onTap: () => _sendMessage(prompt),
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFF121622),
                       borderRadius: BorderRadius.circular(20),
@@ -173,7 +179,10 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                     ),
                     child: Text(
                       prompt,
-                      style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 12, fontWeight: FontWeight.w500),
+                      style: const TextStyle(
+                          color: Color(0xFFCBD5E1),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 );
@@ -192,11 +201,14 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                 final isUser = m['isUser'] as bool;
 
                 return Align(
-                  alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+                  alignment:
+                      isUser ? Alignment.centerRight : Alignment.centerLeft,
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 12),
-                    constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.82),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    constraints: BoxConstraints(
+                        maxWidth: MediaQuery.of(context).size.width * 0.82),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
                       gradient: isUser
                           ? const LinearGradient(
@@ -210,11 +222,14 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                         bottomLeft: Radius.circular(isUser ? 16 : 4),
                         bottomRight: Radius.circular(isUser ? 4 : 16),
                       ),
-                      border: isUser ? null : Border.all(color: const Color(0xFF232A3B)),
+                      border: isUser
+                          ? null
+                          : Border.all(color: const Color(0xFF232A3B)),
                       boxShadow: isUser
                           ? [
                               BoxShadow(
-                                color: const Color(0xFF8B5CF6).withValues(alpha: 0.25),
+                                color: const Color(0xFF8B5CF6)
+                                    .withValues(alpha: 0.25),
                                 blurRadius: 10,
                                 offset: const Offset(0, 3),
                               ),
@@ -230,7 +245,10 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                       ),
                     ),
                   ),
-                ).animate().fadeIn(duration: 200.ms).slideY(begin: 0.05, end: 0);
+                )
+                    .animate()
+                    .fadeIn(duration: 200.ms)
+                    .slideY(begin: 0.05, end: 0);
               },
             ),
           ),
@@ -254,13 +272,16 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                       ),
                       child: TextField(
                         controller: _messageController,
-                        style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14),
+                        style: const TextStyle(
+                            color: Color(0xFFF1F5F9), fontSize: 14),
                         textInputAction: TextInputAction.send,
                         onSubmitted: (_) => _sendMessage(),
                         decoration: const InputDecoration(
                           hintText: 'Ask anything about your career...',
-                          hintStyle: TextStyle(color: Color(0xFF64748B), fontSize: 14),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                          hintStyle:
+                              TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 18, vertical: 12),
                           border: InputBorder.none,
                         ),
                       ),
@@ -279,13 +300,15 @@ class _CareerAssistantScreenState extends ConsumerState<CareerAssistantScreen> {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+                            color:
+                                const Color(0xFF8B5CF6).withValues(alpha: 0.35),
                             blurRadius: 10,
                             offset: const Offset(0, 2),
                           ),
                         ],
                       ),
-                      child: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                      child: const Icon(Icons.send_rounded,
+                          color: Colors.white, size: 20),
                     ),
                   ),
                 ],

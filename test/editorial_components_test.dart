@@ -24,15 +24,18 @@ void main() {
       final darkTheme = EditorialTheme.dark;
 
       expect(lightTheme.colorScheme.primary, equals(EditorialColors.primary));
-      expect(lightTheme.scaffoldBackgroundColor, equals(EditorialColors.paperBackground));
-      expect(darkTheme.scaffoldBackgroundColor, equals(EditorialColors.darkBackground));
+      expect(lightTheme.scaffoldBackgroundColor,
+          equals(EditorialColors.paperBackground));
+      expect(darkTheme.scaffoldBackgroundColor,
+          equals(EditorialColors.darkBackground));
 
       expect(EditorialRadii.tier1, equals(4.0));
       expect(EditorialRadii.tier2, equals(8.0));
       expect(EditorialRadii.tier3, equals(16.0));
     });
 
-    testWidgets('EditorialCard renders child with 16px radius and border', (tester) async {
+    testWidgets('EditorialCard renders child with 16px radius and border',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -47,7 +50,8 @@ void main() {
       expect(find.byType(EditorialCard), findsOneWidget);
     });
 
-    testWidgets('EditorialButton renders primary and triggers tap', (tester) async {
+    testWidgets('EditorialButton renders primary and triggers tap',
+        (tester) async {
       var pressed = false;
       await tester.pumpWidget(
         MaterialApp(
@@ -66,7 +70,8 @@ void main() {
       expect(pressed, isTrue);
     });
 
-    testWidgets('DecisionStamp renders interested and pass badges', (tester) async {
+    testWidgets('DecisionStamp renders interested and pass badges',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -84,7 +89,8 @@ void main() {
       expect(find.text('PASS'), findsOneWidget);
     });
 
-    testWidgets('EditorialChip renders skill tags and triggers tap', (tester) async {
+    testWidgets('EditorialChip renders skill tags and triggers tap',
+        (tester) async {
       var tapped = false;
       await tester.pumpWidget(
         MaterialApp(
@@ -123,7 +129,8 @@ void main() {
       expect(find.text('Full-time · Visa Sync'), findsOneWidget);
     });
 
-    testWidgets('SignalFitBadge and GroundedMatchLedger render telemetry', (tester) async {
+    testWidgets('SignalFitBadge and GroundedMatchLedger render telemetry',
+        (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -132,7 +139,8 @@ void main() {
                 SignalFitBadge(score: 94.8),
                 GroundedMatchLedger(
                   pointsRatio: '6 / 7 Points',
-                  explanation: 'Strong Go & distributed transactional systems overlap.',
+                  explanation:
+                      'Strong Go & distributed transactional systems overlap.',
                 ),
               ],
             ),
@@ -143,7 +151,9 @@ void main() {
       expect(find.text('94.8% SIGNAL MATCH'), findsOneWidget);
       expect(find.text('6 / 7 Points'), findsOneWidget);
       expect(find.text('GROUNDED MATCH LEDGER'), findsOneWidget);
-      expect(find.text('Strong Go & distributed transactional systems overlap.'), findsOneWidget);
+      expect(
+          find.text('Strong Go & distributed transactional systems overlap.'),
+          findsOneWidget);
     });
   });
 }

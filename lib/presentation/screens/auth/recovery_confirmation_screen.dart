@@ -15,11 +15,18 @@ class RecoveryConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     final displayEmail = (email != null && email!.isNotEmpty)
         ? email!
@@ -70,13 +77,15 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                           const SizedBox(width: 6.0),
                           Text(
                             'RECOVERY DISPATCHED · SEC-ID 10//59',
-                            style: EditorialTypography.labelStamp(color: textSecondary),
+                            style: EditorialTypography.labelStamp(
+                                color: textSecondary),
                           ),
                         ],
                       ),
                       Text(
                         'UTC DISPATCHED',
-                        style: EditorialTypography.labelStamp(color: textSecondary),
+                        style: EditorialTypography.labelStamp(
+                            color: textSecondary),
                       ),
                     ],
                   ),
@@ -90,7 +99,9 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                       color: surfaceColor,
                       borderRadius: BorderRadius.circular(16.0),
                       border: Border.all(color: hairlineColor, width: 1.0),
-                      boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                      boxShadow: isDark
+                          ? EditorialElevation.paperCardDark
+                          : EditorialElevation.paperCard,
                     ),
                     child: Column(
                       children: [
@@ -118,7 +129,8 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                                   color: EditorialColors.primary,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(Icons.check, size: 12.0, color: Colors.white),
+                                child: const Icon(Icons.check,
+                                    size: 12.0, color: Colors.white),
                               ),
                             ),
                           ],
@@ -129,7 +141,8 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                         Text(
                           'Recovery instructions dispatched.',
                           textAlign: TextAlign.center,
-                          style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                          style: EditorialTypography.headlineXlMobile(
+                              color: textPrimary),
                         ),
                         const SizedBox(height: EditorialSpacing.spaceSm),
 
@@ -137,21 +150,26 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                         Text(
                           'If an active engineering or recruiter dossier is linked to $displayEmail, a cryptographic reset token has been securely transmitted.',
                           textAlign: TextAlign.center,
-                          style: EditorialTypography.bodyMd(color: textSecondary),
+                          style:
+                              EditorialTypography.bodyMd(color: textSecondary),
                         ),
                         const SizedBox(height: EditorialSpacing.spaceMd),
 
                         // Countdown Timer Pill
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 6.0),
                           decoration: BoxDecoration(
-                            color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                            color: isDark
+                                ? EditorialColors.darkContainerLow
+                                : EditorialColors.paperContainerLow,
                             borderRadius: BorderRadius.circular(999.0),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.timer_outlined, size: 15.0, color: EditorialColors.primary),
+                              const Icon(Icons.timer_outlined,
+                                  size: 15.0, color: EditorialColors.primary),
                               const SizedBox(width: 6.0),
                               Text(
                                 'Token expires in 15:00',
@@ -176,7 +194,9 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                       color: surfaceColor,
                       borderRadius: BorderRadius.circular(12.0),
                       border: Border.all(color: hairlineColor, width: 1.0),
-                      boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                      boxShadow: isDark
+                          ? EditorialElevation.paperCardDark
+                          : EditorialElevation.paperCard,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,34 +206,54 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                const Icon(Icons.key, size: 15.0, color: EditorialColors.primary),
+                                const Icon(Icons.key,
+                                    size: 15.0, color: EditorialColors.primary),
                                 const SizedBox(width: 6.0),
                                 Text(
                                   'DISPATCH METADATA',
-                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                  style: EditorialTypography.labelStamp(
+                                      color: textSecondary),
                                 ),
                               ],
                             ),
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 6.0, vertical: 2.0),
                               decoration: BoxDecoration(
-                                color: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+                                color: isDark
+                                    ? EditorialColors.darkContainerMid
+                                    : EditorialColors.primaryLight,
                                 borderRadius: EditorialRadii.roundedSm,
                               ),
                               child: Text(
                                 'AUTHENTICATED',
                                 style: EditorialTypography.labelStamp(
-                                  color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                                  color: isDark
+                                      ? EditorialColors.onPrimaryContainer
+                                      : EditorialColors.primary,
                                 ),
                               ),
                             ),
                           ],
                         ),
                         const SizedBox(height: EditorialSpacing.spaceSm),
-                        _buildMetaRow('Destination', displayEmail, textPrimary, textSecondary, isDark),
-                        _buildMetaRow('Security Policy', 'Single-use token protocol', textPrimary, textSecondary, isDark),
-                        _buildMetaRow('Token Invalidation', 'Revoked on initial use', textPrimary, textSecondary, isDark),
-                        _buildMetaRow('Fingerprint', 'SHA-256 · e82f...91c4', textPrimary, textSecondary, isDark, isCode: true),
+                        _buildMetaRow('Destination', displayEmail, textPrimary,
+                            textSecondary, isDark),
+                        _buildMetaRow(
+                            'Security Policy',
+                            'Single-use token protocol',
+                            textPrimary,
+                            textSecondary,
+                            isDark),
+                        _buildMetaRow(
+                            'Token Invalidation',
+                            'Revoked on initial use',
+                            textPrimary,
+                            textSecondary,
+                            isDark),
+                        _buildMetaRow('Fingerprint', 'SHA-256 · e82f...91c4',
+                            textPrimary, textSecondary, isDark,
+                            isCode: true),
                       ],
                     ),
                   ),
@@ -233,12 +273,28 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                       children: [
                         Text(
                           'PROCEDURAL NEXT STEPS',
-                          style: EditorialTypography.labelStamp(color: textSecondary),
+                          style: EditorialTypography.labelStamp(
+                              color: textSecondary),
                         ),
                         const SizedBox(height: EditorialSpacing.spaceSm),
-                        _buildStepItem('1', 'Check your institutional inbox for the security dispatch.', textPrimary, textSecondary, isDark),
-                        _buildStepItem('2', 'Follow the zero-knowledge link or enter the confirmation token.', textPrimary, textSecondary, isDark),
-                        _buildStepItem('3', 'Set a new 256-bit encrypted master dossier password.', textPrimary, textSecondary, isDark),
+                        _buildStepItem(
+                            '1',
+                            'Check your institutional inbox for the security dispatch.',
+                            textPrimary,
+                            textSecondary,
+                            isDark),
+                        _buildStepItem(
+                            '2',
+                            'Follow the zero-knowledge link or enter the confirmation token.',
+                            textPrimary,
+                            textSecondary,
+                            isDark),
+                        _buildStepItem(
+                            '3',
+                            'Set a new 256-bit encrypted master dossier password.',
+                            textPrimary,
+                            textSecondary,
+                            isDark),
                       ],
                     ),
                   ),
@@ -247,7 +303,8 @@ class RecoveryConfirmationScreen extends StatelessWidget {
                   // Return CTA
                   EditorialButton(
                     label: 'Return to Sign In',
-                    trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                    trailingIcon: const Icon(Icons.arrow_forward,
+                        size: 18.0, color: Colors.white),
                     onPressed: () => context.go('/auth/login'),
                   ),
                   const SizedBox(height: EditorialSpacing.spaceLg),
@@ -272,7 +329,9 @@ class RecoveryConfirmationScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 3.0),
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       decoration: BoxDecoration(
-        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+        color: isDark
+            ? EditorialColors.darkContainerLow
+            : EditorialColors.paperContainerLow,
         borderRadius: EditorialRadii.roundedSm,
       ),
       child: Row(
@@ -283,7 +342,8 @@ class RecoveryConfirmationScreen extends StatelessWidget {
             value,
             style: isCode
                 ? EditorialTypography.telemetryCode(color: textPrimary)
-                : EditorialTypography.bodySm(color: textPrimary, fontWeight: FontWeight.w500),
+                : EditorialTypography.bodySm(
+                    color: textPrimary, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -304,7 +364,9 @@ class RecoveryConfirmationScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 10.0,
-            backgroundColor: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerHigh,
+            backgroundColor: isDark
+                ? EditorialColors.darkContainerMid
+                : EditorialColors.paperContainerHigh,
             child: Text(
               number,
               style: EditorialTypography.labelStamp(color: textPrimary),
@@ -322,4 +384,3 @@ class RecoveryConfirmationScreen extends StatelessWidget {
     );
   }
 }
-

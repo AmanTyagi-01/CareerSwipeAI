@@ -9,7 +9,8 @@ abstract class ResumeRepository {
   Future<ResumeModel?> getResumeById(String resumeId);
   Future<void> deleteResume(String resumeId, String userId);
   Future<void> renameResume(String resumeId, String userId, String newName);
-  Future<Map<String, dynamic>> compareResumes(String resumeId1, String resumeId2);
+  Future<Map<String, dynamic>> compareResumes(
+      String resumeId1, String resumeId2);
   Future<String> downloadResume(String fileUrl);
 }
 
@@ -43,7 +44,8 @@ class ResumeRepositoryImpl implements ResumeRepository {
       _resumeService.renameResume(resumeId, userId, newName);
 
   @override
-  Future<Map<String, dynamic>> compareResumes(String resumeId1, String resumeId2) =>
+  Future<Map<String, dynamic>> compareResumes(
+          String resumeId1, String resumeId2) =>
       _resumeService.compareResumes(resumeId1, resumeId2);
 
   @override

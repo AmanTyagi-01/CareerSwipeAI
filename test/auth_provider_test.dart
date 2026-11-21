@@ -7,7 +7,8 @@ import 'package:career_swipe_ai/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FakeAuthService extends Fake implements AuthService {
-  StreamController<User?> authStateController = StreamController<User?>.broadcast();
+  StreamController<User?> authStateController =
+      StreamController<User?>.broadcast();
   UserModel? mockUser;
   bool signOutCalled = false;
   bool throwOnSignIn = false;
@@ -36,7 +37,11 @@ class FakeAuthService extends Fake implements AuthService {
   Future<UserModel> signUpWithEmail(
       String email, String password, String displayName,
       {UserType userType = UserType.talent}) async {
-    return UserModel(id: 'new-id', email: email, displayName: displayName, userType: userType);
+    return UserModel(
+        id: 'new-id',
+        email: email,
+        displayName: displayName,
+        userType: userType);
   }
 
   @override

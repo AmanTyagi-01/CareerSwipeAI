@@ -26,13 +26,18 @@ class SignalFitBadge extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final formattedScore = score != null
-        ? (score! <= 1.0 ? '${(score! * 100).toStringAsFixed(1)}%' : '${score!.toStringAsFixed(1)}%')
+        ? (score! <= 1.0
+            ? '${(score! * 100).toStringAsFixed(1)}%'
+            : '${score!.toStringAsFixed(1)}%')
         : null;
 
     final label = customLabel ??
-        (formattedScore != null ? '$formattedScore SIGNAL MATCH' : 'VERIFIED MATCH');
+        (formattedScore != null
+            ? '$formattedScore SIGNAL MATCH'
+            : 'VERIFIED MATCH');
 
-    final baseColor = isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary;
+    final baseColor =
+        isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary;
     final bgColor = isDark
         ? EditorialColors.primaryContainer.withValues(alpha: 0.2)
         : EditorialColors.stampInterestedBg;
@@ -59,7 +64,9 @@ class SignalFitBadge extends StatelessWidget {
               width: 6.0,
               height: 6.0,
               decoration: BoxDecoration(
-                color: isVerified ? EditorialColors.primary : EditorialColors.warning,
+                color: isVerified
+                    ? EditorialColors.primary
+                    : EditorialColors.warning,
                 shape: BoxShape.circle,
               ),
             ),
@@ -96,10 +103,14 @@ class GroundedMatchLedger extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(EditorialSpacing.spaceSm),
       decoration: BoxDecoration(
-        color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperSurface,
+        color: isDark
+            ? EditorialColors.darkContainerMid
+            : EditorialColors.paperSurface,
         borderRadius: EditorialRadii.roundedMd, // 8px radius
         border: Border.all(
-          color: isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline,
+          color: isDark
+              ? EditorialColors.darkHairline
+              : EditorialColors.paperHairline,
           width: 1.0,
         ),
         boxShadow: isDark ? null : EditorialElevation.paperCard,

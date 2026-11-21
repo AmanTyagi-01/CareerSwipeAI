@@ -93,29 +93,37 @@ class Failure extends Equatable {
 }
 
 class NetworkFailure extends Failure {
-  const NetworkFailure({super.message = 'Network connection failed', super.code = 'NETWORK_ERROR'});
+  const NetworkFailure(
+      {super.message = 'Network connection failed',
+      super.code = 'NETWORK_ERROR'});
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure({super.message = 'Server error occurred', super.code = 'SERVER_ERROR'});
+  const ServerFailure(
+      {super.message = 'Server error occurred', super.code = 'SERVER_ERROR'});
 }
 
 class AuthFailure extends Failure {
-  const AuthFailure({super.message = 'Authentication failed', super.code = 'AUTH_ERROR'});
+  const AuthFailure(
+      {super.message = 'Authentication failed', super.code = 'AUTH_ERROR'});
 }
 
 class ValidationFailure extends Failure {
-  const ValidationFailure({super.message = 'Validation failed', super.code = 'VALIDATION_ERROR'});
+  const ValidationFailure(
+      {super.message = 'Validation failed', super.code = 'VALIDATION_ERROR'});
 }
 
 class NotFoundFailure extends Failure {
-  const NotFoundFailure({super.message = 'Resource not found', super.code = 'NOT_FOUND'});
+  const NotFoundFailure(
+      {super.message = 'Resource not found', super.code = 'NOT_FOUND'});
 }
 
 class FileFailure extends Failure {
-  const FileFailure({super.message = 'File operation failed', super.code = 'FILE_ERROR'});
+  const FileFailure(
+      {super.message = 'File operation failed', super.code = 'FILE_ERROR'});
 }
 
 class AIFailure extends Failure {
-  const AIFailure({super.message = 'AI processing failed', super.code = 'AI_ERROR'});
+  const AIFailure(
+      {super.message = 'AI processing failed', super.code = 'AI_ERROR'});
 }

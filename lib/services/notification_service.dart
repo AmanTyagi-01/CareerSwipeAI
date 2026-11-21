@@ -36,14 +36,18 @@ class NotificationService {
     FirebaseFirestore? firestore,
     FirebaseMessaging? messaging,
     FirebaseAuth? auth,
-  })  : _firestore = firestore ?? (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null),
-        _messaging = messaging ?? (Firebase.apps.isNotEmpty ? FirebaseMessaging.instance : null),
-        _auth = auth ?? (Firebase.apps.isNotEmpty ? FirebaseAuth.instance : null);
+  })  : _firestore = firestore ??
+            (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null),
+        _messaging = messaging ??
+            (Firebase.apps.isNotEmpty ? FirebaseMessaging.instance : null),
+        _auth =
+            auth ?? (Firebase.apps.isNotEmpty ? FirebaseAuth.instance : null);
 
   Future<void> initialize() async {
     final messaging = _messaging;
     if (messaging == null) {
-      AppLogger.info('Push notifications skipped (Demo mode)', tag: 'NotificationService');
+      AppLogger.info('Push notifications skipped (Demo mode)',
+          tag: 'NotificationService');
       return;
     }
     try {
@@ -52,7 +56,8 @@ class NotificationService {
         badge: true,
         sound: true,
       );
-      AppLogger.info('Notification permission: ${settings.authorizationStatus}', tag: 'NotificationService');
+      AppLogger.info('Notification permission: ${settings.authorizationStatus}',
+          tag: 'NotificationService');
 
       final token = await messaging.getToken();
       if (token != null) {
@@ -61,17 +66,20 @@ class NotificationService {
 
       messaging.onTokenRefresh.listen((token) {
         _saveToken(token).catchError((e) {
-          AppLogger.warning('Failed to save refreshed FCM token', tag: 'NotificationService', error: e);
+          AppLogger.warning('Failed to save refreshed FCM token',
+              tag: 'NotificationService', error: e);
         });
       });
 
       FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
       FirebaseMessaging.onMessageOpenedApp.listen(_handleBackgroundMessage);
 
-      AppLogger.info('NotificationService initialized', tag: 'NotificationService');
+      AppLogger.info('NotificationService initialized',
+          tag: 'NotificationService');
     } catch (e, stackTrace) {
       // Gracefully handle any missing messaging setup / platform unsupported exceptions
-      AppLogger.warning('NotificationService initialization failed (non-fatal)', tag: 'NotificationService', error: e, stackTrace: stackTrace);
+      AppLogger.warning('NotificationService initialization failed (non-fatal)',
+          tag: 'NotificationService', error: e, stackTrace: stackTrace);
     }
   }
 
@@ -84,23 +92,29 @@ class NotificationService {
         'fcmTokens': FieldValue.arrayUnion([token]),
         'fcmTokenUpdatedAt': Timestamp.fromDate(DateTime.now()),
       });
-      AppLogger.info('FCM token saved for user $uid', tag: 'NotificationService');
+      AppLogger.info('FCM token saved for user $uid',
+          tag: 'NotificationService');
     } on FirebaseException catch (e) {
-      AppLogger.warning('Failed to save FCM token: ${e.message}', tag: 'NotificationService');
+      AppLogger.warning('Failed to save FCM token: ${e.message}',
+          tag: 'NotificationService');
     }
   }
 
   void _handleForegroundMessage(RemoteMessage message) {
-    AppLogger.info('Foreground message received: ${message.notification?.title}', tag: 'NotificationService');
+    AppLogger.info(
+        'Foreground message received: ${message.notification?.title}',
+        tag: 'NotificationService');
     // TODO: Show local notification overlay using flutter_local_notifications
   }
 
   void _handleBackgroundMessage(RemoteMessage message) {
-    AppLogger.info('Background message tapped: ${message.notification?.title}', tag: 'NotificationService');
+    AppLogger.info('Background message tapped: ${message.notification?.title}',
+        tag: 'NotificationService');
     // TODO: Navigate to relevant screen based on message.data['route']
   }
 
-  Future<List<NotificationModel>> getNotifications(String userId, {int limit = 50}) async {
+  Future<List<NotificationModel>> getNotifications(String userId,
+      {int limit = 50}) async {
     if (_firestore == null) {
       return List<NotificationModel>.from(_demoNotifications);
     }
@@ -112,16 +126,19 @@ class NotificationService {
           .limit(limit)
           .get();
 
-      AppLogger.info('Fetched ${snapshot.docs.length} notifications', tag: 'NotificationService');
+      AppLogger.info('Fetched ${snapshot.docs.length} notifications',
+          tag: 'NotificationService');
       return snapshot.docs.map((doc) {
         final data = doc.data();
         return NotificationModel.fromMap({...data, 'id': doc.id});
       }).toList();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching notifications', tag: 'NotificationService', error: e);
+      AppLogger.error('Firestore error fetching notifications',
+          tag: 'NotificationService', error: e);
       throw ServerException(message: 'Failed to fetch notifications.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error fetching notifications', tag: 'NotificationService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error fetching notifications',
+          tag: 'NotificationService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch notifications.');
     }
   }
@@ -134,7 +151,8 @@ class NotificationService {
         'readAt': Timestamp.fromDate(DateTime.now()),
       });
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error marking notification as read', tag: 'NotificationService', error: e);
+      AppLogger.error('Firestore error marking notification as read',
+          tag: 'NotificationService', error: e);
       throw ServerException(message: 'Failed to mark notification as read.');
     }
   }
@@ -157,10 +175,13 @@ class NotificationService {
       }
 
       await batch.commit();
-      AppLogger.info('Marked ${snapshot.docs.length} notifications as read', tag: 'NotificationService');
+      AppLogger.info('Marked ${snapshot.docs.length} notifications as read',
+          tag: 'NotificationService');
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error marking all notifications as read', tag: 'NotificationService', error: e);
-      throw ServerException(message: 'Failed to mark all notifications as read.');
+      AppLogger.error('Firestore error marking all notifications as read',
+          tag: 'NotificationService', error: e);
+      throw ServerException(
+          message: 'Failed to mark all notifications as read.');
     }
   }
 
@@ -169,7 +190,8 @@ class NotificationService {
     try {
       await _firestore.collection('notifications').doc(notificationId).delete();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error deleting notification', tag: 'NotificationService', error: e);
+      AppLogger.error('Firestore error deleting notification',
+          tag: 'NotificationService', error: e);
       throw ServerException(message: 'Failed to delete notification.');
     }
   }
@@ -186,7 +208,8 @@ class NotificationService {
 
       return snapshot.count ?? 0;
     } catch (e) {
-      AppLogger.warning('Failed to get unread count', tag: 'NotificationService', error: e);
+      AppLogger.warning('Failed to get unread count',
+          tag: 'NotificationService', error: e);
       return 0;
     }
   }

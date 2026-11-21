@@ -8,7 +8,8 @@ class JobManagementScreen extends ConsumerStatefulWidget {
   const JobManagementScreen({super.key});
 
   @override
-  ConsumerState<JobManagementScreen> createState() => _JobManagementScreenState();
+  ConsumerState<JobManagementScreen> createState() =>
+      _JobManagementScreenState();
 }
 
 class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
@@ -35,7 +36,8 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
       appBar: AppBar(
-        title: const Text('Job Management', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Job Management',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
@@ -43,7 +45,8 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
         actions: [
           IconButton(
             onPressed: () => context.push('/recruiter/create-job'),
-            icon: const Icon(Icons.add_circle_outline_rounded, color: Color(0xFF8B5CF6)),
+            icon: const Icon(Icons.add_circle_outline_rounded,
+                color: Color(0xFF8B5CF6)),
           ),
         ],
         bottom: TabBar(
@@ -74,19 +77,23 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
         backgroundColor: const Color(0xFF8B5CF6),
         foregroundColor: Colors.white,
         icon: const Icon(Icons.add_rounded),
-        label: const Text('Create Job', style: TextStyle(fontWeight: FontWeight.bold)),
+        label: const Text('Create Job',
+            style: TextStyle(fontWeight: FontWeight.bold)),
       ),
     );
   }
 
-  Widget _buildJobList(AsyncValue<List<dynamic>> jobsAsync, {required bool filterActive}) {
+  Widget _buildJobList(AsyncValue<List<dynamic>> jobsAsync,
+      {required bool filterActive}) {
     return jobsAsync.when(
       data: (jobs) {
-        final activeJobs = jobs.where((j) => j.isActive == filterActive).toList();
+        final activeJobs =
+            jobs.where((j) => j.isActive == filterActive).toList();
 
         if (activeJobs.isEmpty) {
           return const Center(
-            child: Text('No active listings found.', style: TextStyle(color: Color(0xFF94A3B8))),
+            child: Text('No active listings found.',
+                style: TextStyle(color: Color(0xFF94A3B8))),
           );
         }
 
@@ -95,7 +102,8 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           itemCount: activeJobs.length,
           itemBuilder: (context, index) {
             final job = activeJobs[index];
-            final applicantCount = job.applyCount > 0 ? job.applyCount : (index * 28 + 12);
+            final applicantCount =
+                job.applyCount > 0 ? job.applyCount : (index * 28 + 12);
 
             return Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
@@ -125,11 +133,15 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
                             ),
                           ),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                              color: const Color(0xFF10B981)
+                                  .withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.4)),
+                              border: Border.all(
+                                  color: const Color(0xFF10B981)
+                                      .withValues(alpha: 0.4)),
                             ),
                             child: const Text(
                               'Active',
@@ -145,40 +157,52 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
                       const SizedBox(height: 4),
                       Text(
                         job.company,
-                        style: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8)),
+                        style: const TextStyle(
+                            fontSize: 13, color: Color(0xFF94A3B8)),
                       ),
                       const SizedBox(height: 8.0),
                       Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: const Color(0xFF1A2035),
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: const Color(0xFF232A3B)),
+                              border:
+                                  Border.all(color: const Color(0xFF232A3B)),
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.location_on_outlined, size: 12, color: Color(0xFF94A3B8)),
+                                const Icon(Icons.location_on_outlined,
+                                    size: 12, color: Color(0xFF94A3B8)),
                                 const SizedBox(width: 4),
                                 Text(
-                                  job.location.length > 20 ? '${job.location.substring(0, 20)}...' : job.location,
-                                  style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                                  job.location.length > 20
+                                      ? '${job.location.substring(0, 20)}...'
+                                      : job.location,
+                                  style: const TextStyle(
+                                      fontSize: 11, color: Color(0xFF94A3B8)),
                                 ),
                               ],
                             ),
                           ),
                           const SizedBox(width: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
+                              color: const Color(0xFF8B5CF6)
+                                  .withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
+                              border: Border.all(
+                                  color: const Color(0xFF8B5CF6)
+                                      .withValues(alpha: 0.3)),
                             ),
                             child: Text(
                               job.jobType,
-                              style: const TextStyle(fontSize: 11, color: Color(0xFF8B5CF6)),
+                              style: const TextStyle(
+                                  fontSize: 11, color: Color(0xFF8B5CF6)),
                             ),
                           ),
                         ],
@@ -188,15 +212,20 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF38BDF8).withValues(alpha: 0.1),
+                              color: const Color(0xFF38BDF8)
+                                  .withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.3)),
+                              border: Border.all(
+                                  color: const Color(0xFF38BDF8)
+                                      .withValues(alpha: 0.3)),
                             ),
                             child: Row(
                               children: [
-                                const Icon(Icons.people_alt_outlined, size: 14, color: Color(0xFF38BDF8)),
+                                const Icon(Icons.people_alt_outlined,
+                                    size: 14, color: Color(0xFF38BDF8)),
                                 const SizedBox(width: 4),
                                 Text(
                                   '$applicantCount Applicants',
@@ -212,16 +241,21 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
                           Row(
                             children: [
                               TextButton(
-                                onPressed: () => context.push('/recruiter/pipeline', extra: job.id),
+                                onPressed: () => context
+                                    .push('/recruiter/pipeline', extra: job.id),
                                 style: TextButton.styleFrom(
                                   foregroundColor: const Color(0xFF8B5CF6),
-                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 4),
                                 ),
-                                child: const Text('View', style: TextStyle(fontSize: 13)),
+                                child: const Text('View',
+                                    style: TextStyle(fontSize: 13)),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.more_vert_rounded, size: 18, color: Color(0xFF94A3B8)),
-                                onPressed: () => _showJobOptions(context, job.id),
+                                icon: const Icon(Icons.more_vert_rounded,
+                                    size: 18, color: Color(0xFF94A3B8)),
+                                onPressed: () =>
+                                    _showJobOptions(context, job.id),
                               ),
                             ],
                           ),
@@ -235,8 +269,11 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           },
         );
       },
-      loading: () => const Center(child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
-      error: (e, _) => Center(child: Text('Error loading jobs: $e', style: const TextStyle(color: Color(0xFF94A3B8)))),
+      loading: () => const Center(
+          child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
+      error: (e, _) => Center(
+          child: Text('Error loading jobs: $e',
+              style: const TextStyle(color: Color(0xFF94A3B8)))),
     );
   }
 
@@ -257,7 +294,8 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
               contentPadding: EdgeInsets.zero,
               title: Text(
                 'Lead AI Architect (Draft)',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
               ),
               subtitle: Text(
                 'Last edited yesterday',
@@ -286,7 +324,8 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
             contentPadding: EdgeInsets.zero,
             title: Text(
               'Junior Flutter Engineer (Closed)',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
             ),
             subtitle: Text(
               'Filled on Oct 15, 2026',
@@ -308,18 +347,26 @@ class _JobManagementScreenState extends ConsumerState<JobManagementScreen>
           child: Wrap(
             children: [
               ListTile(
-                leading: const Icon(Icons.pause_circle_outline_rounded, color: Color(0xFFF59E0B)),
-                title: const Text('Pause Listing', style: TextStyle(color: Color(0xFFF1F5F9))),
+                leading: const Icon(Icons.pause_circle_outline_rounded,
+                    color: Color(0xFFF59E0B)),
+                title: const Text('Pause Listing',
+                    style: TextStyle(color: Color(0xFFF1F5F9))),
                 onTap: () {
-                  ref.read(jobNotifierProvider.notifier).updateJobStatus(jobId, false);
+                  ref
+                      .read(jobNotifierProvider.notifier)
+                      .updateJobStatus(jobId, false);
                   Navigator.pop(ctx);
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.archive_outlined, color: Color(0xFF94A3B8)),
-                title: const Text('Close and Archive', style: TextStyle(color: Color(0xFFF1F5F9))),
+                leading: const Icon(Icons.archive_outlined,
+                    color: Color(0xFF94A3B8)),
+                title: const Text('Close and Archive',
+                    style: TextStyle(color: Color(0xFFF1F5F9))),
                 onTap: () {
-                  ref.read(jobNotifierProvider.notifier).updateJobStatus(jobId, false);
+                  ref
+                      .read(jobNotifierProvider.notifier)
+                      .updateJobStatus(jobId, false);
                   Navigator.pop(ctx);
                 },
               ),

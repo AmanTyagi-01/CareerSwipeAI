@@ -174,7 +174,8 @@ class AppMotion {
   static const Curve enter = Curves.easeOutCubic;
   static const Curve exit = Curves.easeInCubic;
   static const Curve emphasized = Curves.easeOutBack; // use sparingly
-  static const Curve spring = Curves.easeOutCubic; // paired with SpringSimulation for cards
+  static const Curve spring =
+      Curves.easeOutCubic; // paired with SpringSimulation for cards
 
   // Swipe-card physics (used with Draggable/Custom gesture + AnimationController)
   static const double swipeDismissVelocityThreshold = 700; // px/s
@@ -499,7 +500,8 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         backgroundColor: bg,
         foregroundColor: fg,
-        disabledBackgroundColor: bg.withValues(alpha: AppColors.disabledOpacity),
+        disabledBackgroundColor:
+            bg.withValues(alpha: AppColors.disabledOpacity),
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.xl,
           vertical: AppSpacing.md,
@@ -566,6 +568,8 @@ Color statusColor(BuildContext context, AppStatusTone tone) {
     case AppStatusTone.error:
       return isDark ? AppColors.darkError : AppColors.lightError;
     case AppStatusTone.neutral:
-      return isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
+      return isDark
+          ? AppColors.darkTextSecondary
+          : AppColors.lightTextSecondary;
   }
 }

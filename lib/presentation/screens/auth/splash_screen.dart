@@ -88,11 +88,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -108,9 +115,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             children: [
               // Top Protocol Metadata Badge
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
                 decoration: BoxDecoration(
-                  color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                  color: isDark
+                      ? EditorialColors.darkContainerLow
+                      : EditorialColors.paperContainerLow,
                   borderRadius: EditorialRadii.roundedSm,
                   border: Border.all(color: hairlineColor, width: 1.0),
                 ),
@@ -128,14 +138,16 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     const SizedBox(width: 8.0),
                     Text(
                       'TALENT DISPATCH PROTOCOL',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                     const SizedBox(width: 8.0),
                     Container(width: 1.0, height: 10.0, color: hairlineColor),
                     const SizedBox(width: 8.0),
                     Text(
                       'VERIFIED TALENT NETWORK',
-                      style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                      style: EditorialTypography.labelStamp(
+                          color: EditorialColors.primary),
                     ),
                   ],
                 ),
@@ -153,7 +165,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       color: surfaceColor,
                       borderRadius: BorderRadius.circular(16.0),
                       border: Border.all(color: hairlineColor, width: 1.0),
-                      boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                      boxShadow: isDark
+                          ? EditorialElevation.paperCardDark
+                          : EditorialElevation.paperCard,
                     ),
                     child: Center(
                       child: Stack(
@@ -162,7 +176,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                           Icon(
                             Icons.article_outlined,
                             size: 40.0,
-                            color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                            color: isDark
+                                ? EditorialColors.onPrimaryContainer
+                                : EditorialColors.primary,
                           ),
                           Positioned(
                             right: 4.0,
@@ -189,13 +205,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   // Editorial Headline
                   Text(
                     'CareerSwipe AI',
-                    style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                    style: EditorialTypography.headlineXlMobile(
+                        color: textPrimary),
                   ),
                   const SizedBox(height: EditorialSpacing.spaceXs),
                   Text(
                     'Where engineering talent meets verified opportunity.',
                     textAlign: TextAlign.center,
-                    style: EditorialTypography.headlineSm(color: textSecondary).copyWith(
+                    style: EditorialTypography.headlineSm(color: textSecondary)
+                        .copyWith(
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.w400,
                     ),
@@ -211,7 +229,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
                           'EST. 2025',
-                          style: EditorialTypography.labelStamp(color: textSecondary),
+                          style: EditorialTypography.labelStamp(
+                              color: textSecondary),
                         ),
                       ),
                       Container(width: 24.0, height: 1.0, color: hairlineColor),
@@ -228,7 +247,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   color: surfaceColor,
                   borderRadius: BorderRadius.circular(12.0),
                   border: Border.all(color: hairlineColor, width: 1.0),
-                  boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                  boxShadow: isDark
+                      ? EditorialElevation.paperCardDark
+                      : EditorialElevation.paperCard,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -248,19 +269,22 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             const SizedBox(width: EditorialSpacing.spaceXs),
                             Text(
                               'Session Restore & Integrity Audit',
-                              style: EditorialTypography.labelLg(color: textPrimary),
+                              style: EditorialTypography.labelLg(
+                                  color: textPrimary),
                             ),
                           ],
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 2.0),
                           decoration: const BoxDecoration(
                             color: EditorialColors.primaryLight,
                             borderRadius: EditorialRadii.roundedSm,
                           ),
                           child: Text(
                             'LIVE',
-                            style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                            style: EditorialTypography.labelStamp(
+                                color: EditorialColors.primary),
                           ),
                         ),
                       ],
@@ -308,7 +332,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                             backgroundColor: isDark
                                 ? EditorialColors.darkContainerMid
                                 : EditorialColors.paperContainerLow,
-                            valueColor: const AlwaysStoppedAnimation<Color>(EditorialColors.primary),
+                            valueColor: const AlwaysStoppedAnimation<Color>(
+                                EditorialColors.primary),
                             minHeight: 4.0,
                           ),
                         );
@@ -331,8 +356,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     required String meta,
     required bool isDark,
   }) {
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -344,13 +372,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               height: 16.0,
               decoration: BoxDecoration(
                 color: isCompleted
-                    ? (isDark ? EditorialColors.primaryContainer.withValues(alpha: 0.3) : EditorialColors.primaryLight)
-                    : (isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow),
+                    ? (isDark
+                        ? EditorialColors.primaryContainer
+                            .withValues(alpha: 0.3)
+                        : EditorialColors.primaryLight)
+                    : (isDark
+                        ? EditorialColors.darkContainerMid
+                        : EditorialColors.paperContainerLow),
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: isCompleted
-                    ? const Icon(Icons.check, size: 11.0, color: EditorialColors.primary)
+                    ? const Icon(Icons.check,
+                        size: 11.0, color: EditorialColors.primary)
                     : Container(
                         width: 6.0,
                         height: 6.0,

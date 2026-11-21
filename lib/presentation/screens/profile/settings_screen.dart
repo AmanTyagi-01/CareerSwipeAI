@@ -28,7 +28,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Settings & Security', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Settings & Security',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -83,17 +84,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       ),
       child: Column(
         children: [
-          _buildThemeTile(0, 'Dark Theme', 'Cinematic obsidian dark (Recommended)', Icons.dark_mode_rounded),
+          _buildThemeTile(0, 'Dark Theme',
+              'Cinematic obsidian dark (Recommended)', Icons.dark_mode_rounded),
           const Divider(color: Color(0xFF232A3B), height: 16),
-          _buildThemeTile(1, 'Light Theme', 'Clean bright theme for daylight use', Icons.light_mode_rounded),
+          _buildThemeTile(1, 'Light Theme',
+              'Clean bright theme for daylight use', Icons.light_mode_rounded),
           const Divider(color: Color(0xFF232A3B), height: 16),
-          _buildThemeTile(2, 'System Default', 'Match operating system appearance', Icons.settings_brightness_rounded),
+          _buildThemeTile(
+              2,
+              'System Default',
+              'Match operating system appearance',
+              Icons.settings_brightness_rounded),
         ],
       ),
     ).animate().fadeIn().slideY(begin: 0.1, end: 0);
   }
 
-  Widget _buildThemeTile(int index, String title, String subtitle, IconData icon) {
+  Widget _buildThemeTile(
+      int index, String title, String subtitle, IconData icon) {
     final isSelected = _themeSelection == index;
     return InkWell(
       onTap: () => setState(() => _themeSelection = index),
@@ -112,7 +120,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ),
               child: Icon(
                 icon,
-                color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF94A3B8),
+                color: isSelected
+                    ? const Color(0xFF8B5CF6)
+                    : const Color(0xFF94A3B8),
                 size: 20,
               ),
             ),
@@ -124,13 +134,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   Text(
                     title,
                     style: TextStyle(
-                      color: isSelected ? const Color(0xFFF1F5F9) : const Color(0xFFCBD5E1),
+                      color: isSelected
+                          ? const Color(0xFFF1F5F9)
+                          : const Color(0xFFCBD5E1),
                       fontSize: 14,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                      fontWeight:
+                          isSelected ? FontWeight.bold : FontWeight.w500,
                     ),
                   ),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: const TextStyle(color: Color(0xFF64748B), fontSize: 11)),
+                  Text(subtitle,
+                      style: const TextStyle(
+                          color: Color(0xFF64748B), fontSize: 11)),
                 ],
               ),
             ),
@@ -140,10 +155,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF475569),
+                  color: isSelected
+                      ? const Color(0xFF8B5CF6)
+                      : const Color(0xFF475569),
                   width: 2,
                 ),
-                color: isSelected ? const Color(0xFF8B5CF6) : Colors.transparent,
+                color:
+                    isSelected ? const Color(0xFF8B5CF6) : Colors.transparent,
               ),
               child: isSelected
                   ? const Icon(Icons.check, size: 14, color: Colors.white)
@@ -260,14 +278,18 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           _buildNavRow(
             icon: Icons.switch_account_rounded,
             title: 'Switch Workspace Role',
-            subtitle: isRecruiter ? 'Currently: Recruiter Mode' : 'Currently: Candidate Mode',
+            subtitle: isRecruiter
+                ? 'Currently: Recruiter Mode'
+                : 'Currently: Candidate Mode',
             color: const Color(0xFF8B5CF6),
             onTap: () {
-              final newRole = isRecruiter ? UserType.talent : UserType.recruiter;
+              final newRole =
+                  isRecruiter ? UserType.talent : UserType.recruiter;
               ref.read(authNotifierProvider.notifier).updateRole(newRole);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Switched to ${newRole == UserType.recruiter ? "Recruiter" : "Candidate"} Mode'),
+                  content: Text(
+                      'Switched to ${newRole == UserType.recruiter ? "Recruiter" : "Candidate"} Mode'),
                   backgroundColor: const Color(0xFF8B5CF6),
                 ),
               );
@@ -277,7 +299,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           _buildNavRow(
             icon: Icons.file_download_outlined,
             title: 'Export My Data',
-            subtitle: 'Download complete profile, ATS history, and applications',
+            subtitle:
+                'Download complete profile, ATS history, and applications',
             color: const Color(0xFF38BDF8),
             onTap: () {},
           ),
@@ -349,9 +372,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14, fontWeight: FontWeight.w600)),
+                Text(title,
+                    style: const TextStyle(
+                        color: Color(0xFFF1F5F9),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600)),
                 const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(color: Color(0xFF64748B), fontSize: 11)),
+                Text(subtitle,
+                    style: const TextStyle(
+                        color: Color(0xFF64748B), fontSize: 11)),
               ],
             ),
           ),
@@ -395,14 +424,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14, fontWeight: FontWeight.w600)),
+                  Text(title,
+                      style: const TextStyle(
+                          color: Color(0xFFF1F5F9),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600)),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: const TextStyle(color: Color(0xFF64748B), fontSize: 11)),
+                  Text(subtitle,
+                      style: const TextStyle(
+                          color: Color(0xFF64748B), fontSize: 11)),
                 ],
               ),
             ),
             if (onTap != null)
-              const Icon(Icons.chevron_right_rounded, color: Color(0xFF64748B), size: 20),
+              const Icon(Icons.chevron_right_rounded,
+                  color: Color(0xFF64748B), size: 20),
           ],
         ),
       ),
@@ -418,7 +454,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           borderRadius: BorderRadius.circular(16),
           side: const BorderSide(color: Color(0xFF232A3B)),
         ),
-        title: const Text('Delete Account', style: TextStyle(color: Color(0xFFEF4444), fontWeight: FontWeight.bold)),
+        title: const Text('Delete Account',
+            style: TextStyle(
+                color: Color(0xFFEF4444), fontWeight: FontWeight.bold)),
         content: const Text(
           'Are you sure you want to delete your account? All your resumes, ATS analyses, and applications will be permanently erased.',
           style: TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
@@ -426,7 +464,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel', style: TextStyle(color: Color(0xFF94A3B8))),
+            child: const Text('Cancel',
+                style: TextStyle(color: Color(0xFF94A3B8))),
           ),
           ElevatedButton(
             onPressed: () {
@@ -435,7 +474,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFEF4444),
               foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
             ),
             child: const Text('Delete Forever'),
           ),

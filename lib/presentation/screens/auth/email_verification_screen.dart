@@ -15,11 +15,14 @@ class EmailVerificationScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<EmailVerificationScreen> createState() => _EmailVerificationScreenState();
+  ConsumerState<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
-class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScreen> {
-  final List<TextEditingController> _controllers = List.generate(6, (_) => TextEditingController());
+class _EmailVerificationScreenState
+    extends ConsumerState<EmailVerificationScreen> {
+  final List<TextEditingController> _controllers =
+      List.generate(6, (_) => TextEditingController());
   final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
   bool _isLoading = false;
 
@@ -54,7 +57,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
           ),
           backgroundColor: EditorialColors.alertUrgent,
           behavior: SnackBarBehavior.floating,
-          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+          shape: const RoundedRectangleBorder(
+              borderRadius: EditorialRadii.roundedMd),
         ),
       );
       return;
@@ -77,7 +81,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
             ),
             backgroundColor: EditorialColors.danger,
             behavior: SnackBarBehavior.floating,
-            shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+            shape: const RoundedRectangleBorder(
+                borderRadius: EditorialRadii.roundedMd),
           ),
         );
       }
@@ -89,7 +94,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
   Future<void> _resendToken() async {
     try {
       final repo = ref.read(authRepositoryProvider);
-      await repo.sendOTP(widget.email.isNotEmpty ? widget.email : 'alex.vance@alumni.tcd.ie');
+      await repo.sendOTP(
+          widget.email.isNotEmpty ? widget.email : 'alex.vance@alumni.tcd.ie');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -99,7 +105,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
             ),
             backgroundColor: EditorialColors.primary,
             behavior: SnackBarBehavior.floating,
-            shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+            shape: const RoundedRectangleBorder(
+                borderRadius: EditorialRadii.roundedMd),
           ),
         );
       }
@@ -113,7 +120,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
             ),
             backgroundColor: EditorialColors.danger,
             behavior: SnackBarBehavior.floating,
-            shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+            shape: const RoundedRectangleBorder(
+                borderRadius: EditorialRadii.roundedMd),
           ),
         );
       }
@@ -123,13 +131,21 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
-    final displayEmail = widget.email.isNotEmpty ? widget.email : 'alex.vance@alumni.tcd.ie';
+    final displayEmail =
+        widget.email.isNotEmpty ? widget.email : 'alex.vance@alumni.tcd.ie';
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -170,9 +186,12 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 4.0),
                         decoration: BoxDecoration(
-                          color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                          color: isDark
+                              ? EditorialColors.darkContainerLow
+                              : EditorialColors.paperContainerLow,
                           borderRadius: EditorialRadii.roundedSm,
                           border: Border.all(color: hairlineColor, width: 1.0),
                         ),
@@ -190,18 +209,21 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                             const SizedBox(width: 6.0),
                             Text(
                               'SECURITY DOSSIER · SEC-ID 08//59',
-                              style: EditorialTypography.labelStamp(color: textSecondary),
+                              style: EditorialTypography.labelStamp(
+                                  color: textSecondary),
                             ),
                           ],
                         ),
                       ),
                       Row(
                         children: [
-                          const Icon(Icons.verified_user, size: 14.0, color: EditorialColors.primary),
+                          const Icon(Icons.verified_user,
+                              size: 14.0, color: EditorialColors.primary),
                           const SizedBox(width: 4.0),
                           Text(
                             'SSL Encrypted',
-                            style: EditorialTypography.labelMd(color: textSecondary),
+                            style: EditorialTypography.labelMd(
+                                color: textSecondary),
                           ),
                         ],
                       ),
@@ -212,7 +234,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                   // Editorial Headline
                   Text(
                     'Verify your email identity.',
-                    style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                    style: EditorialTypography.headlineXlMobile(
+                        color: textPrimary),
                   ),
                   const SizedBox(height: EditorialSpacing.spaceXs),
                   Text(
@@ -228,7 +251,9 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                       color: surfaceColor,
                       borderRadius: BorderRadius.circular(12.0),
                       border: Border.all(color: hairlineColor, width: 1.0),
-                      boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                      boxShadow: isDark
+                          ? EditorialElevation.paperCardDark
+                          : EditorialElevation.paperCard,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,7 +263,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                           children: [
                             Text(
                               'TARGET DISPATCH ADDRESS',
-                              style: EditorialTypography.labelStamp(color: textSecondary),
+                              style: EditorialTypography.labelStamp(
+                                  color: textSecondary),
                             ),
                             GestureDetector(
                               onTap: () {
@@ -258,7 +284,9 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                                     ),
                                   ),
                                   const SizedBox(width: 2.0),
-                                  const Icon(Icons.edit, size: 13.0, color: EditorialColors.primary),
+                                  const Icon(Icons.edit,
+                                      size: 13.0,
+                                      color: EditorialColors.primary),
                                 ],
                               ),
                             ),
@@ -273,7 +301,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                               children: [
                                 Text(
                                   displayEmail,
-                                  style: EditorialTypography.headlineSm(color: textPrimary),
+                                  style: EditorialTypography.headlineSm(
+                                      color: textPrimary),
                                 ),
                                 const SizedBox(height: 2.0),
                                 Row(
@@ -286,7 +315,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                                     const SizedBox(width: 4.0),
                                     Text(
                                       'Institutional Network · Validated Domain',
-                                      style: EditorialTypography.bodySm(color: textSecondary),
+                                      style: EditorialTypography.bodySm(
+                                          color: textSecondary),
                                     ),
                                   ],
                                 ),
@@ -330,7 +360,9 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           maxLength: 1,
-                          style: EditorialTypography.headlineLg(color: textPrimary).copyWith(
+                          style:
+                              EditorialTypography.headlineLg(color: textPrimary)
+                                  .copyWith(
                             fontFamily: 'JetBrains Mono',
                           ),
                           decoration: InputDecoration(
@@ -340,11 +372,13 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                             contentPadding: EdgeInsets.zero,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: EditorialRadii.roundedMd,
-                              borderSide: BorderSide(color: hairlineColor, width: 1.0),
+                              borderSide:
+                                  BorderSide(color: hairlineColor, width: 1.0),
                             ),
                             focusedBorder: const OutlineInputBorder(
                               borderRadius: EditorialRadii.roundedMd,
-                              borderSide: BorderSide(color: EditorialColors.primary, width: 1.5),
+                              borderSide: BorderSide(
+                                  color: EditorialColors.primary, width: 1.5),
                             ),
                           ),
                           onChanged: (val) => _onDigitChanged(i, val),
@@ -379,7 +413,8 @@ class _EmailVerificationScreenState extends ConsumerState<EmailVerificationScree
                   EditorialButton(
                     label: 'Verify Token & Unlock Dossier',
                     isLoading: _isLoading,
-                    trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                    trailingIcon: const Icon(Icons.arrow_forward,
+                        size: 18.0, color: Colors.white),
                     onPressed: _verifyToken,
                   ),
                   const SizedBox(height: EditorialSpacing.spaceLg),

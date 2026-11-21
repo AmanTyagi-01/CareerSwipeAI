@@ -11,12 +11,19 @@ class CandidateOnboardingScreen extends ConsumerStatefulWidget {
   const CandidateOnboardingScreen({super.key});
 
   @override
-  ConsumerState<CandidateOnboardingScreen> createState() => _CandidateOnboardingScreenState();
+  ConsumerState<CandidateOnboardingScreen> createState() =>
+      _CandidateOnboardingScreenState();
 }
 
-class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingScreen> {
+class _CandidateOnboardingScreenState
+    extends ConsumerState<CandidateOnboardingScreen> {
   final _searchController = TextEditingController();
-  final Set<String> _selectedSkills = {'Go (Golang)', 'TypeScript', 'Python', 'SQL / PostgreSQL'};
+  final Set<String> _selectedSkills = {
+    'Go (Golang)',
+    'TypeScript',
+    'Python',
+    'SQL / PostgreSQL'
+  };
 
   final Map<String, List<String>> _skillCategories = {
     'LANGUAGES & SYSTEMS': [
@@ -75,11 +82,18 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -107,7 +121,8 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
             onPressed: () => context.go('/home'),
             child: Text(
               'Save & Exit',
-              style: EditorialTypography.labelMd(color: EditorialColors.primary),
+              style:
+                  EditorialTypography.labelMd(color: EditorialColors.primary),
             ),
           ),
         ],
@@ -130,7 +145,9 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
                       height: 4.0,
                       margin: EdgeInsets.only(right: index < 4 ? 4.0 : 0.0),
                       decoration: BoxDecoration(
-                        color: isCurrentOrPast ? EditorialColors.primary : hairlineColor,
+                        color: isCurrentOrPast
+                            ? EditorialColors.primary
+                            : hairlineColor,
                         borderRadius: BorderRadius.circular(2.0),
                       ),
                     ),
@@ -158,21 +175,26 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
                   color: surfaceColor,
                   borderRadius: EditorialRadii.roundedMd,
                   border: Border.all(color: hairlineColor, width: 1.0),
-                  boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                  boxShadow: isDark
+                      ? EditorialElevation.paperCardDark
+                      : EditorialElevation.paperCard,
                 ),
                 child: Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Icon(Icons.search, size: 20.0, color: textSecondary),
+                      child:
+                          Icon(Icons.search, size: 20.0, color: textSecondary),
                     ),
                     Expanded(
                       child: TextField(
                         controller: _searchController,
                         onSubmitted: (_) => _addCustomSkill(),
                         decoration: InputDecoration(
-                          hintText: 'Search skill or framework (e.g. Distributed Systems)',
-                          hintStyle: EditorialTypography.bodyMd(color: textSecondary),
+                          hintText:
+                              'Search skill or framework (e.g. Distributed Systems)',
+                          hintStyle:
+                              EditorialTypography.bodyMd(color: textSecondary),
                           border: InputBorder.none,
                           isDense: true,
                         ),
@@ -183,15 +205,19 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
                       onTap: _addCustomSkill,
                       borderRadius: EditorialRadii.roundedSm,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 8.0),
                         decoration: BoxDecoration(
-                          color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                          color: isDark
+                              ? EditorialColors.darkContainerMid
+                              : EditorialColors.paperContainerLow,
                           borderRadius: EditorialRadii.roundedSm,
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.add, size: 16.0, color: EditorialColors.primary),
+                            const Icon(Icons.add,
+                                size: 16.0, color: EditorialColors.primary),
                             const SizedBox(width: 4.0),
                             Text(
                               'Add',
@@ -212,7 +238,8 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
               // Categorized Interactive Skill Pill Groups
               ..._skillCategories.entries.map((entry) {
                 return Padding(
-                  padding: const EdgeInsets.only(bottom: EditorialSpacing.spaceLg),
+                  padding:
+                      const EdgeInsets.only(bottom: EditorialSpacing.spaceLg),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -221,11 +248,13 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
                         children: [
                           Text(
                             entry.key,
-                            style: EditorialTypography.labelStamp(color: textSecondary),
+                            style: EditorialTypography.labelStamp(
+                                color: textSecondary),
                           ),
                           Text(
                             '${entry.value.where((s) => _selectedSkills.contains(s)).length} selected',
-                            style: EditorialTypography.bodySm(color: textSecondary),
+                            style: EditorialTypography.bodySm(
+                                color: textSecondary),
                           ),
                         ],
                       ),
@@ -248,14 +277,19 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
                             borderRadius: EditorialRadii.roundedMd,
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 150),
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 6.0),
                               decoration: BoxDecoration(
                                 color: isSelected
                                     ? EditorialColors.primary
-                                    : (isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow),
+                                    : (isDark
+                                        ? EditorialColors.darkContainerLow
+                                        : EditorialColors.paperContainerLow),
                                 borderRadius: EditorialRadii.roundedMd,
                                 border: Border.all(
-                                  color: isSelected ? EditorialColors.primary : hairlineColor,
+                                  color: isSelected
+                                      ? EditorialColors.primary
+                                      : hairlineColor,
                                   width: 1.0,
                                 ),
                               ),
@@ -263,17 +297,23 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   if (isSelected) ...[
-                                    const Icon(Icons.check, size: 13.0, color: Colors.white),
+                                    const Icon(Icons.check,
+                                        size: 13.0, color: Colors.white),
                                     const SizedBox(width: 4.0),
                                   ] else ...[
-                                    Icon(Icons.add, size: 13.0, color: textSecondary),
+                                    Icon(Icons.add,
+                                        size: 13.0, color: textSecondary),
                                     const SizedBox(width: 4.0),
                                   ],
                                   Text(
                                     skill,
                                     style: EditorialTypography.labelMd(
-                                      color: isSelected ? Colors.white : textPrimary,
-                                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                                      color: isSelected
+                                          ? Colors.white
+                                          : textPrimary,
+                                      fontWeight: isSelected
+                                          ? FontWeight.w600
+                                          : FontWeight.w500,
                                     ),
                                   ),
                                 ],
@@ -291,8 +331,10 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
 
               // Confirm CTA
               EditorialButton(
-                label: 'Confirm ${_selectedSkills.length} Competencies & Continue',
-                trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                label:
+                    'Confirm ${_selectedSkills.length} Competencies & Continue',
+                trailingIcon: const Icon(Icons.arrow_forward,
+                    size: 18.0, color: Colors.white),
                 onPressed: _selectedSkills.isEmpty ? null : _saveAndContinue,
               ),
               const SizedBox(height: EditorialSpacing.spaceLg),
@@ -303,4 +345,3 @@ class _CandidateOnboardingScreenState extends ConsumerState<CandidateOnboardingS
     );
   }
 }
-

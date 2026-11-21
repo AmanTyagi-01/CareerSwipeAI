@@ -173,8 +173,12 @@ class JobModel extends Equatable {
       currency: map['currency'] ?? 'USD',
       industry: map['industry'],
       department: map['department'],
-      postedAt: map['postedAt'] != null ? (map['postedAt'] as Timestamp).toDate() : null,
-      expiresAt: map['expiresAt'] != null ? (map['expiresAt'] as Timestamp).toDate() : null,
+      postedAt: map['postedAt'] != null
+          ? (map['postedAt'] as Timestamp).toDate()
+          : null,
+      expiresAt: map['expiresAt'] != null
+          ? (map['expiresAt'] as Timestamp).toDate()
+          : null,
       isActive: map['isActive'] ?? true,
       viewCount: map['viewCount'] ?? 0,
       applyCount: map['applyCount'] ?? 0,
@@ -186,11 +190,33 @@ class JobModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        id, title, company, companyLogo, companyWebsite, description,
-        shortDescription, requirements, responsibilities, skills,
-        experienceLevel, jobType, location, isRemote, minSalary, maxSalary,
-        currency, industry, department, postedAt, expiresAt, isActive,
-        viewCount, applyCount, recruiterId, metadata, tags,
+        id,
+        title,
+        company,
+        companyLogo,
+        companyWebsite,
+        description,
+        shortDescription,
+        requirements,
+        responsibilities,
+        skills,
+        experienceLevel,
+        jobType,
+        location,
+        isRemote,
+        minSalary,
+        maxSalary,
+        currency,
+        industry,
+        department,
+        postedAt,
+        expiresAt,
+        isActive,
+        viewCount,
+        applyCount,
+        recruiterId,
+        metadata,
+        tags,
       ];
 }
 
@@ -228,7 +254,9 @@ class JobSwipeModel extends Equatable {
       userId: map['userId'] ?? '',
       jobId: map['jobId'] ?? '',
       action: map['action'] ?? 'dislike',
-      swipedAt: map['swipedAt'] != null ? (map['swipedAt'] as Timestamp).toDate() : null,
+      swipedAt: map['swipedAt'] != null
+          ? (map['swipedAt'] as Timestamp).toDate()
+          : null,
       matchScore: map['matchScore']?.toDouble(),
     );
   }
@@ -241,7 +269,8 @@ class JobApplicationModel extends Equatable {
   final String id;
   final String userId;
   final String jobId;
-  final String status; // 'pending', 'reviewing', 'interview', 'offered', 'rejected', 'withdrawn'
+  final String
+      status; // 'pending', 'reviewing', 'interview', 'offered', 'rejected', 'withdrawn'
   final String? coverLetter;
   final String? resumeUrl;
   final DateTime? appliedAt;
@@ -282,12 +311,26 @@ class JobApplicationModel extends Equatable {
       status: map['status'] ?? 'pending',
       coverLetter: map['coverLetter'],
       resumeUrl: map['resumeUrl'],
-      appliedAt: map['appliedAt'] != null ? (map['appliedAt'] as Timestamp).toDate() : null,
-      updatedAt: map['updatedAt'] != null ? (map['updatedAt'] as Timestamp).toDate() : null,
+      appliedAt: map['appliedAt'] != null
+          ? (map['appliedAt'] as Timestamp).toDate()
+          : null,
+      updatedAt: map['updatedAt'] != null
+          ? (map['updatedAt'] as Timestamp).toDate()
+          : null,
       timeline: Map<String, dynamic>.from(map['timeline'] ?? {}),
     );
   }
 
   @override
-  List<Object?> get props => [id, userId, jobId, status, coverLetter, resumeUrl, appliedAt, updatedAt, timeline];
+  List<Object?> get props => [
+        id,
+        userId,
+        jobId,
+        status,
+        coverLetter,
+        resumeUrl,
+        appliedAt,
+        updatedAt,
+        timeline
+      ];
 }

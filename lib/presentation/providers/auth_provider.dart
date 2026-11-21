@@ -7,7 +7,8 @@ import '../../core/utils/logger.dart';
 
 final authServiceProvider = Provider<AuthService>((ref) => AuthService());
 
-final selectedUserTypeProvider = StateProvider<UserType>((ref) => UserType.talent);
+final selectedUserTypeProvider =
+    StateProvider<UserType>((ref) => UserType.talent);
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepositoryImpl(ref.watch(authServiceProvider));
@@ -43,16 +44,19 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
         } else {
           try {
             final userData = await _authRepository.getCurrentUserData();
-            AppLogger.info('Auth state: signed in as ${firebaseUser.uid}', tag: 'AuthNotifier');
+            AppLogger.info('Auth state: signed in as ${firebaseUser.uid}',
+                tag: 'AuthNotifier');
             state = AsyncValue.data(userData);
           } catch (e, stackTrace) {
-            AppLogger.error('Failed to load user data', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+            AppLogger.error('Failed to load user data',
+                tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
             state = AsyncValue.error(e, stackTrace);
           }
         }
       },
       onError: (Object e, StackTrace stackTrace) {
-        AppLogger.error('Auth stream error', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+        AppLogger.error('Auth stream error',
+            tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
         state = AsyncValue.error(e, stackTrace);
       },
     );
@@ -72,23 +76,27 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
       final user = await _authRepository.signInWithEmail(email, password);
       state = AsyncValue.data(user);
     } catch (e, stackTrace) {
-      AppLogger.error('Sign in failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('Sign in failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
       state = AsyncValue.error(e, stackTrace);
     } finally {
       _operationInProgress = false;
     }
   }
 
-  Future<void> signUpWithEmail(String email, String password, String displayName,
+  Future<void> signUpWithEmail(
+      String email, String password, String displayName,
       {UserType userType = UserType.talent}) async {
     if (_operationInProgress) return;
     _operationInProgress = true;
     state = const AsyncValue.loading();
     try {
-      final user = await _authRepository.signUpWithEmail(email, password, displayName, userType: userType);
+      final user = await _authRepository
+          .signUpWithEmail(email, password, displayName, userType: userType);
       state = AsyncValue.data(user);
     } catch (e, stackTrace) {
-      AppLogger.error('Sign up failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('Sign up failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
       state = AsyncValue.error(e, stackTrace);
     } finally {
       _operationInProgress = false;
@@ -103,7 +111,8 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
       final user = await _authRepository.signInWithGoogle();
       state = AsyncValue.data(user);
     } catch (e, stackTrace) {
-      AppLogger.error('Google sign-in failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('Google sign-in failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
       state = AsyncValue.error(e, stackTrace);
     } finally {
       _operationInProgress = false;
@@ -116,9 +125,11 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
     try {
       final updatedUser = await _authRepository.completeOnboarding(role: role);
       state = AsyncValue.data(updatedUser);
-      AppLogger.info('AuthNotifier: onboarding complete, role=${role.name}', tag: 'AuthNotifier');
+      AppLogger.info('AuthNotifier: onboarding complete, role=${role.name}',
+          tag: 'AuthNotifier');
     } catch (e, stackTrace) {
-      AppLogger.error('completeOnboarding failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('completeOnboarding failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
       state = AsyncValue.error(e, stackTrace);
     }
   }
@@ -131,7 +142,8 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
       await _authRepository.signOut();
       state = const AsyncValue.data(null);
     } catch (e, stackTrace) {
-      AppLogger.error('Sign out failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('Sign out failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
       state = AsyncValue.error(e, stackTrace);
     } finally {
       _operationInProgress = false;
@@ -146,7 +158,8 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
         state = AsyncValue.data(updated);
       }
     } catch (e, stackTrace) {
-      AppLogger.error('Role update failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('Role update failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
     }
   }
 
@@ -175,12 +188,14 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
       state = AsyncValue.data(userData);
       AppLogger.info('Profile updated', tag: 'AuthNotifier');
     } catch (e, stackTrace) {
-      AppLogger.error('Profile update failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      AppLogger.error('Profile update failed',
+          tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
       state = AsyncValue.error(e, stackTrace);
     }
   }
 }
 
-final authNotifierProvider = StateNotifierProvider<AuthNotifier, AsyncValue<UserModel?>>((ref) {
+final authNotifierProvider =
+    StateNotifierProvider<AuthNotifier, AsyncValue<UserModel?>>((ref) {
   return AuthNotifier(ref.watch(authRepositoryProvider));
 });

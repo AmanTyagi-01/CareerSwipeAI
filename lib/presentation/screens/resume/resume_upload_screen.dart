@@ -46,7 +46,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
         final aiService = ref.read(aiServiceProvider);
 
         final resume = await resumeService.uploadResume(userId, file);
-        final analysis = await aiService.analyzeResume(resume, extractedText: resume.extractedText);
+        final analysis = await aiService.analyzeResume(resume,
+            extractedText: resume.extractedText);
         ref.read(activeAnalysisStateProvider.notifier).state = analysis;
 
         setState(() {
@@ -57,7 +58,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Parsed "${file.name}": ATS Score ${analysis.atsScore.toInt()}% (${analysis.detectedSkills.length} skills detected)'),
+            content: Text(
+                'Parsed "${file.name}": ATS Score ${analysis.atsScore.toInt()}% (${analysis.detectedSkills.length} skills detected)'),
             backgroundColor: const Color(0xFF10B981),
             behavior: SnackBarBehavior.floating,
           ),
@@ -79,12 +81,14 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
   @override
   Widget build(BuildContext context) {
     final activeAnalysis = ref.watch(activeAnalysisStateProvider);
-    final detectedSkillsCount = activeAnalysis?.detectedSkills.length ?? (_activeResume?.skills.length ?? 8);
-    final suggestions = activeAnalysis?.improvements ?? const [
-      'Quantify your impact at TCS with exact percentage metrics',
-      'Add Docker and Kubernetes to match 40% more backend roles',
-      'Reformat executive summary for optimal ATS parser indexing',
-    ];
+    final detectedSkillsCount = activeAnalysis?.detectedSkills.length ??
+        (_activeResume?.skills.length ?? 8);
+    final suggestions = activeAnalysis?.improvements ??
+        const [
+          'Quantify your impact at TCS with exact percentage metrics',
+          'Add Docker and Kubernetes to match 40% more backend roles',
+          'Reformat executive summary for optimal ATS parser indexing',
+        ];
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
@@ -101,7 +105,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.analytics_outlined, color: Color(0xFF8B5CF6)),
+            icon:
+                const Icon(Icons.analytics_outlined, color: Color(0xFF8B5CF6)),
             onPressed: () => context.push('/resume/analysis'),
           ),
         ],
@@ -118,7 +123,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                 decoration: BoxDecoration(
                   color: const Color(0xFF121622),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.35)),
+                  border: Border.all(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.35)),
                   boxShadow: [
                     BoxShadow(
                       color: const Color(0xFF7C3AED).withValues(alpha: 0.15),
@@ -135,10 +141,13 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                       decoration: BoxDecoration(
                         color: const Color(0xFFEF4444).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: const Color(0xFFEF4444).withValues(alpha: 0.3)),
+                        border: Border.all(
+                            color:
+                                const Color(0xFFEF4444).withValues(alpha: 0.3)),
                       ),
                       child: const Center(
-                        child: Icon(Icons.picture_as_pdf_rounded, color: Color(0xFFEF4444), size: 28),
+                        child: Icon(Icons.picture_as_pdf_rounded,
+                            color: Color(0xFFEF4444), size: 28),
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -170,7 +179,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                     ),
                     // Upload New button
                     IconButton(
-                      icon: const Icon(Icons.cloud_upload_outlined, color: Color(0xFF38BDF8)),
+                      icon: const Icon(Icons.cloud_upload_outlined,
+                          color: Color(0xFF38BDF8)),
                       onPressed: _pickFile,
                     ),
                   ],
@@ -197,13 +207,17 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                   child: Column(
                     children: [
                       Icon(
-                        _isUploading ? Icons.hourglass_top_rounded : Icons.file_upload_outlined,
+                        _isUploading
+                            ? Icons.hourglass_top_rounded
+                            : Icons.file_upload_outlined,
                         color: const Color(0xFF8B5CF6),
                         size: 32,
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        _isUploading ? 'Extracting & Parsing Document...' : 'Tap to Upload New Resume',
+                        _isUploading
+                            ? 'Extracting & Parsing Document...'
+                            : 'Tap to Upload New Resume',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -213,7 +227,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                       const SizedBox(height: 4),
                       const Text(
                         'Supports PDF, DOC, DOCX up to 10MB',
-                        style: TextStyle(color: Color(0xFF64748B), fontSize: 12),
+                        style:
+                            TextStyle(color: Color(0xFF64748B), fontSize: 12),
                       ),
                     ],
                   ),
@@ -233,11 +248,16 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
               ),
               const SizedBox(height: 12),
 
-              _buildInfoItem(Icons.badge_outlined, 'Profile Summary', 'Verified', const Color(0xFF10B981)),
-              _buildInfoItem(Icons.code_rounded, 'Skills', '$detectedSkillsCount Detected', const Color(0xFF38BDF8)),
-              _buildInfoItem(Icons.folder_special_outlined, 'Projects', 'Academic & Production', const Color(0xFF8B5CF6)),
-              _buildInfoItem(Icons.school_outlined, 'Education', 'Verified Degree', const Color(0xFFF59E0B)),
-              _buildInfoItem(Icons.work_history_outlined, 'Experience', 'Chronological Dossier', const Color(0xFF10B981)),
+              _buildInfoItem(Icons.badge_outlined, 'Profile Summary',
+                  'Verified', const Color(0xFF10B981)),
+              _buildInfoItem(Icons.code_rounded, 'Skills',
+                  '$detectedSkillsCount Detected', const Color(0xFF38BDF8)),
+              _buildInfoItem(Icons.folder_special_outlined, 'Projects',
+                  'Academic & Production', const Color(0xFF8B5CF6)),
+              _buildInfoItem(Icons.school_outlined, 'Education',
+                  'Verified Degree', const Color(0xFFF59E0B)),
+              _buildInfoItem(Icons.work_history_outlined, 'Experience',
+                  'Chronological Dossier', const Color(0xFF10B981)),
 
               const SizedBox(height: 24),
 
@@ -249,14 +269,16 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                     colors: [Color(0xFF1E1B4B), Color(0xFF121622)],
                   ),
                   borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Row(
                       children: [
-                        Icon(Icons.auto_awesome, color: Color(0xFFFBBF24), size: 18),
+                        Icon(Icons.auto_awesome,
+                            color: Color(0xFFFBBF24), size: 18),
                         SizedBox(width: 8),
                         Text(
                           'AI Suggestions',
@@ -289,7 +311,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                         borderRadius: BorderRadius.circular(14),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF7C3AED).withValues(alpha: 0.35),
+                            color:
+                                const Color(0xFF7C3AED).withValues(alpha: 0.35),
                             blurRadius: 14,
                           ),
                         ],
@@ -303,7 +326,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.insights_rounded, color: Colors.white, size: 18),
+                                Icon(Icons.insights_rounded,
+                                    color: Colors.white, size: 18),
                                 SizedBox(width: 8),
                                 Text(
                                   'Improve with AI',
@@ -330,7 +354,8 @@ class _ResumeUploadScreenState extends ConsumerState<ResumeUploadScreen> {
     );
   }
 
-  Widget _buildInfoItem(IconData icon, String title, String status, Color statusColor) {
+  Widget _buildInfoItem(
+      IconData icon, String title, String status, Color statusColor) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),

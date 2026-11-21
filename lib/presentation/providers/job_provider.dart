@@ -4,7 +4,9 @@ import '../../services/job_service.dart';
 
 final jobServiceProvider = Provider<JobService>((ref) => JobService());
 
-final jobsProvider = FutureProvider.family<List<JobModel>, Map<String, dynamic>?>((ref, filters) async {
+final jobsProvider =
+    FutureProvider.family<List<JobModel>, Map<String, dynamic>?>(
+        (ref, filters) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getJobs(
     industry: filters?['industry'],
@@ -16,32 +18,40 @@ final jobsProvider = FutureProvider.family<List<JobModel>, Map<String, dynamic>?
   );
 });
 
-final jobDetailsProvider = FutureProvider.family<JobModel?, String>((ref, jobId) async {
+final jobDetailsProvider =
+    FutureProvider.family<JobModel?, String>((ref, jobId) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getJobById(jobId);
 });
 
-final savedJobsProvider = FutureProvider.family<List<JobModel>, String>((ref, userId) async {
+final savedJobsProvider =
+    FutureProvider.family<List<JobModel>, String>((ref, userId) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getSavedJobs(userId);
 });
 
-final appliedJobsProvider = FutureProvider.family<List<JobApplicationModel>, String>((ref, userId) async {
+final appliedJobsProvider =
+    FutureProvider.family<List<JobApplicationModel>, String>(
+        (ref, userId) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getAppliedJobs(userId);
 });
 
-final recommendedJobsProvider = FutureProvider.family<List<JobModel>, String>((ref, userId) async {
+final recommendedJobsProvider =
+    FutureProvider.family<List<JobModel>, String>((ref, userId) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getRecommendedJobs(userId);
 });
 
-final recruiterJobsProvider = FutureProvider.family<List<JobModel>, String>((ref, recruiterId) async {
+final recruiterJobsProvider =
+    FutureProvider.family<List<JobModel>, String>((ref, recruiterId) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getRecruiterJobs(recruiterId);
 });
 
-final jobApplicantsProvider = FutureProvider.family<List<JobApplicationModel>, String>((ref, jobId) async {
+final jobApplicantsProvider =
+    FutureProvider.family<List<JobApplicationModel>, String>(
+        (ref, jobId) async {
   final service = ref.watch(jobServiceProvider);
   return await service.getJobApplicants(jobId);
 });
@@ -51,18 +61,22 @@ class JobNotifier extends StateNotifier<AsyncValue<void>> {
 
   JobNotifier(this._jobService) : super(const AsyncValue.data(null));
 
-  Future<void> recordSwipe(String userId, String jobId, String action, {double? matchScore}) async {
+  Future<void> recordSwipe(String userId, String jobId, String action,
+      {double? matchScore}) async {
     try {
-      await _jobService.recordSwipe(userId, jobId, action, matchScore: matchScore);
+      await _jobService.recordSwipe(userId, jobId, action,
+          matchScore: matchScore);
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<void> applyForJob(String userId, String jobId, {String? coverLetter, String? resumeUrl}) async {
+  Future<void> applyForJob(String userId, String jobId,
+      {String? coverLetter, String? resumeUrl}) async {
     state = const AsyncValue.loading();
     try {
-      await _jobService.applyForJob(userId, jobId, coverLetter: coverLetter, resumeUrl: resumeUrl);
+      await _jobService.applyForJob(userId, jobId,
+          coverLetter: coverLetter, resumeUrl: resumeUrl);
       state = const AsyncValue.data(null);
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);
@@ -105,7 +119,8 @@ class JobNotifier extends StateNotifier<AsyncValue<void>> {
     }
   }
 
-  Future<void> updateApplicationStatus(String applicationId, String newStatus) async {
+  Future<void> updateApplicationStatus(
+      String applicationId, String newStatus) async {
     try {
       await _jobService.updateApplicationStatus(applicationId, newStatus);
     } catch (e) {
@@ -114,6 +129,7 @@ class JobNotifier extends StateNotifier<AsyncValue<void>> {
   }
 }
 
-final jobNotifierProvider = StateNotifierProvider<JobNotifier, AsyncValue<void>>((ref) {
+final jobNotifierProvider =
+    StateNotifierProvider<JobNotifier, AsyncValue<void>>((ref) {
   return JobNotifier(ref.watch(jobServiceProvider));
 });

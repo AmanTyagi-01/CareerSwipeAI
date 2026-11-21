@@ -28,11 +28,13 @@ class DecisionStamp extends StatelessWidget {
     this.angle = 0.0,
   });
 
-  const DecisionStamp.interested({super.key, this.angle = -0.05, this.color, this.backgroundColor})
+  const DecisionStamp.interested(
+      {super.key, this.angle = -0.05, this.color, this.backgroundColor})
       : label = 'INTERESTED',
         type = StampType.interested;
 
-  const DecisionStamp.pass({super.key, this.angle = 0.05, this.color, this.backgroundColor})
+  const DecisionStamp.pass(
+      {super.key, this.angle = 0.05, this.color, this.backgroundColor})
       : label = 'PASS',
         type = StampType.pass;
 

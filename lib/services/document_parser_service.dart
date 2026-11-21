@@ -22,12 +22,15 @@ class DocumentParserService {
       }
 
       if (bytes == null || bytes.isEmpty) {
-        AppLogger.warning('Empty or unreadable file bytes: ${file.name}', tag: 'DocumentParserService');
+        AppLogger.warning('Empty or unreadable file bytes: ${file.name}',
+            tag: 'DocumentParserService');
         return _fallbackTextFromFilename(file.name);
       }
 
       final ext = file.extension?.toLowerCase() ??
-          (file.name.contains('.') ? file.name.split('.').last.toLowerCase() : '');
+          (file.name.contains('.')
+              ? file.name.split('.').last.toLowerCase()
+              : '');
 
       switch (ext) {
         case 'pdf':
@@ -41,7 +44,8 @@ class DocumentParserService {
           return _extractFromPdfBytes(bytes, file.name);
       }
     } catch (e, stackTrace) {
-      AppLogger.error('Failed to parse document: ${file.name}', tag: 'DocumentParserService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Failed to parse document: ${file.name}',
+          tag: 'DocumentParserService', error: e, stackTrace: stackTrace);
       return _fallbackTextFromFilename(file.name);
     }
   }
@@ -81,16 +85,20 @@ class DocumentParserService {
 
       final extracted = buffer.toString().trim();
       if (extracted.length > 50) {
-        AppLogger.info('Successfully extracted ${extracted.length} chars from PDF: $fileName', tag: 'DocumentParserService');
+        AppLogger.info(
+            'Successfully extracted ${extracted.length} chars from PDF: $fileName',
+            tag: 'DocumentParserService');
         return _normalizeText(extracted);
       }
 
       // 2. Secondary fallback: Scan for readable ASCII/UTF-8 words in stream bodies
-      final streamRegex = RegExp(r'stream[\r\n]+(.*?)[\r\n]+endstream', dotAll: true);
+      final streamRegex =
+          RegExp(r'stream[\r\n]+(.*?)[\r\n]+endstream', dotAll: true);
       final streamBuffer = StringBuffer();
       for (final sm in streamRegex.allMatches(raw)) {
         final streamContent = sm.group(1) ?? '';
-        final words = RegExp(r'[A-Za-z0-9_\-\.\,\@\+]{3,}').allMatches(streamContent);
+        final words =
+            RegExp(r'[A-Za-z0-9_\-\.\,\@\+]{3,}').allMatches(streamContent);
         for (final w in words) {
           final word = w.group(0)!;
           // Filter out binary garbage
@@ -102,13 +110,16 @@ class DocumentParserService {
 
       final streamExtracted = streamBuffer.toString().trim();
       if (streamExtracted.length > 50) {
-        AppLogger.info('Extracted ${streamExtracted.length} chars via stream scan for $fileName', tag: 'DocumentParserService');
+        AppLogger.info(
+            'Extracted ${streamExtracted.length} chars via stream scan for $fileName',
+            tag: 'DocumentParserService');
         return _normalizeText(streamExtracted);
       }
 
       return _fallbackTextFromFilename(fileName);
     } catch (e) {
-      AppLogger.warning('PDF extraction fallback triggered for $fileName: $e', tag: 'DocumentParserService');
+      AppLogger.warning('PDF extraction fallback triggered for $fileName: $e',
+          tag: 'DocumentParserService');
       return _fallbackTextFromFilename(fileName);
     }
   }
@@ -130,13 +141,16 @@ class DocumentParserService {
 
       final extracted = buffer.toString().trim();
       if (extracted.length > 30) {
-        AppLogger.info('Successfully extracted ${extracted.length} chars from DOCX: $fileName', tag: 'DocumentParserService');
+        AppLogger.info(
+            'Successfully extracted ${extracted.length} chars from DOCX: $fileName',
+            tag: 'DocumentParserService');
         return _normalizeText(extracted);
       }
 
       return _fallbackTextFromFilename(fileName);
     } catch (e) {
-      AppLogger.warning('DOCX extraction fallback for $fileName: $e', tag: 'DocumentParserService');
+      AppLogger.warning('DOCX extraction fallback for $fileName: $e',
+          tag: 'DocumentParserService');
       return _fallbackTextFromFilename(fileName);
     }
   }
@@ -163,7 +177,9 @@ class DocumentParserService {
 
   bool _isProbableEnglishWord(String word) {
     if (word.length < 3 || word.length > 25) return false;
-    final alphaCount = word.codeUnits.where((c) => (c >= 65 && c <= 90) || (c >= 97 && c <= 122)).length;
+    final alphaCount = word.codeUnits
+        .where((c) => (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+        .length;
     return (alphaCount / word.length) >= 0.75;
   }
 

@@ -73,7 +73,9 @@ class _AppliedJobsScreenState extends ConsumerState<AppliedJobsScreen> {
     final activeFilter = _filters[_selectedFilterIndex];
     final filteredApps = activeFilter == 'All'
         ? _applications
-        : _applications.where((app) => app['filterCategory'] == activeFilter).toList();
+        : _applications
+            .where((app) => app['filterCategory'] == activeFilter)
+            .toList();
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
@@ -110,15 +112,20 @@ class _AppliedJobsScreenState extends ConsumerState<AppliedJobsScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: isSelected ? const Color(0xFF7C3AED) : const Color(0xFF121622),
+                          color: isSelected
+                              ? const Color(0xFF7C3AED)
+                              : const Color(0xFF121622),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF232A3B),
+                            color: isSelected
+                                ? const Color(0xFF8B5CF6)
+                                : const Color(0xFF232A3B),
                           ),
                           boxShadow: isSelected
                               ? [
                                   BoxShadow(
-                                    color: const Color(0xFF7C3AED).withValues(alpha: 0.35),
+                                    color: const Color(0xFF7C3AED)
+                                        .withValues(alpha: 0.35),
                                     blurRadius: 10,
                                   ),
                                 ]
@@ -128,8 +135,11 @@ class _AppliedJobsScreenState extends ConsumerState<AppliedJobsScreen> {
                           _filters[idx],
                           style: TextStyle(
                             fontSize: 12,
-                            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                            color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+                            fontWeight:
+                                isSelected ? FontWeight.w700 : FontWeight.w500,
+                            color: isSelected
+                                ? Colors.white
+                                : const Color(0xFF94A3B8),
                           ),
                         ),
                       ),
@@ -148,17 +158,20 @@ class _AppliedJobsScreenState extends ConsumerState<AppliedJobsScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.inbox_outlined, color: Color(0xFF64748B), size: 48),
+                          Icon(Icons.inbox_outlined,
+                              color: Color(0xFF64748B), size: 48),
                           SizedBox(height: 12),
                           Text(
                             'No applications in this category yet',
-                            style: TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
+                            style: TextStyle(
+                                color: Color(0xFF94A3B8), fontSize: 14),
                           ),
                         ],
                       ),
                     )
                   : ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
                       itemCount: filteredApps.length,
                       separatorBuilder: (_, __) => const SizedBox(height: 12),
                       itemBuilder: (context, idx) {
@@ -235,11 +248,13 @@ class _AppliedJobsScreenState extends ConsumerState<AppliedJobsScreen> {
                   const SizedBox(height: 8),
                   // Status Pill
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                     decoration: BoxDecoration(
                       color: statusColor.withValues(alpha: 0.14),
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: statusColor.withValues(alpha: 0.3)),
+                      border:
+                          Border.all(color: statusColor.withValues(alpha: 0.3)),
                     ),
                     child: Text(
                       app['status'] as String,
@@ -254,7 +269,8 @@ class _AppliedJobsScreenState extends ConsumerState<AppliedJobsScreen> {
               ),
             ),
 
-            const Icon(Icons.chevron_right_rounded, color: Color(0xFF64748B), size: 20),
+            const Icon(Icons.chevron_right_rounded,
+                color: Color(0xFF64748B), size: 20),
           ],
         ),
       ),

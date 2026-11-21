@@ -22,15 +22,20 @@ class NotificationsScreen extends ConsumerWidget {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Notifications', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Notifications',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         actions: [
           TextButton(
             onPressed: () {
               if (user != null) {
-                ref.read(notificationNotifierProvider.notifier).markAllAsRead(user.id);
+                ref
+                    .read(notificationNotifierProvider.notifier)
+                    .markAllAsRead(user.id);
               }
             },
-            child: const Text('Mark All Read', style: TextStyle(color: Color(0xFF8B5CF6), fontWeight: FontWeight.w600)),
+            child: const Text('Mark All Read',
+                style: TextStyle(
+                    color: Color(0xFF8B5CF6), fontWeight: FontWeight.w600)),
           ),
           const SizedBox(width: 8),
         ],
@@ -45,7 +50,8 @@ class NotificationsScreen extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               itemCount: notifications.length,
               itemBuilder: (context, index) {
-                return _buildNotificationCard(context, notifications[index], user?.id ?? '', ref)
+                return _buildNotificationCard(
+                        context, notifications[index], user?.id ?? '', ref)
                     .animate()
                     .fadeIn(delay: Duration(milliseconds: index * 50))
                     .slideX(begin: -0.05, end: 0);
@@ -56,14 +62,16 @@ class NotificationsScreen extends ConsumerWidget {
             child: CircularProgressIndicator(color: Color(0xFF8B5CF6)),
           ),
           error: (error, _) => Center(
-            child: Text('Error: $error', style: const TextStyle(color: Color(0xFFEF4444))),
+            child: Text('Error: $error',
+                style: const TextStyle(color: Color(0xFFEF4444))),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildSampleOrEmptyState(BuildContext context, String userId, WidgetRef ref) {
+  Widget _buildSampleOrEmptyState(
+      BuildContext context, String userId, WidgetRef ref) {
     // If empty in mock mode, provide the poster's 4 standard notification items for high fidelity preview
     final sampleNotifications = [
       {
@@ -79,7 +87,8 @@ class NotificationsScreen extends ConsumerWidget {
         'id': 'notif-2',
         'type': 'application_update',
         'title': 'Application Update',
-        'body': 'Microsoft · Product Intern application moved to Shortlisted stage',
+        'body':
+            'Microsoft · Product Intern application moved to Shortlisted stage',
         'time': '1 day ago',
         'isRead': false,
         'actionUrl': '/jobs/applied',
@@ -88,7 +97,8 @@ class NotificationsScreen extends ConsumerWidget {
         'id': 'notif-3',
         'type': 'job_match',
         'title': 'New Job Match (94%)',
-        'body': 'Amazon opened Senior Flutter Developer role matching your skills',
+        'body':
+            'Amazon opened Senior Flutter Developer role matching your skills',
         'time': '2 days ago',
         'isRead': true,
         'actionUrl': '/jobs/details',
@@ -143,7 +153,9 @@ class NotificationsScreen extends ConsumerWidget {
             color: const Color(0xFF121622),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: isRead ? const Color(0xFF232A3B) : const Color(0xFF8B5CF6).withValues(alpha: 0.4),
+              color: isRead
+                  ? const Color(0xFF232A3B)
+                  : const Color(0xFF8B5CF6).withValues(alpha: 0.4),
             ),
           ),
           child: Material(
@@ -181,7 +193,9 @@ class NotificationsScreen extends ConsumerWidget {
                                   style: TextStyle(
                                     color: const Color(0xFFF1F5F9),
                                     fontSize: 14,
-                                    fontWeight: isRead ? FontWeight.w500 : FontWeight.bold,
+                                    fontWeight: isRead
+                                        ? FontWeight.w500
+                                        : FontWeight.bold,
                                   ),
                                 ),
                               ),
@@ -199,14 +213,18 @@ class NotificationsScreen extends ConsumerWidget {
                           const SizedBox(height: 5),
                           Text(
                             item['body'] as String,
-                            style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13, height: 1.3),
+                            style: const TextStyle(
+                                color: Color(0xFF94A3B8),
+                                fontSize: 13,
+                                height: 1.3),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 8),
                           Text(
                             item['time'] as String,
-                            style: const TextStyle(color: Color(0xFF64748B), fontSize: 11),
+                            style: const TextStyle(
+                                color: Color(0xFF64748B), fontSize: 11),
                           ),
                         ],
                       ),
@@ -216,12 +234,16 @@ class NotificationsScreen extends ConsumerWidget {
               ),
             ),
           ),
-        ).animate().fadeIn(delay: Duration(milliseconds: index * 60)).slideY(begin: 0.05, end: 0);
+        )
+            .animate()
+            .fadeIn(delay: Duration(milliseconds: index * 60))
+            .slideY(begin: 0.05, end: 0);
       },
     );
   }
 
-  Widget _buildNotificationCard(BuildContext context, dynamic notification, String userId, WidgetRef ref) {
+  Widget _buildNotificationCard(BuildContext context, dynamic notification,
+      String userId, WidgetRef ref) {
     final typeColors = {
       'job_match': const Color(0xFF38BDF8),
       'application_update': const Color(0xFF8B5CF6),
@@ -237,7 +259,8 @@ class NotificationsScreen extends ConsumerWidget {
     };
 
     final color = typeColors[notification.type] ?? const Color(0xFF8B5CF6);
-    final icon = typeIcons[notification.type] ?? Icons.notifications_none_rounded;
+    final icon =
+        typeIcons[notification.type] ?? Icons.notifications_none_rounded;
     final isRead = notification.isRead ?? false;
 
     return Dismissible(
@@ -253,7 +276,9 @@ class NotificationsScreen extends ConsumerWidget {
         child: const Icon(Icons.delete_outline, color: Color(0xFFEF4444)),
       ),
       onDismissed: (_) {
-        ref.read(notificationNotifierProvider.notifier).deleteNotification(notification.id);
+        ref
+            .read(notificationNotifierProvider.notifier)
+            .deleteNotification(notification.id);
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
@@ -261,7 +286,9 @@ class NotificationsScreen extends ConsumerWidget {
           color: const Color(0xFF121622),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isRead ? const Color(0xFF232A3B) : const Color(0xFF8B5CF6).withValues(alpha: 0.4),
+            color: isRead
+                ? const Color(0xFF232A3B)
+                : const Color(0xFF8B5CF6).withValues(alpha: 0.4),
           ),
         ),
         child: Material(
@@ -270,7 +297,9 @@ class NotificationsScreen extends ConsumerWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: () {
               if (!isRead) {
-                ref.read(notificationNotifierProvider.notifier).markAsRead(notification.id);
+                ref
+                    .read(notificationNotifierProvider.notifier)
+                    .markAsRead(notification.id);
               }
               if (notification.actionUrl != null) {
                 context.push(notification.actionUrl);
@@ -303,7 +332,9 @@ class NotificationsScreen extends ConsumerWidget {
                                 style: TextStyle(
                                   color: const Color(0xFFF1F5F9),
                                   fontSize: 14,
-                                  fontWeight: isRead ? FontWeight.w500 : FontWeight.bold,
+                                  fontWeight: isRead
+                                      ? FontWeight.w500
+                                      : FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -321,14 +352,19 @@ class NotificationsScreen extends ConsumerWidget {
                         const SizedBox(height: 5),
                         Text(
                           notification.body,
-                          style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13, height: 1.3),
+                          style: const TextStyle(
+                              color: Color(0xFF94A3B8),
+                              fontSize: 13,
+                              height: 1.3),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          AppUtils.formatRelativeTime(notification.createdAt ?? DateTime.now()),
-                          style: const TextStyle(color: Color(0xFF64748B), fontSize: 11),
+                          AppUtils.formatRelativeTime(
+                              notification.createdAt ?? DateTime.now()),
+                          style: const TextStyle(
+                              color: Color(0xFF64748B), fontSize: 11),
                         ),
                       ],
                     ),

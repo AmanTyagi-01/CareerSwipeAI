@@ -66,7 +66,8 @@ class EditorialChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final effectiveVariant = isSelected ? EditorialChipVariant.selected : variant;
+    final effectiveVariant =
+        isSelected ? EditorialChipVariant.selected : variant;
 
     Color bgColor;
     Color textColor;
@@ -77,7 +78,9 @@ class EditorialChip extends StatelessWidget {
         bgColor = isDark
             ? EditorialColors.primaryContainer.withValues(alpha: 0.2)
             : const Color(0x1A1E4B38); // 10% Spruce
-        textColor = isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary;
+        textColor = isDark
+            ? EditorialColors.onPrimaryContainer
+            : EditorialColors.primary;
         border = Border.all(
           color: isDark
               ? EditorialColors.primaryContainer.withValues(alpha: 0.4)
@@ -87,23 +90,31 @@ class EditorialChip extends StatelessWidget {
         break;
 
       case EditorialChipVariant.selected:
-        bgColor = isDark ? EditorialColors.primaryContainer : EditorialColors.primary;
+        bgColor =
+            isDark ? EditorialColors.primaryContainer : EditorialColors.primary;
         textColor = EditorialColors.onPrimary;
         border = null;
         break;
 
       case EditorialChipVariant.outline:
         bgColor = Colors.transparent;
-        textColor = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
+        textColor = isDark
+            ? EditorialColors.darkTextPrimary
+            : EditorialColors.paperTextPrimary;
         border = Border.all(
-          color: isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline,
+          color: isDark
+              ? EditorialColors.darkHairline
+              : EditorialColors.paperHairline,
           width: 1.0,
         );
         break;
 
       case EditorialChipVariant.neutral:
-        bgColor = isDark ? EditorialColors.darkContainerMid : const Color(0xFFF2F2EE);
-        textColor = isDark ? EditorialColors.darkTextSecondary : EditorialColors.paperTextSecondary;
+        bgColor =
+            isDark ? EditorialColors.darkContainerMid : const Color(0xFFF2F2EE);
+        textColor = isDark
+            ? EditorialColors.darkTextSecondary
+            : EditorialColors.paperTextSecondary;
         border = null;
         break;
     }

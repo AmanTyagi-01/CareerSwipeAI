@@ -11,7 +11,8 @@ class RoleSelectionScreen extends ConsumerStatefulWidget {
   const RoleSelectionScreen({super.key});
 
   @override
-  ConsumerState<RoleSelectionScreen> createState() => _RoleSelectionScreenState();
+  ConsumerState<RoleSelectionScreen> createState() =>
+      _RoleSelectionScreenState();
 }
 
 class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
@@ -20,11 +21,18 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -74,20 +82,25 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
                       const SizedBox(width: EditorialSpacing.spaceXs),
                       Text(
                         'ROLE DISPATCH PROTOCOL',
-                        style: EditorialTypography.labelStamp(color: textSecondary),
+                        style: EditorialTypography.labelStamp(
+                            color: textSecondary),
                       ),
                     ],
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2.0),
                     decoration: BoxDecoration(
-                      color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                      color: isDark
+                          ? EditorialColors.darkContainerMid
+                          : EditorialColors.paperContainerLow,
                       borderRadius: EditorialRadii.roundedSm,
                       border: Border.all(color: hairlineColor, width: 1.0),
                     ),
                     child: Text(
                       'DUAL-SIDED ECOSYSTEM',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                   ),
                 ],
@@ -157,9 +170,11 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
               // Confirm CTA
               EditorialButton(
                 label: 'Confirm Selected Workspace',
-                trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                trailingIcon: const Icon(Icons.arrow_forward,
+                    size: 18.0, color: Colors.white),
                 onPressed: () {
-                  ref.read(selectedUserTypeProvider.notifier).state = _selectedRole;
+                  ref.read(selectedUserTypeProvider.notifier).state =
+                      _selectedRole;
                   if (_selectedRole == UserType.talent) {
                     context.push('/auth/signup');
                   } else {
@@ -191,7 +206,8 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
     required Color textSecondary,
     required bool isDark,
   }) {
-    final activeBorderColor = isSelected ? EditorialColors.primary : hairlineColor;
+    final activeBorderColor =
+        isSelected ? EditorialColors.primary : hairlineColor;
     final activeBorderWidth = isSelected ? 2.0 : 1.0;
 
     return GestureDetector(
@@ -202,7 +218,8 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
         decoration: BoxDecoration(
           color: surfaceColor,
           borderRadius: BorderRadius.circular(16.0),
-          border: Border.all(color: activeBorderColor, width: activeBorderWidth),
+          border:
+              Border.all(color: activeBorderColor, width: activeBorderWidth),
           boxShadow: isDark
               ? (isSelected ? EditorialElevation.paperCardDark : null)
               : (isSelected ? EditorialElevation.paperCard : null),
@@ -221,7 +238,8 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
                 ),
                 if (isSelected)
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 2.0),
                     decoration: const BoxDecoration(
                       color: EditorialColors.primary,
                       borderRadius: EditorialRadii.roundedSm,
@@ -229,11 +247,13 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.check, size: 12.0, color: Colors.white),
+                        const Icon(Icons.check,
+                            size: 12.0, color: Colors.white),
                         const SizedBox(width: 4.0),
                         Text(
                           'SELECTED',
-                          style: EditorialTypography.labelStamp(color: Colors.white),
+                          style: EditorialTypography.labelStamp(
+                              color: Colors.white),
                         ),
                       ],
                     ),
@@ -256,7 +276,9 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
             Container(
               padding: const EdgeInsets.all(EditorialSpacing.spaceSm),
               decoration: BoxDecoration(
-                color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                color: isDark
+                    ? EditorialColors.darkContainerLow
+                    : EditorialColors.paperContainerLow,
                 borderRadius: EditorialRadii.roundedMd,
               ),
               child: Column(
@@ -268,7 +290,9 @@ class _RoleSelectionScreenState extends ConsumerState<RoleSelectionScreen> {
                         Icon(
                           Icons.check_circle,
                           size: 15.0,
-                          color: isSelected ? EditorialColors.primary : textSecondary,
+                          color: isSelected
+                              ? EditorialColors.primary
+                              : textSecondary,
                         ),
                         const SizedBox(width: 8.0),
                         Expanded(

@@ -46,11 +46,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final authState = ref.watch(authNotifierProvider);
     final isLoading = authState.isLoading;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     ref.listen(authNotifierProvider, (previous, next) {
       next.whenOrNull(
@@ -68,7 +75,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               backgroundColor: EditorialColors.danger,
               behavior: SnackBarBehavior.floating,
-              shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: EditorialRadii.roundedMd),
             ),
           );
         },
@@ -101,11 +109,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             padding: const EdgeInsets.only(right: EditorialSpacing.margin),
             child: CircleAvatar(
               radius: 16.0,
-              backgroundColor: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+              backgroundColor: isDark
+                  ? EditorialColors.darkContainerMid
+                  : EditorialColors.primaryLight,
               child: Icon(
                 Icons.person_outline,
                 size: 18.0,
-                color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                color: isDark
+                    ? EditorialColors.onPrimaryContainer
+                    : EditorialColors.primary,
               ),
             ),
           ),
@@ -129,7 +141,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     Container(
                       padding: const EdgeInsets.all(EditorialSpacing.spaceSm),
                       decoration: BoxDecoration(
-                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        color: isDark
+                            ? EditorialColors.darkContainerLow
+                            : EditorialColors.paperContainerLow,
                         borderRadius: EditorialRadii.roundedMd,
                         border: Border.all(color: hairlineColor, width: 1.0),
                       ),
@@ -141,17 +155,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               children: [
                                 Text(
                                   'ACTIVE DISPATCHES',
-                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                  style: EditorialTypography.labelStamp(
+                                      color: textSecondary),
                                 ),
                                 const SizedBox(height: 2.0),
                                 Text(
                                   '14 Roles',
-                                  style: EditorialTypography.labelLg(color: EditorialColors.primary),
+                                  style: EditorialTypography.labelLg(
+                                      color: EditorialColors.primary),
                                 ),
                               ],
                             ),
                           ),
-                          Container(width: 1.0, height: 28.0, color: hairlineColor),
+                          Container(
+                              width: 1.0, height: 28.0, color: hairlineColor),
                           const SizedBox(width: EditorialSpacing.spaceSm),
                           Expanded(
                             child: Column(
@@ -159,17 +176,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               children: [
                                 Text(
                                   'MEDIAN FIT',
-                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                  style: EditorialTypography.labelStamp(
+                                      color: textSecondary),
                                 ),
                                 const SizedBox(height: 2.0),
                                 Text(
                                   '94.2%',
-                                  style: EditorialTypography.labelLg(color: EditorialColors.primary),
+                                  style: EditorialTypography.labelLg(
+                                      color: EditorialColors.primary),
                                 ),
                               ],
                             ),
                           ),
-                          Container(width: 1.0, height: 28.0, color: hairlineColor),
+                          Container(
+                              width: 1.0, height: 28.0, color: hairlineColor),
                           const SizedBox(width: EditorialSpacing.spaceSm),
                           Expanded(
                             child: Column(
@@ -177,12 +197,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               children: [
                                 Text(
                                   'VERIFIED FIRMS',
-                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                  style: EditorialTypography.labelStamp(
+                                      color: textSecondary),
                                 ),
                                 const SizedBox(height: 2.0),
                                 Text(
                                   'Tier 1 & Labs',
-                                  style: EditorialTypography.labelLg(color: EditorialColors.primary),
+                                  style: EditorialTypography.labelLg(
+                                      color: EditorialColors.primary),
                                 ),
                               ],
                             ),
@@ -198,7 +220,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       style: OutlinedButton.styleFrom(
                         backgroundColor: surfaceColor,
                         side: BorderSide(color: hairlineColor, width: 1.0),
-                        shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: EditorialRadii.roundedMd),
                         minimumSize: const Size(double.infinity, 48.0),
                         elevation: 0,
                       ),
@@ -220,7 +243,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           Flexible(
                             child: Text(
                               'Continue with Google Workspace',
-                              style: EditorialTypography.labelLg(color: textPrimary),
+                              style: EditorialTypography.labelLg(
+                                  color: textPrimary),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -232,15 +256,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     // Divider
                     Row(
                       children: [
-                        Expanded(child: Divider(color: hairlineColor, thickness: 1.0)),
+                        Expanded(
+                            child:
+                                Divider(color: hairlineColor, thickness: 1.0)),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           child: Text(
                             'OR SIGN IN WITH WORK EMAIL',
-                            style: EditorialTypography.labelStamp(color: textSecondary),
+                            style: EditorialTypography.labelStamp(
+                                color: textSecondary),
                           ),
                         ),
-                        Expanded(child: Divider(color: hairlineColor, thickness: 1.0)),
+                        Expanded(
+                            child:
+                                Divider(color: hairlineColor, thickness: 1.0)),
                       ],
                     ),
                     const SizedBox(height: EditorialSpacing.spaceLg),
@@ -257,14 +286,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 2.0),
                           decoration: BoxDecoration(
-                            color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                            color: isDark
+                                ? EditorialColors.darkContainerMid
+                                : EditorialColors.paperContainerLow,
                             borderRadius: EditorialRadii.roundedSm,
                           ),
                           child: Text(
                             'SSO VERIFIED',
-                            style: EditorialTypography.labelStamp(color: textSecondary),
+                            style: EditorialTypography.labelStamp(
+                                color: textSecondary),
                           ),
                         ),
                       ],
@@ -274,7 +307,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       hintText: 'name@company.com',
-                      prefixIcon: Icon(Icons.alternate_email, size: 18.0, color: textSecondary),
+                      prefixIcon: Icon(Icons.alternate_email,
+                          size: 18.0, color: textSecondary),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Email is required';
@@ -299,15 +333,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           ),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 6.0, vertical: 2.0),
                           decoration: BoxDecoration(
-                            color: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+                            color: isDark
+                                ? EditorialColors.darkContainerMid
+                                : EditorialColors.primaryLight,
                             borderRadius: EditorialRadii.roundedSm,
                           ),
                           child: Text(
                             '256-BIT ENCRYPTED',
                             style: EditorialTypography.labelStamp(
-                              color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                              color: isDark
+                                  ? EditorialColors.onPrimaryContainer
+                                  : EditorialColors.primary,
                             ),
                           ),
                         ),
@@ -318,14 +357,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       hintText: 'Enter your password',
-                      prefixIcon: Icon(Icons.lock_outline, size: 18.0, color: textSecondary),
+                      prefixIcon: Icon(Icons.lock_outline,
+                          size: 18.0, color: textSecondary),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          _obscurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
                           size: 18.0,
                           color: textSecondary,
                         ),
-                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                        onPressed: () => setState(
+                            () => _obscurePassword = !_obscurePassword),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -355,14 +398,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               child: Checkbox(
                                 value: _rememberDevice,
                                 activeColor: EditorialColors.primary,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-                                onChanged: (val) => setState(() => _rememberDevice = val ?? true),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0)),
+                                onChanged: (val) => setState(
+                                    () => _rememberDevice = val ?? true),
                               ),
                             ),
                             const SizedBox(width: 6.0),
                             Text(
                               'Remember device (30 days)',
-                              style: EditorialTypography.bodySm(color: textSecondary),
+                              style: EditorialTypography.bodySm(
+                                  color: textSecondary),
                             ),
                           ],
                         ),
@@ -384,7 +430,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     EditorialButton(
                       label: 'Unlock Career Dossier',
                       isLoading: isLoading,
-                      trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                      trailingIcon: const Icon(Icons.arrow_forward,
+                          size: 18.0, color: Colors.white),
                       onPressed: _login,
                     ),
                     const SizedBox(height: EditorialSpacing.spaceMd),
@@ -407,7 +454,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         children: [
                           Text(
                             "Don't have a verified dossier? ",
-                            style: EditorialTypography.bodyMd(color: textSecondary),
+                            style: EditorialTypography.bodyMd(
+                                color: textSecondary),
                           ),
                           GestureDetector(
                             onTap: () => context.push('/auth/role-selection'),

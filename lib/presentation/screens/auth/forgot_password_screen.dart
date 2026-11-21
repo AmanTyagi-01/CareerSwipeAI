@@ -10,7 +10,8 @@ class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  ConsumerState<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() =>
+      _ForgotPasswordScreenState();
 }
 
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
@@ -45,7 +46,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
             ),
             backgroundColor: EditorialColors.danger,
             behavior: SnackBarBehavior.floating,
-            shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+            shape: const RoundedRectangleBorder(
+                borderRadius: EditorialRadii.roundedMd),
           ),
         );
       }
@@ -57,11 +59,18 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -116,15 +125,19 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                   children: [
                     // Security metadata pill
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 4.0),
                       decoration: BoxDecoration(
-                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        color: isDark
+                            ? EditorialColors.darkContainerLow
+                            : EditorialColors.paperContainerLow,
                         borderRadius: EditorialRadii.roundedSm,
                         border: Border.all(color: hairlineColor, width: 1.0),
                       ),
                       child: Text(
                         'ACCOUNT RECOVERY · SEC-ID 09//59',
-                        style: EditorialTypography.labelStamp(color: textSecondary),
+                        style: EditorialTypography.labelStamp(
+                            color: textSecondary),
                       ),
                     ),
                     const SizedBox(height: EditorialSpacing.spaceMd),
@@ -132,7 +145,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     // Editorial Typography Heading
                     Text(
                       'Reset master dossier password.',
-                      style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                      style: EditorialTypography.headlineXlMobile(
+                          color: textPrimary),
                     ),
                     const SizedBox(height: EditorialSpacing.spaceXs),
                     Text(
@@ -145,7 +159,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     Container(
                       padding: const EdgeInsets.all(EditorialSpacing.spaceMd),
                       decoration: BoxDecoration(
-                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        color: isDark
+                            ? EditorialColors.darkContainerLow
+                            : EditorialColors.paperContainerLow,
                         borderRadius: BorderRadius.circular(12.0),
                         border: Border.all(color: hairlineColor, width: 1.0),
                       ),
@@ -172,12 +188,14 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                               children: [
                                 Text(
                                   'NON-ENUMERATING RECOVERY PROTOCOL',
-                                  style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                                  style: EditorialTypography.labelStamp(
+                                      color: EditorialColors.primary),
                                 ),
                                 const SizedBox(height: 4.0),
                                 Text(
                                   'In compliance with zero-trust standards, recovery signals are transmitted without revealing whether an active ledger account exists for this address.',
-                                  style: EditorialTypography.bodySm(color: textSecondary),
+                                  style: EditorialTypography.bodySm(
+                                      color: textSecondary),
                                 ),
                               ],
                             ),
@@ -193,11 +211,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                       children: [
                         Text(
                           'WORK OR UNIVERSITY EMAIL',
-                          style: EditorialTypography.labelStamp(color: textSecondary),
+                          style: EditorialTypography.labelStamp(
+                              color: textSecondary),
                         ),
                         Text(
                           'Required',
-                          style: EditorialTypography.bodySm(color: textSecondary),
+                          style:
+                              EditorialTypography.bodySm(color: textSecondary),
                         ),
                       ],
                     ),
@@ -206,7 +226,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       hintText: 'your.name@institution.org',
-                      prefixIcon: Icon(Icons.alternate_email, size: 18.0, color: textSecondary),
+                      prefixIcon: Icon(Icons.alternate_email,
+                          size: 18.0, color: textSecondary),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Email is required';
@@ -224,7 +245,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         const SizedBox(width: 4.0),
                         Text(
                           'Domain-validated institutional address',
-                          style: EditorialTypography.bodySm(color: textSecondary),
+                          style:
+                              EditorialTypography.bodySm(color: textSecondary),
                         ),
                       ],
                     ),
@@ -234,7 +256,8 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                     EditorialButton(
                       label: 'Dispatch Recovery Token',
                       isLoading: _isLoading,
-                      trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                      trailingIcon: const Icon(Icons.arrow_forward,
+                          size: 18.0, color: Colors.white),
                       onPressed: _dispatchRecovery,
                     ),
                     const SizedBox(height: EditorialSpacing.spaceXl),
@@ -246,7 +269,9 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         color: surfaceColor,
                         borderRadius: BorderRadius.circular(12.0),
                         border: Border.all(color: hairlineColor, width: 1.0),
-                        boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                        boxShadow: isDark
+                            ? EditorialElevation.paperCardDark
+                            : EditorialElevation.paperCard,
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,10 +280,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                             width: 32.0,
                             height: 32.0,
                             decoration: BoxDecoration(
-                              color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                              color: isDark
+                                  ? EditorialColors.darkContainerMid
+                                  : EditorialColors.paperContainerLow,
                               borderRadius: EditorialRadii.roundedSm,
                             ),
-                            child: const Icon(Icons.vpn_key_outlined, size: 18.0, color: EditorialColors.primary),
+                            child: const Icon(Icons.vpn_key_outlined,
+                                size: 18.0, color: EditorialColors.primary),
                           ),
                           const SizedBox(width: EditorialSpacing.spaceSm),
                           Expanded(
@@ -267,12 +295,14 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                               children: [
                                 Text(
                                   'Have your Master Dossier Recovery Key?',
-                                  style: EditorialTypography.headlineSm(color: textPrimary),
+                                  style: EditorialTypography.headlineSm(
+                                      color: textPrimary),
                                 ),
                                 const SizedBox(height: 4.0),
                                 Text(
                                   'Use your 24-word cryptographic seed phrase or WebAuthn physical security key to reset immediately without email access.',
-                                  style: EditorialTypography.bodySm(color: textSecondary),
+                                  style: EditorialTypography.bodySm(
+                                      color: textSecondary),
                                 ),
                                 const SizedBox(height: 8.0),
                                 Text(

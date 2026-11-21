@@ -10,11 +10,18 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -40,11 +47,15 @@ class WelcomeScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: EditorialSpacing.margin),
             child: CircleAvatar(
               radius: 16.0,
-              backgroundColor: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+              backgroundColor: isDark
+                  ? EditorialColors.darkContainerMid
+                  : EditorialColors.primaryLight,
               child: Icon(
                 Icons.person_outline,
                 size: 18.0,
-                color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                color: isDark
+                    ? EditorialColors.onPrimaryContainer
+                    : EditorialColors.primary,
               ),
             ),
           ),
@@ -76,20 +87,25 @@ class WelcomeScreen extends StatelessWidget {
                       const SizedBox(width: EditorialSpacing.spaceXs),
                       Text(
                         'PROTOCOL V2.4',
-                        style: EditorialTypography.labelStamp(color: textSecondary),
+                        style: EditorialTypography.labelStamp(
+                            color: textSecondary),
                       ),
                     ],
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 2.0),
                     decoration: BoxDecoration(
-                      color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                      color: isDark
+                          ? EditorialColors.darkContainerMid
+                          : EditorialColors.paperContainerLow,
                       borderRadius: EditorialRadii.roundedSm,
                       border: Border.all(color: hairlineColor, width: 1.0),
                     ),
                     child: Text(
                       'VERIFIED SIGNAL PLATFORM',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                   ),
                 ],
@@ -130,7 +146,9 @@ class WelcomeScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(EditorialSpacing.spaceSm + 2.0),
                 decoration: BoxDecoration(
-                  color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                  color: isDark
+                      ? EditorialColors.darkContainerLow
+                      : EditorialColors.paperContainerLow,
                   borderRadius: EditorialRadii.roundedMd,
                   border: Border.all(color: hairlineColor, width: 1.0),
                 ),
@@ -139,7 +157,8 @@ class WelcomeScreen extends StatelessWidget {
                     const CircleAvatar(
                       radius: 16.0,
                       backgroundColor: EditorialColors.primary,
-                      child: Icon(Icons.sync_alt, size: 16.0, color: Colors.white),
+                      child:
+                          Icon(Icons.sync_alt, size: 16.0, color: Colors.white),
                     ),
                     const SizedBox(width: EditorialSpacing.spaceSm),
                     Expanded(
@@ -148,24 +167,30 @@ class WelcomeScreen extends StatelessWidget {
                         children: [
                           Text(
                             'LIVE DISPATCH QUEUE',
-                            style: EditorialTypography.labelStamp(color: textSecondary),
+                            style: EditorialTypography.labelStamp(
+                                color: textSecondary),
                           ),
                           Text(
                             '842 verified engineering mandates',
-                            style: EditorialTypography.labelLg(color: textPrimary),
+                            style:
+                                EditorialTypography.labelLg(color: textPrimary),
                           ),
                         ],
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
                       decoration: BoxDecoration(
-                        color: isDark ? EditorialColors.darkContainerMid : const Color(0xFFE2E2E2),
+                        color: isDark
+                            ? EditorialColors.darkContainerMid
+                            : const Color(0xFFE2E2E2),
                         borderRadius: EditorialRadii.roundedSm,
                       ),
                       child: Text(
                         '99.4% SIGNAL',
-                        style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                        style: EditorialTypography.labelStamp(
+                            color: EditorialColors.primary),
                       ),
                     ),
                   ],
@@ -232,7 +257,9 @@ class WelcomeScreen extends StatelessWidget {
                   color: surfaceColor,
                   borderRadius: EditorialRadii.roundedMd,
                   border: Border.all(color: hairlineColor, width: 1.0),
-                  boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                  boxShadow: isDark
+                      ? EditorialElevation.paperCardDark
+                      : EditorialElevation.paperCard,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,11 +269,13 @@ class WelcomeScreen extends StatelessWidget {
                       children: [
                         Text(
                           'SENIOR DISTRIBUTED SYSTEMS ENGINEER',
-                          style: EditorialTypography.labelStamp(color: textSecondary),
+                          style: EditorialTypography.labelStamp(
+                              color: textSecondary),
                         ),
                         Text(
                           '\$240k – \$280k',
-                          style: EditorialTypography.labelLg(color: textPrimary),
+                          style:
+                              EditorialTypography.labelLg(color: textPrimary),
                         ),
                       ],
                     ),
@@ -257,9 +286,12 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: EditorialSpacing.spaceSm),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 6.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 6.0),
                       decoration: BoxDecoration(
-                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        color: isDark
+                            ? EditorialColors.darkContainerLow
+                            : EditorialColors.paperContainerLow,
                         borderRadius: EditorialRadii.roundedSm,
                       ),
                       child: Row(
@@ -275,13 +307,15 @@ class WelcomeScreen extends StatelessWidget {
                               const SizedBox(width: 6.0),
                               Text(
                                 'Verified against: github.com/telemetry-raft-node',
-                                style: EditorialTypography.bodySm(color: textPrimary),
+                                style: EditorialTypography.bodySm(
+                                    color: textPrimary),
                               ),
                             ],
                           ),
                           Text(
                             'AUDITED',
-                            style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                            style: EditorialTypography.labelStamp(
+                                color: EditorialColors.primary),
                           ),
                         ],
                       ),
@@ -294,7 +328,8 @@ class WelcomeScreen extends StatelessWidget {
               // Actions CTA Area
               EditorialButton(
                 label: 'Create Verified Account',
-                trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                trailingIcon: const Icon(Icons.arrow_forward,
+                    size: 18.0, color: Colors.white),
                 onPressed: () => context.push('/auth/role-selection'),
               ),
               const SizedBox(height: EditorialSpacing.spaceSm),
@@ -339,7 +374,9 @@ class WelcomeScreen extends StatelessWidget {
         color: surfaceColor,
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(color: hairlineColor, width: 1.0),
-        boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+        boxShadow: isDark
+            ? EditorialElevation.paperCardDark
+            : EditorialElevation.paperCard,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,10 +390,13 @@ class WelcomeScreen extends StatelessWidget {
                     width: 28.0,
                     height: 28.0,
                     decoration: BoxDecoration(
-                      color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                      color: isDark
+                          ? EditorialColors.darkContainerMid
+                          : EditorialColors.paperContainerLow,
                       borderRadius: EditorialRadii.roundedSm,
                     ),
-                    child: Icon(icon, size: 16.0, color: EditorialColors.primary),
+                    child:
+                        Icon(icon, size: 16.0, color: EditorialColors.primary),
                   ),
                   const SizedBox(width: EditorialSpacing.spaceSm),
                   Text(

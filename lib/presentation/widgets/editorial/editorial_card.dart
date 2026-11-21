@@ -31,8 +31,10 @@ class EditorialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final defaultBg = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final defaultBorder = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final defaultBg =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final defaultBorder =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
     final radius = borderRadius ?? EditorialRadii.roundedLg;
 
     final content = Container(
@@ -45,7 +47,9 @@ class EditorialCard extends StatelessWidget {
           width: borderWidth,
         ),
         boxShadow: hasShadow
-            ? (isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard)
+            ? (isDark
+                ? EditorialElevation.paperCardDark
+                : EditorialElevation.paperCard)
             : null,
       ),
       child: child,

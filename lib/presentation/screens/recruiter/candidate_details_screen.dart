@@ -10,7 +10,8 @@ class CandidateDetailsScreen extends StatefulWidget {
   State<CandidateDetailsScreen> createState() => _CandidateDetailsScreenState();
 }
 
-class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with SingleTickerProviderStateMixin {
+class _CandidateDetailsScreenState extends State<CandidateDetailsScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -33,14 +34,16 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Candidate Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Candidate Profile',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         actions: [
           IconButton(
             icon: const Icon(Icons.share_outlined, color: Color(0xFF94A3B8)),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.bookmark_border_rounded, color: Color(0xFF94A3B8)),
+            icon: const Icon(Icons.bookmark_border_rounded,
+                color: Color(0xFF94A3B8)),
             onPressed: () {},
           ),
         ],
@@ -50,7 +53,8 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -104,19 +108,28 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
             child: Center(
               child: Text(
                 widget.candidateName.isNotEmpty ? widget.candidateName[0] : 'R',
-                style: const TextStyle(fontSize: 34, fontWeight: FontWeight.bold, color: Colors.white),
+                style: const TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
           ),
           const SizedBox(height: 14),
           Text(
             widget.candidateName,
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFF1F5F9)),
           ),
           const SizedBox(height: 4),
           const Text(
             'Senior Flutter & Mobile Architect',
-            style: TextStyle(fontSize: 13, color: Color(0xFF38BDF8), fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 13,
+                color: Color(0xFF38BDF8),
+                fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 12),
           Container(
@@ -124,16 +137,21 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
             decoration: BoxDecoration(
               color: const Color(0xFF10B981).withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.4)),
+              border: Border.all(
+                  color: const Color(0xFF10B981).withValues(alpha: 0.4)),
             ),
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.verified_rounded, size: 16, color: Color(0xFF10B981)),
+                Icon(Icons.verified_rounded,
+                    size: 16, color: Color(0xFF10B981)),
                 SizedBox(width: 6),
                 Text(
                   '92% AI Job Compatibility Fit',
-                  style: TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold, fontSize: 12),
+                  style: TextStyle(
+                      color: Color(0xFF10B981),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12),
                 ),
               ],
             ),
@@ -171,7 +189,16 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
   }
 
   Widget _buildSkillsSection() {
-    final skills = ['Flutter', 'Dart', 'Riverpod', 'Firebase', 'State Management', 'REST APIs', 'Unit Testing', 'CI/CD'];
+    final skills = [
+      'Flutter',
+      'Dart',
+      'Riverpod',
+      'Firebase',
+      'State Management',
+      'REST APIs',
+      'Unit Testing',
+      'CI/CD'
+    ];
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(18),
@@ -183,22 +210,31 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Verified Core Skills', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9))),
+          const Text('Verified Core Skills',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Color(0xFFF1F5F9))),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: skills.map((skill) {
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color(0xFF1E2638),
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.3)),
                 ),
                 child: Text(
                   skill,
-                  style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 12, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      color: Color(0xFFCBD5E1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500),
                 ),
               );
             }).toList(),
@@ -220,33 +256,49 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Experience Highlights', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9))),
+          const Text('Experience Highlights',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Color(0xFFF1F5F9))),
           const SizedBox(height: 14),
           _buildExpItem(
             role: 'Lead Mobile Developer',
             company: 'TechNova Solutions · 2024 - Present',
-            bullets: 'Built high-scale Flutter app for 500k+ MAU with 99.8% crash-free rate.',
+            bullets:
+                'Built high-scale Flutter app for 500k+ MAU with 99.8% crash-free rate.',
           ),
           const Divider(color: Color(0xFF232A3B), height: 20),
           _buildExpItem(
             role: 'Software Engineer',
             company: 'Tata Consultancy Services · 2022 - 2024',
-            bullets: 'Developed robust client microservices and cross-platform UI architectures.',
+            bullets:
+                'Developed robust client microservices and cross-platform UI architectures.',
           ),
         ],
       ),
     );
   }
 
-  Widget _buildExpItem({required String role, required String company, required String bullets}) {
+  Widget _buildExpItem(
+      {required String role,
+      required String company,
+      required String bullets}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(role, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFFF1F5F9))),
+        Text(role,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: Color(0xFFF1F5F9))),
         const SizedBox(height: 2),
-        Text(company, style: const TextStyle(fontSize: 12, color: Color(0xFF38BDF8))),
+        Text(company,
+            style: const TextStyle(fontSize: 12, color: Color(0xFF38BDF8))),
         const SizedBox(height: 4),
-        Text(bullets, style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8), height: 1.3)),
+        Text(bullets,
+            style: const TextStyle(
+                fontSize: 12, color: Color(0xFF94A3B8), height: 1.3)),
       ],
     );
   }
@@ -263,11 +315,18 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
       child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Education', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9))),
+          Text('Education',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Color(0xFFF1F5F9))),
           SizedBox(height: 10),
           Text(
             'B.Tech in Computer Science & Engineering',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFFF1F5F9)),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 13,
+                color: Color(0xFFF1F5F9)),
           ),
           SizedBox(height: 2),
           Text(
@@ -292,7 +351,9 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
             child: OutlinedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Applicant marked as Rejected'), backgroundColor: Color(0xFFEF4444)),
+                  const SnackBar(
+                      content: Text('Applicant marked as Rejected'),
+                      backgroundColor: Color(0xFFEF4444)),
                 );
                 context.pop();
               },
@@ -300,9 +361,11 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
                 foregroundColor: const Color(0xFFEF4444),
                 side: const BorderSide(color: Color(0xFFEF4444)),
                 padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('Reject', style: TextStyle(fontWeight: FontWeight.bold)),
+              child: const Text('Reject',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(width: 14),
@@ -318,16 +381,19 @@ class _CandidateDetailsScreenState extends State<CandidateDetailsScreen> with Si
               ),
               child: ElevatedButton.icon(
                 onPressed: () {
-                  context.push('/recruiter/schedule-interview', extra: widget.candidateName);
+                  context.push('/recruiter/schedule-interview',
+                      extra: widget.candidateName);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                 ),
                 icon: const Icon(Icons.event_available_rounded, size: 18),
-                label: const Text('Schedule Interview', style: TextStyle(fontWeight: FontWeight.bold)),
+                label: const Text('Schedule Interview',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
               ),
             ),
           ),

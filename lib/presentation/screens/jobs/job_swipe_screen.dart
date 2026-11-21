@@ -34,8 +34,10 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
       jobType: 'Full Time',
       experienceLevel: '3-5 years',
       isRemote: true,
-      description: 'Join Amazon’s innovative cloud team building scalable distributed systems that serve hundreds of millions of users globally.',
-      shortDescription: 'Join Amazon’s innovative cloud team building scalable systems.',
+      description:
+          'Join Amazon’s innovative cloud team building scalable distributed systems that serve hundreds of millions of users globally.',
+      shortDescription:
+          'Join Amazon’s innovative cloud team building scalable systems.',
       skills: const ['Python', 'React', 'System Design', 'AWS'],
       postedAt: DateTime.now().subtract(const Duration(hours: 4)),
     ),
@@ -50,7 +52,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
       jobType: 'Full Time',
       experienceLevel: '4+ years',
       isRemote: false,
-      description: 'Craft intuitive, highly accessible web and mobile user interfaces across Google Workspace and Developer Platform tools.',
+      description:
+          'Craft intuitive, highly accessible web and mobile user interfaces across Google Workspace and Developer Platform tools.',
       shortDescription: 'Craft intuitive UI across Google developer tools.',
       skills: const ['Flutter', 'TypeScript', 'Web Architecture'],
       postedAt: DateTime.now().subtract(const Duration(days: 1)),
@@ -66,8 +69,10 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
       jobType: 'Internship',
       experienceLevel: '0-1 year',
       isRemote: false,
-      description: 'Work with the Microsoft Research India team applying foundation models and generative AI to multimodal enterprise tasks.',
-      shortDescription: 'Apply foundation models to generative enterprise tasks.',
+      description:
+          'Work with the Microsoft Research India team applying foundation models and generative AI to multimodal enterprise tasks.',
+      shortDescription:
+          'Apply foundation models to generative enterprise tasks.',
       skills: const ['PyTorch', 'LLMs', 'Python', 'NLP'],
       postedAt: DateTime.now().subtract(const Duration(days: 2)),
     ),
@@ -81,7 +86,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
 
   int _currentCardIndex = 0;
 
-  bool _onSwipe(int previousIndex, int? currentIndex, CardSwiperDirection direction) {
+  bool _onSwipe(
+      int previousIndex, int? currentIndex, CardSwiperDirection direction) {
     final jobs = _getFilteredJobs();
     if (jobs.isEmpty) return true;
     final job = jobs[previousIndex % jobs.length];
@@ -95,10 +101,10 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
       if (user != null) {
         ref.read(jobServiceProvider).recordSwipe(user.id, job.id, 'apply');
         ref.read(jobServiceProvider).applyForJob(
-          user.id,
-          job.id,
-          resumeUrl: user.resumeUrl,
-        );
+              user.id,
+              job.id,
+              resumeUrl: user.resumeUrl,
+            );
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -126,9 +132,13 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
       case 1: // Remote
         return sourceList.where((j) => j.isRemote).toList();
       case 2: // Full Time
-        return sourceList.where((j) => j.jobType?.toLowerCase().contains('full') == true).toList();
+        return sourceList
+            .where((j) => j.jobType?.toLowerCase().contains('full') == true)
+            .toList();
       case 3: // Internship
-        return sourceList.where((j) => j.jobType?.toLowerCase().contains('intern') == true).toList();
+        return sourceList
+            .where((j) => j.jobType?.toLowerCase().contains('intern') == true)
+            .toList();
       default:
         return sourceList;
     }
@@ -159,7 +169,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                       ),
                       const Spacer(),
                       IconButton(
-                        icon: const Icon(Icons.tune_rounded, color: Color(0xFF8B5CF6)),
+                        icon: const Icon(Icons.tune_rounded,
+                            color: Color(0xFF8B5CF6)),
                         onPressed: () {},
                       ),
                     ],
@@ -174,24 +185,33 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                       itemBuilder: (context, idx) {
                         final isSelected = _selectedFilterIndex == idx;
                         return GestureDetector(
-                          onTap: () => setState(() => _selectedFilterIndex = idx),
+                          onTap: () =>
+                              setState(() => _selectedFilterIndex = idx),
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 200),
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: isSelected ? const Color(0xFF7C3AED) : const Color(0xFF121622),
+                              color: isSelected
+                                  ? const Color(0xFF7C3AED)
+                                  : const Color(0xFF121622),
                               borderRadius: BorderRadius.circular(18),
                               border: Border.all(
-                                color: isSelected ? const Color(0xFF8B5CF6) : const Color(0xFF232A3B),
+                                color: isSelected
+                                    ? const Color(0xFF8B5CF6)
+                                    : const Color(0xFF232A3B),
                               ),
                             ),
                             child: Text(
                               _filters[idx],
                               style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                                color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+                                fontWeight: isSelected
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                                color: isSelected
+                                    ? Colors.white
+                                    : const Color(0xFF94A3B8),
                               ),
                             ),
                           ),
@@ -215,16 +235,20 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.work_off_outlined, color: Color(0xFF64748B), size: 48),
+                            const Icon(Icons.work_off_outlined,
+                                color: Color(0xFF64748B), size: 48),
                             const SizedBox(height: 12),
                             const Text(
                               'No opportunities found in this category',
-                              style: TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
+                              style: TextStyle(
+                                  color: Color(0xFF94A3B8), fontSize: 14),
                             ),
                             const SizedBox(height: 12),
                             TextButton(
-                              onPressed: () => setState(() => _selectedFilterIndex = 0),
-                              child: const Text('Reset Filter', style: TextStyle(color: Color(0xFF8B5CF6))),
+                              onPressed: () =>
+                                  setState(() => _selectedFilterIndex = 0),
+                              child: const Text('Reset Filter',
+                                  style: TextStyle(color: Color(0xFF8B5CF6))),
                             ),
                           ],
                         ),
@@ -280,12 +304,15 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                         final job = jobs[_currentCardIndex % jobs.length];
                         final user = ref.read(currentUserProvider).value;
                         if (user != null) {
-                          ref.read(jobServiceProvider).recordSwipe(user.id, job.id, 'save');
+                          ref
+                              .read(jobServiceProvider)
+                              .recordSwipe(user.id, job.id, 'save');
                           ref.read(jobServiceProvider).saveJob(user.id, job.id);
                         }
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Saved "${job.title}" to opportunities! ⭐'),
+                            content: Text(
+                                'Saved "${job.title}" to opportunities! ⭐'),
                             backgroundColor: const Color(0xFF0284C7),
                             behavior: SnackBarBehavior.floating,
                             duration: const Duration(seconds: 1),
@@ -375,7 +402,11 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
             width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF312E81), Color(0xFF0F172A), Color(0xFF1E1B4B)],
+                colors: [
+                  Color(0xFF312E81),
+                  Color(0xFF0F172A),
+                  Color(0xFF1E1B4B)
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -400,7 +431,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                   top: 14,
                   right: 14,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       color: const Color(0xFF0A0E17).withValues(alpha: 0.75),
                       borderRadius: BorderRadius.circular(20),
@@ -433,7 +465,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                     decoration: BoxDecoration(
                       color: const Color(0xFF1E2333),
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+                      border: Border.all(
+                          color: const Color(0xFF38BDF8), width: 1.5),
                       boxShadow: [
                         BoxShadow(
                           color: const Color(0xFF38BDF8).withValues(alpha: 0.3),
@@ -487,7 +520,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                   // Tags: Job Type, Remote, Salary
                   Row(
                     children: [
-                      _buildChip(job.jobType ?? 'Full Time', const Color(0xFF8B5CF6)),
+                      _buildChip(
+                          job.jobType ?? 'Full Time', const Color(0xFF8B5CF6)),
                       const SizedBox(width: 8),
                       if (job.isRemote) ...[
                         _buildChip('Remote', const Color(0xFF38BDF8)),
@@ -536,7 +570,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                     runSpacing: 6,
                     children: job.skills.take(4).map((skill) {
                       return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: const Color(0xFF1E2436),
                           borderRadius: BorderRadius.circular(12),
@@ -559,7 +594,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                   // Tap to View Full Details
                   Center(
                     child: TextButton(
-                      onPressed: () => context.push('/jobs/details', extra: job.id),
+                      onPressed: () =>
+                          context.push('/jobs/details', extra: job.id),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -572,7 +608,8 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                             ),
                           ),
                           SizedBox(width: 4),
-                          Icon(Icons.arrow_forward_rounded, size: 14, color: Color(0xFF8B5CF6)),
+                          Icon(Icons.arrow_forward_rounded,
+                              size: 14, color: Color(0xFF8B5CF6)),
                         ],
                       ),
                     ),

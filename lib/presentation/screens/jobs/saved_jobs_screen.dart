@@ -22,7 +22,8 @@ class SavedJobsScreen extends ConsumerWidget {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Saved Opportunities', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Saved Opportunities',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: SafeArea(
         child: savedJobsAsync.when(
@@ -42,9 +43,11 @@ class SavedJobsScreen extends ConsumerWidget {
               },
             );
           },
-          loading: () => const Center(child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
+          loading: () => const Center(
+              child: CircularProgressIndicator(color: Color(0xFF8B5CF6))),
           error: (error, _) => Center(
-            child: Text('Error: $error', style: const TextStyle(color: Color(0xFFEF4444))),
+            child: Text('Error: $error',
+                style: const TextStyle(color: Color(0xFFEF4444))),
           ),
         ),
       ),
@@ -126,7 +129,10 @@ class SavedJobsScreen extends ConsumerWidget {
                           child: Center(
                             child: Text(
                               (job['company'] as String).substring(0, 1),
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
                             ),
                           ),
                         ),
@@ -137,22 +143,30 @@ class SavedJobsScreen extends ConsumerWidget {
                             children: [
                               Text(
                                 job['title'] as String,
-                                style: const TextStyle(color: Color(0xFFF1F5F9), fontWeight: FontWeight.bold, fontSize: 15),
+                                style: const TextStyle(
+                                    color: Color(0xFFF1F5F9),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
                               ),
                               const SizedBox(height: 2),
                               Text(
                                 job['company'] as String,
-                                style: const TextStyle(color: Color(0xFF38BDF8), fontSize: 13, fontWeight: FontWeight.w500),
+                                style: const TextStyle(
+                                    color: Color(0xFF38BDF8),
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500),
                               ),
                               const SizedBox(height: 2),
                               Text(
                                 job['location'] as String,
-                                style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12),
+                                style: const TextStyle(
+                                    color: Color(0xFF94A3B8), fontSize: 12),
                               ),
                             ],
                           ),
                         ),
-                        const Icon(Icons.bookmark_rounded, color: Color(0xFF38BDF8), size: 24),
+                        const Icon(Icons.bookmark_rounded,
+                            color: Color(0xFF38BDF8), size: 24),
                       ],
                     ),
                     const SizedBox(height: 12),
@@ -163,18 +177,24 @@ class SavedJobsScreen extends ConsumerWidget {
                           spacing: 6,
                           children: tags.map((t) {
                             return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 3),
                               decoration: BoxDecoration(
                                 color: const Color(0xFF1E2638),
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: Text(t, style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 11)),
+                              child: Text(t,
+                                  style: const TextStyle(
+                                      color: Color(0xFFCBD5E1), fontSize: 11)),
                             );
                           }).toList(),
                         ),
                         Text(
                           job['salary'] as String,
-                          style: const TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold, fontSize: 13),
+                          style: const TextStyle(
+                              color: Color(0xFF10B981),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 13),
                         ),
                       ],
                     ),
@@ -183,12 +203,16 @@ class SavedJobsScreen extends ConsumerWidget {
               ),
             ),
           ),
-        ).animate().fadeIn(delay: Duration(milliseconds: index * 60)).slideY(begin: 0.05, end: 0);
+        )
+            .animate()
+            .fadeIn(delay: Duration(milliseconds: index * 60))
+            .slideY(begin: 0.05, end: 0);
       },
     );
   }
 
-  Widget _buildJobCard(BuildContext context, dynamic job, String userId, WidgetRef ref) {
+  Widget _buildJobCard(
+      BuildContext context, dynamic job, String userId, WidgetRef ref) {
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
       decoration: BoxDecoration(
@@ -221,7 +245,10 @@ class SavedJobsScreen extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           AppUtils.getInitials(job.company),
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
                         ),
                       ),
                     ),
@@ -232,27 +259,37 @@ class SavedJobsScreen extends ConsumerWidget {
                         children: [
                           Text(
                             job.title,
-                            style: const TextStyle(color: Color(0xFFF1F5F9), fontWeight: FontWeight.bold, fontSize: 15),
+                            style: const TextStyle(
+                                color: Color(0xFFF1F5F9),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 2),
                           Text(
                             job.company,
-                            style: const TextStyle(color: Color(0xFF38BDF8), fontSize: 13, fontWeight: FontWeight.w500),
+                            style: const TextStyle(
+                                color: Color(0xFF38BDF8),
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500),
                           ),
                           const SizedBox(height: 2),
                           Text(
                             job.location ?? (job.isRemote ? 'Remote' : 'India'),
-                            style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12),
+                            style: const TextStyle(
+                                color: Color(0xFF94A3B8), fontSize: 12),
                           ),
                         ],
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.bookmark_rounded, color: Color(0xFF38BDF8)),
+                      icon: const Icon(Icons.bookmark_rounded,
+                          color: Color(0xFF38BDF8)),
                       onPressed: () {
-                        ref.read(jobNotifierProvider.notifier).unsaveJob(userId, job.id);
+                        ref
+                            .read(jobNotifierProvider.notifier)
+                            .unsaveJob(userId, job.id);
                       },
                     ),
                   ],
@@ -262,12 +299,18 @@ class SavedJobsScreen extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      AppUtils.formatSalary(job.minSalary, job.maxSalary, job.currency ?? 'INR'),
-                      style: const TextStyle(color: Color(0xFF10B981), fontWeight: FontWeight.bold, fontSize: 13),
+                      AppUtils.formatSalary(
+                          job.minSalary, job.maxSalary, job.currency ?? 'INR'),
+                      style: const TextStyle(
+                          color: Color(0xFF10B981),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13),
                     ),
                     Text(
-                      AppUtils.formatRelativeTime(job.postedAt ?? DateTime.now()),
-                      style: const TextStyle(color: Color(0xFF64748B), fontSize: 11),
+                      AppUtils.formatRelativeTime(
+                          job.postedAt ?? DateTime.now()),
+                      style: const TextStyle(
+                          color: Color(0xFF64748B), fontSize: 11),
                     ),
                   ],
                 ),

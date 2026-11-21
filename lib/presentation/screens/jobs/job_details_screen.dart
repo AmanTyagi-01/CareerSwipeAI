@@ -38,7 +38,8 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen>
     jobType: 'Full Time',
     experienceLevel: '3-5 years',
     isRemote: true,
-    description: '''We are looking for a talented Software Engineer to join our team, lead architecture across cloud platforms, and deliver world-class experiences to hundreds of millions of customers worldwide.
+    description:
+        '''We are looking for a talented Software Engineer to join our team, lead architecture across cloud platforms, and deliver world-class experiences to hundreds of millions of customers worldwide.
 
 You will have the opportunity to work with cutting-edge distributed computing technologies, optimize system performance, and drive architectural standards.''',
     requirements: const [
@@ -49,14 +50,21 @@ You will have the opportunity to work with cutting-edge distributed computing te
       'Experience building scalable cloud services on AWS or GCP',
       'Demonstrated understanding of CI/CD and unit testing methodologies',
     ],
-    skills: const ['Python', 'React', 'System Design', 'AWS', 'Distributed Systems'],
+    skills: const [
+      'Python',
+      'React',
+      'System Design',
+      'AWS',
+      'Distributed Systems'
+    ],
     postedAt: DateTime.now().subtract(const Duration(hours: 6)),
   );
 
   JobModel _resolveJob() {
     if (widget.jobId != null && widget.jobId!.isNotEmpty) {
       final jobsAsync = ref.watch(jobsProvider(null));
-      final found = jobsAsync.value?.where((j) => j.id == widget.jobId).firstOrNull;
+      final found =
+          jobsAsync.value?.where((j) => j.id == widget.jobId).firstOrNull;
       if (found != null) return found;
     }
     return _defaultJob;
@@ -96,8 +104,11 @@ You will have the opportunity to work with cutting-edge distributed computing te
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(newSaved ? 'Saved to opportunities! ⭐' : 'Removed from saved jobs.'),
-        backgroundColor: newSaved ? const Color(0xFF8B5CF6) : const Color(0xFF64748B),
+        content: Text(newSaved
+            ? 'Saved to opportunities! ⭐'
+            : 'Removed from saved jobs.'),
+        backgroundColor:
+            newSaved ? const Color(0xFF8B5CF6) : const Color(0xFF64748B),
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 1),
       ),
@@ -132,13 +143,16 @@ You will have the opportunity to work with cutting-edge distributed computing te
                 pinned: true,
                 backgroundColor: const Color(0xFF0A0E17),
                 leading: IconButton(
-                  icon: const Icon(Icons.arrow_back_rounded, color: Colors.white),
+                  icon:
+                      const Icon(Icons.arrow_back_rounded, color: Colors.white),
                   onPressed: () => context.pop(),
                 ),
                 actions: [
                   IconButton(
                     icon: Icon(
-                      _isSaved ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
+                      _isSaved
+                          ? Icons.bookmark_rounded
+                          : Icons.bookmark_outline_rounded,
                       color: _isSaved ? const Color(0xFF8B5CF6) : Colors.white,
                     ),
                     onPressed: () => _toggleSave(job),
@@ -156,7 +170,11 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       Container(
                         decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Color(0xFF312E81), Color(0xFF1E1B4B), Color(0xFF0F172A)],
+                            colors: [
+                              Color(0xFF312E81),
+                              Color(0xFF1E1B4B),
+                              Color(0xFF0F172A)
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           ),
@@ -166,7 +184,10 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: [Colors.transparent, const Color(0xFF0A0E17).withValues(alpha: 0.9)],
+                            colors: [
+                              Colors.transparent,
+                              const Color(0xFF0A0E17).withValues(alpha: 0.9)
+                            ],
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                           ),
@@ -182,17 +203,21 @@ You will have the opportunity to work with cutting-edge distributed computing te
                           decoration: BoxDecoration(
                             color: const Color(0xFF1E2333),
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+                            border: Border.all(
+                                color: const Color(0xFF38BDF8), width: 1.5),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF38BDF8).withValues(alpha: 0.3),
+                                color: const Color(0xFF38BDF8)
+                                    .withValues(alpha: 0.3),
                                 blurRadius: 14,
                               ),
                             ],
                           ),
                           child: Center(
                             child: Text(
-                              job.company.isNotEmpty ? job.company[0].toUpperCase() : 'J',
+                              job.company.isNotEmpty
+                                  ? job.company[0].toUpperCase()
+                                  : 'J',
                               style: const TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900,
@@ -210,7 +235,8 @@ You will have the opportunity to work with cutting-edge distributed computing te
               // Title, Subtitle, Chips
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -236,7 +262,8 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       // Tags Row
                       Row(
                         children: [
-                          _buildChip(job.jobType ?? 'Full Time', const Color(0xFF8B5CF6)),
+                          _buildChip(job.jobType ?? 'Full Time',
+                              const Color(0xFF8B5CF6)),
                           const SizedBox(width: 8),
                           if (job.isRemote) ...[
                             _buildChip('Remote', const Color(0xFF38BDF8)),
@@ -263,7 +290,8 @@ You will have the opportunity to work with cutting-edge distributed computing te
                           ),
                           labelColor: Colors.white,
                           unselectedLabelColor: const Color(0xFF94A3B8),
-                          labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                          labelStyle: const TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.w700),
                           tabs: const [
                             Tab(text: 'Overview'),
                             Tab(text: 'Requirements'),
@@ -314,20 +342,28 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       onPressed: () => _toggleSave(job),
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Color(0xFF232A3B)),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 14),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
                       ),
                       child: Row(
                         children: [
                           Icon(
-                            _isSaved ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
-                            color: _isSaved ? const Color(0xFF8B5CF6) : Colors.white,
+                            _isSaved
+                                ? Icons.bookmark_rounded
+                                : Icons.bookmark_outline_rounded,
+                            color: _isSaved
+                                ? const Color(0xFF8B5CF6)
+                                : Colors.white,
                             size: 18,
                           ),
                           const SizedBox(width: 6),
                           Text(
                             _isSaved ? 'Saved' : 'Save',
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
                           ),
                         ],
                       ),
@@ -346,7 +382,8 @@ You will have the opportunity to work with cutting-edge distributed computing te
                           borderRadius: BorderRadius.circular(14),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF7C3AED).withValues(alpha: 0.4),
+                              color: const Color(0xFF7C3AED)
+                                  .withValues(alpha: 0.4),
                               blurRadius: 18,
                               offset: const Offset(0, 5),
                             ),
@@ -388,17 +425,20 @@ You will have the opportunity to work with cutting-edge distributed computing te
       children: [
         const Text(
           'Job Description',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
         ),
         const SizedBox(height: 8),
         Text(
           job.description,
-          style: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
+          style: const TextStyle(
+              fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
         ),
         const SizedBox(height: 20),
         const Text(
           'Skills Required',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
         ),
         const SizedBox(height: 10),
         Wrap(
@@ -414,7 +454,10 @@ You will have the opportunity to work with cutting-edge distributed computing te
               ),
               child: Text(
                 skill,
-                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFFCBD5E1)),
+                style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFFCBD5E1)),
               ),
             );
           }).toList(),
@@ -429,7 +472,8 @@ You will have the opportunity to work with cutting-edge distributed computing te
       children: [
         const Text(
           'Key Requirements',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
         ),
         const SizedBox(height: 12),
         ...job.requirements.map((req) {
@@ -446,7 +490,8 @@ You will have the opportunity to work with cutting-edge distributed computing te
                 Expanded(
                   child: Text(
                     req,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFFCBD5E1), height: 1.4),
+                    style: const TextStyle(
+                        fontSize: 13, color: Color(0xFFCBD5E1), height: 1.4),
                   ),
                 ),
               ],
@@ -463,21 +508,25 @@ You will have the opportunity to work with cutting-edge distributed computing te
       children: [
         Text(
           'About ${job.company}',
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+          style: const TextStyle(
+              fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
         ),
         const SizedBox(height: 8),
         Text(
           (job.shortDescription != null && job.shortDescription!.isNotEmpty)
               ? job.shortDescription!
               : job.description,
-          style: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
+          style: const TextStyle(
+              fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
         ),
         const SizedBox(height: 16),
         Row(
           children: [
-            const Icon(Icons.location_on_outlined, color: Color(0xFF8B5CF6), size: 18),
+            const Icon(Icons.location_on_outlined,
+                color: Color(0xFF8B5CF6), size: 18),
             const SizedBox(width: 8),
-            Text(job.location ?? 'Remote', style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 13)),
+            Text(job.location ?? 'Remote',
+                style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 13)),
           ],
         ),
       ],

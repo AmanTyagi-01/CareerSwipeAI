@@ -31,7 +31,8 @@ class FactsMatrix2x2 extends StatelessWidget {
     required this.items,
     this.padding,
     this.backgroundColor,
-  }) : assert(items.length <= 4, 'FactsMatrix2x2 accepts up to 4 items in a 2x2 grid');
+  }) : assert(items.length <= 4,
+            'FactsMatrix2x2 accepts up to 4 items in a 2x2 grid');
 
   /// Convenience constructor for the standard CareerSwipe AI 4-fact block:
   /// Target Comp, Commitment/Hub, Seniority/Team, and Listing SLA.
@@ -107,7 +108,9 @@ class FactsMatrix2x2 extends StatelessWidget {
         color: backgroundColor ?? defaultBg,
         borderRadius: EditorialRadii.roundedMd, // Tier 2: 8px
         border: Border.all(
-          color: isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline,
+          color: isDark
+              ? EditorialColors.darkHairline
+              : EditorialColors.paperHairline,
           width: 1.0,
         ),
       ),
@@ -122,9 +125,8 @@ class FactsMatrix2x2 extends StatelessWidget {
     final defaultTextColor = isDark
         ? EditorialColors.darkTextPrimary
         : EditorialColors.paperTextPrimary;
-    final labelColor = isDark
-        ? EditorialColors.darkTextTertiary
-        : EditorialColors.secondary;
+    final labelColor =
+        isDark ? EditorialColors.darkTextTertiary : EditorialColors.secondary;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

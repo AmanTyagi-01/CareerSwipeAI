@@ -54,7 +54,8 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel> signUpWithEmail(
           String email, String password, String displayName,
           {UserType userType = UserType.talent}) =>
-      _authService.signUpWithEmail(email, password, displayName, userType: userType);
+      _authService.signUpWithEmail(email, password, displayName,
+          userType: userType);
 
   @override
   Future<UserModel> signInWithGoogle() => _authService.signInWithGoogle();

@@ -37,7 +37,8 @@ class TeamMember extends Equatable {
       );
 
   @override
-  List<Object?> get props => [userId, displayName, photoUrl, skills, role, isLeader];
+  List<Object?> get props =>
+      [userId, displayName, photoUrl, skills, role, isLeader];
 }
 
 class TeamModel extends Equatable {
@@ -105,13 +106,26 @@ class TeamModel extends Equatable {
         targetHackathonId: map['targetHackathonId'],
         maxSize: map['maxSize'] ?? 4,
         isOpen: map['isOpen'] ?? true,
-        createdAt: map['createdAt'] != null ? (map['createdAt'] as Timestamp).toDate() : null,
+        createdAt: map['createdAt'] != null
+            ? (map['createdAt'] as Timestamp).toDate()
+            : null,
         projectIdea: map['projectIdea'],
       );
 
   @override
   List<Object?> get props => [
-        id, name, description, leaderId, members, requiredSkills, tags,
-        targetHackathon, targetHackathonId, maxSize, isOpen, createdAt, projectIdea,
+        id,
+        name,
+        description,
+        leaderId,
+        members,
+        requiredSkills,
+        tags,
+        targetHackathon,
+        targetHackathonId,
+        maxSize,
+        isOpen,
+        createdAt,
+        projectIdea,
       ];
 }

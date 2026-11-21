@@ -50,7 +50,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
           ),
           backgroundColor: EditorialColors.alertUrgent,
           behavior: SnackBarBehavior.floating,
-          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+          shape: const RoundedRectangleBorder(
+              borderRadius: EditorialRadii.roundedMd),
         ),
       );
       return;
@@ -70,11 +71,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     final authState = ref.watch(authNotifierProvider);
     final isLoading = authState.isLoading;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
-    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
-    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
-    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+    final bgColor = isDark
+        ? EditorialColors.darkBackground
+        : EditorialColors.paperBackground;
+    final surfaceColor =
+        isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor =
+        isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final textSecondary =
+        isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     ref.listen(authNotifierProvider, (previous, next) {
       next.whenOrNull(
@@ -93,7 +101,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
               backgroundColor: EditorialColors.danger,
               behavior: SnackBarBehavior.floating,
-              shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: EditorialRadii.roundedMd),
             ),
           );
         },
@@ -143,9 +152,12 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                   children: [
                     // Top Protocol Metadata
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 6.0),
                       decoration: BoxDecoration(
-                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        color: isDark
+                            ? EditorialColors.darkContainerLow
+                            : EditorialColors.paperContainerLow,
                         borderRadius: EditorialRadii.roundedSm,
                         border: Border.all(color: hairlineColor, width: 1.0),
                       ),
@@ -165,13 +177,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                               const SizedBox(width: 6.0),
                               Text(
                                 'ZERO-SYNTHETIC PROTOCOL',
-                                style: EditorialTypography.labelStamp(color: textSecondary),
+                                style: EditorialTypography.labelStamp(
+                                    color: textSecondary),
                               ),
                             ],
                           ),
                           Text(
                             'TIER-1 ARCHIVAL DOSSIER',
-                            style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                            style: EditorialTypography.labelStamp(
+                                color: EditorialColors.primary),
                           ),
                         ],
                       ),
@@ -181,7 +195,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     // Editorial Header
                     Text(
                       'Establish your candidate dossier.',
-                      style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                      style: EditorialTypography.headlineXlMobile(
+                          color: textPrimary),
                     ),
                     const SizedBox(height: EditorialSpacing.spaceXs),
                     Text(
@@ -193,13 +208,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     // Candidate Legal Name
                     Text(
                       'CANDIDATE LEGAL NAME',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                     const SizedBox(height: 6.0),
                     EditorialTextField(
                       controller: _nameController,
                       hintText: 'First and last name',
-                      prefixIcon: Icon(Icons.person_outline, size: 18.0, color: textSecondary),
+                      prefixIcon: Icon(Icons.person_outline,
+                          size: 18.0, color: textSecondary),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Full name is required';
@@ -215,7 +232,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       children: [
                         Text(
                           'INSTITUTIONAL OR WORK DOMAIN',
-                          style: EditorialTypography.labelStamp(color: textSecondary),
+                          style: EditorialTypography.labelStamp(
+                              color: textSecondary),
                         ),
                         Text(
                           'Domain Validated',
@@ -231,7 +249,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       hintText: 'alex.vance@alumni.tcd.ie',
-                      prefixIcon: Icon(Icons.alternate_email, size: 18.0, color: textSecondary),
+                      prefixIcon: Icon(Icons.alternate_email,
+                          size: 18.0, color: textSecondary),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Email is required';
@@ -252,7 +271,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     // Primary Technical Domain Chips
                     Text(
                       'PRIMARY TECHNICAL DOMAIN',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                     const SizedBox(height: 8.0),
                     Wrap(
@@ -272,21 +292,26 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     // Master Password
                     Text(
                       'DOSSIER MASTER PASSWORD',
-                      style: EditorialTypography.labelStamp(color: textSecondary),
+                      style:
+                          EditorialTypography.labelStamp(color: textSecondary),
                     ),
                     const SizedBox(height: 6.0),
                     EditorialTextField(
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       hintText: 'Minimum 8 characters with mixed symbols',
-                      prefixIcon: Icon(Icons.lock_outline, size: 18.0, color: textSecondary),
+                      prefixIcon: Icon(Icons.lock_outline,
+                          size: 18.0, color: textSecondary),
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          _obscurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
                           size: 18.0,
                           color: textSecondary,
                         ),
-                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                        onPressed: () => setState(
+                            () => _obscurePassword = !_obscurePassword),
                       ),
                       onChanged: (_) => setState(() {}),
                       validator: (value) {
@@ -317,20 +342,28 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                             children: [
                               Text(
                                 'ENTROPY ANALYSIS',
-                                style: EditorialTypography.labelStamp(color: textSecondary),
+                                style: EditorialTypography.labelStamp(
+                                    color: textSecondary),
                               ),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 6.0, vertical: 2.0),
                                 decoration: BoxDecoration(
-                                  color: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+                                  color: isDark
+                                      ? EditorialColors.darkContainerMid
+                                      : EditorialColors.primaryLight,
                                   borderRadius: EditorialRadii.roundedSm,
                                 ),
                                 child: Text(
-                                  hasMinLength && hasMixedCase && hasNumberSymbol
+                                  hasMinLength &&
+                                          hasMixedCase &&
+                                          hasNumberSymbol
                                       ? 'CRYPTOGRAPHICALLY STRONG'
                                       : 'ENTER CRITERIA',
                                   style: EditorialTypography.labelStamp(
-                                    color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                                    color: isDark
+                                        ? EditorialColors.onPrimaryContainer
+                                        : EditorialColors.primary,
                                   ),
                                 ),
                               ),
@@ -343,7 +376,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 child: Container(
                                   height: 3.0,
                                   decoration: BoxDecoration(
-                                    color: hasMinLength ? EditorialColors.primary : hairlineColor,
+                                    color: hasMinLength
+                                        ? EditorialColors.primary
+                                        : hairlineColor,
                                     borderRadius: BorderRadius.circular(2.0),
                                   ),
                                 ),
@@ -353,7 +388,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 child: Container(
                                   height: 3.0,
                                   decoration: BoxDecoration(
-                                    color: hasMixedCase ? EditorialColors.primary : hairlineColor,
+                                    color: hasMixedCase
+                                        ? EditorialColors.primary
+                                        : hairlineColor,
                                     borderRadius: BorderRadius.circular(2.0),
                                   ),
                                 ),
@@ -363,7 +400,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                                 child: Container(
                                   height: 3.0,
                                   decoration: BoxDecoration(
-                                    color: hasNumberSymbol ? EditorialColors.primary : hairlineColor,
+                                    color: hasNumberSymbol
+                                        ? EditorialColors.primary
+                                        : hairlineColor,
                                     borderRadius: BorderRadius.circular(2.0),
                                   ),
                                 ),
@@ -404,15 +443,18 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                           child: Checkbox(
                             value: _agreeToTerms,
                             activeColor: EditorialColors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-                            onChanged: (val) => setState(() => _agreeToTerms = val ?? false),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4.0)),
+                            onChanged: (val) =>
+                                setState(() => _agreeToTerms = val ?? false),
                           ),
                         ),
                         const SizedBox(width: 8.0),
                         Expanded(
                           child: Text(
                             'I consent to cryptographic dossier verification and agree to the Terms of Service & Privacy Protocol.',
-                            style: EditorialTypography.bodySm(color: textSecondary),
+                            style: EditorialTypography.bodySm(
+                                color: textSecondary),
                           ),
                         ),
                       ],
@@ -423,7 +465,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     EditorialButton(
                       label: 'Initialize Verified Dossier',
                       isLoading: isLoading,
-                      trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                      trailingIcon: const Icon(Icons.arrow_forward,
+                          size: 18.0, color: Colors.white),
                       onPressed: _signUp,
                     ),
                     const SizedBox(height: EditorialSpacing.spaceLg),
@@ -435,7 +478,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                         children: [
                           Text(
                             'Already registered? ',
-                            style: EditorialTypography.bodyMd(color: textSecondary),
+                            style: EditorialTypography.bodyMd(
+                                color: textSecondary),
                           ),
                           GestureDetector(
                             onTap: () => context.push('/auth/login'),

@@ -136,7 +136,8 @@ class AppUtils {
     return null;
   }
 
-  static String? validateRequired(String? value, {String fieldName = 'This field'}) {
+  static String? validateRequired(String? value,
+      {String fieldName = 'This field'}) {
     if (value == null || value.trim().isEmpty) return '$fieldName is required';
     return null;
   }
@@ -144,7 +145,8 @@ class AppUtils {
   static String? validateOTP(String? value) {
     if (value == null || value.isEmpty) return 'OTP is required';
     if (value.length != 6) return 'OTP must be 6 digits';
-    if (!RegExp(r'^\d{6}$').hasMatch(value)) return 'OTP must contain only digits';
+    if (!RegExp(r'^\d{6}$').hasMatch(value))
+      return 'OTP must contain only digits';
     return null;
   }
 

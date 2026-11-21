@@ -45,8 +45,12 @@ class EditorialTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textColor = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
-    final hintColor = isDark ? EditorialColors.darkPlaceholder : EditorialColors.paperPlaceholder;
+    final textColor = isDark
+        ? EditorialColors.darkTextPrimary
+        : EditorialColors.paperTextPrimary;
+    final hintColor = isDark
+        ? EditorialColors.darkPlaceholder
+        : EditorialColors.paperPlaceholder;
 
     final Widget field = TextFormField(
       controller: controller,
@@ -64,7 +68,8 @@ class EditorialTextField extends StatelessWidget {
         hintStyle: EditorialTypography.bodyMd(color: hintColor),
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 14.0, vertical: 12.0),
       ),
     );
 
@@ -76,7 +81,9 @@ class EditorialTextField extends StatelessWidget {
           Text(
             label!,
             style: EditorialTypography.labelMd(
-              color: isDark ? EditorialColors.darkTextSecondary : EditorialColors.paperTextSecondary,
+              color: isDark
+                  ? EditorialColors.darkTextSecondary
+                  : EditorialColors.paperTextSecondary,
               fontWeight: FontWeight.w600,
             ),
           ),

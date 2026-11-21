@@ -13,7 +13,8 @@ class HiringAnalyticsScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Hiring Analytics', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Hiring Analytics',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -84,16 +85,24 @@ class HiringAnalyticsScreen extends StatelessWidget {
                       children: [
                         const Text(
                           'Applications Over Time',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9)),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Color(0xFFF1F5F9)),
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
                             color: const Color(0xFF1E2638),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: const Color(0xFF232A3B)),
                           ),
-                          child: const Text('Last 30 Days', style: TextStyle(color: Color(0xFF38BDF8), fontSize: 11, fontWeight: FontWeight.bold)),
+                          child: const Text('Last 30 Days',
+                              style: TextStyle(
+                                  color: Color(0xFF38BDF8),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.bold)),
                         ),
                       ],
                     ),
@@ -106,19 +115,32 @@ class HiringAnalyticsScreen extends StatelessWidget {
                           maxY: 65,
                           barTouchData: BarTouchData(enabled: true),
                           titlesData: FlTitlesData(
-                            leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                            rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                            topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            leftTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false)),
+                            rightTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false)),
+                            topTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false)),
                             bottomTitles: AxisTitles(
                               sideTitles: SideTitles(
                                 showTitles: true,
                                 getTitlesWidget: (value, meta) {
-                                  const titles = ['W1', 'W2', 'W3', 'W4', 'W5', 'W6'];
+                                  const titles = [
+                                    'W1',
+                                    'W2',
+                                    'W3',
+                                    'W4',
+                                    'W5',
+                                    'W6'
+                                  ];
                                   final idx = value.toInt();
                                   if (idx >= 0 && idx < titles.length) {
                                     return Padding(
                                       padding: const EdgeInsets.only(top: 8),
-                                      child: Text(titles[idx], style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+                                      child: Text(titles[idx],
+                                          style: const TextStyle(
+                                              fontSize: 11,
+                                              color: Color(0xFF94A3B8))),
                                     );
                                   }
                                   return const SizedBox.shrink();
@@ -158,16 +180,23 @@ class HiringAnalyticsScreen extends StatelessWidget {
                   children: [
                     const Text(
                       'Top Candidate Sources',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFFF1F5F9)),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          color: Color(0xFFF1F5F9)),
                     ),
                     const SizedBox(height: 16),
-                    _buildSourceProgress('LinkedIn Network', 0.45, '45%', const Color(0xFF8B5CF6)),
+                    _buildSourceProgress('LinkedIn Network', 0.45, '45%',
+                        const Color(0xFF8B5CF6)),
                     const SizedBox(height: 14),
-                    _buildSourceProgress('CareerSwipe AI Direct', 0.25, '25%', const Color(0xFF38BDF8)),
+                    _buildSourceProgress('CareerSwipe AI Direct', 0.25, '25%',
+                        const Color(0xFF38BDF8)),
                     const SizedBox(height: 14),
-                    _buildSourceProgress('Naukri / Job Portals', 0.20, '20%', const Color(0xFFF59E0B)),
+                    _buildSourceProgress('Naukri / Job Portals', 0.20, '20%',
+                        const Color(0xFFF59E0B)),
                     const SizedBox(height: 14),
-                    _buildSourceProgress('Employee Referrals', 0.10, '10%', const Color(0xFF10B981)),
+                    _buildSourceProgress('Employee Referrals', 0.10, '10%',
+                        const Color(0xFF10B981)),
                   ],
                 ),
               ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.1, end: 0),
@@ -219,7 +248,10 @@ class HiringAnalyticsScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8), fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                    fontSize: 11,
+                    color: Color(0xFF94A3B8),
+                    fontWeight: FontWeight.w500),
               ),
               Icon(icon, size: 16, color: accent),
             ],
@@ -227,22 +259,30 @@ class HiringAnalyticsScreen extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             val,
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: accent),
+            style: TextStyle(
+                fontSize: 26, fontWeight: FontWeight.bold, color: accent),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSourceProgress(String name, double val, String pct, Color color) {
+  Widget _buildSourceProgress(
+      String name, double val, String pct, Color color) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(name, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13, color: Color(0xFFF1F5F9))),
-            Text(pct, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 13)),
+            Text(name,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                    color: Color(0xFFF1F5F9))),
+            Text(pct,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: color, fontSize: 13)),
           ],
         ),
         const SizedBox(height: 6),

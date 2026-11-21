@@ -17,7 +17,8 @@ void main() {
     });
 
     test('extracts text from plain text and markdown bytes', () async {
-      const sampleText = 'Aman Tyagi\nSenior Mobile Engineer\nSkills: Flutter, Dart, Riverpod, CI/CD';
+      const sampleText =
+          'Aman Tyagi\nSenior Mobile Engineer\nSkills: Flutter, Dart, Riverpod, CI/CD';
       final bytes = Uint8List.fromList(utf8.encode(sampleText));
 
       final file = PlatformFile(
@@ -94,7 +95,8 @@ endobj
       aiService = AIService();
     });
 
-    test('verifies distinct resumes produce distinct, identifiable ATS scores', () async {
+    test('verifies distinct resumes produce distinct, identifiable ATS scores',
+        () async {
       // 1. High-caliber senior engineer resume with matching skills, metrics, and education
       final seniorResume = ResumeModel(
         id: 'res-senior',
@@ -104,7 +106,16 @@ endobj
         fileSize: 1024 * 1024,
         fileType: 'pdf',
         uploadedAt: DateTime.now(),
-        skills: const ['Flutter', 'Dart', 'Riverpod', 'REST APIs', 'Git', 'CI/CD', 'Firebase', 'Clean Architecture'],
+        skills: const [
+          'Flutter',
+          'Dart',
+          'Riverpod',
+          'REST APIs',
+          'Git',
+          'CI/CD',
+          'Firebase',
+          'Clean Architecture'
+        ],
         extractedText: '''
 Aman Tyagi - Lead Mobile Engineer
 aman.tyagi@example.com | +91 9876543210 | github.com/AmanTyagi-01
@@ -157,14 +168,25 @@ Looking for entry level role.
         jobType: 'Full-time',
         experienceLevel: 'Senior',
         isRemote: true,
-        description: 'Lead mobile app development with Flutter, Dart, Riverpod, CI/CD, and REST APIs.',
+        description:
+            'Lead mobile app development with Flutter, Dart, Riverpod, CI/CD, and REST APIs.',
         shortDescription: 'Lead Flutter engineer',
-        skills: const ['Flutter', 'Dart', 'Riverpod', 'REST APIs', 'CI/CD', 'Git', 'Firebase'],
+        skills: const [
+          'Flutter',
+          'Dart',
+          'Riverpod',
+          'REST APIs',
+          'CI/CD',
+          'Git',
+          'Firebase'
+        ],
         postedAt: DateTime.now(),
       );
 
-      final seniorAnalysis = await aiService.analyzeResume(seniorResume, targetJob: targetJob);
-      final juniorAnalysis = await aiService.analyzeResume(juniorResume, targetJob: targetJob);
+      final seniorAnalysis =
+          await aiService.analyzeResume(seniorResume, targetJob: targetJob);
+      final juniorAnalysis =
+          await aiService.analyzeResume(juniorResume, targetJob: targetJob);
 
       // Verify non-identical ATS scores
       expect(seniorAnalysis.atsScore, isNot(equals(juniorAnalysis.atsScore)));

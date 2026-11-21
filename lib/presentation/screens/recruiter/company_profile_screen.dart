@@ -10,7 +10,9 @@ class CompanyProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider).value;
-    final companyName = user?.industry?.isNotEmpty == true ? user!.industry! : 'Aman Traders Tech';
+    final companyName = user?.industry?.isNotEmpty == true
+        ? user!.industry!
+        : 'Aman Traders Tech';
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
@@ -18,7 +20,8 @@ class CompanyProfileScreen extends ConsumerWidget {
         backgroundColor: const Color(0xFF0A0E17),
         elevation: 0,
         foregroundColor: const Color(0xFFF1F5F9),
-        title: const Text('Company Profile', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+        title: const Text('Company Profile',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings_outlined, color: Color(0xFF94A3B8)),
@@ -53,19 +56,24 @@ class CompanyProfileScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(22),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
+                            color:
+                                const Color(0xFF8B5CF6).withValues(alpha: 0.35),
                             blurRadius: 16,
                           ),
                         ],
                       ),
                       child: const Center(
-                        child: Icon(Icons.apartment_rounded, color: Colors.white, size: 38),
+                        child: Icon(Icons.apartment_rounded,
+                            color: Colors.white, size: 38),
                       ),
                     ),
                     const SizedBox(height: 14),
                     Text(
                       companyName,
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFF1F5F9)),
                     ),
                     const SizedBox(height: 4),
                     const Text(
@@ -75,20 +83,27 @@ class CompanyProfileScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 14),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 5),
                       decoration: BoxDecoration(
                         color: const Color(0xFF10B981).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.35)),
+                        border: Border.all(
+                            color: const Color(0xFF10B981)
+                                .withValues(alpha: 0.35)),
                       ),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.verified_rounded, color: Color(0xFF10B981), size: 14),
+                          Icon(Icons.verified_rounded,
+                              color: Color(0xFF10B981), size: 14),
                           SizedBox(width: 6),
                           Text(
                             'Verified Employer',
-                            style: TextStyle(color: Color(0xFF10B981), fontSize: 11, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Color(0xFF10B981),
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -109,13 +124,25 @@ class CompanyProfileScreen extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    _buildInfoRow(icon: Icons.language_rounded, title: 'Website', value: 'https://careerswipe.ai'),
+                    _buildInfoRow(
+                        icon: Icons.language_rounded,
+                        title: 'Website',
+                        value: 'https://careerswipe.ai'),
                     const Divider(color: Color(0xFF232A3B), height: 20),
-                    _buildInfoRow(icon: Icons.location_on_outlined, title: 'Headquarters', value: 'Bengaluru, India'),
+                    _buildInfoRow(
+                        icon: Icons.location_on_outlined,
+                        title: 'Headquarters',
+                        value: 'Bengaluru, India'),
                     const Divider(color: Color(0xFF232A3B), height: 20),
-                    _buildInfoRow(icon: Icons.groups_outlined, title: 'Company Size', value: '11-50 employees'),
+                    _buildInfoRow(
+                        icon: Icons.groups_outlined,
+                        title: 'Company Size',
+                        value: '11-50 employees'),
                     const Divider(color: Color(0xFF232A3B), height: 20),
-                    _buildInfoRow(icon: Icons.business_center_outlined, title: 'Domain', value: 'Technology & AI'),
+                    _buildInfoRow(
+                        icon: Icons.business_center_outlined,
+                        title: 'Domain',
+                        value: 'Technology & AI'),
                   ],
                 ),
               ),
@@ -124,7 +151,8 @@ class CompanyProfileScreen extends ConsumerWidget {
 
               // Management Tiles
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: const Color(0xFF121622),
                   borderRadius: BorderRadius.circular(16),
@@ -136,7 +164,8 @@ class CompanyProfileScreen extends ConsumerWidget {
                       icon: Icons.analytics_outlined,
                       color: const Color(0xFF8B5CF6),
                       title: 'Hiring Analytics',
-                      subtitle: 'Review conversion funnel and applicant sources',
+                      subtitle:
+                          'Review conversion funnel and applicant sources',
                       onTap: () => context.push('/recruiter/analytics'),
                     ),
                     const Divider(color: Color(0xFF232A3B), height: 1),
@@ -144,10 +173,13 @@ class CompanyProfileScreen extends ConsumerWidget {
                       icon: Icons.group_add_outlined,
                       color: const Color(0xFF38BDF8),
                       title: 'Team Members (5)',
-                      subtitle: 'Manage recruiters, hiring managers & reviewers',
+                      subtitle:
+                          'Manage recruiters, hiring managers & reviewers',
                       onTap: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('5 active team members in workspace')),
+                          const SnackBar(
+                              content:
+                                  Text('5 active team members in workspace')),
                         );
                       },
                     ),
@@ -159,7 +191,9 @@ class CompanyProfileScreen extends ConsumerWidget {
                       subtitle: 'Enterprise Unlimited Recruiter Plan',
                       onTap: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Subscription active. Next billing in 28 days.')),
+                          const SnackBar(
+                              content: Text(
+                                  'Subscription active. Next billing in 28 days.')),
                         );
                       },
                     ),
@@ -174,14 +208,20 @@ class CompanyProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildInfoRow({required IconData icon, required String title, required String value}) {
+  Widget _buildInfoRow(
+      {required IconData icon, required String title, required String value}) {
     return Row(
       children: [
         Icon(icon, size: 18, color: const Color(0xFF8B5CF6)),
         const SizedBox(width: 12),
-        Text(title, style: const TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFF1F5F9), fontSize: 13)),
+        Text(title,
+            style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                color: Color(0xFFF1F5F9),
+                fontSize: 13)),
         const Spacer(),
-        Text(value, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13)),
+        Text(value,
+            style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13)),
       ],
     );
   }
@@ -213,13 +253,20 @@ class CompanyProfileScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14, fontWeight: FontWeight.w600)),
+                  Text(title,
+                      style: const TextStyle(
+                          color: Color(0xFFF1F5F9),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600)),
                   const SizedBox(height: 2),
-                  Text(subtitle, style: const TextStyle(color: Color(0xFF64748B), fontSize: 11)),
+                  Text(subtitle,
+                      style: const TextStyle(
+                          color: Color(0xFF64748B), fontSize: 11)),
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded, color: Color(0xFF64748B), size: 20),
+            const Icon(Icons.chevron_right_rounded,
+                color: Color(0xFF64748B), size: 20),
           ],
         ),
       ),

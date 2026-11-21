@@ -13,9 +13,11 @@ class JobService {
       id: 'job-1',
       title: 'Senior Flutter Developer',
       company: 'TechFlow Innovations',
-      companyLogo: 'https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=100&h=100&fit=crop',
+      companyLogo:
+          'https://images.unsplash.com/photo-1549923746-c502d488b3ea?w=100&h=100&fit=crop',
       companyWebsite: 'https://techflow.io',
-      description: 'We are seeking an experienced Flutter Engineer to lead mobile client development for our flagship AI platform. You will build cutting-edge user interfaces and optimize cross-platform performance.',
+      description:
+          'We are seeking an experienced Flutter Engineer to lead mobile client development for our flagship AI platform. You will build cutting-edge user interfaces and optimize cross-platform performance.',
       shortDescription: 'Lead Flutter development for flagship AI platform',
       requirements: const [
         '5+ years mobile development experience',
@@ -48,9 +50,11 @@ class JobService {
       id: 'job-2',
       title: 'AI / Machine Learning Engineer',
       company: 'NeuralPulse AI',
-      companyLogo: 'https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=100&h=100&fit=crop',
+      companyLogo:
+          'https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=100&h=100&fit=crop',
       companyWebsite: 'https://neuralpulse.ai',
-      description: 'Join our research and deployment team to build production LLM pipelines, fine-tune models, and deploy real-time inference systems.',
+      description:
+          'Join our research and deployment team to build production LLM pipelines, fine-tune models, and deploy real-time inference systems.',
       shortDescription: 'Build production LLM pipelines & AI inference systems',
       requirements: const [
         '3+ years experience with PyTorch or TensorFlow',
@@ -82,10 +86,13 @@ class JobService {
       id: 'job-3',
       title: 'Senior Product Designer',
       company: 'Vibrant Labs',
-      companyLogo: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=100&h=100&fit=crop',
+      companyLogo:
+          'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=100&h=100&fit=crop',
       companyWebsite: 'https://vibrantlabs.design',
-      description: 'We are looking for a visual & interaction design specialist to craft delightful user journeys, design systems, and mobile prototypes.',
-      shortDescription: 'Craft delightful user journeys and modern design systems',
+      description:
+          'We are looking for a visual & interaction design specialist to craft delightful user journeys, design systems, and mobile prototypes.',
+      shortDescription:
+          'Craft delightful user journeys and modern design systems',
       requirements: const [
         '4+ years UX/UI design experience in fast-paced teams',
         'Mastery of Figma, design tokens, and interactive prototyping',
@@ -96,7 +103,13 @@ class JobService {
         'Maintain and expand our core design system',
         'Conduct usability testing with real users',
       ],
-      skills: const ['Figma', 'UI/UX', 'Design Systems', 'Prototyping', 'User Research'],
+      skills: const [
+        'Figma',
+        'UI/UX',
+        'Design Systems',
+        'Prototyping',
+        'User Research'
+      ],
       experienceLevel: 'Senior (5+ yrs)',
       jobType: 'Full-time',
       location: 'Austin, TX',
@@ -116,10 +129,13 @@ class JobService {
       id: 'job-4',
       title: 'Full Stack Cloud Architect',
       company: 'Apex Cloud Solutions',
-      companyLogo: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=100&h=100&fit=crop',
+      companyLogo:
+          'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=100&h=100&fit=crop',
       companyWebsite: 'https://apexcloud.dev',
-      description: 'Design and implement resilient serverless architectures, microservices, and GraphQL APIs supporting millions of daily active users.',
-      shortDescription: 'Architect resilient serverless systems & microservices',
+      description:
+          'Design and implement resilient serverless architectures, microservices, and GraphQL APIs supporting millions of daily active users.',
+      shortDescription:
+          'Architect resilient serverless systems & microservices',
       requirements: const [
         '5+ years experience building cloud-native infrastructure',
         'Strong expertise with AWS/GCP, TypeScript, and Go',
@@ -152,7 +168,8 @@ class JobService {
   static final List<JobApplicationModel> _demoApplications = [];
 
   JobService({FirebaseFirestore? firestore})
-      : _firestore = firestore ?? (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null);
+      : _firestore = firestore ??
+            (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null);
 
   Future<List<JobModel>> getJobs({
     int limit = 20,
@@ -172,7 +189,9 @@ class JobService {
         filtered = filtered.where((j) => j.industry == industry).toList();
       }
       if (experienceLevel != null) {
-        filtered = filtered.where((j) => j.experienceLevel == experienceLevel).toList();
+        filtered = filtered
+            .where((j) => j.experienceLevel == experienceLevel)
+            .toList();
       }
       if (jobType != null) {
         filtered = filtered.where((j) => j.jobType == jobType).toList();
@@ -182,23 +201,28 @@ class JobService {
       }
       if (searchQuery != null && searchQuery.isNotEmpty) {
         final query = searchQuery.toLowerCase();
-        filtered = filtered.where((j) =>
-          j.title.toLowerCase().contains(query) ||
-          j.company.toLowerCase().contains(query) ||
-          j.skills.any((s) => s.toLowerCase().contains(query))
-        ).toList();
+        filtered = filtered
+            .where((j) =>
+                j.title.toLowerCase().contains(query) ||
+                j.company.toLowerCase().contains(query) ||
+                j.skills.any((s) => s.toLowerCase().contains(query)))
+            .toList();
       }
       return filtered.take(limit).toList();
     }
     try {
-      Query query = firestore.collection('jobs')
+      Query query = firestore
+          .collection('jobs')
           .where('isActive', isEqualTo: true)
           .orderBy('postedAt', descending: true);
 
-      if (industry != null) query = query.where('industry', isEqualTo: industry);
-      if (experienceLevel != null) query = query.where('experienceLevel', isEqualTo: experienceLevel);
+      if (industry != null)
+        query = query.where('industry', isEqualTo: industry);
+      if (experienceLevel != null)
+        query = query.where('experienceLevel', isEqualTo: experienceLevel);
       if (jobType != null) query = query.where('jobType', isEqualTo: jobType);
-      if (isRemote != null) query = query.where('isRemote', isEqualTo: isRemote);
+      if (isRemote != null)
+        query = query.where('isRemote', isEqualTo: isRemote);
 
       if (lastJobId != null) {
         final lastDoc = await firestore.collection('jobs').doc(lastJobId).get();
@@ -215,10 +239,12 @@ class JobService {
         return JobModel.fromMap({...data, 'id': doc.id});
       }).toList();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching jobs', tag: 'JobService', error: e, stackTrace: e.stackTrace);
+      AppLogger.error('Firestore error fetching jobs',
+          tag: 'JobService', error: e, stackTrace: e.stackTrace);
       throw ServerException(message: 'Failed to fetch jobs: ${e.message}');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error fetching jobs', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error fetching jobs',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch jobs.');
     }
   }
@@ -240,26 +266,31 @@ class JobService {
       firestore.collection('jobs').doc(jobId).update({
         'viewCount': FieldValue.increment(1),
       }).catchError((e) {
-        AppLogger.warning('Failed to increment view count', tag: 'JobService', error: e);
+        AppLogger.warning('Failed to increment view count',
+            tag: 'JobService', error: e);
       });
 
       return JobModel.fromMap({...doc.data()!, 'id': doc.id});
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching job $jobId', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error fetching job $jobId',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to fetch job details.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error fetching job $jobId', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error fetching job $jobId',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch job details.');
     }
   }
 
-  Future<void> recordSwipe(String userId, String jobId, String action, {double? matchScore}) async {
+  Future<void> recordSwipe(String userId, String jobId, String action,
+      {double? matchScore}) async {
     final firestore = _firestore;
     if (firestore == null) {
       if (action == 'like' || action == 'save') {
         _demoSavedJobIds.add(jobId);
       }
-      AppLogger.info('Recorded swipe: $action on $jobId (demo)', tag: 'JobService');
+      AppLogger.info('Recorded swipe: $action on $jobId (demo)',
+          tag: 'JobService');
       return;
     }
     try {
@@ -288,15 +319,18 @@ class JobService {
       await batch.commit();
       AppLogger.info('Recorded swipe: $action on $jobId', tag: 'JobService');
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error recording swipe', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error recording swipe',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to record swipe.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error recording swipe', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error recording swipe',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to record swipe.');
     }
   }
 
-  Future<void> applyForJob(String userId, String jobId, {String? coverLetter, String? resumeUrl}) async {
+  Future<void> applyForJob(String userId, String jobId,
+      {String? coverLetter, String? resumeUrl}) async {
     final firestore = _firestore;
     if (firestore == null) {
       if (_demoApplications.any((a) => a.jobId == jobId)) {
@@ -346,7 +380,8 @@ class JobService {
       };
 
       final batch = firestore.batch();
-      batch.set(firestore.collection('applications').doc(applicationId), applicationData);
+      batch.set(firestore.collection('applications').doc(applicationId),
+          applicationData);
       batch.update(firestore.collection('jobs').doc(jobId), {
         'applyCount': FieldValue.increment(1),
       });
@@ -359,10 +394,12 @@ class JobService {
     } on ServerException {
       rethrow;
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error applying for job', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error applying for job',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to apply for job.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error applying for job', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error applying for job',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to apply for job.');
     }
   }
@@ -380,7 +417,8 @@ class JobService {
       });
       AppLogger.info('Saved job $jobId for user $userId', tag: 'JobService');
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error saving job', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error saving job',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to save job.');
     }
   }
@@ -398,7 +436,8 @@ class JobService {
       });
       AppLogger.info('Unsaved job $jobId for user $userId', tag: 'JobService');
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error unsaving job', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error unsaving job',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to unsave job.');
     }
   }
@@ -424,16 +463,19 @@ class JobService {
             .collection('jobs')
             .where(FieldPath.documentId, whereIn: batch)
             .get();
-        jobs.addAll(snapshot.docs.map((doc) => JobModel.fromMap({...doc.data(), 'id': doc.id})));
+        jobs.addAll(snapshot.docs
+            .map((doc) => JobModel.fromMap({...doc.data(), 'id': doc.id})));
       }
 
       AppLogger.info('Fetched ${jobs.length} saved jobs', tag: 'JobService');
       return jobs;
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching saved jobs', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error fetching saved jobs',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to fetch saved jobs.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error fetching saved jobs', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error fetching saved jobs',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch saved jobs.');
     }
   }
@@ -450,16 +492,19 @@ class JobService {
           .orderBy('appliedAt', descending: true)
           .get();
 
-      AppLogger.info('Fetched ${snapshot.docs.length} applications', tag: 'JobService');
+      AppLogger.info('Fetched ${snapshot.docs.length} applications',
+          tag: 'JobService');
       return snapshot.docs.map((doc) {
         final data = doc.data();
         return JobApplicationModel.fromMap({...data, 'id': doc.id});
       }).toList();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching applications', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error fetching applications',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to fetch applied jobs.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error fetching applications', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error fetching applications',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch applied jobs.');
     }
   }
@@ -473,7 +518,8 @@ class JobService {
       // In a real app, this would call an AI recommendation endpoint
       return await getJobs(limit: 10);
     } catch (e, stackTrace) {
-      AppLogger.error('Error fetching recommendations', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Error fetching recommendations',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch recommendations.');
     }
   }
@@ -486,12 +532,14 @@ class JobService {
     final firestore = _firestore;
     if (firestore == null) {
       final term = query.trim().toLowerCase();
-      return _mockJobs.where((j) =>
-        j.title.toLowerCase().contains(term) ||
-        j.company.toLowerCase().contains(term) ||
-        j.description.toLowerCase().contains(term) ||
-        j.skills.any((s) => s.toLowerCase().contains(term))
-      ).take(limit).toList();
+      return _mockJobs
+          .where((j) =>
+              j.title.toLowerCase().contains(term) ||
+              j.company.toLowerCase().contains(term) ||
+              j.description.toLowerCase().contains(term) ||
+              j.skills.any((s) => s.toLowerCase().contains(term)))
+          .take(limit)
+          .toList();
     }
 
     try {
@@ -506,7 +554,9 @@ class JobService {
           .get();
 
       if (tokenSnapshot.docs.isNotEmpty) {
-        AppLogger.info('Search "$term" returned ${tokenSnapshot.docs.length} results (token)', tag: 'JobService');
+        AppLogger.info(
+            'Search "$term" returned ${tokenSnapshot.docs.length} results (token)',
+            tag: 'JobService');
         return tokenSnapshot.docs.map((doc) {
           return JobModel.fromMap({...doc.data(), 'id': doc.id});
         }).toList();
@@ -521,15 +571,19 @@ class JobService {
           .limit(limit)
           .get();
 
-      AppLogger.info('Search "$term" returned ${prefixSnapshot.docs.length} results (prefix)', tag: 'JobService');
+      AppLogger.info(
+          'Search "$term" returned ${prefixSnapshot.docs.length} results (prefix)',
+          tag: 'JobService');
       return prefixSnapshot.docs.map((doc) {
         return JobModel.fromMap({...doc.data(), 'id': doc.id});
       }).toList();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error searching jobs', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error searching jobs',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to search jobs.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error searching jobs', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error searching jobs',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to search jobs.');
     }
   }
@@ -543,7 +597,8 @@ class JobService {
     final firestore = _firestore;
     if (firestore == null) {
       _mockJobs.insert(0, job);
-      AppLogger.info('Job created in local state: ${job.id}', tag: 'JobService');
+      AppLogger.info('Job created in local state: ${job.id}',
+          tag: 'JobService');
       return job;
     }
 
@@ -556,10 +611,12 @@ class JobService {
       AppLogger.info('Job posted to Firestore: ${job.id}', tag: 'JobService');
       return job;
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error creating job', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error creating job',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to create job: ${e.message}');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error creating job', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error creating job',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to create job.');
     }
   }
@@ -569,7 +626,8 @@ class JobService {
     final firestore = _firestore;
     if (firestore == null) {
       // In demo mode return jobs owned by recruiter or all active mock jobs
-      final owned = _mockJobs.where((j) => j.recruiterId == recruiterId).toList();
+      final owned =
+          _mockJobs.where((j) => j.recruiterId == recruiterId).toList();
       return owned.isNotEmpty ? owned : _mockJobs;
     }
 
@@ -585,10 +643,12 @@ class JobService {
         return JobModel.fromMap({...data, 'id': doc.id});
       }).toList();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching recruiter jobs', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error fetching recruiter jobs',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to fetch your job listings.');
     } catch (e, stackTrace) {
-      AppLogger.error('Unexpected error fetching recruiter jobs', tag: 'JobService', error: e, stackTrace: stackTrace);
+      AppLogger.error('Unexpected error fetching recruiter jobs',
+          tag: 'JobService', error: e, stackTrace: stackTrace);
       throw ServerException(message: 'Failed to fetch your job listings.');
     }
   }
@@ -610,7 +670,8 @@ class JobService {
         'updatedAt': FieldValue.serverTimestamp(),
       });
     } on FirebaseException catch (e) {
-      throw ServerException(message: 'Failed to update job status: ${e.message}');
+      throw ServerException(
+          message: 'Failed to update job status: ${e.message}');
     }
   }
 
@@ -628,7 +689,8 @@ class JobService {
             status: 'shortlisted',
             appliedAt: DateTime.now().subtract(const Duration(days: 2)),
             updatedAt: DateTime.now().subtract(const Duration(days: 1)),
-            coverLetter: 'Passionate Flutter & Dart Engineer with 3+ years experience.',
+            coverLetter:
+                'Passionate Flutter & Dart Engineer with 3+ years experience.',
           ),
           JobApplicationModel(
             id: 'app-2',
@@ -637,7 +699,8 @@ class JobService {
             status: 'pending',
             appliedAt: DateTime.now().subtract(const Duration(days: 3)),
             updatedAt: DateTime.now().subtract(const Duration(days: 3)),
-            coverLetter: 'Frontend & mobile developer experienced with Riverpod and Firebase.',
+            coverLetter:
+                'Frontend & mobile developer experienced with Riverpod and Firebase.',
           ),
           JobApplicationModel(
             id: 'app-3',
@@ -646,7 +709,8 @@ class JobService {
             status: 'interview',
             appliedAt: DateTime.now().subtract(const Duration(days: 5)),
             updatedAt: DateTime.now().subtract(const Duration(hours: 12)),
-            coverLetter: 'Senior cross-platform developer specializing in clean architecture.',
+            coverLetter:
+                'Senior cross-platform developer specializing in clean architecture.',
           ),
           JobApplicationModel(
             id: 'app-4',
@@ -655,11 +719,14 @@ class JobService {
             status: 'pending',
             appliedAt: DateTime.now().subtract(const Duration(days: 6)),
             updatedAt: DateTime.now().subtract(const Duration(days: 6)),
-            coverLetter: 'Mobile developer eager to contribute to AI-driven products.',
+            coverLetter:
+                'Mobile developer eager to contribute to AI-driven products.',
           ),
         ]);
       }
-      return _demoApplications.where((a) => a.jobId == jobId || jobId.isEmpty).toList();
+      return _demoApplications
+          .where((a) => a.jobId == jobId || jobId.isEmpty)
+          .toList();
     }
 
     try {
@@ -673,13 +740,15 @@ class JobService {
         return JobApplicationModel.fromMap({...data, 'id': doc.id});
       }).toList();
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error fetching applicants', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error fetching applicants',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to fetch applicants.');
     }
   }
 
   /// Update application status (e.g. 'shortlisted', 'rejected', 'interview', 'offered')
-  Future<void> updateApplicationStatus(String applicationId, String newStatus) async {
+  Future<void> updateApplicationStatus(
+      String applicationId, String newStatus) async {
     final firestore = _firestore;
     if (firestore == null) {
       final idx = _demoApplications.indexWhere((a) => a.id == applicationId);
@@ -694,7 +763,10 @@ class JobService {
           resumeUrl: old.resumeUrl,
           appliedAt: old.appliedAt,
           updatedAt: DateTime.now(),
-          timeline: {...old.timeline, newStatus: DateTime.now().toIso8601String()},
+          timeline: {
+            ...old.timeline,
+            newStatus: DateTime.now().toIso8601String()
+          },
         );
       }
       return;
@@ -707,7 +779,8 @@ class JobService {
         'timeline.$newStatus': FieldValue.serverTimestamp(),
       });
     } on FirebaseException catch (e) {
-      AppLogger.error('Firestore error updating status', tag: 'JobService', error: e);
+      AppLogger.error('Firestore error updating status',
+          tag: 'JobService', error: e);
       throw ServerException(message: 'Failed to update application status.');
     }
   }

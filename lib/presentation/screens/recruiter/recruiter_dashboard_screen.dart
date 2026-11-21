@@ -12,15 +12,23 @@ class RecruiterDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(currentUserProvider).value;
     final displayName = user?.displayName?.split(' ').first ?? 'Recruiter';
-    final companyName = user?.industry?.isNotEmpty == true ? user!.industry! : 'Aman Traders Tech';
+    final companyName = user?.industry?.isNotEmpty == true
+        ? user!.industry!
+        : 'Aman Traders Tech';
 
     final applicantsAsync = ref.watch(jobApplicantsProvider(''));
     final jobsAsync = ref.watch(recruiterJobsProvider(user?.id ?? ''));
 
     final totalJobs = jobsAsync.value?.length ?? 6;
     final totalApplicants = applicantsAsync.value?.length ?? 10;
-    final totalHired = applicantsAsync.value?.where((a) => a.status.toLowerCase() == 'hired').length ?? 2;
-    final totalOffers = applicantsAsync.value?.where((a) => a.status.toLowerCase().contains('offer')).length ?? 4;
+    final totalHired = applicantsAsync.value
+            ?.where((a) => a.status.toLowerCase() == 'hired')
+            .length ??
+        2;
+    final totalOffers = applicantsAsync.value
+            ?.where((a) => a.status.toLowerCase().contains('offer'))
+            .length ??
+        4;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
@@ -34,7 +42,8 @@ class RecruiterDashboardScreen extends ConsumerWidget {
             },
             child: SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -46,8 +55,10 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         children: [
                           CircleAvatar(
                             radius: 24,
-                            backgroundColor: const Color(0xFF8B5CF6).withValues(alpha: 0.2),
-                            child: const Icon(Icons.business_rounded, color: Color(0xFF8B5CF6), size: 28),
+                            backgroundColor:
+                                const Color(0xFF8B5CF6).withValues(alpha: 0.2),
+                            child: const Icon(Icons.business_rounded,
+                                color: Color(0xFF8B5CF6), size: 28),
                           ),
                           const SizedBox(width: 16.0),
                           Column(
@@ -74,10 +85,13 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                       ),
                       IconButton(
                         onPressed: () => context.push('/profile/notifications'),
-                        icon: const Icon(Icons.notifications_outlined, color: Color(0xFFF1F5F9)),
+                        icon: const Icon(Icons.notifications_outlined,
+                            color: Color(0xFFF1F5F9)),
                       ),
                     ],
-                  ).animate().fadeIn(duration: const Duration(milliseconds: 300)),
+                  )
+                      .animate()
+                      .fadeIn(duration: const Duration(milliseconds: 300)),
 
                   const SizedBox(height: 24.0),
 
@@ -94,7 +108,8 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 4.0),
                         decoration: BoxDecoration(
                           color: const Color(0xFF1A2035),
                           borderRadius: BorderRadius.circular(8),
@@ -207,14 +222,17 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                           ),
                         ),
                         ElevatedButton.icon(
-                          onPressed: () => context.push('/recruiter/create-job'),
+                          onPressed: () =>
+                              context.push('/recruiter/create-job'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             foregroundColor: const Color(0xFF8B5CF6),
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
                           ),
                           icon: const Icon(Icons.add_rounded, size: 20),
-                          label: const Text('Post', style: TextStyle(fontWeight: FontWeight.bold)),
+                          label: const Text('Post',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                       ],
                     ),
@@ -236,7 +254,8 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () => context.push('/recruiter/pipeline'),
-                        child: const Text('View All', style: TextStyle(color: Color(0xFF8B5CF6))),
+                        child: const Text('View All',
+                            style: TextStyle(color: Color(0xFF8B5CF6))),
                       ),
                     ],
                   ),
@@ -275,32 +294,40 @@ class RecruiterDashboardScreen extends ConsumerWidget {
 
                       return Column(
                         children: candidates.map((c) {
-                          final statusColor = _statusColor(c['status'] as String);
+                          final statusColor =
+                              _statusColor(c['status'] as String);
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: GestureDetector(
-                              onTap: () => context.push('/recruiter/candidate-details', extra: c['name']),
+                              onTap: () => context.push(
+                                  '/recruiter/candidate-details',
+                                  extra: c['name']),
                               child: Container(
                                 padding: const EdgeInsets.all(16.0),
                                 decoration: BoxDecoration(
                                   color: const Color(0xFF121622),
                                   borderRadius: BorderRadius.circular(16),
-                                  border: Border.all(color: const Color(0xFF232A3B)),
+                                  border: Border.all(
+                                      color: const Color(0xFF232A3B)),
                                 ),
                                 child: Row(
                                   children: [
                                     CircleAvatar(
                                       radius: 20,
-                                      backgroundColor: const Color(0xFF8B5CF6).withValues(alpha: 0.15),
+                                      backgroundColor: const Color(0xFF8B5CF6)
+                                          .withValues(alpha: 0.15),
                                       child: Text(
                                         (c['name'] as String).substring(0, 1),
-                                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF8B5CF6)),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF8B5CF6)),
                                       ),
                                     ),
                                     const SizedBox(width: 16.0),
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             c['name'] as String,
@@ -321,14 +348,20 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                                       ),
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
                                         Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 4),
                                           decoration: BoxDecoration(
-                                            color: statusColor.withValues(alpha: 0.15),
-                                            borderRadius: BorderRadius.circular(20),
-                                            border: Border.all(color: statusColor.withValues(alpha: 0.4)),
+                                            color: statusColor.withValues(
+                                                alpha: 0.15),
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            border: Border.all(
+                                                color: statusColor.withValues(
+                                                    alpha: 0.4)),
                                           ),
                                           child: Text(
                                             c['status'] as String,
@@ -342,7 +375,9 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                                         const SizedBox(height: 4),
                                         Text(
                                           c['time'] as String,
-                                          style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                                          style: const TextStyle(
+                                              fontSize: 11,
+                                              color: Color(0xFF94A3B8)),
                                         ),
                                       ],
                                     ),
@@ -357,10 +392,13 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                     loading: () => const Center(
                       child: Padding(
                         padding: EdgeInsets.all(24),
-                        child: CircularProgressIndicator(color: Color(0xFF8B5CF6)),
+                        child:
+                            CircularProgressIndicator(color: Color(0xFF8B5CF6)),
                       ),
                     ),
-                    error: (e, _) => Center(child: Text('Failed to load applicants: $e', style: const TextStyle(color: Color(0xFF94A3B8)))),
+                    error: (e, _) => Center(
+                        child: Text('Failed to load applicants: $e',
+                            style: const TextStyle(color: Color(0xFF94A3B8)))),
                   ),
                 ],
               ),

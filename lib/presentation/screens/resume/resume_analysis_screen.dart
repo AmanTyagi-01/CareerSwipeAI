@@ -17,7 +17,8 @@ class ResumeAnalysisScreen extends ConsumerStatefulWidget {
   const ResumeAnalysisScreen({super.key, this.analysisId});
 
   @override
-  ConsumerState<ResumeAnalysisScreen> createState() => _ResumeAnalysisScreenState();
+  ConsumerState<ResumeAnalysisScreen> createState() =>
+      _ResumeAnalysisScreenState();
 }
 
 class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
@@ -38,15 +39,21 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
 
   @override
   Widget build(BuildContext context) {
-    final activeAnalysis = ref.watch(activeAnalysisStateProvider) ?? _getDemoAnalysis();
+    final activeAnalysis =
+        ref.watch(activeAnalysisStateProvider) ?? _getDemoAnalysis();
     final overallScore = activeAnalysis.atsScore.round().clamp(0, 100);
 
     // Section scores matching Image 3 reference
-    final skillsScore = (activeAnalysis.sectionScores['Skills'] as num?)?.round() ?? 88;
-    final keywordsScore = (activeAnalysis.sectionScores['Keywords'] as num?)?.round() ?? 82;
-    final experienceScore = (activeAnalysis.sectionScores['Experience'] as num?)?.round() ?? 85;
-    final educationScore = (activeAnalysis.sectionScores['Education'] as num?)?.round() ?? 90;
-    final formattingScore = (activeAnalysis.sectionScores['Formatting'] as num?)?.round() ?? 92;
+    final skillsScore =
+        (activeAnalysis.sectionScores['Skills'] as num?)?.round() ?? 88;
+    final keywordsScore =
+        (activeAnalysis.sectionScores['Keywords'] as num?)?.round() ?? 82;
+    final experienceScore =
+        (activeAnalysis.sectionScores['Experience'] as num?)?.round() ?? 85;
+    final educationScore =
+        (activeAnalysis.sectionScores['Education'] as num?)?.round() ?? 90;
+    final formattingScore =
+        (activeAnalysis.sectionScores['Formatting'] as num?)?.round() ?? 92;
 
     final matchedSkills = activeAnalysis.keywords.isNotEmpty
         ? activeAnalysis.keywords
@@ -78,7 +85,8 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('Recalculated with latest algorithmic criteria.'),
+                  content:
+                      Text('Recalculated with latest algorithmic criteria.'),
                   behavior: SnackBarBehavior.floating,
                 ),
               );
@@ -120,7 +128,11 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                                     strokeWidth: 9,
                                     backgroundColor: const Color(0xFF1E2436),
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                      overallScore >= 80 ? const Color(0xFF10B981) : (overallScore >= 60 ? const Color(0xFFF59E0B) : const Color(0xFFEF4444)),
+                                      overallScore >= 80
+                                          ? const Color(0xFF10B981)
+                                          : (overallScore >= 60
+                                              ? const Color(0xFFF59E0B)
+                                              : const Color(0xFFEF4444)),
                                     ),
                                   ),
                                 ),
@@ -145,11 +157,17 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                                     ),
                                     const SizedBox(height: 2),
                                     Text(
-                                      overallScore >= 80 ? 'High Fit' : (overallScore >= 60 ? 'Moderate' : 'Low Fit'),
+                                      overallScore >= 80
+                                          ? 'High Fit'
+                                          : (overallScore >= 60
+                                              ? 'Moderate'
+                                              : 'Low Fit'),
                                       style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.w700,
-                                        color: overallScore >= 80 ? const Color(0xFF10B981) : const Color(0xFFF59E0B),
+                                        color: overallScore >= 80
+                                            ? const Color(0xFF10B981)
+                                            : const Color(0xFFF59E0B),
                                       ),
                                     ),
                                   ],
@@ -162,15 +180,20 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                           Expanded(
                             child: Column(
                               children: [
-                                _buildCriterionBar('Skills', skillsScore, const Color(0xFF38BDF8)),
+                                _buildCriterionBar('Skills', skillsScore,
+                                    const Color(0xFF38BDF8)),
                                 const SizedBox(height: 8),
-                                _buildCriterionBar('Keywords', keywordsScore, const Color(0xFF818CF8)),
+                                _buildCriterionBar('Keywords', keywordsScore,
+                                    const Color(0xFF818CF8)),
                                 const SizedBox(height: 8),
-                                _buildCriterionBar('Experience', experienceScore, const Color(0xFF34D399)),
+                                _buildCriterionBar('Experience',
+                                    experienceScore, const Color(0xFF34D399)),
                                 const SizedBox(height: 8),
-                                _buildCriterionBar('Education', educationScore, const Color(0xFFFBBF24)),
+                                _buildCriterionBar('Education', educationScore,
+                                    const Color(0xFFFBBF24)),
                                 const SizedBox(height: 8),
-                                _buildCriterionBar('Formatting', formattingScore, const Color(0xFFA78BFA)),
+                                _buildCriterionBar('Formatting',
+                                    formattingScore, const Color(0xFFA78BFA)),
                               ],
                             ),
                           ),
@@ -179,7 +202,8 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                       const SizedBox(height: 16),
                       // Disclaimer Note
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
                           color: const Color(0xFF0F131D),
                           borderRadius: BorderRadius.circular(10),
@@ -187,12 +211,16 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                         ),
                         child: const Row(
                           children: [
-                            Icon(Icons.info_outline, size: 14, color: Color(0xFF64748B)),
+                            Icon(Icons.info_outline,
+                                size: 14, color: Color(0xFF64748B)),
                             SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 'Application-specific algorithmic estimate based on extracted criteria. Does not guarantee third-party ATS outcomes.',
-                                style: TextStyle(fontSize: 11, color: Color(0xFF64748B), height: 1.3),
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    color: Color(0xFF64748B),
+                                    height: 1.3),
                               ),
                             ),
                           ],
@@ -205,23 +233,29 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                 const SizedBox(height: 20),
 
                 // Top Matched Skills
-                _buildSectionHeader('Top Matched Skills', const Color(0xFF10B981)),
+                _buildSectionHeader(
+                    'Top Matched Skills', const Color(0xFF10B981)),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: matchedSkills.map((s) => _buildSkillBadge(s, isMatched: true)).toList(),
+                  children: matchedSkills
+                      .map((s) => _buildSkillBadge(s, isMatched: true))
+                      .toList(),
                 ),
 
                 const SizedBox(height: 20),
 
                 // Missing or Underused Skills
-                _buildSectionHeader('Missing or Underused Skills', const Color(0xFFEF4444)),
+                _buildSectionHeader(
+                    'Missing or Underused Skills', const Color(0xFFEF4444)),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: missingSkills.map((s) => _buildSkillBadge(s, isMatched: false)).toList(),
+                  children: missingSkills
+                      .map((s) => _buildSkillBadge(s, isMatched: false))
+                      .toList(),
                 ),
 
                 const SizedBox(height: 24),
@@ -242,7 +276,8 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                     ),
                     labelColor: Colors.white,
                     unselectedLabelColor: const Color(0xFF94A3B8),
-                    labelStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                    labelStyle: const TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.w700),
                     tabs: const [
                       Tab(text: 'Overview'),
                       Tab(text: 'All Skills'),
@@ -263,70 +298,90 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
                       ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          _buildSubHeader('Validated Strengths', const Color(0xFF10B981)),
+                          _buildSubHeader(
+                              'Validated Strengths', const Color(0xFF10B981)),
                           const SizedBox(height: 8),
-                          ...activeAnalysis.strengths.map((st) => _buildPointItem(
-                            icon: Icons.check_circle_rounded,
-                            iconColor: const Color(0xFF10B981),
-                            text: st,
-                          )),
+                          ...activeAnalysis.strengths
+                              .map((st) => _buildPointItem(
+                                    icon: Icons.check_circle_rounded,
+                                    iconColor: const Color(0xFF10B981),
+                                    text: st,
+                                  )),
                           const SizedBox(height: 14),
-                          _buildSubHeader('Target Improvements', const Color(0xFFF59E0B)),
+                          _buildSubHeader(
+                              'Target Improvements', const Color(0xFFF59E0B)),
                           const SizedBox(height: 8),
-                          ...activeAnalysis.improvements.map((imp) => _buildPointItem(
-                            icon: Icons.lightbulb_outline_rounded,
-                            iconColor: const Color(0xFFF59E0B),
-                            text: imp,
-                          )),
+                          ...activeAnalysis.improvements
+                              .map((imp) => _buildPointItem(
+                                    icon: Icons.lightbulb_outline_rounded,
+                                    iconColor: const Color(0xFFF59E0B),
+                                    text: imp,
+                                  )),
                         ],
                       ),
                       // All Skills Tab
                       ListView(
                         children: [
-                          _buildSubHeader('All Detected Skills (${activeAnalysis.detectedSkills.length})', const Color(0xFF38BDF8)),
+                          _buildSubHeader(
+                              'All Detected Skills (${activeAnalysis.detectedSkills.length})',
+                              const Color(0xFF38BDF8)),
                           const SizedBox(height: 8),
                           Wrap(
                             spacing: 8,
                             runSpacing: 8,
-                            children: activeAnalysis.detectedSkills.map((s) => Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1A2234),
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: const Color(0xFF2A3750)),
-                              ),
-                              child: Text(s, style: const TextStyle(color: Color(0xFFE2E8F0), fontSize: 12, fontWeight: FontWeight.w600)),
-                            )).toList(),
+                            children: activeAnalysis.detectedSkills
+                                .map((s) => Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 6),
+                                      decoration: BoxDecoration(
+                                        color: const Color(0xFF1A2234),
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                            color: const Color(0xFF2A3750)),
+                                      ),
+                                      child: Text(s,
+                                          style: const TextStyle(
+                                              color: Color(0xFFE2E8F0),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600)),
+                                    ))
+                                .toList(),
                           ),
                         ],
                       ),
                       // Suggestions Tab
                       ListView(
                         children: [
-                          _buildSubHeader('Factual Bullet Revisions', const Color(0xFF8B5CF6)),
+                          _buildSubHeader('Factual Bullet Revisions',
+                              const Color(0xFF8B5CF6)),
                           const SizedBox(height: 8),
                           ...activeAnalysis.improvements.map((imp) => Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF121622),
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: const Color(0xFF232A3B)),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(Icons.arrow_right_alt_rounded, color: Color(0xFF8B5CF6), size: 20),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: Text(
-                                    imp,
-                                    style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 13, height: 1.4),
-                                  ),
+                                margin: const EdgeInsets.only(bottom: 10),
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF121622),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                      color: const Color(0xFF232A3B)),
                                 ),
-                              ],
-                            ),
-                          )),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Icon(Icons.arrow_right_alt_rounded,
+                                        color: Color(0xFF8B5CF6), size: 20),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        imp,
+                                        style: const TextStyle(
+                                            color: Color(0xFFCBD5E1),
+                                            fontSize: 13,
+                                            height: 1.4),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
                         ],
                       ),
                     ],
@@ -397,8 +452,16 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontWeight: FontWeight.w600)),
-            Text('$score', style: TextStyle(color: barColor, fontSize: 11, fontWeight: FontWeight.w700)),
+            Text(label,
+                style: const TextStyle(
+                    color: Color(0xFF94A3B8),
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600)),
+            Text('$score',
+                style: TextStyle(
+                    color: barColor,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700)),
           ],
         ),
         const SizedBox(height: 3),
@@ -418,15 +481,25 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
   Widget _buildSectionHeader(String title, Color accent) {
     return Row(
       children: [
-        Container(width: 4, height: 16, decoration: BoxDecoration(color: accent, borderRadius: BorderRadius.circular(2))),
+        Container(
+            width: 4,
+            height: 16,
+            decoration: BoxDecoration(
+                color: accent, borderRadius: BorderRadius.circular(2))),
         const SizedBox(width: 8),
-        Text(title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.white)),
+        Text(title,
+            style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w800,
+                color: Colors.white)),
       ],
     );
   }
 
   Widget _buildSubHeader(String title, Color accent) {
-    return Text(title, style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: accent));
+    return Text(title,
+        style: TextStyle(
+            fontSize: 13, fontWeight: FontWeight.w700, color: accent));
   }
 
   Widget _buildSkillBadge(String skill, {required bool isMatched}) {
@@ -445,7 +518,8 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
           const SizedBox(width: 6),
           Text(
             skill,
-            style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                color: color, fontSize: 12, fontWeight: FontWeight.w600),
           ),
         ],
       ),
@@ -473,7 +547,11 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFFCBD5E1), height: 1.3),
+              style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFFCBD5E1),
+                  height: 1.3),
             ),
           ),
         ],
@@ -490,9 +568,25 @@ class _ResumeAnalysisScreenState extends ConsumerState<ResumeAnalysisScreen>
       keywordMatch: 82.0,
       formattingScore: 92.0,
       contentScore: 85.0,
-      detectedSkills: const ['Flutter', 'Dart', 'Riverpod', 'REST APIs', 'Git', 'Firebase', 'Clean Architecture', 'Unit Testing'],
+      detectedSkills: const [
+        'Flutter',
+        'Dart',
+        'Riverpod',
+        'REST APIs',
+        'Git',
+        'Firebase',
+        'Clean Architecture',
+        'Unit Testing'
+      ],
       missingSkills: const ['Docker', 'Kubernetes', 'CI/CD Pipelines'],
-      keywords: const ['Flutter', 'Dart', 'Riverpod', 'REST APIs', 'Git', 'Firebase'],
+      keywords: const [
+        'Flutter',
+        'Dart',
+        'Riverpod',
+        'REST APIs',
+        'Git',
+        'Firebase'
+      ],
       strengths: const [
         'Strong validated skills across core mobile engineering stack.',
         'Quantified metrics and measurable impacts present in experience sections.',

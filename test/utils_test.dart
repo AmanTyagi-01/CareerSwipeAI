@@ -24,10 +24,18 @@ void main() {
     test('formatRelativeTime returns correct string', () {
       final now = DateTime.now();
 
-      expect(AppUtils.formatRelativeTime(now.subtract(const Duration(seconds: 30))), equals('Just now'));
-      expect(AppUtils.formatRelativeTime(now.subtract(const Duration(minutes: 5))), equals('5m ago'));
-      expect(AppUtils.formatRelativeTime(now.subtract(const Duration(hours: 2))), equals('2h ago'));
-      expect(AppUtils.formatRelativeTime(now.subtract(const Duration(days: 3))), equals('3d ago'));
+      expect(
+          AppUtils.formatRelativeTime(
+              now.subtract(const Duration(seconds: 30))),
+          equals('Just now'));
+      expect(
+          AppUtils.formatRelativeTime(now.subtract(const Duration(minutes: 5))),
+          equals('5m ago'));
+      expect(
+          AppUtils.formatRelativeTime(now.subtract(const Duration(hours: 2))),
+          equals('2h ago'));
+      expect(AppUtils.formatRelativeTime(now.subtract(const Duration(days: 3))),
+          equals('3d ago'));
     });
 
     test('formatNumber formats correctly', () {
@@ -37,7 +45,8 @@ void main() {
     });
 
     test('maskEmail masks correctly', () {
-      expect(AppUtils.maskEmail('john@example.com'), equals('jo***@example.com'));
+      expect(
+          AppUtils.maskEmail('john@example.com'), equals('jo***@example.com'));
       expect(AppUtils.maskEmail('ab@example.com'), equals('ab@example.com'));
       expect(AppUtils.maskEmail(''), equals(''));
     });

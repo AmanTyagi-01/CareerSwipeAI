@@ -16,7 +16,16 @@ exports.analyzeResume = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
   }
 
-  const { resumeId, userId, extractedText } = data;
+  const authUserId = context.auth.uid;
+  const { resumeId, extractedText } = data;
+  const userId = authUserId; // Authoritative identity from auth context
+
+  if (resumeId) {
+    const resumeDoc = await db.collection('resumes').doc(resumeId).get();
+    if (resumeDoc.exists && resumeDoc.data().userId !== authUserId) {
+      throw new functions.https.HttpsError('permission-denied', 'Unauthorized: resume does not belong to caller');
+    }
+  }
 
   try {
     // Call OpenAI for resume analysis
@@ -68,7 +77,8 @@ exports.matchJobs = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
   }
 
-  const { userId, skills, experienceLevel } = data;
+  const userId = context.auth.uid; // Enforce authoritative UID
+  const { skills, experienceLevel } = data;
 
   try {
     // Get active jobs
@@ -121,7 +131,23 @@ exports.sendNotification = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
   }
 
+  const callerUid = context.auth.uid;
   const { userId, title, body, data: payload } = data;
+
+  if (!userId || !title || !body) {
+    throw new functions.https.HttpsError('invalid-argument', 'Missing required notification fields');
+  }
+
+  // Authorization check: User can only notify themselves unless they have a recruiter or admin role
+  const isSelf = callerUid === userId;
+  const isTokenRecruiter = context.auth.token && (context.auth.token.role === 'recruiter' || context.auth.token.admin === true);
+
+  if (!isSelf && !isTokenRecruiter) {
+    const callerDoc = await db.collection('users').doc(callerUid).get();
+    if (!callerDoc.exists || callerDoc.data()?.userType !== 'recruiter') {
+      throw new functions.https.HttpsError('permission-denied', 'Unauthorized: only recruiters or admins may send notifications to other users');
+    }
+  }
 
   try {
     // Get user's FCM token
