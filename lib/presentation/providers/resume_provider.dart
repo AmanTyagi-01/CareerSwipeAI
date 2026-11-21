@@ -20,39 +20,17 @@ final userResumesProvider = FutureProvider.family<List<ResumeModel>, String>((re
   return repo.getUserResumes(userId);
 });
 
+final activeAnalysisStateProvider = StateProvider<ResumeAnalysisModel?>((ref) => null);
+
 final resumeAnalysisProvider = FutureProvider.family<ResumeAnalysisModel?, String>((ref, resumeId) async {
-  // Analysis results are stored alongside resume documents.
-  // This provider fetches the latest analysis for a given resume.
-  // When an analysis is triggered, invalidate this provider to reload.
   AppLogger.info('Loading analysis for resume $resumeId', tag: 'ResumeProvider');
   final repo = ref.watch(resumeRepositoryProvider);
+  final aiService = ref.watch(aiServiceProvider);
   final resume = await repo.getResumeById(resumeId);
   if (resume == null) return null;
-  // Return a synthetic analysis from resume's stored scores
-  return ResumeAnalysisModel(
-    id: 'analysis_$resumeId',
-    userId: resume.userId,
-    resumeId: resumeId,
-    atsScore: resume.atsScore,
-    keywordMatch: resume.atsBreakdown['Keywords'] ?? resume.atsScore,
-    formattingScore: resume.atsBreakdown['Formatting'] ?? resume.atsScore,
-    contentScore: resume.atsBreakdown['Readability'] ?? resume.atsScore,
-    detectedSkills: resume.skills,
-    missingSkills: const [],
-    strengths: const [
-      'Strong technical skills detected',
-      'Clear formatting structure',
-    ],
-    improvements: const [
-      'Add more quantifiable achievements',
-      'Include keywords from target job descriptions',
-    ],
-    keywords: resume.skills,
-    summary: 'Your resume has been analyzed. Upload a new version to improve your score.',
-    sectionScores: resume.atsBreakdown,
-    analyzedAt: resume.uploadedAt ?? DateTime.now(),
-    isComplete: true,
-  );
+
+  final analysis = await aiService.analyzeResume(resume, extractedText: resume.extractedText);
+  return analysis;
 });
 
 class ResumeNotifier extends StateNotifier<AsyncValue<ResumeModel?>> {

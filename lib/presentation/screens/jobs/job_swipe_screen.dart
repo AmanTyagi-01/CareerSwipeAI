@@ -79,12 +79,21 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
     super.dispose();
   }
 
+  int _currentCardIndex = 0;
+
   bool _onSwipe(int previousIndex, int? currentIndex, CardSwiperDirection direction) {
-    final job = _mockJobs[previousIndex % _mockJobs.length];
+    final jobs = _getFilteredJobs();
+    if (jobs.isEmpty) return true;
+    final job = jobs[previousIndex % jobs.length];
     final user = ref.read(currentUserProvider).value;
+
+    setState(() {
+      _currentCardIndex = currentIndex ?? (previousIndex + 1);
+    });
 
     if (direction == CardSwiperDirection.right) {
       if (user != null) {
+        ref.read(jobServiceProvider).recordSwipe(user.id, job.id, 'apply');
         ref.read(jobServiceProvider).applyForJob(
           user.id,
           job.id,
@@ -93,14 +102,36 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
       }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Applied to ${job.title} at ${job.company}!'),
+          content: Text('Applied to ${job.title} at ${job.company}! 🎯'),
           backgroundColor: const Color(0xFF10B981),
           duration: const Duration(seconds: 1),
           behavior: SnackBarBehavior.floating,
         ),
       );
+    } else if (direction == CardSwiperDirection.left) {
+      if (user != null) {
+        ref.read(jobServiceProvider).recordSwipe(user.id, job.id, 'pass');
+      }
     }
     return true;
+  }
+
+  List<JobModel> _getFilteredJobs() {
+    final jobsAsync = ref.watch(jobsProvider(null));
+    final sourceList = (jobsAsync.value != null && jobsAsync.value!.isNotEmpty)
+        ? jobsAsync.value!
+        : _mockJobs;
+
+    switch (_selectedFilterIndex) {
+      case 1: // Remote
+        return sourceList.where((j) => j.isRemote).toList();
+      case 2: // Full Time
+        return sourceList.where((j) => j.jobType?.toLowerCase().contains('full') == true).toList();
+      case 3: // Internship
+        return sourceList.where((j) => j.jobType?.toLowerCase().contains('intern') == true).toList();
+      default:
+        return sourceList;
+    }
   }
 
   @override
@@ -176,16 +207,41 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CardSwiper(
-                  controller: _controller,
-                  cardsCount: _mockJobs.length,
-                  onSwipe: _onSwipe,
-                  numberOfCardsDisplayed: 2,
-                  backCardOffset: const Offset(0, 18),
-                  padding: const EdgeInsets.only(bottom: 12),
-                  cardBuilder: (context, index, percentX, percentY) {
-                    final job = _mockJobs[index % _mockJobs.length];
-                    return _buildJobCard(context, job);
+                child: Builder(
+                  builder: (context) {
+                    final displayJobs = _getFilteredJobs();
+                    if (displayJobs.isEmpty) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.work_off_outlined, color: Color(0xFF64748B), size: 48),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'No opportunities found in this category',
+                              style: TextStyle(color: Color(0xFF94A3B8), fontSize: 14),
+                            ),
+                            const SizedBox(height: 12),
+                            TextButton(
+                              onPressed: () => setState(() => _selectedFilterIndex = 0),
+                              child: const Text('Reset Filter', style: TextStyle(color: Color(0xFF8B5CF6))),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return CardSwiper(
+                      controller: _controller,
+                      cardsCount: displayJobs.length,
+                      onSwipe: _onSwipe,
+                      numberOfCardsDisplayed: displayJobs.length > 1 ? 2 : 1,
+                      backCardOffset: const Offset(0, 18),
+                      padding: const EdgeInsets.only(bottom: 12),
+                      cardBuilder: (context, index, percentX, percentY) {
+                        final job = displayJobs[index % displayJobs.length];
+                        return _buildJobCard(context, job);
+                      },
+                    );
                   },
                 ),
               ),
@@ -219,12 +275,24 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                     size: 50,
                     iconSize: 24,
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Saved to your opportunities!'),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
+                      final jobs = _getFilteredJobs();
+                      if (jobs.isNotEmpty) {
+                        final job = jobs[_currentCardIndex % jobs.length];
+                        final user = ref.read(currentUserProvider).value;
+                        if (user != null) {
+                          ref.read(jobServiceProvider).recordSwipe(user.id, job.id, 'save');
+                          ref.read(jobServiceProvider).saveJob(user.id, job.id);
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Saved "${job.title}" to opportunities! ⭐'),
+                            backgroundColor: const Color(0xFF0284C7),
+                            behavior: SnackBarBehavior.floating,
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+                        _controller.swipe(CardSwiperDirection.top);
+                      }
                     },
                   ),
 
@@ -491,7 +559,7 @@ class _JobSwipeScreenState extends ConsumerState<JobSwipeScreen> {
                   // Tap to View Full Details
                   Center(
                     child: TextButton(
-                      onPressed: () => context.push('/jobs/details', extra: job.title),
+                      onPressed: () => context.push('/jobs/details', extra: job.id),
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

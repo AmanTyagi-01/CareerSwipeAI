@@ -1,0 +1,42 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Resume files: strictly accessible by the owner or authorized recruiters
+    match /resumes/{userId}/{fileName} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == userId || 
+        request.auth.token.role == 'recruiter'
+      );
+      allow write: if isOwner(userId) 
+        && request.resource.size <= 10 * 1024 * 1024 // Enforce 10MB file size limit
+        && (request.resource.contentType.matches('application/pdf') 
+            || request.resource.contentType.matches('application/msword')
+            || request.resource.contentType.matches('application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            || request.resource.contentType.matches('text/plain'));
+      allow delete: if isOwner(userId);
+    }
+
+    // Company branding assets and logos
+    match /companies/{companyId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated() && (
+        request.auth.uid == companyId || 
+        request.auth.token.role == 'recruiter'
+      );
+    }
+
+    // Default deny for all other paths
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

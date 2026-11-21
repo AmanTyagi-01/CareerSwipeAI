@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isRecruiter() {
+      return isAuthenticated() && 
+        (request.auth.token.role == 'recruiter' || 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.userType == 'recruiter');
+    }
+
+    // User profiles: owner has full access, recruiters can read public talent profiles
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update, delete: if isOwner(userId);
+    }
+
+    // Resumes: sensitive candidate dossiers
+    match /resumes/{resumeId} {
+      allow read: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || isRecruiter()
+      );
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // Resume analysis reports
+    match /resume_analyses/{analysisId} {
+      allow read: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || isRecruiter()
+      );
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // Job postings: public read for active jobs, recruiter write
+    match /jobs/{jobId} {
+      allow read: if isAuthenticated();
+      allow create: if isRecruiter();
+      allow update, delete: if isRecruiter() && (
+        resource.data.recruiterId == request.auth.uid || 
+        resource.data.companyId == request.auth.uid
+      );
+    }
+
+    // Applications: candidate can submit & read theirs; recruiter can view & update status
+    match /applications/{applicationId} {
+      allow read: if isAuthenticated() && (
+        resource.data.userId == request.auth.uid || isRecruiter()
+      );
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update: if isRecruiter() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+    }
+
+    // Swipes / Engagement telemetry
+    match /swipes/{swipeId} {
+      allow read, write: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read, update, delete: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      allow create: if isAuthenticated();
+    }
+  }
+}

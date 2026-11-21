@@ -15,6 +15,12 @@ class RecruiterDashboardScreen extends ConsumerWidget {
     final companyName = user?.industry?.isNotEmpty == true ? user!.industry! : 'Aman Traders Tech';
 
     final applicantsAsync = ref.watch(jobApplicantsProvider(''));
+    final jobsAsync = ref.watch(recruiterJobsProvider(user?.id ?? ''));
+
+    final totalJobs = jobsAsync.value?.length ?? 6;
+    final totalApplicants = applicantsAsync.value?.length ?? 10;
+    final totalHired = applicantsAsync.value?.where((a) => a.status.toLowerCase() == 'hired').length ?? 2;
+    final totalOffers = applicantsAsync.value?.where((a) => a.status.toLowerCase().contains('offer')).length ?? 4;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
@@ -114,7 +120,7 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         child: _buildMetricCard(
                           context,
                           title: 'Active Jobs',
-                          value: '24',
+                          value: '$totalJobs',
                           icon: Icons.work_outline_rounded,
                           accentColor: const Color(0xFF8B5CF6),
                           onTap: () => context.push('/recruiter/jobs'),
@@ -125,7 +131,7 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         child: _buildMetricCard(
                           context,
                           title: 'Applicants',
-                          value: '312',
+                          value: '$totalApplicants',
                           icon: Icons.people_outline_rounded,
                           accentColor: const Color(0xFF38BDF8),
                           onTap: () => context.push('/recruiter/pipeline'),
@@ -140,7 +146,7 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         child: _buildMetricCard(
                           context,
                           title: 'Hired',
-                          value: '18',
+                          value: '$totalHired',
                           icon: Icons.star_outline_rounded,
                           accentColor: const Color(0xFF10B981),
                           onTap: () => context.push('/recruiter/pipeline'),
@@ -151,7 +157,7 @@ class RecruiterDashboardScreen extends ConsumerWidget {
                         child: _buildMetricCard(
                           context,
                           title: 'Offers',
-                          value: '7',
+                          value: '$totalOffers',
                           icon: Icons.check_circle_outline_rounded,
                           accentColor: const Color(0xFFF59E0B),
                           onTap: () => context.push('/recruiter/pipeline'),

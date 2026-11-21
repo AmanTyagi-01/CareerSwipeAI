@@ -14,7 +14,7 @@
 [![Backend](https://img.shields.io/badge/Backend-Firebase_Suite-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com)
 [![Applied AI](https://img.shields.io/badge/Intelligence-Google_Gemini_AI_%26_ATS_Citations-8E75FF?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
 [![Design](https://img.shields.io/badge/Design_System-Editorial_Utility-2D6A4F?style=for-the-badge)](lib/theme/editorial_theme.dart)
-[![Tests](https://img.shields.io/badge/Tests-29%2F29_Passed_--_0_Issues-10B981?style=for-the-badge&logo=checkmarx&logoColor=white)](test/)
+[![Tests](https://img.shields.io/badge/Tests-35%2F35_Passed_--_0_Issues-10B981?style=for-the-badge&logo=checkmarx&logoColor=white)](test/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 
 <br/>
@@ -280,22 +280,28 @@ CareerSwipe AI reconstructs technical hiring through radical transparency and AI
 
 ## 🧠 Grounded ATS & Career Matching Engine
 
-The matching engine replaces arbitrary keyword matching with deterministic, evidence-based scoring:
+The matching engine replaces arbitrary keyword guessing with a deterministic, 5-dimension weighted scoring engine backed by real client-side document extraction:
 
-$$\text{MatchScore} = \text{BaseScore} + \text{EvidenceCitationBonus} + \text{SkillAlignmentBonus} - \text{ExperienceGapPenalty}$$
+$$\text{ATS Score} = 0.35 \times \text{Skills} + 0.25 \times \text{Keywords} + 0.20 \times \text{Experience} + 0.10 \times \text{Education} + 0.10 \times \text{Formatting}$$
 
-$$\text{Normalized Match} = \min\left(99\%, \max\left(70\%, \text{MatchScore}\right)\right)$$
+### The 5 Identifiable Scoring Dimensions:
+1. **Target Skills ($35\%$)**: Exact and alias match ratio against 60+ canonical technical domains (Mobile, Frontend, Backend, Cloud/DevOps, Databases, Machine Learning, Architecture).
+2. **Domain Keywords ($25\%$)**: Industry vocabulary density covering system design, scalability, CI/CD, microservices, and security telemetry.
+3. **Experience & Impact ($20\%$)**: Active verb density (*architected, engineered, spearheaded*) combined with quantified business metric verification (*percentage improvements, latency reductions, user scale*).
+4. **Education & Accreditation ($10\%$)**: Accredited university degrees (B.Tech, B.S., M.S., Ph.D.) and technical certifications.
+5. **Formatting & Parseability ($10\%$)**: Clean section structure (`Summary`, `Experience`, `Skills`, `Education`, `Projects`) and validated contact telemetry (email, phone, LinkedIn/GitHub links).
 
-### The Scoring Breakdown:
-* **Base Relevance ($50\%$)**: Verifies broad domain alignment (e.g., Backend Engineering, Distributed Systems, Cloud Architecture).
-* **Evidence Citation Bonus ($+5\%$ to $+30\%$)**: For each mandatory requirement where the AI extracts a verifiable accomplishment directly from the resume.
-* **Skill Alignment Bonus ($+10\%$)**: Direct match on mission-critical toolchains (e.g., Flutter, Go, Kubernetes, Kafka, PostgreSQL).
-* **Experience Gap Penalty ($-5\%$ to $-15\%$)**: Applied when seniority requirements exceed verified years of production delivery.
+### 📄 Pure-Dart Client-Side Document Parser
+Unlike systems that rely on external proprietary SaaS APIs for text extraction, CareerSwipe AI includes a zero-dependency, pure-Dart document extraction engine (`DocumentParserService`):
+* **PDF Extraction**: Decodes uncompressed streams and parses text display operators (`BT ... ET`, `Tj`, and `TJ` arrays) with fallback ASCII stream scanners.
+* **DOCX Extraction**: Unpacks Word OpenXML streams and parses `<w:t>` body nodes directly into clean paragraphs.
+* **Plain Text / Markdown**: UTF-8 and Latin-1 multi-encoding normalization with whitespace consolidation.
 
 ### Anti-Hallucination & Evidence Citations
-Traditional AI tools invent achievements to force high scores. CareerSwipe AI enforces a strict constraint:
-1. **Source Grounding**: An assertion is only marked as satisfied if an exact phrase or quantified metric from the candidate's uploaded resume is cited.
-2. **Transparent Checklist**: Unmet specifications are displayed openly under the **Skill Gap** section rather than obscured.
+Traditional AI tools invent achievements or give identical scores to every resume. CareerSwipe AI enforces strict guarantees:
+1. **Differentiable Evaluations**: Distinct resumes yield provably distinct scores ($30 \le \text{Score} \le 99$) verified by unit test suites.
+2. **Transparent Checklist**: Unmet specifications are displayed openly under the **Missing or Underused Skills** section with factual bullet suggestions.
+3. **Application-Specific Disclaimer**: Reports explicitly notify users that the analysis is an application-specific estimate rather than a guarantee of proprietary corporate ATS outcomes.
 
 ---
 

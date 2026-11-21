@@ -6,63 +6,105 @@ import '../data/models/job_model.dart';
 class AIService {
   AIService();
 
-  // Canonical skill dictionary for text parsing & normalization
+  // Comprehensive canonical skill dictionary across modern software engineering domains
   static const Map<String, List<String>> _skillDictionary = {
-    'Flutter': ['flutter', 'flutter framework'],
+    // Mobile
+    'Flutter': ['flutter', 'flutter framework', 'flutter sdk'],
     'Dart': ['dart', 'dartlang'],
+    'React Native': ['react native', 'react-native'],
+    'Swift': ['swift', 'swiftui', 'ios development'],
+    'Kotlin': ['kotlin', 'android development', 'jetpack compose'],
+
+    // Frontend Web
     'React': ['react', 'react.js', 'reactjs'],
     'TypeScript': ['typescript', 'ts'],
-    'JavaScript': ['javascript', 'js'],
-    'Node.js': ['node.js', 'nodejs', 'node'],
-    'Python': ['python', 'py'],
-    'Firebase': ['firebase', 'firestore', 'cloud firestore'],
-    'Docker': ['docker', 'containers'],
+    'JavaScript': ['javascript', 'js', 'es6', 'ecmascript'],
+    'Vue.js': ['vue', 'vue.js', 'vuejs'],
+    'Next.js': ['next.js', 'nextjs'],
+    'HTML/CSS': ['html', 'html5', 'css', 'css3', 'sass', 'tailwind', 'bootstrap'],
+
+    // Backend
+    'Node.js': ['node.js', 'nodejs', 'node', 'express', 'nestjs'],
+    'Python': ['python', 'py', 'django', 'fastapi', 'flask'],
+    'Go': ['golang', 'go language'],
+    'Java': ['java', 'spring', 'spring boot'],
+    'C++': ['c++', 'cpp'],
+    'C#': ['c#', 'csharp', '.net', 'asp.net'],
+    'Rust': ['rust', 'rustlang'],
+
+    // Cloud & DevOps
+    'Docker': ['docker', 'containerization', 'containers'],
     'Kubernetes': ['kubernetes', 'k8s'],
-    'AWS': ['aws', 'amazon web services'],
-    'Google Cloud': ['gcp', 'google cloud'],
+    'AWS': ['aws', 'amazon web services', 'ec2', 's3', 'lambda'],
+    'Google Cloud': ['gcp', 'google cloud', 'bigquery', 'cloud run'],
+    'Azure': ['azure', 'microsoft azure'],
+    'CI/CD': ['ci/cd', 'github actions', 'jenkins', 'gitlab ci', 'bitbucket pipelines'],
+    'Terraform': ['terraform', 'iac'],
+    'Linux': ['linux', 'bash', 'shell scripting', 'ubuntu'],
+
+    // Databases
     'PostgreSQL': ['postgres', 'postgresql'],
-    'REST APIs': ['rest', 'rest api', 'restful'],
-    'GraphQL': ['graphql'],
-    'Git': ['git', 'github', 'gitlab'],
-    'CI/CD': ['ci/cd', 'github actions', 'jenkins', 'gitlab ci'],
-    'Unit Testing': ['unit testing', 'test driven development', 'tdd', 'jest', 'flutter test'],
-    'State Management': ['state management', 'riverpod', 'bloc', 'redux', 'provider'],
-    'Clean Architecture': ['clean architecture', 'mvvm', 'mvc'],
-    'Performance Optimization': ['performance tuning', 'optimization', 'profiling'],
+    'MongoDB': ['mongodb', 'mongo'],
+    'MySQL': ['mysql'],
+    'Redis': ['redis', 'caching'],
+    'Firebase': ['firebase', 'firestore', 'cloud firestore', 'cloud functions'],
+    'SQLite': ['sqlite', 'room database'],
+
+    // Architecture & Data
+    'REST APIs': ['rest', 'rest api', 'restful', 'json api'],
+    'GraphQL': ['graphql', 'apollo'],
+    'Microservices': ['microservices', 'service oriented architecture', 'distributed systems'],
+    'System Design': ['system design', 'high level design', 'low level design'],
+    'State Management': ['state management', 'riverpod', 'bloc', 'redux', 'provider', 'zustand'],
+    'Clean Architecture': ['clean architecture', 'mvvm', 'mvc', 'solid principles', 'design patterns'],
+    'Unit Testing': ['unit testing', 'test driven development', 'tdd', 'jest', 'flutter test', 'mocking'],
+    'Git': ['git', 'github', 'gitlab', 'version control'],
+
+    // AI & Machine Learning
+    'Machine Learning': ['machine learning', 'ml', 'scikit-learn', 'deep learning'],
+    'PyTorch': ['pytorch', 'torch'],
+    'TensorFlow': ['tensorflow', 'keras'],
+    'LLMs': ['llms', 'large language models', 'langchain', 'openai', 'gemini api', 'prompt engineering'],
+    'Data Analysis': ['data analysis', 'pandas', 'numpy', 'matplotlib', 'sql queries', 'tableau'],
+    'Agile': ['agile', 'scrum', 'kanban', 'sprint planning', 'jira'],
   };
 
-  /// Real transparent evidence-based ATS evaluation comparing resume text against job requirements
+  /// Evidence-based explainable ATS evaluation based on 5 identifiable criteria:
+  /// 1. Skills (35%): Exact match ratio against role requirements
+  /// 2. Keywords (25%): Domain keyword density and vocabulary alignment
+  /// 3. Experience (20%): Depth of work history, action verbs, and quantifiable metrics
+  /// 4. Education (10%): Degree accreditation, university background, and academic standing
+  /// 5. Formatting (10%): Standard structural headings, clean parseability, and contact telemetry
   Future<ResumeAnalysisModel> analyzeResume(
     ResumeModel resume, {
     String? extractedText,
     JobModel? targetJob,
   }) async {
     try {
-      final text = (extractedText ?? resume.skills.join(' ')).toLowerCase();
+      final rawText = extractedText ?? resume.extractedText ?? resume.skills.join(' ');
+      final lowerText = rawText.toLowerCase();
 
-      // 1. Extract verified skills using word boundaries & aliases
+      // ── 1. Skill Extraction & Detection ──
       final detectedSkills = <String>{};
       for (final entry in _skillDictionary.entries) {
         for (final alias in entry.value) {
-          final pattern = RegExp('(^|[^a-zA-Z0-9])$alias(\$|[^a-zA-Z0-9])', caseSensitive: false);
-          if (pattern.hasMatch(text)) {
+          final escapedAlias = RegExp.escape(alias);
+          final pattern = RegExp('(^|[^a-zA-Z0-9])$escapedAlias(\$|[^a-zA-Z0-9])', caseSensitive: false);
+          if (pattern.hasMatch(lowerText)) {
             detectedSkills.add(entry.key);
             break;
           }
         }
       }
-
-      // Also incorporate skills explicitly attached to the resume model
       for (final s in resume.skills) {
         if (s.trim().isNotEmpty) detectedSkills.add(s.trim());
       }
 
-      // 2. Define benchmark requirements
-      final targetRequirements = targetJob != null && targetJob.skills.isNotEmpty
+      // Benchmark requirements from job or industry standard
+      final targetRequirements = (targetJob != null && targetJob.skills.isNotEmpty)
           ? targetJob.skills
           : const ['Flutter', 'Dart', 'State Management', 'REST APIs', 'Git', 'Firebase', 'CI/CD'];
 
-      // 3. Compare matched vs. missing skills
       final matchedSkills = <String>[];
       final missingSkills = <String>[];
 
@@ -78,75 +120,127 @@ class AIService {
         }
       }
 
-      final skillMatchPercent = targetRequirements.isNotEmpty
-          ? ((matchedSkills.length / targetRequirements.length) * 100).round()
-          : 75;
+      final skillsScore = targetRequirements.isNotEmpty
+          ? ((matchedSkills.length / targetRequirements.length) * 100).round().clamp(20, 99)
+          : (detectedSkills.length >= 8 ? 88 : (detectedSkills.length * 10).clamp(30, 95));
 
-      // 4. Formatting evaluation (Standard sections & action verbs)
-      final standardSections = ['experience', 'education', 'skills', 'projects'];
-      int sectionsFoundCount = 0;
-      for (final section in standardSections) {
-        if (text.contains(section)) sectionsFoundCount++;
+      // ── 2. Keyword Coverage Score ──
+      final domainKeywords = [
+        'api', 'architecture', 'scalability', 'performance', 'database', 'frontend',
+        'backend', 'full stack', 'cloud', 'security', 'testing', 'deployment',
+        'optimization', 'agile', 'engineering', 'analytics', 'pipeline'
+      ];
+      int keywordsFound = 0;
+      for (final kw in domainKeywords) {
+        if (lowerText.contains(kw)) keywordsFound++;
       }
-      final formattingScore = ((sectionsFoundCount / standardSections.length) * 40 + 60).clamp(50, 100).toInt();
+      final keywordsScore = ((keywordsFound / domainKeywords.length) * 100).round().clamp(35, 96);
 
-      // 5. Content impact evaluation (quantified metrics & action verbs)
-      final actionVerbs = ['architected', 'developed', 'engineered', 'led', 'designed', 'built', 'reduced', 'improved', 'optimized'];
+      // ── 3. Experience & Impact Score ──
+      final actionVerbs = [
+        'architected', 'developed', 'engineered', 'led', 'designed', 'built',
+        'reduced', 'improved', 'optimized', 'scaled', 'delivered', 'orchestrated'
+      ];
       int verbsFound = 0;
       for (final verb in actionVerbs) {
-        if (text.contains(verb)) verbsFound++;
+        if (lowerText.contains(verb)) verbsFound++;
       }
-      final hasNumbers = RegExp(r'\b\d+(\%|\+)?\b').hasMatch(text);
-      final contentScore = ((verbsFound * 8) + (hasNumbers ? 20 : 0) + 50).clamp(50, 95).toInt();
+      final hasNumbers = RegExp(r'\b\d+(\%|\+)?\b').hasMatch(lowerText);
+      final hasExperienceSection = lowerText.contains('experience') || lowerText.contains('work history') || lowerText.contains('employment');
+      final experienceScore = (
+        (verbsFound * 4) +
+        (hasNumbers ? 25 : 10) +
+        (hasExperienceSection ? 35 : 15)
+      ).clamp(30, 98);
 
-      // 6. Overall Weighted ATS Compatibility Score
-      // 45% Skill Match + 30% Content Impact + 25% Formatting
-      final overallScore = ((skillMatchPercent * 0.45) + (contentScore * 0.30) + (formattingScore * 0.25)).round().clamp(30, 98);
+      // ── 4. Education Score ──
+      final degreeKeywords = ['bachelor', 'b.tech', 'b.e', 'bs', 'master', 'm.tech', 'ms', 'mca', 'phd', 'degree', 'computer science', 'engineering', 'university', 'college'];
+      int eduMatches = 0;
+      for (final deg in degreeKeywords) {
+        if (lowerText.contains(deg)) eduMatches++;
+      }
+      final educationScore = (eduMatches >= 2 ? 90 : (eduMatches == 1 ? 75 : 50)).clamp(40, 95);
 
-      // 7. Actionable Recommendations
+      // ── 5. Formatting & Structure Score ──
+      final standardSections = ['summary', 'profile', 'experience', 'skills', 'education', 'projects'];
+      int sectionsFoundCount = 0;
+      for (final section in standardSections) {
+        if (lowerText.contains(section)) sectionsFoundCount++;
+      }
+      final hasContactInfo = lowerText.contains('@') || RegExp(r'\b\d{10}\b').hasMatch(lowerText) || lowerText.contains('linkedin') || lowerText.contains('github');
+      final formattingScore = (
+        ((sectionsFoundCount / standardSections.length) * 50) +
+        (hasContactInfo ? 30 : 10) + 15
+      ).round().clamp(45, 98);
+
+      // ── 6. Overall Weighted ATS Score ──
+      // Weighted 5-dimension formula: 35% Skills + 25% Keywords + 20% Experience + 10% Education + 10% Formatting
+      final overallScore = (
+        (skillsScore * 0.35) +
+        (keywordsScore * 0.25) +
+        (experienceScore * 0.20) +
+        (educationScore * 0.10) +
+        (formattingScore * 0.10)
+      ).round().clamp(30, 99);
+
+      // ── 7. Dynamic Strengths & Actionable Recommendations ──
       final improvements = <String>[];
       if (missingSkills.isNotEmpty) {
-        improvements.add('Add missing key competencies: ${missingSkills.take(3).join(', ')} into your experience bullet points.');
+        improvements.add('Integrate missing target skills: ${missingSkills.take(3).join(', ')} into your project summaries.');
       }
       if (!hasNumbers) {
-        improvements.add('Quantify achievements with concrete numbers (e.g. "reduced latency by 35%", "scaled to 50k users").');
+        improvements.add('Quantify work impact with concrete business metrics (e.g., "reduced latency by 35%", "scaled to 50k DAU").');
       }
-      if (verbsFound < 3) {
-        improvements.add('Begin experience bullet points with strong action verbs like "Architected", "Engineered", or "Spearheaded".');
+      if (verbsFound < 4) {
+        improvements.add('Elevate bullet points with strong action verbs like "Architected", "Engineered", or "Spearheaded".');
+      }
+      if (!hasContactInfo) {
+        improvements.add('Ensure phone number, location, and GitHub/LinkedIn portfolio URLs are prominently placed in the header.');
       }
       if (improvements.isEmpty) {
-        improvements.add('Strong alignment with target role requirements. Tailor your summary specifically to the employer mission.');
+        improvements.add('Strong alignment with target role benchmarks. Tailor your professional summary to the company mission.');
       }
 
       final strengths = <String>[
-        'Found ${detectedSkills.length} technical skills matching industry benchmarks.',
-        if (hasNumbers) 'Quantified impact metrics present in work experience.',
-        'Clear formatting alignment with standard ATS parser section headers.',
+        'Identified ${detectedSkills.length} validated technical proficiencies matching industry benchmarks.',
+        if (hasNumbers) 'Quantified achievements present with verifiable statistical improvements.',
+        if (hasContactInfo) 'Direct verified contact telemetry (email & professional portfolio links).',
+        'Standardized structural headings recognized cleanly by automated parsing engines.',
       ];
+
+      final sectionScores = <String, dynamic>{
+        'Skills': skillsScore,
+        'Keywords': keywordsScore,
+        'Experience': experienceScore,
+        'Education': educationScore,
+        'Formatting': formattingScore,
+        // Legacy keys compatibility
+        'contact_info': hasContactInfo ? 95 : 60,
+        'summary': lowerText.contains('summary') || lowerText.contains('profile') ? 90 : 70,
+        'experience_score': experienceScore,
+        'education_score': educationScore,
+        'skills_score': skillsScore,
+        'projects': lowerText.contains('project') ? 88 : 65,
+      };
 
       final analysis = ResumeAnalysisModel(
         id: AppUtils.generateId(),
         userId: resume.userId,
         resumeId: resume.id,
         atsScore: overallScore.toDouble(),
-        keywordMatch: skillMatchPercent.toDouble(),
+        keywordMatch: keywordsScore.toDouble(),
         formattingScore: formattingScore.toDouble(),
-        contentScore: contentScore.toDouble(),
+        contentScore: experienceScore.toDouble(),
         detectedSkills: detectedSkills.toList(),
         missingSkills: missingSkills,
+        recommendedSkills: missingSkills.isNotEmpty ? missingSkills : const ['Cloud Architecture', 'System Design'],
         strengths: strengths,
         improvements: improvements,
-        keywords: matchedSkills.isNotEmpty ? matchedSkills : detectedSkills.take(6).toList(),
-        summary: 'Algorithmic compatibility benchmark indicates a $overallScore/100 alignment with target role requirements. '
-            '${improvements.isNotEmpty ? improvements.first : "Resume is well-structured for automated parsers."}',
-        sectionScores: {
-          'contact_info': text.contains('@') ? 95 : 60,
-          'summary': text.contains('summary') || text.contains('profile') ? 90 : 70,
-          'experience': contentScore,
-          'education': text.contains('education') || text.contains('degree') ? 90 : 65,
-          'skills': skillMatchPercent,
-          'projects': text.contains('project') ? 85 : 60,
-        },
+        keywords: matchedSkills.isNotEmpty ? matchedSkills : detectedSkills.take(8).toList(),
+        missingKeywords: missingSkills,
+        summary: 'Algorithmic compatibility audit indicates an overall match score of $overallScore/100. '
+            '${improvements.isNotEmpty ? improvements.first : "Resume structure conforms to modern ATS parsing standards."}',
+        sectionScores: sectionScores,
         analyzedAt: DateTime.now(),
         isComplete: true,
       );

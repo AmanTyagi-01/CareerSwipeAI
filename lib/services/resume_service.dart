@@ -7,10 +7,14 @@ import '../core/errors/exceptions.dart';
 import '../core/utils/app_utils.dart';
 import '../core/utils/logger.dart';
 import '../data/models/resume_model.dart';
+import 'document_parser_service.dart';
+import 'ai_service.dart';
 
 class ResumeService {
   final FirebaseFirestore? _firestore;
   final FirebaseStorage? _storage;
+  final DocumentParserService _documentParserService;
+  final AIService _aiService;
 
   static const int _maxRetries = 3;
 
@@ -20,8 +24,12 @@ class ResumeService {
   ResumeService({
     FirebaseFirestore? firestore,
     FirebaseStorage? storage,
+    DocumentParserService? documentParserService,
+    AIService? aiService,
   })  : _firestore = firestore ?? (Firebase.apps.isNotEmpty ? FirebaseFirestore.instance : null),
-        _storage = storage ?? (Firebase.apps.isNotEmpty ? FirebaseStorage.instance : null);
+        _storage = storage ?? (Firebase.apps.isNotEmpty ? FirebaseStorage.instance : null),
+        _documentParserService = documentParserService ?? DocumentParserService(),
+        _aiService = aiService ?? AIService();
 
   Future<ResumeModel> uploadResume(String userId, PlatformFile file) async {
     final extension = AppUtils.getFileExtension(file.name);
@@ -33,31 +41,37 @@ class ResumeService {
       throw FileException(message: 'File size exceeds 10MB limit.');
     }
 
+    // Real document text extraction
+    final extractedText = await _documentParserService.extractText(file);
+
+    // Initial ATS evaluation from extracted text
+    final preliminaryResume = ResumeModel(
+      id: 'res_${DateTime.now().millisecondsSinceEpoch}',
+      userId: userId,
+      fileName: file.name,
+      fileUrl: file.path ?? 'file://${file.name}',
+      fileSize: file.size,
+      fileType: extension,
+      extractedText: extractedText,
+      uploadedAt: DateTime.now(),
+      isActive: true,
+      skills: const [],
+    );
+
+    final initialAnalysis = await _aiService.analyzeResume(
+      preliminaryResume,
+      extractedText: extractedText,
+    );
+
     if (_firestore == null || _storage == null) {
       final userResumes = _localResumes.where((r) => r.userId == userId).toList();
       final newVersion = userResumes.length + 1;
 
-      // Extract skills from filename or basic tokens
-      final skillsDetected = <String>['Flutter', 'Dart', 'Mobile Development'];
-
-      final resume = ResumeModel(
-        id: 'res_${DateTime.now().millisecondsSinceEpoch}',
-        userId: userId,
-        fileName: file.name,
-        fileUrl: file.path ?? 'file://${file.name}',
-        fileSize: file.size,
-        fileType: extension,
-        uploadedAt: DateTime.now(),
-        isActive: true,
+      final resume = preliminaryResume.copyWith(
         version: newVersion,
-        atsScore: 78.0,
-        skills: skillsDetected,
-        atsBreakdown: const {
-          'Keywords': 80.0,
-          'Formatting': 85.0,
-          'Readability': 75.0,
-          'Impact': 72.0,
-        },
+        atsScore: initialAnalysis.atsScore,
+        skills: initialAnalysis.detectedSkills,
+        atsBreakdown: initialAnalysis.sectionScores,
       );
 
       // Deactivate older resumes
@@ -68,7 +82,7 @@ class ResumeService {
       }
 
       _localResumes.insert(0, resume);
-      AppLogger.info('Resume stored locally: ${resume.id}', tag: 'ResumeService');
+      AppLogger.info('Resume stored locally with real extraction: ${resume.id} (${resume.skills.length} skills detected, ATS=${resume.atsScore})', tag: 'ResumeService');
       return resume;
     }
 
@@ -119,17 +133,13 @@ class ResumeService {
         fileUrl: downloadUrl,
         fileSize: file.size,
         fileType: extension,
+        extractedText: extractedText,
         uploadedAt: DateTime.now(),
         isActive: true,
         version: newVersion,
-        atsScore: 78.0,
-        skills: const ['Flutter', 'Dart', 'State Management', 'REST APIs'],
-        atsBreakdown: const {
-          'Keywords': 80.0,
-          'Formatting': 85.0,
-          'Readability': 75.0,
-          'Impact': 72.0,
-        },
+        atsScore: initialAnalysis.atsScore,
+        skills: initialAnalysis.detectedSkills,
+        atsBreakdown: initialAnalysis.sectionScores,
       );
 
       batch.set(_firestore.collection('resumes').doc(resume.id), resume.toMap());
@@ -206,7 +216,14 @@ class ResumeService {
   }
 
   Future<String?> extractTextFromResume(String fileUrl) async {
-    return 'Experienced Software Engineer with proficiency in Flutter, Dart, Firebase, and REST APIs.';
+    for (final r in _localResumes) {
+      if (r.fileUrl == fileUrl || r.id == fileUrl || r.fileName == fileUrl) {
+        if (r.extractedText != null && r.extractedText!.isNotEmpty) {
+          return r.extractedText;
+        }
+      }
+    }
+    return null;
   }
 
   Future<void> renameResume(String resumeId, String userId, String newName) async {

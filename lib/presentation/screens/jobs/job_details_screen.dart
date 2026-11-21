@@ -27,7 +27,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen>
   bool _isSaved = false;
   bool _isApplied = false;
 
-  final JobModel _job = JobModel(
+  static final JobModel _defaultJob = JobModel(
     id: 'amazon-sde-1',
     title: 'Software Engineer',
     company: 'Amazon',
@@ -53,24 +53,21 @@ You will have the opportunity to work with cutting-edge distributed computing te
     postedAt: DateTime.now().subtract(const Duration(hours: 6)),
   );
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+  JobModel _resolveJob() {
+    if (widget.jobId != null && widget.jobId!.isNotEmpty) {
+      final jobsAsync = ref.watch(jobsProvider(null));
+      final found = jobsAsync.value?.where((j) => j.id == widget.jobId).firstOrNull;
+      if (found != null) return found;
+    }
+    return _defaultJob;
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  void _apply() async {
+  void _apply(JobModel job) async {
     final user = ref.read(currentUserProvider).value;
     if (user != null) {
       await ref.read(jobServiceProvider).applyForJob(
             user.id,
-            _job.id,
+            job.id,
             resumeUrl: user.resumeUrl,
           );
     }
@@ -85,8 +82,44 @@ You will have the opportunity to work with cutting-edge distributed computing te
     );
   }
 
+  void _toggleSave(JobModel job) async {
+    final user = ref.read(currentUserProvider).value;
+    final newSaved = !_isSaved;
+    setState(() => _isSaved = newSaved);
+    if (user != null) {
+      if (newSaved) {
+        await ref.read(jobServiceProvider).saveJob(user.id, job.id);
+      } else {
+        await ref.read(jobServiceProvider).unsaveJob(user.id, job.id);
+      }
+    }
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(newSaved ? 'Saved to opportunities! ⭐' : 'Removed from saved jobs.'),
+        backgroundColor: newSaved ? const Color(0xFF8B5CF6) : const Color(0xFF64748B),
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final job = _resolveJob();
+
     return Scaffold(
       backgroundColor: const Color(0xFF0A0E17),
       body: Stack(
@@ -108,7 +141,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       _isSaved ? Icons.bookmark_rounded : Icons.bookmark_outline_rounded,
                       color: _isSaved ? const Color(0xFF8B5CF6) : Colors.white,
                     ),
-                    onPressed: () => setState(() => _isSaved = !_isSaved),
+                    onPressed: () => _toggleSave(job),
                   ),
                   IconButton(
                     icon: const Icon(Icons.share_outlined, color: Colors.white),
@@ -157,10 +190,10 @@ You will have the opportunity to work with cutting-edge distributed computing te
                               ),
                             ],
                           ),
-                          child: const Center(
+                          child: Center(
                             child: Text(
-                              'a',
-                              style: TextStyle(
+                              job.company.isNotEmpty ? job.company[0].toUpperCase() : 'J',
+                              style: const TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900,
                                 color: Color(0xFFFF9900),
@@ -182,7 +215,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _job.title,
+                        job.title,
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w800,
@@ -192,7 +225,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '${_job.company} · ${_job.location}',
+                        '${job.company} · ${job.location}',
                         style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xFF94A3B8),
@@ -203,10 +236,12 @@ You will have the opportunity to work with cutting-edge distributed computing te
                       // Tags Row
                       Row(
                         children: [
-                          _buildChip('Full Time', const Color(0xFF8B5CF6)),
+                          _buildChip(job.jobType ?? 'Full Time', const Color(0xFF8B5CF6)),
                           const SizedBox(width: 8),
-                          _buildChip('Remote', const Color(0xFF38BDF8)),
-                          const SizedBox(width: 8),
+                          if (job.isRemote) ...[
+                            _buildChip('Remote', const Color(0xFF38BDF8)),
+                            const SizedBox(width: 8),
+                          ],
                           _buildChip('₹12-35 LPA', const Color(0xFF10B981)),
                         ],
                       ),
@@ -245,9 +280,9 @@ You will have the opportunity to work with cutting-edge distributed computing te
                         child: TabBarView(
                           controller: _tabController,
                           children: [
-                            _buildOverviewTab(),
-                            _buildRequirementsTab(),
-                            _buildCompanyTab(),
+                            _buildOverviewTab(job),
+                            _buildRequirementsTab(job),
+                            _buildCompanyTab(job),
                           ],
                         ),
                       ),
@@ -276,7 +311,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
                   children: [
                     // Save Button
                     OutlinedButton(
-                      onPressed: () => setState(() => _isSaved = !_isSaved),
+                      onPressed: () => _toggleSave(job),
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Color(0xFF232A3B)),
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
@@ -321,7 +356,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
                           color: Colors.transparent,
                           child: InkWell(
                             borderRadius: BorderRadius.circular(14),
-                            onTap: _isApplied ? null : _apply,
+                            onTap: _isApplied ? null : () => _apply(job),
                             child: Center(
                               child: Text(
                                 _isApplied ? 'Applied ✓' : 'Apply Now',
@@ -347,7 +382,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
     );
   }
 
-  Widget _buildOverviewTab() {
+  Widget _buildOverviewTab(JobModel job) {
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
       children: [
@@ -357,7 +392,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
         ),
         const SizedBox(height: 8),
         Text(
-          _job.description,
+          job.description,
           style: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
         ),
         const SizedBox(height: 20),
@@ -369,7 +404,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: _job.skills.map((skill) {
+          children: job.skills.map((skill) {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
@@ -388,7 +423,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
     );
   }
 
-  Widget _buildRequirementsTab() {
+  Widget _buildRequirementsTab(JobModel job) {
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
       children: [
@@ -397,7 +432,7 @@ You will have the opportunity to work with cutting-edge distributed computing te
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
         ),
         const SizedBox(height: 12),
-        ..._job.requirements.map((req) {
+        ...job.requirements.map((req) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
             child: Row(
@@ -422,33 +457,27 @@ You will have the opportunity to work with cutting-edge distributed computing te
     );
   }
 
-  Widget _buildCompanyTab() {
+  Widget _buildCompanyTab(JobModel job) {
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
-      children: const [
+      children: [
         Text(
-          'About Amazon',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+          'About ${job.company}',
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
-          'Amazon is guided by four principles: customer obsession rather than competitor focus, passion for invention, commitment to operational excellence, and long-term thinking.',
-          style: TextStyle(fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
+          (job.shortDescription != null && job.shortDescription!.isNotEmpty)
+              ? job.shortDescription!
+              : job.description,
+          style: const TextStyle(fontSize: 13, color: Color(0xFF94A3B8), height: 1.5),
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
         Row(
           children: [
-            Icon(Icons.people_outline, color: Color(0xFF8B5CF6), size: 18),
-            SizedBox(width: 8),
-            Text('100,000+ employees', style: TextStyle(color: Color(0xFFCBD5E1), fontSize: 13)),
-          ],
-        ),
-        SizedBox(height: 8),
-        Row(
-          children: [
-            Icon(Icons.location_on_outlined, color: Color(0xFF38BDF8), size: 18),
-            SizedBox(width: 8),
-            Text('Seattle, WA (Global Offices)', style: TextStyle(color: Color(0xFFCBD5E1), fontSize: 13)),
+            const Icon(Icons.location_on_outlined, color: Color(0xFF8B5CF6), size: 18),
+            const SizedBox(width: 8),
+            Text(job.location ?? 'Remote', style: const TextStyle(color: Color(0xFFCBD5E1), fontSize: 13)),
           ],
         ),
       ],
