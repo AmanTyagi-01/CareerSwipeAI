@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/screenshots/banner.svg" alt="CareerSwipe AI Header Banner" width="100%" />
+
 # ✦ CAREERSWIPE AI — Intelligent Career Discovery & Dual-Platform Hiring System ✦
 ### *Stop doom-scrolling job boards. Swipe your next career move.*
 
@@ -12,20 +14,22 @@
 [![Backend](https://img.shields.io/badge/Backend-Firebase_Suite-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com)
 [![Applied AI](https://img.shields.io/badge/Intelligence-Google_Gemini_AI_%26_ATS_Citations-8E75FF?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
 [![Design](https://img.shields.io/badge/Design_System-Editorial_Utility-2D6A4F?style=for-the-badge)](lib/theme/editorial_theme.dart)
+[![Tests](https://img.shields.io/badge/Tests-29%2F29_Passed_--_0_Issues-10B981?style=for-the-badge&logo=checkmarx&logoColor=white)](test/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 
 <br/>
 
-**A production-ready, dual-platform mobile & web application built with Flutter that revolutionizes technical career discovery and recruitment through grounded ATS evidence matching, tactile Tinder-style card curation, and the high-contrast Editorial Utility design system.**
+**A production-grade, dual-platform mobile & web application built with Flutter that revolutionizes technical career discovery and recruitment through grounded ATS evidence matching, tactile Tinder-style card curation, and the high-contrast Editorial Utility design system.**
 
-[Explore Features](#-key-features) • [Problem & Solution](#-the-problem--the-solution) • [Visual Walkthrough](#-screenshots--visual-walkthrough) • [Matching Engine](#-grounded-ats--career-matching-engine) • [Architecture](#-architecture--engineering-design) • [Installation](#-getting-started) • [Skills & Stack](#-tech-stack--skills-highlight)
+[Explore Features](#-key-features) • [Why CareerSwipe AI?](#-why-careerswipe-ai) • [Problem & Solution](#-the-problem--the-solution) • [Visual Walkthrough](#-screenshots--visual-walkthrough) • [Matching Engine](#-grounded-ats--career-matching-engine) • [Architecture](#-architecture--engineering-design) • [Installation](#-getting-started) • [Skills & Stack](#-tech-stack--skills-highlight)
 
 </div>
 
 ---
 
 ## 📖 Table of Contents
-- [💡 What is CareerSwipe AI?](#-what-is-career-swipe-ai)
+- [✨ Why CareerSwipe AI?](#-why-careerswipe-ai)
+- [💡 What is CareerSwipe AI?](#-what-is-careerswipe-ai)
 - [❓ The Problem & The Solution](#-the-problem--the-solution)
   - [The Problem Statement](#the-problem-statement)
   - [The CareerSwipe AI Solution](#the-careerswipe-ai-solution)
@@ -41,16 +45,31 @@
   - [Dual Shell Navigation & Route Security](#4-dual-shell-navigation--route-security)
   - [Editorial Utility Design System](#5-editorial-utility-design-system)
 - [🧠 Grounded ATS & Career Matching Engine](#-grounded-ats--career-matching-engine)
+  - [The Matching Formula](#the-matching-formula)
+  - [Anti-Hallucination & Evidence Citations](#anti-hallucination--evidence-citations)
 - [🏗️ Architecture & Engineering Design](#-architecture--engineering-design)
+  - [Feature-First Clean Architecture](#clean-architecture-data-flow)
+  - [4-Tier Route Security Matrix](#4-tier-route-security-matrix)
 - [🛠️ Tech Stack & Skills Highlight](#-tech-stack--skills-highlight)
 - [🚀 Getting Started](#-getting-started)
   - [Prerequisites](#prerequisites)
   - [Environment Configuration](#environment-configuration)
   - [Running the Application](#running-the-application)
+  - [Building for Production (Android APK / Web)](#building-for-production)
 - [🧪 Testing & Quality Assurance](#-testing--quality-assurance)
 - [📂 Project Structure](#-project-structure)
 - [👨‍💻 Author](#-author)
 - [📄 License](#-license)
+
+---
+
+## ✨ Why CareerSwipe AI?
+
+Modern recruiting has devolved into an asynchronous war of attrition:
+* **Job seekers** face decision paralysis, spending 45+ minutes formatting resumes for arcane ATS filters only to be rejected without explanation.
+* **Hiring managers** are inundated with thousands of AI-generated generic applications, making it nearly impossible to uncover high-signal engineers.
+
+**CareerSwipe AI was engineered to bridge this divide through radical transparency.** By marrying the addictive, tactile efficiency of swipe cards with grounded, verifiable citation algorithms, CareerSwipe AI transforms job hunting from an anxious chore into an empowering, data-driven experience.
 
 ---
 
@@ -61,10 +80,10 @@
 Built upon the principles of **Editorial Utility** (`#1E4B38` Spruce Green, `#F9F9F8` Paper, Newsreader Serif & Inter typography) and powered by **Google Gemini AI**, the application provides a bifurcated dual-platform experience:
 
 1. **For Candidates**:
-   - **Tactile Swipe Deck**: Evaluate opportunities quickly using a physical paper card metaphor with high-signal 2x2 facts grids (Compensation, Location, Team, Core Stack) and decision stamps.
-   - **Grounded ATS Intelligence**: Inspect resume alignment against requirements with verifiable citations, line-by-line evidence matching, and zero synthetic score fluff.
+   - **Tactile Swipe Deck**: Evaluate opportunities in seconds using a physical paper card metaphor with high-signal 2x2 facts grids (Compensation, Location, Team, Core Stack) and decision stamps.
+   - **Grounded ATS Intelligence**: Inspect resume alignment against requirements with verifiable line-by-line citations, requirement checklists, and zero synthetic score fluff.
    - **Factual Resume Re-Engineering**: Receive AI-suggested bullet revisions grounded strictly in your verified background.
-   - **Interactive Career Assistant**: Tailored interview simulations, technical rubric evaluations, and actionable skill-gap roadmaps.
+   - **Interactive Career Assistant**: Contextual interview simulations, technical rubric evaluations, and actionable skill-gap roadmaps.
 
 2. **For Recruiters & Hiring Managers**:
    - **Requisition Command Center**: Real-time hiring velocity analytics, live requisition manager, and unverified org trust badges.
@@ -77,6 +96,17 @@ Built upon the principles of **Editorial Utility** (`#1E4B38` Spruce Green, `#F9
 
 ### The Problem Statement
 > *"Traditional recruiting is broken: Candidates spray hundreds of applications into an algorithmic void, while recruiters drown in noise and miss exceptional specialized talent."*
+
+```
+               TRADITIONAL RECRUITING TRAPS
+┌───────────────────────┐              ┌─────────────────────────┐
+│     CANDIDATE         │              │        RECRUITER        │
+│ • ATS Black Hole      │              │ • 2,000+ Unvetted Inbound│
+│ • Keyword Guessing    │   VS. CHASM  │ • Unverifiable Claims   │
+│ • Ghosting / No SLA   │ ────────────>│ • Manual Screening Burn │
+│ • Application Fatigue │              │ • Lost High-Signal Devs │
+└───────────────────────┘              └─────────────────────────┘
+```
 
 * **The ATS Black Hole**: Over 75% of qualified engineering resumes are discarded by crude regex and keyword-stuffing parsers before reaching a human recruiter.
 * **Application Fatigue & Doom-Scrolling**: Job seekers spend hours scrolling through repetitive 10-page job postings filled with corporate jargon, leading to decision paralysis.
@@ -104,7 +134,7 @@ CareerSwipe AI reconstructs technical hiring through radical transparency and AI
     <td align="center" width="25%">
       <b>01. Discover Jobs (Swipe Deck)</b><br/>
       <img src="docs/screenshots/01_discover_jobs_swipe.png" alt="Discover Jobs Swipe Deck" width="260" /><br/>
-      <i>Tactile paper cards, 2x2 facts matrix, match badge & decision stamps.</i>
+      <i>Tactile paper cards, 2x2 facts matrix, match badge &amp; decision stamps.</i>
     </td>
     <td align="center" width="25%">
       <b>02. Job Details Specification</b><br/>
@@ -173,7 +203,7 @@ CareerSwipe AI reconstructs technical hiring through radical transparency and AI
       <i>Verified skill categorization, historical dossier, internal recruiter notes.</i>
     </td>
     <td align="center" width="25%">
-      <b>12. Hiring Analytics & Funnel</b><br/>
+      <b>12. Hiring Analytics &amp; Funnel</b><br/>
       <img src="docs/screenshots/13_hiring_analytics.png" alt="Hiring Analytics" width="260" /><br/>
       <i>Stage conversion telemetry, time-to-hire metrics, talent acquisition insights.</i>
     </td>
@@ -186,7 +216,7 @@ CareerSwipe AI reconstructs technical hiring through radical transparency and AI
 <table>
   <tr>
     <td align="center" width="25%">
-      <b>13. Splash Screen & Telemetry</b><br/>
+      <b>13. Splash Screen &amp; Telemetry</b><br/>
       <img src="docs/screenshots/18_splash_screen.png" alt="Splash Screen" width="260" /><br/>
       <i>Protocol telemetry audit, session validation, timer-less auth routing.</i>
     </td>
@@ -256,26 +286,30 @@ $$\text{MatchScore} = \text{BaseScore} + \text{EvidenceCitationBonus} + \text{Sk
 
 $$\text{Normalized Match} = \min\left(99\%, \max\left(70\%, \text{MatchScore}\right)\right)$$
 
-### Engine Principles:
-1. **Zero Hallucination Guardrail**: The engine can only cite skills and metrics found in the uploaded resume text.
-2. **Deterministic Evidence Matching**: For each required specification $R_i$ in the job description:
-   - If candidate text exhibits direct evidence $\implies +10\%$
-   - If candidate exhibits adjacent/transferable experience $\implies +5\%$
-   - If no evidence is found $\implies \text{Flagged as Skill Gap}$
-3. **Transparent Reporting**: Candidates receive a clear ledger (e.g., *"7 of 9 requirements validated with source citations"*), showing exactly where they stand.
+### The Scoring Breakdown:
+* **Base Relevance ($50\%$)**: Verifies broad domain alignment (e.g., Backend Engineering, Distributed Systems, Cloud Architecture).
+* **Evidence Citation Bonus ($+5\%$ to $+30\%$)**: For each mandatory requirement where the AI extracts a verifiable accomplishment directly from the resume.
+* **Skill Alignment Bonus ($+10\%$)**: Direct match on mission-critical toolchains (e.g., Flutter, Go, Kubernetes, Kafka, PostgreSQL).
+* **Experience Gap Penalty ($-5\%$ to $-15\%$)**: Applied when seniority requirements exceed verified years of production delivery.
+
+### Anti-Hallucination & Evidence Citations
+Traditional AI tools invent achievements to force high scores. CareerSwipe AI enforces a strict constraint:
+1. **Source Grounding**: An assertion is only marked as satisfied if an exact phrase or quantified metric from the candidate's uploaded resume is cited.
+2. **Transparent Checklist**: Unmet specifications are displayed openly under the **Skill Gap** section rather than obscured.
 
 ---
 
 ## 🏗️ Architecture & Engineering Design
 
-CareerSwipe AI is built according to **Feature-First Clean Architecture** principles, guaranteeing separation of concerns, testability, and maintainability.
+### Clean Architecture Data Flow
+CareerSwipe AI is built according to **Feature-First Clean Architecture** principles, guaranteeing clear separation of concerns, testability, and resilience.
 
 ```mermaid
 graph TD
     subgraph Presentation ["Presentation Layer"]
         UI["Widgets & Screens (Editorial Utility)"]
-        State["StateNotifier (Riverpod)"]
-        Router["GoRouter (4-Tier Guarded Navigation)"]
+        State["StateNotifier (Riverpod 2.5)"]
+        Router["GoRouter 14 (4-Tier Guarded Navigation)"]
     end
 
     subgraph Domain ["Domain Layer"]
@@ -302,32 +336,56 @@ graph TD
     RepoImpl --> Models
 ```
 
+### 4-Tier Route Security Matrix
+
+```
+       ROUTER REDIRECT PROTOCOL (lib/config/routes.dart)
+┌─────────────────────────────────────────────────────────────┐
+│ Tier 1: Splash Screen (/)                                    │
+│ └── Never redirects; performs integrity & telemetry handshake│
+├─────────────────────────────────────────────────────────────┤
+│ Tier 2: Guarded Onboarding Routes (/auth/candidate-onboard)  │
+│ └── Unauthenticated: redirects to /auth/login               │
+│ └── Authenticated: allowed through to complete profile      │
+├─────────────────────────────────────────────────────────────┤
+│ Tier 3: Public Auth Routes (/auth/login, /auth/signup)       │
+│ └── Unauthenticated: displays login/register forms          │
+│ └── Authenticated: inspects isProfileComplete and role       │
+│     ├── Incomplete: routes to /auth/candidate-onboarding    │
+│     └── Complete: routes to /home or /recruiter/dashboard   │
+├─────────────────────────────────────────────────────────────┤
+│ Tier 4: Protected Shells (/home, /recruiter/*, /resume/*)    │
+│ └── Unauthenticated: redirects to /auth/login               │
+│ └── Authenticated: isolated access based on UserType        │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ---
 
 ## 🛠️ Tech Stack & Skills Highlight
 
-| Category | Technologies & Libraries | Key Application in CareerSwipe AI |
+| Category | Technologies & Tools | Engineering Role in CareerSwipe AI |
 | :--- | :--- | :--- |
-| **Languages** | **Dart 3.5+** | Null safety, pattern matching, records, sealed classes |
-| **Framework** | **Flutter 3.24+** | Cross-platform rendering engine (Android, iOS, Web, macOS) |
-| **State Management**| **Flutter Riverpod 2.5** | Reactive dependency injection, `StateNotifier`, `AsyncValue` lifecycle |
-| **Navigation** | **GoRouter 14** | Declarative 4-tier guarded routing, deep linking, parameter passing |
-| **Cloud & Backend** | **Firebase Suite** | Firebase Auth (Google & Email/Password), Cloud Firestore, Cloud Storage |
-| **Applied AI** | **Google Gemini AI** | Contextual career guidance, interview simulations, resume parsing |
-| **UI Components** | **Custom Editorial System**| Physical card swiping, 2x2 facts grid, decision stamps, Newsreader serif |
-| **Card Gestures** | **flutter_card_swiper** | Tinder-style swipe mechanics with programmatic control & direction hooks |
-| **Visualizations** | **fl_chart** | Hiring pipeline conversion funnels, profile strength rings, ATS metrics |
-| **Testing & QA** | **Flutter Test Framework** | Unit tests, mock repositories, widget layout verification, zero overflow |
+| **Languages** | **Dart 3.5+** | Sound null safety, sealed classes, records, pattern matching |
+| **Framework** | **Flutter 3.24+** | High-performance multi-platform canvas (Android, iOS, Web, Desktop) |
+| **State Management**| **Flutter Riverpod 2.5** | Declarative state, `StateNotifier`, `AsyncValue` caching, dependency inversion |
+| **Routing** | **GoRouter 14** | 4-tier route guards, declarative navigation, deep linking |
+| **Backend & Cloud** | **Firebase Suite** | Firebase Auth (Email & Google Workspace), Firestore DB, Cloud Storage |
+| **Generative AI** | **Google Gemini AI** | Contextual interview simulation, factual resume revisions, ATS analysis |
+| **Gestures & UI** | **flutter_card_swiper** | Fluid physics-based Tinder swipe decks with direction callbacks |
+| **Typography** | **Google Fonts (Newsreader & Inter)** | Editorial high-contrast serif headers paired with neutral body sans |
+| **Analytics & Charts**| **fl_chart** | Hiring pipeline conversion funnels, profile strength radial progress |
+| **Testing & QA** | **Flutter Test Framework** | 29 passing unit & widget tests, layout overflow regression guards |
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-* **Flutter SDK**: `>= 3.24.0` ([Install Guide](https://flutter.dev/docs/get-started/install))
+* **Flutter SDK**: `>= 3.24.0` ([Official Flutter Install Guide](https://flutter.dev/docs/get-started/install))
 * **Dart SDK**: `>= 3.5.0`
 * **Java Development Kit**: JDK 17 (recommended for Gradle 8.7 compatibility)
-* **Android Studio / VS Code** with Flutter extensions installed
+* **Android Studio / VS Code** with Flutter and Dart extensions
 * **Git**: `git >= 2.40`
 
 ### Environment Configuration
@@ -337,31 +395,48 @@ graph TD
    cd CareerSwipeAI
    ```
 
-2. Configure environment variables:
+2. Set up environment variables:
    ```bash
    cp .env.example .env
    ```
-   Add your Firebase and Gemini credentials (optional for standalone local evaluation):
+   Provide your Gemini API key and Firebase credentials in `.env` (optional for standalone local exploration):
    ```env
    GEMINI_API_KEY=your_gemini_api_key_here
    FIREBASE_PROJECT_ID=your_firebase_project_id
    ```
 
-3. Install project dependencies:
+3. Fetch dependencies:
    ```bash
    flutter pub get
    ```
 
 ### Running the Application
-```bash
-# Run on connected device or emulator
-flutter run
 
-# Run with custom entrypoint or web renderer
-flutter run -d chrome
+```bash
+# Run on Google Chrome (Fastest Web Preview)
+flutter run -d chrome --web-port=8080
+
+# Run on native Windows Desktop
+flutter run -d windows
+
+# Run on connected Android device / emulator
+flutter run -d android
 ```
 
-*Note: If Firebase credentials are not configured, the application automatically launches in **Standalone Mock Mode**, allowing full navigation through candidate dashboards, recruiter pipelines, swipe decks, and onboarding wizards.*
+> **Standalone Fallback Note**: When Firebase credentials are not provided or Firebase services are unreachable, the application automatically launches in **Offline Standalone Mode**. All features—including the swipe deck, ATS breakdown, candidate profile, and recruiter dashboard—remain fully interactive.
+
+### Building for Production
+
+```bash
+# Build production web bundle
+flutter build web --release
+
+# Build release Android APK
+flutter build apk --release
+
+# Build Android App Bundle (AAB) for Google Play
+flutter build appbundle --release
+```
 
 ---
 
@@ -370,21 +445,21 @@ flutter run -d chrome
 CareerSwipe AI enforces strict software craftsmanship standards. All tests are validated against zero layout overflow and comprehensive state assertions:
 
 ```bash
-# Run full unit and widget test suite
+# Execute entire unit and widget test suite
 flutter test
 
 # Run static analysis and lint checks
 flutter analyze
 ```
 
-### Verification Highlights:
-- **29 of 29 Tests Passing**:
+### Test Suite Summary:
+* **29 of 29 Tests Passing**:
   - `auth_provider_test.dart` — StateNotifier authentication states and role registration
   - `editorial_components_test.dart` — Editorial design tokens, radii, button styles, cards
   - `login_screen_test.dart` — Responsive layout validation across viewports
   - `resume_upload_test.dart` — Resume upload, parsing preview, and extraction inspection
   - `widget_test.dart` — Complete application smoke tests
-- **Zero Static Analysis Issues**: Full compliance with Flutter and Dart analysis rules.
+* **Zero Static Analysis Issues**: 100% compliance with `flutter_lints`.
 
 ---
 
@@ -392,11 +467,13 @@ flutter analyze
 
 ```
 CareerSwipeAI/
-├── android/                   # Android native project (Gradle 8.7, AGP 8.5.2, Java 17)
-├── ios/                       # iOS native Xcode configuration
+├── android/                   # Native Android host (Gradle 8.7, AGP 8.5.2, Java 17)
+├── ios/                       # Native iOS host (Xcode workspace)
 ├── web/                       # Web entrypoint and manifest
 ├── docs/                      # Documentation assets
-│   └── screenshots/           # High-resolution screenshots showcasing all flows
+│   └── screenshots/           # Curated high-resolution screenshot showcase
+│       ├── banner.svg         # High-resolution vector header banner
+│       └── *.png              # 20 high-fidelity flow screenshots
 ├── design_reference/          # 59-Screen Stitch blueprints and specification ledgers
 ├── lib/
 │   ├── config/
