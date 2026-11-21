@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import '../../../core/utils/app_utils.dart';
 import '../../../presentation/providers/auth_provider.dart';
+import '../../widgets/editorial/editorial.dart';
 
+/// Forgot Password Screen strictly adhering to Stitch specification:
+/// `design_reference/stitch_careerswipe_ai_blueprint_execution_plan/forgot_password_account_recovery`
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
@@ -15,7 +16,6 @@ class ForgotPasswordScreen extends ConsumerStatefulWidget {
 class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  bool _emailSent = false;
   bool _isLoading = false;
 
   @override
@@ -24,22 +24,31 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  Future<void> _sendResetLink() async {
+  Future<void> _dispatchRecovery() async {
     if (!_formKey.currentState!.validate()) return;
+    final email = _emailController.text.trim();
 
     setState(() => _isLoading = true);
     try {
-      final authService = ref.read(authServiceProvider);
-      await authService.resetPassword(_emailController.text.trim());
-      setState(() => _emailSent = true);
+      final repo = ref.read(authRepositoryProvider);
+      await repo.resetPassword(email);
+      if (mounted) {
+        context.push('/auth/recovery-confirmation', extra: email);
+      }
     } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
-          backgroundColor: const Color(0xFFEF4444),
-        ),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              e.toString().replaceFirst(RegExp(r'^Exception:\s*'), ''),
+              style: EditorialTypography.bodySm(color: Colors.white),
+            ),
+            backgroundColor: EditorialColors.danger,
+            behavior: SnackBarBehavior.floating,
+            shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+          ),
+        );
+      }
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
@@ -47,179 +56,241 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
+    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
+    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0E17),
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF0A0E17),
+        backgroundColor: bgColor,
         elevation: 0,
-        foregroundColor: const Color(0xFFF1F5F9),
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: textPrimary, size: 22.0),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/auth/login');
+            }
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          'CareerSwipe AI',
+          style: EditorialTypography.headlineSm(color: textPrimary),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: EditorialSpacing.margin),
+            child: Row(
+              children: [
+                Icon(Icons.lock_outline, size: 14.0, color: textSecondary),
+                const SizedBox(width: 4.0),
+                Text(
+                  '256-bit TLS',
+                  style: EditorialTypography.labelMd(color: textSecondary),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding: const EdgeInsets.symmetric(
+              horizontal: EditorialSpacing.margin,
+              vertical: EditorialSpacing.spaceSm,
+            ),
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 440),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 64,
-                    height: 64,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
+              constraints: const BoxConstraints(maxWidth: 480),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Security metadata pill
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
+                      decoration: BoxDecoration(
+                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        borderRadius: EditorialRadii.roundedSm,
+                        border: Border.all(color: hairlineColor, width: 1.0),
                       ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
-                          blurRadius: 16,
-                        ),
-                      ],
+                      child: Text(
+                        'ACCOUNT RECOVERY · SEC-ID 09//59',
+                        style: EditorialTypography.labelStamp(color: textSecondary),
+                      ),
                     ),
-                    child: const Icon(Icons.lock_reset_rounded, color: Colors.white, size: 30),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Reset Password',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFF1F5F9)),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    _emailSent
-                        ? 'Verification and recovery instructions dispatched'
-                        : 'Enter your registered email address to receive password reset instructions',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13, height: 1.4),
-                  ),
-                  const SizedBox(height: 32),
-                  if (!_emailSent)
+                    const SizedBox(height: EditorialSpacing.spaceMd),
+
+                    // Editorial Typography Heading
+                    Text(
+                      'Reset master dossier password.',
+                      style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceXs),
+                    Text(
+                      'Enter the verified corporate or institutional email associated with your CareerSwipe dossier to initiate cryptographic recovery.',
+                      style: EditorialTypography.bodyMd(color: textSecondary),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Zero-Trust Protocol Callout
                     Container(
-                      padding: const EdgeInsets.all(22),
+                      padding: const EdgeInsets.all(EditorialSpacing.spaceMd),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF121622),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFF232A3B)),
+                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        borderRadius: BorderRadius.circular(12.0),
+                        border: Border.all(color: hairlineColor, width: 1.0),
                       ),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Email Address',
-                              style: TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(height: 6),
-                            TextFormField(
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(color: Color(0xFFF1F5F9), fontSize: 14),
-                              decoration: InputDecoration(
-                                hintText: 'name@example.com',
-                                hintStyle: const TextStyle(color: Color(0xFF475569), fontSize: 14),
-                                prefixIcon: const Icon(Icons.email_outlined, color: Color(0xFF8B5CF6), size: 18),
-                                filled: true,
-                                fillColor: const Color(0xFF0A0E17),
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF232A3B))),
-                                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF232A3B))),
-                                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5)),
-                              ),
-                              validator: AppUtils.validateEmail,
-                            ),
-                            const SizedBox(height: 24),
-                            Container(
-                              width: double.infinity,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                gradient: const LinearGradient(
-                                  colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.35),
-                                    blurRadius: 16,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
-                              ),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                                ),
-                                onPressed: _isLoading ? null : _sendResetLink,
-                                child: _isLoading
-                                    ? const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                                      )
-                                    : const Text('Send Reset Link', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ).animate().fadeIn().slideY(begin: 0.1, end: 0)
-                  else
-                    Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF121622),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: const Color(0xFF10B981).withValues(alpha: 0.4)),
-                      ),
-                      child: Column(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: 64,
-                            height: 64,
+                            width: 28.0,
+                            height: 28.0,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF10B981).withValues(alpha: 0.15),
-                              shape: BoxShape.circle,
+                              color: surfaceColor,
+                              borderRadius: EditorialRadii.roundedSm,
                             ),
-                            child: const Icon(Icons.check_circle_outline_rounded, color: Color(0xFF10B981), size: 36),
-                          ),
-                          const SizedBox(height: 18),
-                          const Text(
-                            'Email Dispatched!',
-                            style: TextStyle(color: Color(0xFFF1F5F9), fontWeight: FontWeight.bold, fontSize: 18),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'We sent instructions to ${_emailController.text}. Follow the link in your email to choose a new password.',
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 13, height: 1.4),
-                          ),
-                          const SizedBox(height: 24),
-                          Container(
-                            width: double.infinity,
-                            height: 48,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                              ),
+                            child: const Icon(
+                              Icons.verified_user_outlined,
+                              size: 16.0,
+                              color: EditorialColors.primary,
                             ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                shadowColor: Colors.transparent,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                              ),
-                              onPressed: () => context.go('/auth/login'),
-                              child: const Text('Return to Sign In', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
+                          ),
+                          const SizedBox(width: EditorialSpacing.spaceSm),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'NON-ENUMERATING RECOVERY PROTOCOL',
+                                  style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                                ),
+                                const SizedBox(height: 4.0),
+                                Text(
+                                  'In compliance with zero-trust standards, recovery signals are transmitted without revealing whether an active ledger account exists for this address.',
+                                  style: EditorialTypography.bodySm(color: textSecondary),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                    ).animate().fadeIn().scale(begin: const Offset(0.95, 0.95)),
-                ],
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Email Field
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'WORK OR UNIVERSITY EMAIL',
+                          style: EditorialTypography.labelStamp(color: textSecondary),
+                        ),
+                        Text(
+                          'Required',
+                          style: EditorialTypography.bodySm(color: textSecondary),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6.0),
+                    EditorialTextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'your.name@institution.org',
+                      prefixIcon: Icon(Icons.alternate_email, size: 18.0, color: textSecondary),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email is required';
+                        }
+                        if (!value.contains('@') || !value.contains('.')) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 4.0),
+                    Row(
+                      children: [
+                        Icon(Icons.domain, size: 13.0, color: textSecondary),
+                        const SizedBox(width: 4.0),
+                        Text(
+                          'Domain-validated institutional address',
+                          style: EditorialTypography.bodySm(color: textSecondary),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Dispatch Button
+                    EditorialButton(
+                      label: 'Dispatch Recovery Token',
+                      isLoading: _isLoading,
+                      trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                      onPressed: _dispatchRecovery,
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceXl),
+
+                    // Alternative Cryptographic Channel Card
+                    Container(
+                      padding: const EdgeInsets.all(EditorialSpacing.spaceMd),
+                      decoration: BoxDecoration(
+                        color: surfaceColor,
+                        borderRadius: BorderRadius.circular(12.0),
+                        border: Border.all(color: hairlineColor, width: 1.0),
+                        boxShadow: isDark ? EditorialElevation.paperCardDark : EditorialElevation.paperCard,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 32.0,
+                            height: 32.0,
+                            decoration: BoxDecoration(
+                              color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                              borderRadius: EditorialRadii.roundedSm,
+                            ),
+                            child: const Icon(Icons.vpn_key_outlined, size: 18.0, color: EditorialColors.primary),
+                          ),
+                          const SizedBox(width: EditorialSpacing.spaceSm),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Have your Master Dossier Recovery Key?',
+                                  style: EditorialTypography.headlineSm(color: textPrimary),
+                                ),
+                                const SizedBox(height: 4.0),
+                                Text(
+                                  'Use your 24-word cryptographic seed phrase or WebAuthn physical security key to reset immediately without email access.',
+                                  style: EditorialTypography.bodySm(color: textSecondary),
+                                ),
+                                const SizedBox(height: 8.0),
+                                Text(
+                                  'Use Hardware Key or Seed',
+                                  style: EditorialTypography.labelMd(
+                                    color: EditorialColors.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+                  ],
+                ),
               ),
             ),
           ),

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:career_swipe_ai/presentation/screens/auth/login_screen.dart';
-import 'package:career_swipe_ai/presentation/widgets/common/animated_background.dart';
+import 'package:career_swipe_ai/theme/editorial_theme.dart';
 
 void main() {
   setUpAll(() {
-    AnimatedBackground.debugDisableAnimations = true;
+    EditorialTypography.debugDisableGoogleFonts = true;
   });
 
   group('LoginScreen Widget Tests', () {
@@ -20,15 +20,18 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Verify form elements exist
-      expect(find.text('Welcome Back'), findsOneWidget);
-      expect(find.text('Sign in to continue your journey'), findsOneWidget);
+      // Editorial screen: "CareerSwipe AI" header + stat row
+      expect(find.text('CareerSwipe AI'), findsOneWidget);
+      // Google Workspace sign-in button
+      expect(find.text('Continue with Google Workspace'), findsOneWidget);
+      // Work email section divider
+      expect(find.text('OR SIGN IN WITH WORK EMAIL'), findsOneWidget);
+      // Two TextFormFields (email + password)
       expect(find.byType(TextFormField), findsNWidgets(2));
-      expect(find.text('Email'), findsOneWidget);
-      expect(find.text('Password'), findsOneWidget);
-      expect(find.text('Sign In'), findsOneWidget);
-      expect(find.text('Or continue with'), findsOneWidget);
-      expect(find.text('Create an account'), findsOneWidget);
+      // Submit button
+      expect(find.text('Unlock Career Dossier'), findsOneWidget);
+      // Link to sign up
+      expect(find.text('Create candidate account'), findsOneWidget);
     });
 
     testWidgets('validates email field', (WidgetTester tester) async {
@@ -41,8 +44,8 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      // Try to submit with empty fields
-      await tester.tap(find.text('Sign In'));
+      // Try to submit with empty fields using the editorial button label
+      await tester.tap(find.text('Unlock Career Dossier'));
       await tester.pump();
 
       // Should show validation error
@@ -64,7 +67,7 @@ void main() {
         find.byType(TextFormField).first,
         'test@example.com',
       );
-      await tester.tap(find.text('Sign In'));
+      await tester.tap(find.text('Unlock Career Dossier'));
       await tester.pump();
 
       // Should show password validation error
@@ -81,7 +84,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Forgot Password?'), findsOneWidget);
+      expect(find.text('Forgot password?'), findsOneWidget);
     });
   });
 }

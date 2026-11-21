@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><title>CareerSwipe AI</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;min-height:100%;background-color:#f9f9f8;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'on-tertiary-fixed': '#3b0900', 'error': '#ba1a1a', 'tertiary-fixed-dim': '#ffb5a0', 'on-error': '#ffffff', 'surface-container-lowest': '#ffffff', 'on-background': '#1a1c1c', 'outline': '#717973', 'primary': '#023423', 'on-primary': '#ffffff', 'error-container': '#ffdad6', 'secondary': '#585f65', 'on-error-container': '#93000a', 'on-surface': '#1a1c1c', 'on-secondary-fixed-variant': '#41484d', 'surface-bright': '#f9f9f8', 'tertiary-fixed': '#ffdbd1', 'surface-dim': '#dadad9', 'primary-container': '#1e4b38', 'primary-fixed': '#bdedd3', 'tertiary': '#5a1300', 'inverse-surface': '#2f3130', 'outline-variant': '#c0c8c2', 'on-secondary': '#ffffff', 'on-secondary-fixed': '#161c21', 'tertiary-container': '#782912', 'on-tertiary-container': '#ff9375', 'secondary-container': '#dae0e7', 'inverse-primary': '#a1d1b8', 'surface-container-high': '#e8e8e7', 'on-tertiary-fixed-variant': '#7d2c15', 'secondary-fixed': '#dde3ea', 'surface-tint': '#3b6752', 'surface': '#f9f9f8', 'primary-fixed-dim': '#a1d1b8', 'background': '#f9f9f8', 'surface-container': '#eeeeed', 'surface-container-highest': '#e2e2e2', 'on-tertiary': '#ffffff', 'inverse-on-surface': '#f1f1f0', 'on-secondary-container': '#5c6369', 'secondary-fixed-dim': '#c0c7ce', 'on-primary-container': '#8bbaa2', 'surface-container-low': '#f3f4f3', 'on-primary-fixed': '#002114', 'on-primary-fixed-variant': '#224f3c', 'surface-variant': '#e2e2e2', 'on-surface-variant': '#414944' }, borderRadius: { 'DEFAULT': '0.25rem', 'lg': '0.5rem', 'xl': '0.75rem', 'full': '9999px' }, spacing: { 'space-xl': '2rem', 'space-xs': '0.25rem', 'space-sm': '0.5rem', 'space-md': '1rem', 'space-lg': '1.5rem', 'margin': '1.25rem', 'gutter': '1rem' }, fontFamily: { 'body-lg': ['Inter'], 'headline-xl-mobile': ['Newsreader'], 'label-lg': ['Inter'], 'label-md': ['Inter'], 'headline-md': ['Newsreader'], 'body-sm': ['Inter'], 'body-md': ['Inter'], 'label-stamp': ['Inter'], 'headline-xl': ['Newsreader'], 'headline-lg': ['Newsreader'], 'headline-sm': ['Newsreader'] }, fontSize: { 'body-lg': ['16px', { lineHeight: '24px', letterSpacing: '-0.01em', fontWeight: '400' }], 'headline-xl-mobile': ['28px', { lineHeight: '34px', letterSpacing: '-0.015em', fontWeight: '500' }], 'label-lg': ['14px', { lineHeight: '18px', letterSpacing: '0.01em', fontWeight: '600' }], 'label-md': ['12px', { lineHeight: '16px', letterSpacing: '0.02em', fontWeight: '500' }], 'headline-md': ['20px', { lineHeight: '26px', letterSpacing: '-0.005em', fontWeight: '600' }], 'body-sm': ['12px', { lineHeight: '16px', fontWeight: '400' }], 'body-md': ['14px', { lineHeight: '20px', fontWeight: '400' }], 'label-stamp': ['11px', { lineHeight: '14px', letterSpacing: '0.08em', fontWeight: '700' }], 'headline-xl': ['34px', { lineHeight: '40px', letterSpacing: '-0.02em', fontWeight: '500' }], 'headline-lg': ['24px', { lineHeight: '30px', letterSpacing: '-0.01em', fontWeight: '500' }], 'headline-sm': ['18px', { lineHeight: '24px', fontWeight: '600' }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-full"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-14 px-margin flex items-center justify-between"><button aria-label="Go Back" class="w-11 h-11 -ml-2 flex items-center justify-center text-on-surface hover:text-primary transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md text-on-surface text-center flex-1 px-space-xs truncate">Filters Modal</h1><div class="flex items-center gap-space-xs -mr-2"><button aria-label="Close or Dismiss" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">close</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full pt-14 pb-safe bg-surface flex flex-col"><div class="flex flex-col w-full pb-28">
+<!-- Sub-Header Ledger & Reset Bar -->
+<div class="px-margin pt-space-md pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-stamp text-label-stamp uppercase tracking-widest text-primary-container">Ledger Parameters</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:text-primary transition-colors flex items-center gap-1 active:opacity-70" id="reset-btn" type="button">
+<span>Reset All</span>
+<span class="bg-secondary-container text-on-secondary-container px-1.5 py-0.5 rounded-full font-label-stamp text-label-stamp">3 active</span>
+</button>
+</div>
+<div class="px-margin flex flex-col gap-space-xl mt-space-xs">
+<!-- Section 1: Sort Order -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Dispatch Priority</h2>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Criterion</span>
+</div>
+<div class="bg-surface-container p-1 rounded-lg flex flex-col gap-1 sm:flex-row">
+<button class="sort-tab flex-1 py-2 px-space-xs rounded bg-surface-container-lowest text-primary shadow-sm font-label-md text-label-md text-center transition-all flex items-center justify-center gap-1" data-sort="best" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span>Best Match (AI)</span>
+</button>
+<button class="sort-tab flex-1 py-2 px-space-xs rounded text-secondary hover:text-on-surface font-label-md text-label-md text-center transition-all flex items-center justify-center gap-1" data-sort="date" type="button">
+<span>Date Posted</span>
+</button>
+<button class="sort-tab flex-1 py-2 px-space-xs rounded text-secondary hover:text-on-surface font-label-md text-label-md text-center transition-all flex items-center justify-center gap-1" data-sort="comp" type="button">
+<span>Compensation</span>
+</button>
+</div>
+</section>
+<!-- Section 2: Location & Arrangement -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Geography &amp; Presence</h2>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Territory</span>
+</div>
+<!-- Location Input -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="location-input">Base Radius</label>
+<div class="bg-surface-container-lowest rounded-lg p-space-sm flex items-center gap-space-sm shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">location_on</span>
+<input class="bg-transparent font-body-md text-body-md text-on-surface flex-1 outline-none placeholder:text-secondary" id="location-input" type="text" value="Dublin, Ireland + 50km"/>
+<button aria-label="Clear location" class="text-secondary hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</div>
+<!-- Arrangement Checkboxes -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col gap-space-md shadow-sm">
+<span class="font-label-stamp text-label-stamp uppercase tracking-wider text-secondary">Working Modality</span>
+<label class="flex items-center justify-between cursor-pointer select-none">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="accent-primary-container w-4 h-4 rounded cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Remote Permitted</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">EU / GMT+0</span>
+</label>
+<div class="h-px bg-surface-container"></div>
+<label class="flex items-center justify-between cursor-pointer select-none">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="accent-primary-container w-4 h-4 rounded cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Hybrid Arrangement</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">1-2 days onsite</span>
+</label>
+<div class="h-px bg-surface-container"></div>
+<label class="flex items-center justify-between cursor-pointer select-none">
+<div class="flex items-center gap-space-sm">
+<input class="accent-primary-container w-4 h-4 rounded cursor-pointer" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Strictly On-site</span>
+</div>
+<span class="font-label-md text-label-md text-secondary">5 days office</span>
+</label>
+</div>
+<!-- Visa Toggle Card -->
+<div class="bg-surface-container-low rounded-lg p-space-md flex items-center justify-between">
+<div class="flex flex-col pr-space-md">
+<span class="font-label-lg text-label-lg text-on-surface">Work Authorization Required</span>
+<span class="font-body-sm text-body-sm text-secondary">Prioritize companies sponsoring Irish Critical Skills permits</span>
+</div>
+<button aria-checked="true" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full bg-primary-container p-0.5 transition-colors duration-200 ease-in-out focus:outline-none" id="visa-switch" role="switch" type="button">
+<span class="translate-x-5 inline-block h-5 w-5 transform rounded-full bg-on-primary transition duration-200 ease-in-out"></span>
+</button>
+</div>
+</section>
+<!-- Section 3: Opportunity Type -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Engagement Model</h2>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Commitment</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="chip-item px-3 py-1.5 rounded bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>Full-Time</span>
+</button>
+<button class="chip-item px-3 py-1.5 rounded bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">check</span>
+<span>Internship / Co-op</span>
+</button>
+<button class="chip-item px-3 py-1.5 rounded bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
+<span>Contract</span>
+</button>
+<button class="chip-item px-3 py-1.5 rounded bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
+<span>Fellowship</span>
+</button>
+</div>
+</section>
+<!-- Section 4: Target Compensation -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Target Compensation</h2>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Annual Base</span>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-md flex flex-col gap-space-md shadow-sm">
+<div class="flex items-baseline justify-between">
+<span class="font-body-md text-body-md text-secondary">Minimum Baseline</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-primary" id="comp-value">€95,000</span>
+<span class="font-label-stamp text-label-stamp text-secondary">/ YR</span>
+</div>
+</div>
+<input class="w-full accent-primary-container cursor-pointer" id="comp-slider" max="180000" min="40000" step="5000" type="range" value="95000"/>
+<div class="flex justify-between font-label-stamp text-label-stamp text-secondary">
+<span>€40,000</span>
+<span>€110,000</span>
+<span>€180,000+</span>
+</div>
+<div class="h-px bg-surface-container"></div>
+<label class="flex items-center justify-between cursor-pointer select-none">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Strict Ledger Verification</span>
+<span class="font-body-sm text-body-sm text-secondary">Hides listings without validated pay transparency</span>
+</div>
+<input checked="" class="accent-primary-container w-4 h-4 rounded cursor-pointer ml-space-sm" type="checkbox"/>
+</label>
+</div>
+</section>
+<!-- Section 5: Experience & Seniority -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Seniority &amp; Depth</h2>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Tenure</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="level-card p-3 rounded-lg bg-surface-container-lowest text-left shadow-sm flex flex-col gap-1 transition-all" type="button">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Entry Level</span>
+<span class="font-body-sm text-body-sm text-secondary">0–2 years</span>
+</button>
+<button class="level-card p-3 rounded-lg bg-primary-container text-left shadow-sm flex flex-col gap-1 transition-all" type="button">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-primary font-semibold">Mid-Level</span>
+<span class="material-symbols-outlined text-[16px] text-on-primary">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-primary/80">2–5 years</span>
+</button>
+<button class="level-card p-3 rounded-lg bg-primary-container text-left shadow-sm flex flex-col gap-1 transition-all" type="button">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-primary font-semibold">Senior</span>
+<span class="material-symbols-outlined text-[16px] text-on-primary">check</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-primary/80">5+ years</span>
+</button>
+<button class="level-card p-3 rounded-lg bg-surface-container-lowest text-left shadow-sm flex flex-col gap-1 transition-all" type="button">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Staff / Principal</span>
+<span class="font-body-sm text-body-sm text-secondary">8+ years / Org lead</span>
+</button>
+</div>
+</section>
+<!-- Section 6: Required Core Skills -->
+<section class="flex flex-col gap-space-sm mb-space-lg">
+<div class="flex items-baseline justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Match Ledger Requirements</h2>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Competencies</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary -mt-1">Only candidates with proven signal in these pillars will appear.</p>
+<div class="flex flex-wrap gap-2 pt-1" id="skill-tags">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-md text-label-md">
+<span>Go</span>
+<button aria-label="Remove Go skill" class="hover:text-error transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-md text-label-md">
+<span>Distributed Systems</span>
+<button aria-label="Remove Distributed Systems skill" class="hover:text-error transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-md text-label-md">
+<span>PostgreSQL</span>
+<button aria-label="Remove PostgreSQL skill" class="hover:text-error transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<button class="inline-flex items-center gap-1 px-3 py-1 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add requirement filter</span>
+</button>
+</div>
+</section>
+</div>
+<!-- Bottom Floating Action Bar -->
+<div class="fixed bottom-0 inset-x-0 bg-surface/90 backdrop-blur-md px-margin py-3 pb-safe z-40">
+<div class="flex items-center gap-space-sm max-w-lg mx-auto">
+<button class="flex-1 py-3 px-space-md rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg text-center hover:bg-surface-container-high active:scale-[0.98] transition-all" onclick="history.back()" type="button">
+        Cancel
+      </button>
+<button class="flex-[2] py-3 px-space-md rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg text-center hover:bg-primary active:scale-[0.98] shadow-sm transition-all flex items-center justify-center gap-2" id="apply-btn" type="button">
+<span>Apply Filters</span>
+<span class="bg-primary px-2 py-0.5 rounded-full text-[11px] font-label-stamp text-on-primary-fixed">14 Matches</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Range slider formatting
+  const slider = document.getElementById('comp-slider');
+  const compValue = document.getElementById('comp-value');
+  if (slider && compValue) {
+    slider.addEventListener('input', (e) => {
+      const val = parseInt(e.target.value, 10);
+      compValue.textContent = '€' + val.toLocaleString();
+    });
+  }
+
+  // Work Authorization Switch Interaction
+  const visaSwitch = document.getElementById('visa-switch');
+  if (visaSwitch) {
+    visaSwitch.addEventListener('click', () => {
+      const isChecked = visaSwitch.getAttribute('aria-checked') === 'true';
+      visaSwitch.setAttribute('aria-checked', String(!isChecked));
+      const handle = visaSwitch.querySelector('span');
+      if (isChecked) {
+        visaSwitch.classList.remove('bg-primary-container');
+        visaSwitch.classList.add('bg-surface-container-highest');
+        handle.classList.remove('translate-x-5');
+        handle.classList.add('translate-x-0');
+      } else {
+        visaSwitch.classList.add('bg-primary-container');
+        visaSwitch.classList.remove('bg-surface-container-highest');
+        handle.classList.add('translate-x-5');
+        handle.classList.remove('translate-x-0');
+      }
+    });
+  }
+
+  // Sort Order Tab Selection
+  const sortTabs = document.querySelectorAll('.sort-tab');
+  sortTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      sortTabs.forEach(t => {
+        t.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        t.classList.add('text-secondary');
+      });
+      tab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      tab.classList.remove('text-secondary');
+    });
+  });
+
+  // Remove skill badge interaction
+  const skillContainer = document.getElementById('skill-tags');
+  if (skillContainer) {
+    skillContainer.addEventListener('click', (e) => {
+      const removeBtn = e.target.closest('button[aria-label^="Remove"]');
+      if (removeBtn) {
+        const badge = removeBtn.closest('span');
+        if (badge) {
+          badge.remove();
+        }
+      }
+    });
+  }
+</script></main></body></html>

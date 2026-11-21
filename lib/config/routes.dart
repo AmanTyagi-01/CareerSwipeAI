@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../data/models/user_model.dart';
 import '../presentation/screens/auth/splash_screen.dart';
 import '../presentation/screens/auth/onboarding_screen.dart';
+import '../presentation/screens/auth/welcome_screen.dart';
 import '../presentation/screens/auth/login_screen.dart';
 import '../presentation/screens/auth/signup_screen.dart';
-import '../presentation/screens/auth/otp_screen.dart';
+import '../presentation/screens/auth/role_selection_screen.dart';
+import '../presentation/screens/auth/candidate_onboarding_screen.dart';
+import '../presentation/screens/auth/recruiter_onboarding_screen.dart';
+import '../presentation/screens/auth/email_verification_screen.dart';
 import '../presentation/screens/auth/forgot_password_screen.dart';
+import '../presentation/screens/auth/recovery_confirmation_screen.dart';
 import '../presentation/screens/home/home_screen.dart';
 import '../presentation/screens/home/dashboard_screen.dart';
 import '../presentation/screens/resume/resume_upload_screen.dart';
@@ -61,21 +67,60 @@ final routerProvider = Provider<GoRouter>((ref) {
     refreshListenable: GoRouterRefreshStream(
       authService.authStateChanges
     ),
-    redirect: (context, state) {
+    redirect: (context, state) async {
       final isAuthenticated = authService.isAuthenticated;
-          
-      final isAuthRoute = state.matchedLocation.startsWith('/auth') || 
-                          state.matchedLocation == '/';
+      final location = state.matchedLocation;
 
-      if (!isAuthenticated && !isAuthRoute) {
-        return '/auth/login';
+      // ── Tier 1: Routes that never redirect regardless of auth state ──
+      // The splash screen manages its own transition.
+      if (location == '/') return null;
+
+      // ── Tier 2: Onboarding routes — authenticated users in progress ──
+      // These are reachable ONLY while authenticated AND profile incomplete.
+      // We must NOT bounce them to /home.
+      const onboardingRoutes = {
+        '/auth/candidate-onboarding',
+        '/auth/recruiter-onboarding',
+        '/auth/role-selection',
+        '/auth/email-verification',
+        '/auth/otp',
+      };
+      if (onboardingRoutes.contains(location)) {
+        // Unauthenticated users on onboarding routes → login
+        if (!isAuthenticated) return '/auth/login';
+        // Authenticated users on onboarding routes → allow through always
+        return null;
       }
 
-      if (isAuthenticated && isAuthRoute && state.matchedLocation != '/') {
-        return '/home';
+      // ── Tier 3: Public auth routes (login/signup/recover/welcome) ──
+      const publicAuthRoutes = {
+        '/auth/login',
+        '/auth/signup',
+        '/auth/welcome',
+        '/auth/forgot-password',
+        '/auth/recovery-confirmation',
+        '/onboarding',
+      };
+      if (publicAuthRoutes.contains(location)) {
+        if (!isAuthenticated) return null; // Unauthenticated → show page
+        // Authenticated user on login/signup → decide where to send them
+        final userData = await authService.getCurrentUserData();
+        if (userData == null || !userData.isProfileComplete) {
+          // Profile not complete → send to onboarding
+          final route = (userData?.userType == UserType.recruiter)
+              ? '/auth/recruiter-onboarding'
+              : '/auth/candidate-onboarding';
+          return route;
+        }
+        // Profile complete → route to their dashboard
+        return (userData.userType == UserType.recruiter)
+            ? '/recruiter/dashboard'
+            : '/home';
       }
 
-      return null;
+      // ── Tier 4: All other protected routes ──
+      if (!isAuthenticated) return '/auth/login';
+      return null; // Authenticated → allow through
     },
     routes: [
       GoRoute(
@@ -87,6 +132,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
+        path: '/auth/welcome',
+        builder: (context, state) => const WelcomeScreen(),
+      ),
+      GoRoute(
         path: '/auth/login',
         builder: (context, state) => const LoginScreen(),
       ),
@@ -95,15 +144,41 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SignupScreen(),
       ),
       GoRoute(
+        path: '/auth/role-selection',
+        builder: (context, state) => const RoleSelectionScreen(),
+      ),
+      GoRoute(
+        path: '/auth/candidate-onboarding',
+        builder: (context, state) => const CandidateOnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/auth/recruiter-onboarding',
+        builder: (context, state) => const RecruiterOnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/auth/email-verification',
+        builder: (context, state) {
+          final email = state.extra as String?;
+          return EmailVerificationScreen(email: email ?? '');
+        },
+      ),
+      GoRoute(
         path: '/auth/otp',
         builder: (context, state) {
           final email = state.extra as String?;
-          return OtpScreen(email: email ?? '');
+          return EmailVerificationScreen(email: email ?? '');
         },
       ),
       GoRoute(
         path: '/auth/forgot-password',
         builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+      GoRoute(
+        path: '/auth/recovery-confirmation',
+        builder: (context, state) {
+          final email = state.extra as String?;
+          return RecoveryConfirmationScreen(email: email);
+        },
       ),
       GoRoute(
         path: '/home',

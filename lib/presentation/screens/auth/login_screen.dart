@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import '../../../config/theme.dart';
-import '../../../core/utils/app_utils.dart';
-import '../../../data/models/user_model.dart';
 import '../../../presentation/providers/auth_provider.dart';
-import '../../widgets/common/app_brand_logo.dart';
+import '../../widgets/editorial/editorial.dart';
 
-/// Login & Authentication screen matching Poster 1 Screen 3 & Poster 2 Screen 1:
-/// - Candidate vs Recruiter segmented toggle on top of the card
-/// - Email / Company Email field & password with visibility toggle
-/// - "Forgot Password?"
-/// - "Sign In" gradient button
-/// - "Or continue with" divider
-/// - Google, Apple, and LinkedIn social buttons
-/// - "Create an account" / "Create a recruiter account" link
+/// Candidate Login Screen strictly adhering to Stitch specification:
+/// `design_reference/stitch_careerswipe_ai_blueprint_execution_plan/sign_in_candidate_dossier`
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -28,6 +18,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _rememberDevice = true;
 
   @override
   void dispose() {
@@ -53,7 +44,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
-    final selectedRole = ref.watch(selectedUserTypeProvider);
+    final isLoading = authState.isLoading;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
+    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
+    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     ref.listen(authNotifierProvider, (previous, next) {
       next.whenOrNull(
@@ -65,10 +62,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         error: (error, _) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(error.toString()),
-              backgroundColor: AppTheme.errorColor,
+              content: Text(
+                error.toString().replaceFirst(RegExp(r'^Exception:\s*'), ''),
+                style: EditorialTypography.bodySm(color: Colors.white),
+              ),
+              backgroundColor: EditorialColors.danger,
               behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
             ),
           );
         },
@@ -76,449 +76,359 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     });
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0E17),
-      body: Stack(
-        children: [
-          // Ambient lighting
-          Positioned(
-            top: -120,
-            left: 40,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: const Color(0xFF7C3AED).withValues(alpha: 0.18),
-              ),
-            ),
-          ),
-
-          SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 440),
-                  child: Column(
-                    children: [
-                      // Glowing Brand Emblem
-                      const AppBrandLogo(size: 64, showGlow: true)
-                          .animate()
-                          .scale(duration: 500.ms, curve: Curves.easeOutBack),
-
-                      const SizedBox(height: 20),
-
-                      const Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white,
-                          letterSpacing: -0.5,
-                        ),
-                      )
-                          .animate()
-                          .fadeIn()
-                          .slideY(begin: 0.2, end: 0),
-
-                      const SizedBox(height: 6),
-
-                      const Text(
-                        'Sign in to continue your journey',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Color(0xFF94A3B8),
-                        ),
-                      )
-                          .animate()
-                          .fadeIn(delay: 150.ms),
-
-                      const SizedBox(height: 28),
-
-                      // Card with Role Toggle and Input Fields
-                      Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF121622),
-                          borderRadius: BorderRadius.circular(24),
-                          border: Border.all(
-                            color: const Color(0xFF232A3B),
-                            width: 1.2,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.4),
-                              blurRadius: 28,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Segmented Role Switch
-                              Container(
-                                width: double.infinity,
-                                height: 46,
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF0A0E17),
-                                  borderRadius: BorderRadius.circular(14),
-                                  border: Border.all(color: const Color(0xFF1E2436)),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: _buildRoleTab(
-                                        title: 'Candidate',
-                                        isSelected: selectedRole == UserType.talent,
-                                        onTap: () {
-                                          ref.read(selectedUserTypeProvider.notifier).state =
-                                              UserType.talent;
-                                        },
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: _buildRoleTab(
-                                        title: 'Recruiter',
-                                        isSelected: selectedRole == UserType.recruiter,
-                                        onTap: () {
-                                          ref.read(selectedUserTypeProvider.notifier).state =
-                                              UserType.recruiter;
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              const SizedBox(height: 24),
-
-                              // Email Label
-                              Text(
-                                selectedRole == UserType.recruiter ? 'Company Email' : 'Email',
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFFCBD5E1),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-
-                              TextFormField(
-                                controller: _emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                                style: const TextStyle(color: Colors.white, fontSize: 14),
-                                decoration: InputDecoration(
-                                  hintText: selectedRole == UserType.recruiter
-                                      ? 'recruiter@company.com'
-                                      : 'Enter your email',
-                                  hintStyle: const TextStyle(color: Color(0xFF64748B), fontSize: 13),
-                                  filled: true,
-                                  fillColor: const Color(0xFF0A0E17),
-                                  prefixIcon: const Icon(Icons.mail_outline_rounded,
-                                      color: Color(0xFF8B5CF6), size: 20),
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Color(0xFF1E2436)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Color(0xFF1E2436)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
-                                  ),
-                                ),
-                                validator: AppUtils.validateEmail,
-                              ),
-
-                              const SizedBox(height: 18),
-
-                              // Password Label
-                              const Text(
-                                'Password',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFFCBD5E1),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-
-                              TextFormField(
-                                controller: _passwordController,
-                                obscureText: _obscurePassword,
-                                textInputAction: TextInputAction.done,
-                                onFieldSubmitted: (_) => _login(),
-                                style: const TextStyle(color: Colors.white, fontSize: 14),
-                                decoration: InputDecoration(
-                                  hintText: 'Enter password',
-                                  hintStyle: const TextStyle(color: Color(0xFF64748B), fontSize: 13),
-                                  filled: true,
-                                  fillColor: const Color(0xFF0A0E17),
-                                  prefixIcon: const Icon(Icons.lock_outline_rounded,
-                                      color: Color(0xFF8B5CF6), size: 20),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _obscurePassword
-                                          ? Icons.visibility_outlined
-                                          : Icons.visibility_off_outlined,
-                                      color: const Color(0xFF64748B),
-                                      size: 20,
-                                    ),
-                                    onPressed: () =>
-                                        setState(() => _obscurePassword = !_obscurePassword),
-                                  ),
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Color(0xFF1E2436)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Color(0xFF1E2436)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                    borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 1.5),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) return 'Password is required';
-                                  if (value.length < 6) return 'Password must be at least 6 characters';
-                                  return null;
-                                },
-                              ),
-
-                              const SizedBox(height: 8),
-
-                              // Forgot password link
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: TextButton(
-                                  onPressed: () => context.push('/auth/forgot-password'),
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                    minimumSize: const Size(0, 32),
-                                  ),
-                                  child: const Text(
-                                    'Forgot Password?',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF8B5CF6),
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 18),
-
-                              // "Sign In" gradient button
-                              Container(
-                                width: double.infinity,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [Color(0xFF7C3AED), Color(0xFF6366F1)],
-                                  ),
-                                  borderRadius: BorderRadius.circular(14),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFF7C3AED).withValues(alpha: 0.4),
-                                      blurRadius: 18,
-                                      offset: const Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(14),
-                                    onTap: authState.isLoading ? null : _login,
-                                    child: Center(
-                                      child: authState.isLoading
-                                          ? const SizedBox(
-                                              width: 22,
-                                              height: 22,
-                                              child: CircularProgressIndicator(
-                                                strokeWidth: 2.2,
-                                                valueColor:
-                                                    AlwaysStoppedAnimation<Color>(Colors.white),
-                                              ),
-                                            )
-                                          : const Text(
-                                              'Sign In',
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.white,
-                                                letterSpacing: 0.2,
-                                              ),
-                                            ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 24),
-
-                              // "Or continue with" divider
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: Container(height: 1, color: const Color(0xFF1E2436))),
-                                  const Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 14),
-                                    child: Text(
-                                      'Or continue with',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Color(0xFF64748B),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                      child: Container(height: 1, color: const Color(0xFF1E2436))),
-                                ],
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              // Social Icon Row (Google, Apple, LinkedIn)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _buildSocialCircle(
-                                    iconWidget: const Text(
-                                      'G',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w800,
-                                        color: Color(0xFFEA4335),
-                                      ),
-                                    ),
-                                    onTap: _loginWithGoogle,
-                                  ),
-                                  const SizedBox(width: 18),
-                                  _buildSocialCircle(
-                                    iconWidget: const Icon(
-                                      Icons.apple,
-                                      color: Colors.white,
-                                      size: 24,
-                                    ),
-                                    onTap: _loginWithGoogle,
-                                  ),
-                                  const SizedBox(width: 18),
-                                  _buildSocialCircle(
-                                    iconWidget: const Text(
-                                      'in',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w800,
-                                        color: Color(0xFF0A66C2),
-                                      ),
-                                    ),
-                                    onTap: _loginWithGoogle,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                          .animate()
-                          .fadeIn(delay: 200.ms)
-                          .slideY(begin: 0.15, end: 0),
-
-                      const SizedBox(height: 24),
-
-                      // Bottom link: Create an account
-                      GestureDetector(
-                        onTap: () => context.push('/auth/signup'),
-                        child: Text(
-                          selectedRole == UserType.recruiter
-                              ? 'Create a recruiter account'
-                              : 'Create an account',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF8B5CF6),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
-                ),
+      backgroundColor: bgColor,
+      appBar: AppBar(
+        backgroundColor: bgColor,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: textPrimary, size: 22.0),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/onboarding');
+            }
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          'CareerSwipe AI',
+          style: EditorialTypography.headlineSm(color: textPrimary),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: EditorialSpacing.margin),
+            child: CircleAvatar(
+              radius: 16.0,
+              backgroundColor: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+              child: Icon(
+                Icons.person_outline,
+                size: 18.0,
+                color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
               ),
             ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildRoleTab({
-    required String title,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF7C3AED) : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: const Color(0xFF7C3AED).withValues(alpha: 0.4),
-                    blurRadius: 10,
-                  ),
-                ]
-              : null,
-        ),
+      body: SafeArea(
         child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: EditorialSpacing.margin,
+              vertical: EditorialSpacing.spaceSm,
+            ),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 480),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Dossier Telemetry Card
+                    Container(
+                      padding: const EdgeInsets.all(EditorialSpacing.spaceSm),
+                      decoration: BoxDecoration(
+                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        borderRadius: EditorialRadii.roundedMd,
+                        border: Border.all(color: hairlineColor, width: 1.0),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'ACTIVE DISPATCHES',
+                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                ),
+                                const SizedBox(height: 2.0),
+                                Text(
+                                  '14 Roles',
+                                  style: EditorialTypography.labelLg(color: EditorialColors.primary),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(width: 1.0, height: 28.0, color: hairlineColor),
+                          const SizedBox(width: EditorialSpacing.spaceSm),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'MEDIAN FIT',
+                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                ),
+                                const SizedBox(height: 2.0),
+                                Text(
+                                  '94.2%',
+                                  style: EditorialTypography.labelLg(color: EditorialColors.primary),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(width: 1.0, height: 28.0, color: hairlineColor),
+                          const SizedBox(width: EditorialSpacing.spaceSm),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'VERIFIED FIRMS',
+                                  style: EditorialTypography.labelStamp(color: textSecondary),
+                                ),
+                                const SizedBox(height: 2.0),
+                                Text(
+                                  'Tier 1 & Labs',
+                                  style: EditorialTypography.labelLg(color: EditorialColors.primary),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Quick OAuth Option (Google Workspace)
+                    OutlinedButton(
+                      onPressed: isLoading ? null : _loginWithGoogle,
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: surfaceColor,
+                        side: BorderSide(color: hairlineColor, width: 1.0),
+                        shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
+                        minimumSize: const Size(double.infinity, 48.0),
+                        elevation: 0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.network(
+                            'https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png',
+                            width: 18.0,
+                            height: 18.0,
+                            errorBuilder: (_, __, ___) => const Icon(
+                              Icons.account_circle,
+                              size: 18.0,
+                              color: EditorialColors.primary,
+                            ),
+                          ),
+                          const SizedBox(width: EditorialSpacing.spaceSm),
+                          Flexible(
+                            child: Text(
+                              'Continue with Google Workspace',
+                              style: EditorialTypography.labelLg(color: textPrimary),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Divider
+                    Row(
+                      children: [
+                        Expanded(child: Divider(color: hairlineColor, thickness: 1.0)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Text(
+                            'OR SIGN IN WITH WORK EMAIL',
+                            style: EditorialTypography.labelStamp(color: textSecondary),
+                          ),
+                        ),
+                        Expanded(child: Divider(color: hairlineColor, thickness: 1.0)),
+                      ],
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Email Field
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Work or University Email',
+                          style: EditorialTypography.labelMd(
+                            color: textPrimary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                          decoration: BoxDecoration(
+                            color: isDark ? EditorialColors.darkContainerMid : EditorialColors.paperContainerLow,
+                            borderRadius: EditorialRadii.roundedSm,
+                          ),
+                          child: Text(
+                            'SSO VERIFIED',
+                            style: EditorialTypography.labelStamp(color: textSecondary),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6.0),
+                    EditorialTextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'name@company.com',
+                      prefixIcon: Icon(Icons.alternate_email, size: 18.0, color: textSecondary),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email is required';
+                        }
+                        if (!value.contains('@') || !value.contains('.')) {
+                          return 'Please enter a valid work email';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
+
+                    // Master Password Field
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Master Password',
+                          style: EditorialTypography.labelMd(
+                            color: textPrimary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                          decoration: BoxDecoration(
+                            color: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+                            borderRadius: EditorialRadii.roundedSm,
+                          ),
+                          child: Text(
+                            '256-BIT ENCRYPTED',
+                            style: EditorialTypography.labelStamp(
+                              color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6.0),
+                    EditorialTextField(
+                      controller: _passwordController,
+                      obscureText: _obscurePassword,
+                      hintText: 'Enter your password',
+                      prefixIcon: Icon(Icons.lock_outline, size: 18.0, color: textSecondary),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          size: 18.0,
+                          color: textSecondary,
+                        ),
+                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceSm),
+
+                    // Auxiliary Row: Remember & Forgot
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: EditorialSpacing.spaceSm,
+                      runSpacing: EditorialSpacing.spaceXs,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              width: 24.0,
+                              height: 24.0,
+                              child: Checkbox(
+                                value: _rememberDevice,
+                                activeColor: EditorialColors.primary,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                                onChanged: (val) => setState(() => _rememberDevice = val ?? true),
+                              ),
+                            ),
+                            const SizedBox(width: 6.0),
+                            Text(
+                              'Remember device (30 days)',
+                              style: EditorialTypography.bodySm(color: textSecondary),
+                            ),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () => context.push('/auth/forgot-password'),
+                          child: Text(
+                            'Forgot password?',
+                            style: EditorialTypography.labelMd(
+                              color: EditorialColors.primary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Primary Submit Button
+                    EditorialButton(
+                      label: 'Unlock Career Dossier',
+                      isLoading: isLoading,
+                      trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                      onPressed: _login,
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
+
+                    // Security note
+                    Center(
+                      child: Text(
+                        'Protected by hardware-backed enclave encryption · CareerSwipe AI Protocol',
+                        textAlign: TextAlign.center,
+                        style: EditorialTypography.bodySm(color: textSecondary),
+                      ),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Footer Link
+                    Center(
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Text(
+                            "Don't have a verified dossier? ",
+                            style: EditorialTypography.bodyMd(color: textSecondary),
+                          ),
+                          GestureDetector(
+                            onTap: () => context.push('/auth/role-selection'),
+                            child: Text(
+                              'Create candidate account',
+                              style: EditorialTypography.labelMd(
+                                color: EditorialColors.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+                  ],
+                ),
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildSocialCircle({
-    required Widget iconWidget,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        width: 52,
-        height: 52,
-        decoration: BoxDecoration(
-          color: const Color(0xFF121622),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFF232A3B)),
-        ),
-        child: Center(child: iconWidget),
       ),
     );
   }

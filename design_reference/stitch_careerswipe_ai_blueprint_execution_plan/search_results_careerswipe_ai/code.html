@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-bright": "#f9f9f8", "surface": "#f9f9f8", "primary": "#023423", "on-primary-fixed": "#002114", "on-tertiary-container": "#ff9375", "primary-container": "#1e4b38", "tertiary-fixed": "#ffdbd1", "surface-container": "#eeeeed", "surface-dim": "#dadad9", "on-background": "#1a1c1c", "on-tertiary-fixed-variant": "#7d2c15", "error-container": "#ffdad6", "tertiary-container": "#782912", "on-surface-variant": "#414944", "surface-variant": "#e2e2e2", "secondary-fixed-dim": "#c0c7ce", "on-secondary-fixed": "#161c21", "surface-container-high": "#e8e8e7", "tertiary-fixed-dim": "#ffb5a0", "on-secondary": "#ffffff", "surface-container-low": "#f3f4f3", "on-secondary-container": "#5c6369", "surface-tint": "#3b6752", "error": "#ba1a1a", "secondary-container": "#dae0e7", "surface-container-highest": "#e2e2e2", "on-primary-container": "#8bbaa2", "on-surface": "#1a1c1c", "tertiary": "#5a1300", "on-primary": "#ffffff", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "outline": "#717973", "inverse-on-surface": "#f1f1f0", "secondary-fixed": "#dde3ea", "inverse-primary": "#a1d1b8", "on-primary-fixed-variant": "#224f3c", "on-tertiary-fixed": "#3b0900", "secondary": "#585f65", "primary-fixed-dim": "#a1d1b8", "inverse-surface": "#2f3130", "outline-variant": "#c0c8c2", "on-secondary-fixed-variant": "#41484d", "primary-fixed": "#bdedd3", "background": "#f9f9f8" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem" }, fontFamily: { "headline-xl": ["Newsreader"], "headline-sm": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Newsreader"], "body-md": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Newsreader"], "label-stamp": ["Inter"], "label-lg": ["Inter"] }, fontSize: { "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;background-color:#f9f9f8;color:#1a1c1c;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-full"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[22px]">filter_vintage</span><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Search Results</h1></div><div class="flex items-center gap-space-sm"><button aria-label="Search" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">search</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-24 bg-surface px-margin"><div class="flex flex-col w-full pb-6 space-y-space-md">
+<!-- Active Faceted Search Filter Bar -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-sm">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs flex-1 min-w-0">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0">terminal</span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase tracking-wider truncate">Active Query Ledger</span>
+</div>
+<!-- Filter drawer trigger button -->
+<button aria-label="Open faceted search filters" class="relative flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-colors" id="filter-drawer-btn">
+<span class="material-symbols-outlined text-[18px] text-primary">tune</span>
+<span class="font-label-md text-label-md">Filters</span>
+<span class="w-4 h-4 rounded-full bg-primary text-on-primary font-label-stamp text-[10px] flex items-center justify-center font-bold">3</span>
+</button>
+</div>
+<!-- Active Filter Chips Carousel -->
+<div class="flex items-center gap-space-xs overflow-x-auto py-0.5 no-scrollbar">
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface text-label-md font-label-md shrink-0">
+<span class="font-medium text-primary">kw:</span>
+<span>Go concurrency Raft</span>
+<button aria-label="Remove Raft filter" class="hover:text-error transition-colors ml-0.5 flex items-center"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface text-label-md font-label-md shrink-0">
+<span class="material-symbols-outlined text-[13px] text-primary">explore</span>
+<span>EU Remote</span>
+<button aria-label="Remove EU Remote filter" class="hover:text-error transition-colors ml-0.5 flex items-center"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container text-on-surface text-label-md font-label-md shrink-0">
+<span class="material-symbols-outlined text-[13px] text-primary">payments</span>
+<span>€110k+</span>
+<button aria-label="Remove compensation floor" class="hover:text-error transition-colors ml-0.5 flex items-center"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary underline decoration-dotted shrink-0 pl-1">Reset</button>
+</div>
+</section>
+<!-- Live Telemetry Dispatch Bar -->
+<section class="bg-surface-container-low rounded-lg px-space-md py-2.5 flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="relative flex h-2 w-2 shrink-0">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<p class="font-label-stamp text-label-stamp text-on-surface-variant uppercase tracking-wider truncate">
+        8 Requisitions · 3 Fellowships · 0 Synthetic
+      </p>
+</div>
+<div class="flex items-center gap-1 shrink-0 bg-surface-container px-2 py-0.5 rounded text-on-surface-variant font-label-stamp text-[10px]">
+<span class="material-symbols-outlined text-[12px] text-primary">shield</span>
+<span>100% Cryptographic Index</span>
+</div>
+</section>
+<!-- Segmented Control for Result Types -->
+<div class="bg-surface-container rounded-lg p-1 flex items-center gap-1" role="tablist">
+<button aria-selected="true" class="flex-1 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold shadow-sm transition-all text-center" role="tab">
+      All (11)
+    </button>
+<button aria-selected="false" class="flex-1 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all text-center" role="tab">
+      Requisitions (8)
+    </button>
+<button aria-selected="false" class="flex-1 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all text-center" role="tab">
+      Fellowships (3)
+    </button>
+</div>
+<!-- Facet Sorting & Ordering Ribbon -->
+<div class="flex items-center justify-between gap-space-sm pt-0.5">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">sort</span>
+<span class="text-on-surface font-medium">Sorted by:</span>
+</div>
+<div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+<button class="px-2.5 py-1 rounded bg-primary text-on-primary font-label-md text-label-md flex items-center gap-1 shrink-0">
+<span>Match Index (96%→82%)</span>
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+</button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md shrink-0">
+        Base Comp
+      </button>
+<button class="px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md shrink-0">
+        Freshness
+      </button>
+</div>
+</div>
+<!-- Primary Results Stack -->
+<div class="flex flex-col space-y-space-md">
+<!-- Card 1: Stripe EMEA -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md transition-all hover:shadow-md">
+<!-- Card Header -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<img class="w-11 h-11 rounded-lg object-cover shrink-0 bg-surface-container" data-alt="Minimalist graphic icon with deep spruce green monogram representing an infrastructure payments firm on a crisp architectural warm paper background with clean graphic lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSfly-x2SxQJfXyYSfkAWZG8l6mVAzItr2WTU9KR0hVSTMbqYY9M8uHFgSM5mQPft4h-Sqte4a_7HWfeQGQ1-Q8vCnY1_yMgCWvc3sC1ZQsqrvJIsWsQFicY5FlOBHZ0sX2OOphOKxgifzy5fDDUaxTeAnPb7W95WiQBye6AYiyBTfw2ILdF48w85ChvovjwjMROFPauiXNwqTrKDcsk8O8N5CkMr_rPMzxC03dFU"/>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-stamp text-label-stamp uppercase tracking-widest text-on-surface-variant">Stripe EMEA</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-stamp text-[10px] font-semibold">
+<span class="material-symbols-outlined text-[11px] mr-0.5">verified</span>
+                Git Verified
+              </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Staff Systems Engineer</h2>
+</div>
+</div>
+<!-- High Match Stamp -->
+<div class="flex flex-col items-end shrink-0">
+<div class="px-2 py-1 rounded bg-primary/10 text-primary font-label-stamp text-label-stamp font-bold">
+            96.4% MATCH
+          </div>
+<span class="text-on-surface-variant font-label-stamp text-[10px] mt-0.5">Rank #1</span>
+</div>
+</div>
+<!-- Comp & Location Meta Strip -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-1.5 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary">euro</span>
+<span>€135,000 — €160,000</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Dublin / Remote (EU)</span>
+</div>
+</div>
+<!-- Match Rationale Ledger & Tech Chips -->
+<div class="space-y-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+          Leading the low-latency consensus tier for regional banking rails. Highly aligned with your open-source Raft implementation and multi-region consensus papers.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Go Concurrency</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Raft Cluster</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Distributed WAL</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-stamp text-[11px]">+3 skills</span>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center justify-between pt-1 gap-space-sm">
+<button aria-label="Bookmark Requisition" class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface flex items-center justify-center shrink-0 transition-colors">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+<button class="flex-1 h-11 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 transition-colors">
+<span>Apply via Vault</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Card 2: Cloudflare -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md transition-all hover:shadow-md">
+<!-- Card Header -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<img class="w-11 h-11 rounded-lg object-cover shrink-0 bg-surface-container" data-alt="Modern technical logomark for edge computing network infrastructure in muted tones on clean paper finish with subtle geometric lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFfuVb1LmUIAFZkMNfuxIpWHcWbqE5Epv1Lvlgmv-dfQfWZ9GL4hErSEKx_Wy8_didYuTcWDQmWzKaOxz0PEPOASmibLPIpi5jqagKzB3IwQFYGMNb4o8ACsLLO63cyPNnZgF9-OlKL5h1qDGEe8s08HvdjEg8w9f-W_YyUoqjEOmKQtG5Teu9j7rxhpqVEpIxRWfHANFv9BP1PWNa5mWgu01u37D6iGH3lV-7ZfU"/>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-stamp text-label-stamp uppercase tracking-widest text-on-surface-variant">Cloudflare</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-label-stamp text-[10px]">
+                Direct Team
+              </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Ingress Architecture Lead</h2>
+</div>
+</div>
+<!-- Match Stamp -->
+<div class="flex flex-col items-end shrink-0">
+<div class="px-2 py-1 rounded bg-primary/10 text-primary font-label-stamp text-label-stamp font-bold">
+            92.1% MATCH
+          </div>
+<span class="text-on-surface-variant font-label-stamp text-[10px] mt-0.5">Rank #2</span>
+</div>
+</div>
+<!-- Comp & Location Meta Strip -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-1.5 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary">euro</span>
+<span>€125,000 — €150,000</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>Lisbon / Remote (EU)</span>
+</div>
+</div>
+<!-- Match Rationale Ledger & Tech Chips -->
+<div class="space-y-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+          Lead the edge ingress proxy routing multi-terabit traffic. Focus on Linux kernel tuning, custom socket dispatch, and eBPF observability filters.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">eBPF</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Linux Sockets</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Kernel Bypass</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-stamp text-[11px]">+2 skills</span>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center justify-between pt-1 gap-space-sm">
+<button aria-label="Bookmark Requisition" class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface flex items-center justify-center shrink-0 transition-colors">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+<button class="flex-1 h-11 px-4 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-2 transition-colors">
+<span>Review Requisition</span>
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</div>
+</article>
+<!-- Card 3: Mistral AI Fellowship -->
+<article class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm space-y-space-md transition-all hover:shadow-md">
+<!-- Card Header -->
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0">
+<img class="w-11 h-11 rounded-lg object-cover shrink-0 bg-surface-container" data-alt="Sophisticated monochrome emblem for a frontier artificial intelligence research laboratory situated in Paris with academic elegance and clean contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTDuPS8hzac0KA98i_s5vUkl24lafUDeDzAw-7CGk_44MKOb95fXaU5u9b8M-eqMXHSAv3ZJoapKCd_wlZgamSRPls16oeLl6PqQ8XlYbIx-7lXIbq6-wyUKDNwslYSLMtXpOZbczkzsKdlNd6rYL8x1qdcMYw_cWXtCYdTVtOuX2NKqMzmH9dMdmnsmdwiVsKecBJrowmE_lxqBhkNc_XLywwJrcLZtB83mqe8QQ"/>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-label-stamp text-label-stamp uppercase tracking-widest text-on-surface-variant">Mistral AI Research</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-stamp text-[10px] font-bold">
+                Fellowship
+              </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Distributed Inference Fellow</h2>
+</div>
+</div>
+<!-- High Match Stamp -->
+<div class="flex flex-col items-end shrink-0">
+<div class="px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-stamp text-label-stamp font-bold">
+            ACCREDITED
+          </div>
+<span class="text-on-surface-variant font-label-stamp text-[10px] mt-0.5">6 Months</span>
+</div>
+</div>
+<!-- Stipend & Location Meta Strip -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-1.5 text-on-surface font-medium">
+<span class="material-symbols-outlined text-[16px] text-primary">account_balance_wallet</span>
+<span>€4,500 / month stipend</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">domain</span>
+<span>Paris Hub (Hybrid)</span>
+</div>
+</div>
+<!-- Academic Ledger -->
+<div class="space-y-space-xs">
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+          Direct fellowship exploring speculative decoding, KV-cache sharding across clusters, and pipeline parallelisms. Academic credit accredited with Sorbonne &amp; CNRS.
+        </p>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">LLM Kernels</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Model Sharding</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-md text-label-md">Peer Reviewed</span>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center justify-between pt-1 gap-space-sm">
+<button aria-label="Bookmark Fellowship" class="w-10 h-10 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface flex items-center justify-center shrink-0 transition-colors">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+<button class="flex-1 h-11 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 transition-colors">
+<span>Submit Proposal</span>
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</article>
+</div>
+<!-- End of Results Dispatch Stamp -->
+<div class="mt-4 p-space-md rounded-xl bg-surface-container-low text-center space-y-space-xs">
+<div class="w-8 h-8 rounded-full bg-surface-container mx-auto flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Cryptographic Verification Complete</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs mx-auto">
+      All 11 verified listings loaded from cryptographic index. Zero keyword-stuffed or ghost postings permitted.
+    </p>
+<div class="pt-2">
+<button class="inline-flex items-center gap-1 text-primary font-label-md text-label-md hover:underline">
+<span class="material-symbols-outlined text-[15px]">refresh</span>
+<span>Re-scan index for new commits</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Inline Interaction Logic -->
+<script>
+  (function() {
+    const bookmarkBtns = document.querySelectorAll('button[aria-label^="Bookmark"]');
+    bookmarkBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          const isSaved = icon.textContent === 'bookmark';
+          icon.textContent = isSaved ? 'bookmark_border' : 'bookmark';
+          icon.style.fontVariationSettings = isSaved ? "'FILL' 0" : "'FILL' 1";
+          btn.classList.toggle('text-primary', !isSaved);
+        }
+      });
+    });
+
+    const drawerBtn = document.getElementById('filter-drawer-btn');
+    if (drawerBtn) {
+      drawerBtn.addEventListener('click', () => {
+        drawerBtn.classList.toggle('bg-primary');
+        drawerBtn.classList.toggle('text-on-primary');
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_8px_rgba(0,0,0,0.03)]" data-active-classes="text-primary font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-colors" data-path="discovery-deck" href="#"><span class="material-symbols-outlined text-[22px]">view_carousel</span><span class="font-label-md text-label-md">Swipe</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-11 transition-colors text-primary font-semibold" data-path="search-results" href="#"><span class="material-symbols-outlined text-[22px]">manage_search</span><span class="font-label-md text-label-md">Search</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-colors" data-path="application-ledger" href="#"><span class="material-symbols-outlined text-[22px]">checklist</span><span class="font-label-md text-label-md">Matches</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-11 text-on-surface-variant hover:text-primary transition-colors" data-path="legal-compliance-hub" href="#"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="font-label-md text-label-md">Legal</span></a></div></nav></body></html>

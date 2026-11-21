@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed": "#ffdbd1", "surface-container": "#eeeeed", "inverse-surface": "#2f3130", "surface-bright": "#f9f9f8", "on-error-container": "#93000a", "on-primary-fixed": "#002114", "error": "#ba1a1a", "on-secondary-fixed": "#161c21", "tertiary": "#5a1300", "error-container": "#ffdad6", "tertiary-fixed-dim": "#ffb5a0", "on-primary": "#ffffff", "on-surface-variant": "#414944", "on-secondary-fixed-variant": "#41484d", "on-primary-fixed-variant": "#224f3c", "on-tertiary": "#ffffff", "on-background": "#1a1c1c", "surface-dim": "#dadad9", "on-secondary-container": "#5c6369", "outline-variant": "#c0c8c2", "primary-fixed": "#bdedd3", "secondary": "#585f65", "inverse-on-surface": "#f1f1f0", "surface": "#f9f9f8", "on-tertiary-fixed-variant": "#7d2c15", "secondary-fixed": "#dde3ea", "surface-container-lowest": "#ffffff", "primary": "#023423", "inverse-primary": "#a1d1b8", "primary-fixed-dim": "#a1d1b8", "surface-tint": "#3b6752", "on-tertiary-container": "#ff9375", "on-surface": "#1a1c1c", "surface-container-low": "#f3f4f3", "on-error": "#ffffff", "background": "#f9f9f8", "tertiary-container": "#782912", "secondary-fixed-dim": "#c0c7ce", "secondary-container": "#dae0e7", "on-primary-container": "#8bbaa2", "surface-variant": "#e2e2e2", "on-secondary": "#ffffff", "outline": "#717973", "on-tertiary-fixed": "#3b0900", "surface-container-high": "#e8e8e7", "surface-container-highest": "#e2e2e2", "primary-container": "#1e4b38" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "gutter": "1rem", "margin": "1.25rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "label-lg": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "headline-lg": ["Newsreader"], "body-sm": ["Inter"], "label-md": ["Inter"], "label-stamp": ["Inter"], "headline-md": ["Newsreader"], "headline-xl": ["Newsreader"] }, "fontSize": { "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface flex flex-col min-h-full font-body-md text-body-md"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary transition-colors -ml-2" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md tracking-tight text-on-surface">Select Job For Ats</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Context actions" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">more_horiz</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-24">
+<!-- Stepper & Context Header -->
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-stamp text-label-stamp uppercase tracking-widest text-primary-container bg-primary-fixed/40 px-2 py-0.5 rounded">
+        Step 1 of 2: Job Specification Context
+      </span>
+<span class="font-label-md text-label-md text-secondary">Dossier Match Engine</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Select Target Requisition</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Choose an existing tracked job or provide raw specification markdown to test dossier match fidelity.
+    </p>
+</div>
+<!-- Dual Mode Segmented Control -->
+<div class="bg-surface-container p-1 rounded-xl flex items-center mb-space-lg shadow-sm">
+<button class="flex-1 py-2 px-3 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-center bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-space-xs" id="tab-tracked" onclick="switchMode('tracked')">
+<span class="material-symbols-outlined text-[18px]">bookmark_added</span>
+<span>Saved &amp; Tracked (3)</span>
+</button>
+<button class="flex-1 py-2 px-3 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-center text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-space-xs" id="tab-paste" onclick="switchMode('paste')">
+<span class="material-symbols-outlined text-[18px]">post_add</span>
+<span>Paste Custom Spec</span>
+</button>
+</div>
+<!-- View 1: Saved & Tracked Requisitions List -->
+<div class="flex flex-col gap-space-md" id="view-tracked">
+<!-- Requisition 1 (Selected by default) -->
+<div class="relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all duration-200 cursor-pointer overflow-hidden" id="req-card-1" onclick="selectReq(1)">
+<!-- Active selection tint accent bar -->
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-primary" id="req-bar-1"></div>
+<div class="pl-2 flex flex-col gap-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-label-lg font-semibold shrink-0">
+              S
+            </div>
+<div class="min-w-0">
+<span class="font-label-md text-label-md text-secondary block uppercase tracking-wider truncate">Stripe EMEA</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Senior Backend Engineer (Payments Core)</h3>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 transition-transform scale-100" id="check-icon-1">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<div class="flex items-center flex-wrap gap-x-space-md gap-y-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">location_on</span>
+            Dublin Hub (Hybrid)
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">payments</span>
+            €115k – €140k
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary-container">layers</span>
+<strong class="font-medium text-primary-container">9 Technical Pillars</strong>
+</span>
+</div>
+<!-- Synthesized Tag Ribbon -->
+<div class="flex items-center gap-space-xs mt-2 flex-wrap">
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">Distributed Systems</span>
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">Go / Ruby</span>
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">ACID Ledgering</span>
+<span class="font-label-stamp text-label-stamp bg-primary-fixed/50 text-on-primary-fixed-variant px-1.5 py-0.5 rounded">98% Fit Score</span>
+</div>
+</div>
+</div>
+<!-- Requisition 2 -->
+<div class="relative bg-surface-container-low rounded-xl p-space-md shadow-sm transition-all duration-200 cursor-pointer overflow-hidden opacity-90 hover:opacity-100" id="req-card-2" onclick="selectReq(2)">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-transparent" id="req-bar-2"></div>
+<div class="pl-2 flex flex-col gap-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-label-lg font-semibold shrink-0">
+              S
+            </div>
+<div class="min-w-0">
+<span class="font-label-md text-label-md text-secondary block uppercase tracking-wider truncate">Stripe EMEA</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Staff SRE — High-Throughput Ledger</h3>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-transparent shrink-0 transition-transform scale-90" id="check-icon-2">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<div class="flex items-center flex-wrap gap-x-space-md gap-y-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">public</span>
+            Remote EU
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">payments</span>
+            €150k – €185k
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">layers</span>
+<span>11 Pillars</span>
+</span>
+</div>
+<div class="flex items-center gap-space-xs mt-2 flex-wrap">
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">Kubernetes</span>
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">eBPF</span>
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">Chaos Eng</span>
+</div>
+</div>
+</div>
+<!-- Requisition 3 -->
+<div class="relative bg-surface-container-low rounded-xl p-space-md shadow-sm transition-all duration-200 cursor-pointer overflow-hidden opacity-90 hover:opacity-100" id="req-card-3" onclick="selectReq(3)">
+<div class="absolute top-0 left-0 bottom-0 w-1.5 bg-transparent" id="req-bar-3"></div>
+<div class="pl-2 flex flex-col gap-space-xs">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary font-label-lg font-semibold shrink-0">
+              C
+            </div>
+<div class="min-w-0">
+<span class="font-label-md text-label-md text-secondary block uppercase tracking-wider truncate">Cloudflare</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Systems Research Intern — Storage</h3>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-transparent shrink-0 transition-transform scale-90" id="check-icon-3">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<div class="flex items-center flex-wrap gap-x-space-md gap-y-1 mt-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">location_on</span>
+            Lisbon Hub / Remote
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">payments</span>
+            €3,800/mo
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">layers</span>
+<span>6 Pillars</span>
+</span>
+</div>
+<div class="flex items-center gap-space-xs mt-2 flex-wrap">
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">Rust</span>
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">NVMe-oF</span>
+<span class="font-label-stamp text-label-stamp bg-surface-container px-2 py-0.5 rounded text-on-surface-variant">LSM Trees</span>
+</div>
+</div>
+</div>
+</div>
+<!-- View 2: Paste Raw Markdown (Hidden by default, togglable) -->
+<div class="hidden flex-col gap-space-sm" id="view-paste">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-on-surface flex items-center gap-1.5" for="raw-spec">
+<span class="material-symbols-outlined text-primary text-[18px]">terminal</span>
+          Raw Job Description / Markdown
+        </label>
+<span class="font-label-md text-label-md text-secondary" id="char-counter">0 / 8,000 chars</span>
+</div>
+<div class="relative w-full">
+<textarea class="w-full bg-surface-container-low rounded-lg p-3 font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-lowest transition-all resize-none leading-relaxed" id="raw-spec" oninput="handleInput(this)" placeholder="Paste JD or engineering specification here...
+e.g. 
+# Principal Platform Architect
+- Scale low-latency RPC brokers
+- High concurrency Rust / C++ primitives
+- Deep experience with Raft or Paxos quorum" rows="7"></textarea>
+</div>
+<!-- Live Auto-Detection Stack Feedback -->
+<div class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between gap-space-sm" id="detection-box">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">psychology</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auto-detected Pillars:</span>
+</div>
+<div class="flex items-center gap-1.5 flex-wrap" id="detected-tags">
+<span class="font-label-stamp text-label-stamp bg-surface-container-high px-2 py-0.5 rounded text-secondary">Awaiting text...</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Model Configuration & Ledger Parameters Section -->
+<div class="mt-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-1">
+<h3 class="font-label-lg text-label-lg text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+        Target Analysis Model &amp; Engine
+      </h3>
+<span class="font-label-stamp text-label-stamp text-primary bg-primary-fixed/30 px-2 py-0.5 rounded">Deterministic</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Parsing Mode Selector -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-secondary uppercase tracking-wider">Parsing Rubric Profile</label>
+<div class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-[20px] text-primary-container">rule</span>
+<div class="min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface block truncate">Strict Systems &amp; Concurrency Rubric</span>
+<span class="font-body-sm text-body-sm text-secondary block">Standard v2.4 (Memory Safety, Scalability, Observability)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-secondary shrink-0">expand_more</span>
+</div>
+</div>
+<!-- Deep Commit Cross-Referencing Switch -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex flex-col gap-0.5 pr-2">
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg text-on-surface">Deep Commit Cross-Referencing</span>
+<span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Cross-match git commit signatures against job requirements for exact evidence linking.
+          </p>
+</div>
+<!-- Toggle Component -->
+<button aria-label="Toggle Commit Cross Referencing" class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-primary p-0.5 transition-colors duration-200 ease-in-out focus:outline-none" id="commit-toggle" onclick="toggleCommitScan()">
+<span class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-on-primary shadow-sm transition duration-200 ease-in-out translate-x-5" id="commit-knob"></span>
+</button>
+</div>
+<!-- Match Preview Metric Bar -->
+<div class="bg-surface-container-low rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-full bg-primary-fixed/40 flex items-center justify-center text-primary font-label-lg font-bold">
+            94
+          </div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Target Baseline Confidence</span>
+<span class="font-body-sm text-body-sm text-secondary">ATS parser readiness: Ready for vector synthesis</span>
+</div>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary-container bg-primary-fixed px-2 py-1 rounded">Optimal</span>
+</div>
+</div>
+</div>
+<!-- Fixed Action Footer Tray -->
+<div class="mt-space-xl flex flex-col gap-space-sm">
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-space-sm hover:opacity-95 active:scale-[0.99] transition-all shadow-md" id="btn-launch" onclick="launchAnalysis()">
+<span>Launch ATS Analysis &amp; Extraction</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full h-11 bg-transparent text-secondary hover:text-on-surface rounded-lg font-label-lg text-label-lg flex items-center justify-center transition-colors" onclick="history.back()">
+      Cancel
+    </button>
+</div>
+</div>
+<script>
+  let currentSelection = 1;
+  let commitScanActive = true;
+
+  function switchMode(mode) {
+    const tabTracked = document.getElementById('tab-tracked');
+    const tabPaste = document.getElementById('tab-paste');
+    const viewTracked = document.getElementById('view-tracked');
+    const viewPaste = document.getElementById('view-paste');
+
+    if (mode === 'tracked') {
+      tabTracked.className = "flex-1 py-2 px-3 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-center bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-space-xs";
+      tabPaste.className = "flex-1 py-2 px-3 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-center text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-space-xs";
+      viewTracked.classList.remove('hidden');
+      viewTracked.classList.add('flex');
+      viewPaste.classList.add('hidden');
+      viewPaste.classList.remove('flex');
+    } else {
+      tabPaste.className = "flex-1 py-2 px-3 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-center bg-surface-container-lowest text-primary shadow-sm flex items-center justify-center gap-space-xs";
+      tabTracked.className = "flex-1 py-2 px-3 rounded-lg font-label-lg text-label-lg transition-all duration-200 text-center text-on-surface-variant hover:text-on-surface flex items-center justify-center gap-space-xs";
+      viewPaste.classList.remove('hidden');
+      viewPaste.classList.add('flex');
+      viewTracked.classList.add('hidden');
+      viewTracked.classList.remove('flex');
+    }
+  }
+
+  function selectReq(id) {
+    currentSelection = id;
+    for (let i = 1; i <= 3; i++) {
+      const card = document.getElementById(`req-card-${i}`);
+      const bar = document.getElementById(`req-bar-${i}`);
+      const icon = document.getElementById(`check-icon-${i}`);
+
+      if (i === id) {
+        card.className = "relative bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all duration-200 cursor-pointer overflow-hidden";
+        bar.className = "absolute top-0 left-0 bottom-0 w-1.5 bg-primary";
+        icon.className = "w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 transition-transform scale-100";
+      } else {
+        card.className = "relative bg-surface-container-low rounded-xl p-space-md shadow-sm transition-all duration-200 cursor-pointer overflow-hidden opacity-90 hover:opacity-100";
+        bar.className = "absolute top-0 left-0 bottom-0 w-1.5 bg-transparent";
+        icon.className = "w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-transparent shrink-0 transition-transform scale-90";
+      }
+    }
+  }
+
+  function handleInput(textarea) {
+    const counter = document.getElementById('char-counter');
+    const tagsContainer = document.getElementById('detected-tags');
+    const val = textarea.value;
+    counter.textContent = `${val.length} / 8,000 chars`;
+
+    if (val.length > 20) {
+      tagsContainer.innerHTML = `
+        <span class="font-label-stamp text-label-stamp bg-primary-fixed/40 text-on-primary-fixed-variant px-2 py-0.5 rounded">Concurrency</span>
+        <span class="font-label-stamp text-label-stamp bg-primary-fixed/40 text-on-primary-fixed-variant px-2 py-0.5 rounded">Distributed Quorum</span>
+      `;
+    } else {
+      tagsContainer.innerHTML = `<span class="font-label-stamp text-label-stamp bg-surface-container-high px-2 py-0.5 rounded text-secondary">Awaiting text...</span>`;
+    }
+  }
+
+  function toggleCommitScan() {
+    commitScanActive = !commitScanActive;
+    const toggle = document.getElementById('commit-toggle');
+    const knob = document.getElementById('commit-knob');
+    if (commitScanActive) {
+      toggle.className = "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-primary p-0.5 transition-colors duration-200 ease-in-out focus:outline-none";
+      knob.className = "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-on-primary shadow-sm transition duration-200 ease-in-out translate-x-5";
+    } else {
+      toggle.className = "relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full bg-surface-container-highest p-0.5 transition-colors duration-200 ease-in-out focus:outline-none";
+      knob.className = "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-on-surface-variant shadow-sm transition duration-200 ease-in-out translate-x-0";
+    }
+  }
+
+  function launchAnalysis() {
+    const btn = document.getElementById('btn-launch');
+    btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">sync</span><span>Compiling Extraction Graph...</span>`;
+    btn.classList.add('opacity-90');
+    setTimeout(() => {
+      btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">done_all</span><span>Pillars Ready &bull; Proceeding to Dossier</span>`;
+      btn.classList.replace('bg-primary-container', 'bg-primary');
+    }, 1200);
+  }
+</script></main></body></html>

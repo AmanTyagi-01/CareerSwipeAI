@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#ffb5a0", "secondary": "#585f65", "primary": "#023423", "on-secondary": "#ffffff", "inverse-primary": "#a1d1b8", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#7d2c15", "surface-container-lowest": "#ffffff", "on-primary-container": "#8bbaa2", "inverse-surface": "#2f3130", "surface-bright": "#f9f9f8", "surface-tint": "#3b6752", "on-primary": "#ffffff", "on-primary-fixed": "#002114", "on-background": "#1a1c1c", "secondary-container": "#dae0e7", "tertiary": "#5a1300", "error": "#ba1a1a", "on-secondary-fixed-variant": "#41484d", "error-container": "#ffdad6", "on-surface": "#1a1c1c", "background": "#f9f9f8", "primary-container": "#1e4b38", "on-secondary-container": "#5c6369", "on-primary-fixed-variant": "#224f3c", "on-surface-variant": "#414944", "surface-container": "#eeeeed", "on-tertiary": "#ffffff", "surface-container-high": "#e8e8e7", "primary-fixed-dim": "#a1d1b8", "surface-container-highest": "#e2e2e2", "on-secondary-fixed": "#161c21", "on-error-container": "#93000a", "surface-dim": "#dadad9", "surface-container-low": "#f3f4f3", "primary-fixed": "#bdedd3", "outline": "#717973", "secondary-fixed-dim": "#c0c7ce", "inverse-on-surface": "#f1f1f0", "secondary-fixed": "#dde3ea", "tertiary-container": "#782912", "surface": "#f9f9f8", "tertiary-fixed": "#ffdbd1", "on-tertiary-container": "#ff9375", "surface-variant": "#e2e2e2", "outline-variant": "#c0c8c2", "on-tertiary-fixed": "#3b0900" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-md": "1rem", "space-sm": "0.5rem", "margin": "1.25rem" }, "fontFamily": { "label-stamp": ["Inter"], "label-lg": ["Inter"], "headline-xl": ["Newsreader"], "headline-sm": ["Newsreader"], "label-md": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Newsreader"], "body-lg": ["Inter"], "headline-md": ["Newsreader"], "body-md": ["Inter"], "headline-xl-mobile": ["Newsreader"] }, "fontSize": { "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen antialiased"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-space-sm flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md text-on-surface">Notifications</h1></div><div class="w-11 h-11 flex items-center justify-center"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Editorial Page Header -->
+<section class="py-space-md mb-space-xs">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<p class="font-label-stamp text-label-stamp uppercase tracking-widest text-primary-container">Dispatch Ledger</p>
+</div>
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface">Telemetry &amp; Notifications</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Cryptographic alerts, interview dispatches, and requisition status updates.</p>
+</section>
+<!-- Control & Status Sub-bar -->
+<div class="bg-surface-container-low rounded-lg p-space-sm mb-space-md flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="px-space-sm py-space-xs bg-primary-container text-on-primary rounded-full flex items-center gap-1.5" id="signal-badge">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed"></span>
+<span class="font-label-stamp text-label-stamp">3 NEW SIGNALS</span>
+</div>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1 px-1.5" id="mark-all-btn">
+        Mark all read
+      </button>
+</div>
+<button aria-label="Notification Preferences" class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</button>
+</div>
+<!-- Segmented Filter Pills -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-space-sm mb-space-md scrollbar-none" role="tablist">
+<button class="filter-tab shrink-0 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm transition-all" data-category="all">
+      All Signals (9)
+    </button>
+<button class="filter-tab shrink-0 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" data-category="interviews">
+      Interviews (2)
+    </button>
+<button class="filter-tab shrink-0 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" data-category="applications">
+      Applications (4)
+    </button>
+<button class="filter-tab shrink-0 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" data-category="ats">
+      System &amp; ATS (3)
+    </button>
+</div>
+<!-- Notifications List Ledger -->
+<div class="flex flex-col gap-space-sm" id="notifications-stream">
+<!-- 1. INTERVIEW DISPATCH (Unread, High Priority) -->
+<article class="notification-item bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden transition-all duration-200" data-status="unread" data-type="interviews">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="flex items-start justify-between gap-space-sm mb-space-xs pl-1">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-stamp text-label-stamp uppercase tracking-wider">
+            INTERVIEW DISPATCH
+          </span>
+<span class="font-label-stamp text-label-stamp text-tertiary-container uppercase tracking-wider">
+            PRIORITY 1
+          </span>
+</div>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant shrink-0">25m ago</span>
+</div>
+<div class="pl-1">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="font-label-md text-label-md text-secondary uppercase font-semibold">Stripe EMEA</span>
+<span class="text-on-surface-variant text-[11px]">•</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Payments Core</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">
+          Technical Architecture round scheduled for Alex Vance (#STR-8821) on Friday, Mar 28 at 14:00 UTC.
+        </h3>
+<!-- Match ledger telemetry chip -->
+<div class="bg-surface-container-low rounded-lg p-2.5 my-space-sm flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+              Synced to Google Calendar
+            </span>
+<span class="font-label-stamp text-label-stamp text-primary-container font-semibold">STAGE 3 OF 4</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1">
+<div class="bg-primary-container h-1 rounded-full w-3/4"></div>
+</div>
+</div>
+<!-- Action Tray -->
+<div class="flex items-center gap-space-sm pt-space-xs">
+<button class="flex-1 py-2.5 px-space-md rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg hover:bg-primary transition-colors flex items-center justify-center gap-1.5 active:scale-[0.99]">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+            Accept Dispatch
+          </button>
+<button class="py-2.5 px-space-md rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+            Review Briefing
+          </button>
+</div>
+</div>
+</article>
+<!-- 2. ATS GAP REMEDIATION (Unread) -->
+<article class="notification-item bg-surface-container-lowest rounded-xl p-space-md shadow-sm relative overflow-hidden transition-all duration-200" data-status="unread" data-type="ats">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-tertiary-container"></div>
+<div class="flex items-start justify-between gap-space-sm mb-space-xs pl-1">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-stamp text-label-stamp uppercase tracking-wider">
+            ATS GAP REMEDIATION
+          </span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant shrink-0">2h ago</span>
+</div>
+<div class="pl-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">
+          ATS Parser: gRPC typed IDL contract gap detected
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-sm">
+          Your dossier alignment against Stripe EMEA flagged missing protobuf commits. 15-minute practice drill ready.
+        </p>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded-lg mb-space-sm">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-tertiary">analytics</span>
+            ATS Pipeline Telemetry
+          </span>
+<span class="font-label-stamp text-label-stamp text-tertiary-container">DEFICIT -12%</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="py-2 px-space-md rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-lg text-label-lg transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container">terminal</span>
+            Launch Drill
+          </button>
+</div>
+</div>
+</article>
+<!-- 3. APPLICATION STAGE ADVANCE -->
+<article class="notification-item bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all duration-200" data-status="read" data-type="applications">
+<div class="flex items-start justify-between gap-space-sm mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-stamp text-label-stamp uppercase tracking-wider">
+            APPLICATION STAGE ADVANCE
+          </span>
+</div>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant shrink-0">Yesterday</span>
+</div>
+<div class="flex items-center gap-space-xs mb-1">
+<span class="font-label-md text-label-md text-secondary uppercase font-semibold">Cloudflare</span>
+<span class="text-on-surface-variant text-[11px]">•</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Systems Research</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">
+        Dossier promoted to Final Thesis Review for Summer 2025 Systems Fellowship (€3,800/mo).
+      </h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-space-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary-container">verified_user</span>
+        Verified Recruiter Dispatch
+      </p>
+<div>
+<button class="py-2 px-space-md rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+          View Application
+        </button>
+</div>
+</article>
+<!-- 4. REQUISITION CLOSED NOTICE -->
+<article class="notification-item bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all duration-200 opacity-90" data-status="read" data-type="applications">
+<div class="flex items-start justify-between gap-space-sm mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-stamp text-label-stamp uppercase tracking-wider">
+          REQUISITION ARCHIVE
+        </span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant shrink-0">2d ago</span>
+</div>
+<div class="flex items-center gap-space-xs mb-1">
+<span class="font-label-md text-label-md text-secondary uppercase font-semibold">Mistral AI</span>
+<span class="text-on-surface-variant text-[11px]">•</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Applied Feb 14</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">
+        Requisition #MIS-902 (Distributed Ledger Fellow) has been filled and archived.
+      </h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-space-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">inventory_2</span>
+        Archived Telemetry
+      </p>
+<div>
+<button class="py-2 px-space-md rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-colors">
+          Explore Similar
+        </button>
+</div>
+</article>
+<!-- 5. REPUTATION & SIGNALS -->
+<article class="notification-item bg-surface-container-lowest rounded-xl p-space-md shadow-sm transition-all duration-200" data-status="unread" data-type="ats">
+<div class="flex items-start justify-between gap-space-sm mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-stamp text-label-stamp uppercase tracking-wider">
+            REPUTATION &amp; SIGNALS
+          </span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant shrink-0">3d ago</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">
+        Master Dossier Key Integrity
+      </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-sm">
+        SHA-256 integrity check validated across 48 public code commits. Profile verification index: 94.8%.
+      </p>
+<div class="bg-surface-container-low p-2 rounded-lg flex items-center justify-between">
+<span class="font-label-stamp text-label-stamp font-mono text-on-surface-variant">HASH: 8f4c...c29b</span>
+<span class="font-label-md text-label-md text-primary-container font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+          Security Ledger
+        </span>
+</div>
+</article>
+</div>
+<!-- Editorial Empty State (Shown via script when filtered list is empty) -->
+<div class="hidden bg-surface-container-lowest rounded-xl p-space-xl text-center shadow-sm my-space-md" id="empty-state">
+<div class="w-12 h-12 rounded-full bg-surface-container mx-auto flex items-center justify-center text-primary-container mb-space-sm">
+<span class="material-symbols-outlined text-[24px]">done_all</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Zero Pending Signals</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">
+      All telemetry in this channel has been reconciled and logged to your local candidate dossier.
+    </p>
+</div>
+<!-- Cryptographic Trust Footer Note -->
+<footer class="mt-space-lg pt-space-md border-t border-transparent text-center">
+<div class="inline-flex items-center justify-center gap-1.5 text-on-surface-variant opacity-75">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<p class="font-body-sm text-body-sm">
+        Cryptographic alerts delivered via CareerSwipe Zero-Spam Protocol. Real telemetry only.
+      </p>
+</div>
+</footer>
+</div>
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    const items = document.querySelectorAll('.notification-item');
+    const emptyState = document.getElementById('empty-state');
+    const markAllBtn = document.getElementById('mark-all-btn');
+    const signalBadge = document.getElementById('signal-badge');
+
+    // Filter tab switching
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+          t.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        tab.classList.remove('bg-surface-container', 'text-on-surface-variant');
+        tab.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+
+        const cat = tab.getAttribute('data-category');
+        let visibleCount = 0;
+
+        items.forEach(item => {
+          const itemCat = item.getAttribute('data-type');
+          if (cat === 'all' || itemCat === cat) {
+            item.style.display = 'block';
+            visibleCount++;
+          } else {
+            item.style.display = 'none';
+          }
+        });
+
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      });
+    });
+
+    // Mark all read interaction
+    if (markAllBtn) {
+      markAllBtn.addEventListener('click', () => {
+        items.forEach(item => {
+          item.setAttribute('data-status', 'read');
+          // remove left colored status indicators
+          const sideBars = item.querySelectorAll('.absolute.left-0');
+          sideBars.forEach(b => b.remove());
+          // remove pulsing green dots
+          const dots = item.querySelectorAll('.bg-primary-container.w-1\\.5.h-1\\.5, .bg-tertiary-container.w-2.h-2');
+          dots.forEach(d => d.remove());
+        });
+
+        if (signalBadge) {
+          signalBadge.innerHTML = '<span class="material-symbols-outlined text-[12px]">check</span><span class="font-label-stamp text-label-stamp">0 SIGNALS</span>';
+          signalBadge.classList.remove('bg-primary-container', 'text-on-primary');
+          signalBadge.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+        }
+        markAllBtn.textContent = 'All synced';
+        markAllBtn.classList.add('opacity-50', 'pointer-events-none');
+      });
+    }
+  })();
+</script></main></body></html>

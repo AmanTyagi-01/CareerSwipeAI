@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-bright": "#f9f9f8", "surface": "#f9f9f8", "primary": "#023423", "on-primary-fixed": "#002114", "on-tertiary-container": "#ff9375", "primary-container": "#1e4b38", "tertiary-fixed": "#ffdbd1", "surface-container": "#eeeeed", "surface-dim": "#dadad9", "on-background": "#1a1c1c", "on-tertiary-fixed-variant": "#7d2c15", "error-container": "#ffdad6", "tertiary-container": "#782912", "on-surface-variant": "#414944", "surface-variant": "#e2e2e2", "secondary-fixed-dim": "#c0c7ce", "on-secondary-fixed": "#161c21", "surface-container-high": "#e8e8e7", "tertiary-fixed-dim": "#ffb5a0", "on-secondary": "#ffffff", "surface-container-low": "#f3f4f3", "on-secondary-container": "#5c6369", "surface-tint": "#3b6752", "error": "#ba1a1a", "secondary-container": "#dae0e7", "surface-container-highest": "#e2e2e2", "on-primary-container": "#8bbaa2", "on-surface": "#1a1c1c", "tertiary": "#5a1300", "on-primary": "#ffffff", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "outline": "#717973", "inverse-on-surface": "#f1f1f0", "secondary-fixed": "#dde3ea", "inverse-primary": "#a1d1b8", "on-primary-fixed-variant": "#224f3c", "on-tertiary-fixed": "#3b0900", "secondary": "#585f65", "primary-fixed-dim": "#a1d1b8", "inverse-surface": "#2f3130", "outline-variant": "#c0c8c2", "on-secondary-fixed-variant": "#41484d", "primary-fixed": "#bdedd3", "background": "#f9f9f8" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "1.25rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem" }, fontFamily: { "headline-xl": ["Newsreader"], "headline-sm": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Newsreader"], "body-md": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Newsreader"], "label-stamp": ["Inter"], "label-lg": ["Inter"] }, fontSize: { "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;background-color:#f9f9f8;color:#1a1c1c;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-full"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-2 flex items-center justify-center rounded-lg text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()"><span class="material-symbols-outlined text-[20px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate max-w-[200px]">About Careerswipe</h1></div><div class="flex items-center gap-space-xs"><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[20px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-safe bg-surface px-margin"><div class="flex flex-col w-full pb-10">
+<!-- Status Ribbon & Build Stamp -->
+<div class="flex items-center justify-between py-space-sm mb-space-md">
+<div class="flex items-center gap-space-xs bg-surface-container px-space-sm py-1 rounded-full">
+<span class="inline-block w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant tracking-wider uppercase">System Live</span>
+</div>
+<div class="bg-primary-fixed/30 text-on-primary-fixed-variant px-space-sm py-1 rounded font-label-stamp text-label-stamp tracking-wider">
+      STABLE V4.11.0-SEC (BUILD 2025.03.28)
+    </div>
+</div>
+<!-- Brand Masthead & Editorial Header -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg mb-space-lg shadow-sm">
+<div class="flex items-center gap-space-md mb-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[26px]" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h2 class="font-label-lg text-label-lg text-on-surface tracking-tight font-semibold">CareerSwipe AI</h2>
+<span class="material-symbols-outlined text-[16px] text-surface-tint">verified</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">Deterministic Protocol Suite</p>
+</div>
+</div>
+<h3 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface mb-space-sm leading-snug">
+      The Deterministic Career Engine for Systems Engineering.
+    </h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+      Engineered in Dublin to eliminate resume keyword spam, ungrounded recruiter matching, and ghosting in technical hiring through verifiable code provenance and transparent compensation.
+    </p>
+<!-- Dublin R&D Stamp & Visual Asset -->
+<div class="mt-space-md pt-space-md bg-surface-container-low rounded-lg p-space-md flex items-center gap-space-md">
+<img class="w-14 h-14 rounded-lg object-cover shrink-0" data-alt="A minimalist architectural photograph of modern glass and bronze tech laboratories in Dublin Grand Canal Dock under calm overcast morning light, deep spruce tones, editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8sPFCyfVy01dp6lLZhPGVJJppqjxVqD5rTtEfmFqvnyV03XA75oswa_rXIgxChvuBapsiAS1ys1WpaJwdoWLnhPe3YbIXBlfBgRUmdwzIOdmDvI9HkwgspMzBX38z2Q24KcsNhJDGlTVIJyVHmIIW3KQq8OMH-Eii65BHkToNM8y8lHWqOIgcvyLEvPldRyYzN1Hkcf_jH_4cdb4I8SJ4y6_3e4BfplHTmVbuplE"/>
+<div class="flex-1 min-w-0">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant block uppercase tracking-wider">Origin &amp; Lab</span>
+<span class="font-label-lg text-label-lg text-on-surface font-medium truncate block">Silicon Docks Lab #04, D02 Dublin</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Zero algorithmic hallucination standard</span>
+</div>
+</div>
+</div>
+<!-- Telemetry Strip -->
+<div class="bg-primary text-on-primary rounded-xl p-space-md mb-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">hub</span>
+<span class="font-label-md text-label-md tracking-wider uppercase text-primary-fixed">Global Mesh Telemetry</span>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary-fixed bg-primary-container px-2 py-0.5 rounded">99.998% SLA</span>
+</div>
+<div class="flex items-baseline justify-between">
+<p class="font-label-lg text-label-lg text-on-primary">All 6 Global Enclave Relays Operational</p>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim">Dublin · FRA · IAD · NRT · SIN · SYD</span>
+</div>
+<!-- Inline Telemetry Latency Sparkline -->
+<div class="mt-space-sm pt-space-xs flex items-center justify-between">
+<span class="font-label-stamp text-label-stamp text-primary-fixed-dim">P99 Latency: 14.2ms</span>
+<svg class="w-24 h-4 text-primary-fixed" fill="none" viewbox="0 0 96 16">
+<path d="M0 10 L16 8 L32 11 L48 5 L64 9 L80 6 L96 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75"></path>
+</svg>
+</div>
+</div>
+<!-- Architectural Specs Matrix -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<h4 class="font-label-stamp text-label-stamp uppercase tracking-widest text-on-surface-variant">Architectural Specs Matrix</h4>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">SPEC-REV 2025B</span>
+</div>
+<div class="space-y-space-xs">
+<!-- Spec Item 1 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex items-start gap-space-md shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">memory</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant">Runtime Engine</span>
+<span class="font-label-stamp text-label-stamp text-on-primary-fixed-variant bg-primary-fixed/40 px-1.5 py-0.5 rounded">ISOLATED</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface font-medium truncate">Ephemeral Rust &amp; Go Enclaves</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Sub-millisecond memory-safe tokenization isolated via Nitro and AMD SEV-SNP instances.</p>
+</div>
+</div>
+<!-- Spec Item 2 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex items-start gap-space-md shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant">Parser Architecture</span>
+<span class="font-label-stamp text-label-stamp text-on-primary-fixed-variant bg-primary-fixed/40 px-1.5 py-0.5 rounded">TREE-SITTER</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface font-medium truncate">Deterministic AST Syntax Trees</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Zero LLM fluff. Exact compiler-level AST profiling across 28 system-level programming dialects.</p>
+</div>
+</div>
+<!-- Spec Item 3 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex items-start gap-space-md shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant">Security Clearance</span>
+<span class="font-label-stamp text-label-stamp text-on-secondary-fixed bg-secondary-fixed px-1.5 py-0.5 rounded">AUDITED</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface font-medium truncate">SOC2 Type II, ISO/IEC 27001</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">GDPR Article 17 real-time cryptographic erasure pipeline guarantees no residual candidate traces.</p>
+</div>
+</div>
+<!-- Spec Item 4 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex items-start gap-space-md shadow-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between mb-0.5">
+<span class="font-label-md text-label-md text-on-surface-variant">Anti-Ghosting Guard</span>
+<span class="font-label-stamp text-label-stamp text-on-primary-fixed-variant bg-primary-fixed/40 px-1.5 py-0.5 rounded">ENFORCED</span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface font-medium truncate">Enforced 48h SLA Relay</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Hiring managers failing to confirm or release engineering profiles within 48 hours lose batch access.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Core Contributors & Stewardship -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg mb-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<h4 class="font-label-stamp text-label-stamp uppercase tracking-widest text-on-surface-variant">Stewardship &amp; Provenance</h4>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">security</span>
+</div>
+<!-- Lead Engineer Profile snippet -->
+<div class="flex items-center gap-space-md mb-space-md pb-space-md">
+<img class="w-12 h-12 rounded-full object-cover shrink-0" data-alt="Black and white clean professional portrait photo of a principal systems software architect wearing a dark mock turtleneck against a soft studio backdrop, calm high-contrast lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH-__xutMINU9vzuKx8BvRsiasslOeKeOI3w3mxnXcutADqw2W1r6kcwOm7v7Tkt-77MTD_UAO5T_GcrBXje8HhwmxG7ej4jlcqrVkMHRzLdRnyonipJ_0sm0Gs1slZ59-gFhIYDxiN6mtE7Xsmi2viD0NbxT9vXFMo32kiZ4s5x6ScA00JWTrKbVtf2Tq1XUMrswv2uulYWgttEl_cTzGUixhhn00yNRSEh_xH8I"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1">
+<h5 class="font-label-lg text-label-lg text-on-surface font-semibold truncate">Dr. Cian MacEntee</h5>
+<span class="font-label-stamp text-label-stamp text-surface-tint">FSC</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Chief Architect &amp; Former Bell Labs Kernel Fellow</p>
+</div>
+</div>
+<!-- Security Attestation Module -->
+<div class="bg-surface-container-low rounded-lg p-space-md">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-stamp text-label-stamp text-on-surface font-bold uppercase tracking-wider">Independent Attestation</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Q4 Audited</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed mb-space-sm">
+        Independent cryptographic verification and zero-knowledge code matching audit performed by <span class="text-on-surface font-medium">Bramhall &amp; Thorne Cryptographic Ltd.</span> (London).
+      </p>
+<div class="flex items-center gap-space-xs text-primary font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>Certificate ID: BT-2025-CS-9941-R</span>
+</div>
+</div>
+</div>
+<!-- Open Source & Licensing Dispatch Button -->
+<div class="mb-space-lg">
+<button class="w-full bg-surface-container-lowest hover:bg-surface-container active:scale-[0.99] transition-all rounded-xl p-space-md text-left flex items-center justify-between shadow-sm" id="oss-toggle-btn">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-[20px]">code_blocks</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block font-semibold">Open Source &amp; Third-Party Notices</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">View MIT / Apache 2.0 Notices (48 Libraries)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform" id="oss-chevron">expand_more</span>
+</button>
+<!-- Expandable Package Ledger -->
+<div class="hidden mt-space-xs bg-surface-container-lowest rounded-xl p-space-md shadow-sm" id="oss-ledger">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+        CareerSwipe AI is built on verifiable open protocols and robust open-source libraries:
+      </p>
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span class="font-label-md text-label-md text-on-surface font-mono">tree-sitter (v0.22.4)</span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">MIT</span>
+</div>
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span class="font-label-md text-label-md text-on-surface font-mono">tokio-rs (v1.38.0)</span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">MIT</span>
+</div>
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span class="font-label-md text-label-md text-on-surface font-mono">ring-crypto (v0.17.8)</span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">ISC / APACHE-2.0</span>
+</div>
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span class="font-label-md text-label-md text-on-surface font-mono">grpc-go (v1.64.0)</span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">APACHE-2.0</span>
+</div>
+<div class="flex items-center justify-between py-1 bg-surface-container-low px-space-sm rounded">
+<span class="font-label-md text-label-md text-on-surface font-mono">+ 44 additional runtime components</span>
+<span class="font-label-stamp text-label-stamp text-surface-tint font-bold">VERIFIED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Interactive Action: Security Dispatch -->
+<div class="mb-space-lg">
+<button class="w-full h-12 bg-primary-container text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-space-xs hover:bg-primary active:scale-[0.99] transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+<span>Download Cryptographic Integrity Proof</span>
+</button>
+</div>
+<!-- Editorial Legal Disclosures & Footer Links -->
+<div class="bg-surface-container-low rounded-xl p-space-md text-center">
+<div class="flex items-center justify-center gap-space-md mb-space-sm">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#advisory">Security Advisory</a>
+<span class="text-outline-variant text-[10px]">•</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#bounty">Bug Bounty Program</a>
+<span class="text-outline-variant text-[10px]">•</span>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#legal">Legal Disclosures</a>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+      © 2025 CareerSwipe Technologies Ireland UC. Reg 692811. All cryptographic enclave keys rotated continuously under RFC 8773 standards.
+    </p>
+</div>
+</div>
+<script>
+  (function() {
+    const ossBtn = document.getElementById('oss-toggle-btn');
+    const ossLedger = document.getElementById('oss-ledger');
+    const ossChevron = document.getElementById('oss-chevron');
+
+    if (ossBtn && ossLedger && ossChevron) {
+      ossBtn.addEventListener('click', function() {
+        const isHidden = ossLedger.classList.contains('hidden');
+        if (isHidden) {
+          ossLedger.classList.remove('hidden');
+          ossChevron.style.transform = 'rotate(180deg)';
+        } else {
+          ossLedger.classList.add('hidden');
+          ossChevron.style.transform = 'rotate(0deg)';
+        }
+      });
+    }
+  })();
+</script></main></body></html>

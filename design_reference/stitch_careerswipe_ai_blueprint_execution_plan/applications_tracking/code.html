@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-container": "#ff9375", "on-background": "#1a1c1c", "error-container": "#ffdad6", "outline-variant": "#c0c8c2", "on-error-container": "#93000a", "primary-fixed": "#bdedd3", "tertiary-fixed-dim": "#ffb5a0", "inverse-primary": "#a1d1b8", "on-secondary-fixed": "#161c21", "surface-container-highest": "#e2e2e2", "on-tertiary-fixed-variant": "#7d2c15", "secondary": "#585f65", "on-surface-variant": "#414944", "primary": "#023423", "surface-container": "#eeeeed", "on-error": "#ffffff", "on-primary-fixed-variant": "#224f3c", "secondary-container": "#dae0e7", "surface-dim": "#dadad9", "surface-tint": "#3b6752", "on-tertiary-fixed": "#3b0900", "tertiary-fixed": "#ffdbd1", "surface": "#f9f9f8", "primary-container": "#1e4b38", "surface-bright": "#f9f9f8", "on-primary-container": "#8bbaa2", "on-secondary-fixed-variant": "#41484d", "on-primary-fixed": "#002114", "secondary-fixed-dim": "#c0c7ce", "on-primary": "#ffffff", "outline": "#717973", "on-secondary-container": "#5c6369", "surface-container-low": "#f3f4f3", "background": "#f9f9f8", "on-secondary": "#ffffff", "error": "#ba1a1a", "inverse-on-surface": "#f1f1f0", "tertiary-container": "#782912", "inverse-surface": "#2f3130", "tertiary": "#5a1300", "surface-variant": "#e2e2e2", "secondary-fixed": "#dde3ea", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#a1d1b8", "surface-container-high": "#e8e8e7", "on-surface": "#1a1c1c", "on-tertiary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter": "1rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, "fontFamily": { "body-md": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-xl": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "headline-lg": ["Newsreader"], "headline-md": ["Newsreader"], "headline-sm": ["Newsreader"], "label-stamp": ["Inter"], "label-md": ["Inter"], "label-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary selection:text-on-primary"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="font-headline-lg text-headline-lg text-primary tracking-tight">CareerSwipe</span><span class="px-space-xs py-0.5 rounded text-label-stamp font-label-stamp bg-primary-container text-on-primary">AI</span></div><div class="flex items-center gap-space-sm"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-14 pb-20 bg-surface min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl">
+<!-- Header Block -->
+<div class="flex flex-col pt-space-md pb-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">Applications</h1>
+<span class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-stamp text-label-stamp uppercase">
+          4 active
+        </span>
+</div>
+<button aria-label="Search applications" class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+      Synchronized with your AI dispatch queues &amp; direct recruiter threads.
+    </p>
+</div>
+<!-- Segmented Filter Tabs -->
+<div class="w-full overflow-x-auto py-space-xs mb-space-md no-scrollbar">
+<div class="flex items-center gap-1.5 p-1 bg-surface-container rounded-lg min-w-max">
+<button class="filter-tab px-3 py-1.5 rounded-md bg-surface-container-lowest text-primary font-label-md text-label-md font-medium shadow-sm transition-all" data-filter="all">
+        All <span class="text-on-surface-variant ml-0.5">5</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="applied">
+        Applied <span class="opacity-70 ml-0.5">2</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="reviewing">
+        Reviewing <span class="opacity-70 ml-0.5">1</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="interview">
+        Interview <span class="opacity-70 ml-0.5">1</span>
+</button>
+<button class="filter-tab px-3 py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all" data-filter="archived">
+        Archived <span class="opacity-70 ml-0.5">1</span>
+</button>
+</div>
+</div>
+<!-- Applications List -->
+<div class="flex flex-col gap-space-md">
+<!-- Item 1: Stripe (Interview Scheduled) -->
+<div class="app-item group bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm" data-category="interview">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0 text-primary font-headline-sm text-headline-sm">
+            S
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider truncate">Stripe · Dublin, IE</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Senior Backend Engineer</h2>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-stamp text-label-stamp shrink-0 tracking-wide uppercase">
+          Interview Scheduled
+        </span>
+</div>
+<!-- Metadata & Context -->
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm pt-0.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">history_edu</span>
+<span>Applied March 24, 2025 via Direct Referral</span>
+</div>
+<!-- Inset Next Step Box -->
+<div class="mt-1 p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0" style="font-variation-settings: 'FILL' 1;">event_available</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-primary">Technical Architecture Round</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fri, Mar 28 at 14:00 UTC (Cal invite synced)</span>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center justify-end gap-space-sm pt-space-xs mt-1">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+          View Details
+        </button>
+<button class="px-space-md py-1.5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center gap-1 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+          Interview Prep
+        </button>
+</div>
+</div>
+<!-- Item 2: Linear (Under Review) -->
+<div class="app-item group bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm" data-category="reviewing">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0 text-primary font-headline-sm text-headline-sm">
+            L
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider truncate">Linear · Remote</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Staff Infrastructure Engineer</h2>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-stamp text-label-stamp shrink-0 tracking-wide uppercase">
+          Under Review
+        </span>
+</div>
+<!-- Metadata & Context -->
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm pt-0.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">send</span>
+<span>Applied March 22, 2025</span>
+</div>
+<!-- Inset Next Step Box -->
+<div class="mt-1 p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px] mt-0.5 shrink-0">hourglass_top</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Next Evaluation Phase</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Waiting on recruiter feedback (typical response: 5 days)</span>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center justify-end gap-space-sm pt-space-xs mt-1">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+          View Submission
+        </button>
+</div>
+</div>
+<!-- Item 3: Monzo Bank (Application Submitted) -->
+<div class="app-item group bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm" data-category="applied">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0 text-primary font-headline-sm text-headline-sm">
+            M
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider truncate">Monzo Bank · London</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Platform Engineer</h2>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-stamp text-label-stamp shrink-0 tracking-wide uppercase">
+          Application Submitted
+        </span>
+</div>
+<!-- Metadata & Context -->
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm pt-0.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">mark_email_read</span>
+<span>Applied March 18, 2025</span>
+</div>
+<!-- Quick Actions -->
+<div class="flex items-center justify-end gap-space-sm pt-space-xs mt-1">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+          View Ledger
+        </button>
+</div>
+</div>
+<!-- Item 4: Notion (Applied / Ledger Entry) -->
+<div class="app-item group bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm" data-category="applied">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0 text-primary font-headline-sm text-headline-sm">
+            N
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider truncate">Notion · San Francisco / Remote</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Systems Architect</h2>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-stamp text-label-stamp shrink-0 tracking-wide uppercase">
+          Application Submitted
+        </span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm pt-0.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">mark_email_read</span>
+<span>Applied March 15, 2025 via AI Match</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs mt-1">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+          View Ledger
+        </button>
+</div>
+</div>
+<!-- Item 5: Datadog (Archived) -->
+<div class="app-item group bg-surface-container-lowest rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm opacity-80" data-category="archived">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center shrink-0 text-secondary font-headline-sm text-headline-sm">
+            D
+          </div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider truncate">Datadog · Paris</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Site Reliability Lead</h2>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container text-secondary font-label-stamp text-label-stamp shrink-0 tracking-wide uppercase">
+          Archived · Closed
+        </span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-sm text-body-sm pt-0.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">archive</span>
+<span>Processed Feb 28, 2025 · Position filled internally</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs mt-1">
+<button class="px-space-md py-1.5 rounded-lg bg-surface-container text-secondary font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+          Review Notes
+        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Helper Card -->
+<div class="mt-space-lg rounded-xl bg-surface-container p-space-md flex flex-col gap-space-sm relative overflow-hidden shadow-sm">
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Need help preparing?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+          Launch the Interview Practice tool with questions customized for your upcoming Stripe conversation.
+        </p>
+</div>
+</div>
+<div class="flex items-center justify-end mt-2">
+<button class="w-full sm:w-auto px-space-lg py-2.5 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 hover:bg-primary-container transition-colors shadow-sm">
+<span>Start Stripe Simulation</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  (function initFilters() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    const items = document.querySelectorAll('.app-item');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const filter = tab.getAttribute('data-filter');
+        
+        // Reset classes
+        tabs.forEach(t => {
+          t.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-medium', 'shadow-sm');
+          t.classList.add('text-on-surface-variant');
+        });
+        
+        // Set active classes
+        tab.classList.remove('text-on-surface-variant');
+        tab.classList.add('bg-surface-container-lowest', 'text-primary', 'font-medium', 'shadow-sm');
+
+        // Filter cards
+        items.forEach(item => {
+          const category = item.getAttribute('data-category');
+          if (filter === 'all' || category === filter) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/85 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary-container font-semibold"><div class="flex justify-around items-center h-16 px-space-xs"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">dashboard</span><span class="font-label-md text-label-md">Home</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="discover" href="#"><span class="material-symbols-outlined text-[24px]">style</span><span class="font-label-md text-label-md">Discover</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="internships" href="#"><span class="material-symbols-outlined text-[24px]">school</span><span class="font-label-md text-label-md">Internships</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 transition-colors text-primary-container font-semibold" data-path="applications" href="#"><span class="material-symbols-outlined text-[24px]">fact_check</span><span class="font-label-md text-label-md">Applications</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] h-12 text-on-surface-variant hover:text-on-surface transition-colors" data-path="profile" href="#"><span class="material-symbols-outlined text-[24px]">account_circle</span><span class="font-label-md text-label-md">Profile</span></a></div></nav></body></html>

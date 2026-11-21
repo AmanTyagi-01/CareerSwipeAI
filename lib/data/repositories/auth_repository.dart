@@ -26,6 +26,10 @@ abstract class AuthRepository {
     String? location,
   });
   Future<void> updatePassword(String currentPassword, String newPassword);
+
+  /// Marks the user's profile as complete and persists the final role.
+  /// Call this at the end of candidate or recruiter onboarding.
+  Future<UserModel?> completeOnboarding({required UserType role});
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -92,4 +96,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> updatePassword(String currentPassword, String newPassword) =>
       _authService.updatePassword(currentPassword, newPassword);
+
+  @override
+  Future<UserModel?> completeOnboarding({required UserType role}) =>
+      _authService.completeOnboarding(role: role);
 }

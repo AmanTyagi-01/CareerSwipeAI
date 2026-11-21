@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed-dim": "#a1d1b8", "surface-dim": "#dadad9", "inverse-on-surface": "#f1f1f0", "on-tertiary-fixed": "#3b0900", "surface-variant": "#e2e2e2", "tertiary-fixed-dim": "#ffb5a0", "on-surface-variant": "#414944", "surface-container-highest": "#e2e2e2", "surface-container-high": "#e8e8e7", "surface-container-low": "#f3f4f3", "tertiary-fixed": "#ffdbd1", "surface-container": "#eeeeed", "on-surface": "#1a1c1c", "secondary-fixed-dim": "#c0c7ce", "error-container": "#ffdad6", "on-primary-container": "#8bbaa2", "outline": "#717973", "inverse-primary": "#a1d1b8", "secondary": "#585f65", "on-secondary-container": "#5c6369", "surface-container-lowest": "#ffffff", "outline-variant": "#c0c8c2", "on-primary": "#ffffff", "surface-tint": "#3b6752", "on-primary-fixed-variant": "#224f3c", "tertiary-container": "#782912", "surface": "#f9f9f8", "on-secondary-fixed-variant": "#41484d", "on-error-container": "#93000a", "primary": "#023423", "on-tertiary": "#ffffff", "surface-bright": "#f9f9f8", "primary-container": "#1e4b38", "on-tertiary-fixed-variant": "#7d2c15", "on-secondary": "#ffffff", "background": "#f9f9f8", "on-secondary-fixed": "#161c21", "on-primary-fixed": "#002114", "on-tertiary-container": "#ff9375", "on-background": "#1a1c1c", "tertiary": "#5a1300", "primary-fixed": "#bdedd3", "secondary-fixed": "#dde3ea", "secondary-container": "#dae0e7", "on-error": "#ffffff", "error": "#ba1a1a", "inverse-surface": "#2f3130" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-md": "1rem" }, fontFamily: { "headline-lg": ["Newsreader"], "headline-md": ["Newsreader"], "body-sm": ["Inter"], "label-lg": ["Inter"], "headline-xl-mobile": ["Newsreader"], "headline-xl": ["Newsreader"], "label-stamp": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Newsreader"], "body-md": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "headline-lg": ["24px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "500" }], "headline-md": ["20px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "600" }], "headline-xl-mobile": ["28px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "500" }], "headline-xl": ["34px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "500" }], "label-stamp": ["11px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "700" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "400" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="w-11 h-11 -ml-2 flex items-center justify-center rounded-lg text-on-surface hover:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back_ios_new</span></button><h1 class="font-headline-md text-headline-md text-on-surface truncate">Interview Scheduler</h1></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Share Candidate" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">share</span></button><button aria-label="More actions" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface flex-grow"><div class="flex flex-col w-full pb-10">
+<!-- Status & Requisition Context -->
+<div class="flex flex-col gap-space-sm pt-space-xs pb-space-md">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-stamp text-label-stamp uppercase tracking-widest">
+        Stage 3 of 4 · Scheduling
+      </span>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-md text-label-md font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        SLA Active: 18h Left
+      </span>
+</div>
+<div>
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">
+        Technical Architecture &amp; Ingress
+      </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+        60 Minutes · Distributed Core Evaluation
+      </p>
+</div>
+</div>
+<!-- Candidate & Interviewer Dossier Card -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm mb-space-md">
+<!-- Candidate Info -->
+<div class="flex items-start gap-space-sm pb-space-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Editorial portrait of candidate Alex Vance, thoughtful senior software engineer with focused expression against a warm studio paper backdrop with subtle emerald lighting tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9Wr6KQ__-K_Lx578Z0nMCn2DdYACVPao3AWrx4xUAYXXJS3YGu6p5VIycDstUzDKqDN2yuyivBC5tthZ1VTZ8octahqZsnctreQQesaHfA9mD2zDlBT3qnnVn7hHYNeYqFP4iYvRNw5wvfqnUGpADlaaqipl4xImB8f27aIvJnFV6RGuPdyZFe-p9jPJm5V_sL9yAfPIKZzI7zkjBx9solYCEi7kdSAdryZYXA_k"/>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Alex Vance</h3>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase">REQ-IRE-409</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">
+          Senior Backend Engineer · Distributed Consensus
+        </p>
+<div class="flex items-center gap-1 mt-1 text-primary-container font-label-md text-label-md">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span>Fast-track score: 98.4% match</span>
+</div>
+</div>
+</div>
+<!-- Panelist Ribbon -->
+<div class="mt-space-xs pt-space-sm bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-md font-bold shrink-0">
+          LC
+        </div>
+<div class="min-w-0">
+<p class="font-label-lg text-label-lg text-on-surface truncate">Liam Chen</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Staff Engineer · Core Payments Panel Lead</p>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+<span class="font-label-stamp text-label-stamp uppercase text-on-surface-variant">Cal Synced</span>
+</div>
+</div>
+</div>
+<!-- Timezone Alignment Ledger -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-stamp text-label-stamp uppercase tracking-wider text-on-surface-variant">Timezone Synchronization</span>
+<span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-medium">
+<span class="material-symbols-outlined text-[14px]">public</span>
+        0h Time Drift
+      </span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low">
+<p class="font-label-md text-label-md text-on-surface-variant">Candidate</p>
+<p class="font-label-lg text-label-lg text-on-surface mt-0.5 truncate">Dublin (UTC+0)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Verified Location</p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low">
+<p class="font-label-md text-label-md text-on-surface-variant">Interviewer Panel</p>
+<p class="font-label-lg text-label-lg text-on-surface mt-0.5 truncate">Dublin (UTC+0)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Google Cal Free/Busy</p>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+<p class="font-body-sm text-body-sm">Anti-Ghosting Protocol: Dispatched within 24h of Stage 2 pass.</p>
+</div>
+</div>
+<!-- Date Selection Strip -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Select Interview Window</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">March – April 2025</p>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Date selector horizontal scroll -->
+<div class="grid grid-cols-5 gap-2 mb-space-md">
+<!-- Day 1 -->
+<div class="flex flex-col items-center py-2 px-1 rounded-lg bg-surface-container-low opacity-60 text-center">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">WED</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">26</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant mt-1"></span>
+</div>
+<!-- Day 2 -->
+<div class="flex flex-col items-center py-2 px-1 rounded-lg bg-surface-container-low opacity-70 text-center">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">THU</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">27</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant mt-1"></span>
+</div>
+<!-- Day 3: Selected -->
+<div class="flex flex-col items-center py-2 px-1 rounded-lg bg-primary-container text-on-primary text-center shadow-sm">
+<span class="font-label-stamp text-label-stamp text-on-primary-container font-bold">FRI</span>
+<span class="font-headline-sm text-headline-sm text-on-primary mt-0.5">28</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed mt-1"></span>
+</div>
+<!-- Day 4 -->
+<div class="flex flex-col items-center py-2 px-1 rounded-lg bg-surface-container-low text-center">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">MON</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">31</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mt-1"></span>
+</div>
+<!-- Day 5 -->
+<div class="flex flex-col items-center py-2 px-1 rounded-lg bg-surface-container-low text-center">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">TUE</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">01</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container mt-1"></span>
+</div>
+</div>
+<!-- Active Day Label -->
+<div class="flex items-center justify-between pb-space-sm">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Friday, March 28, 2025</span>
+<span class="font-label-stamp text-label-stamp uppercase text-on-surface-variant">3 Slots Available</span>
+</div>
+<!-- Slots Stack -->
+<div class="space-y-space-sm" id="slot-container">
+<!-- Slot A -->
+<div class="slot-option p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between cursor-pointer transition-all hover:bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">10:00 – 11:00 UTC</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant font-label-stamp text-label-stamp">Candidate Optimal</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Interviewer Liam Chen: Unencumbered</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">chevron_right</span>
+</div>
+<!-- Slot B: Selected State -->
+<div class="slot-option p-space-sm rounded-lg bg-primary-container text-on-primary flex items-center justify-between cursor-pointer shadow-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[15px] font-bold">check</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-primary font-bold">14:00 – 15:00 UTC</span>
+<span class="px-1.5 py-0.2 rounded bg-primary-fixed text-on-primary-fixed font-label-stamp text-label-stamp uppercase tracking-wider">
+                Mutual Prime Match
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary-container mt-0.5">Zero prior meetings for candidate &amp; staff lead</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-fixed text-[20px]">event_available</span>
+</div>
+<!-- Slot C -->
+<div class="slot-option p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between cursor-pointer transition-all hover:bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">16:30 – 17:30 UTC</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-container-high text-on-surface-variant font-label-stamp text-label-stamp">Panel Backup</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Post-payments incident triage window</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[20px]">chevron_right</span>
+</div>
+</div>
+<!-- Propose Custom Time Window -->
+<button class="mt-space-sm w-full py-2 flex items-center justify-center gap-1.5 text-primary hover:text-primary-container font-label-md text-label-md font-semibold transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+      Propose Custom Time Window
+    </button>
+</div>
+<!-- Meeting Logistics & Environmental Tooling -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-stamp text-label-stamp uppercase tracking-wider text-on-surface-variant">Meeting Channel &amp; Security</span>
+<span class="font-label-stamp text-label-stamp text-primary uppercase">Encrypted E2EE</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">video_call</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-on-surface font-semibold">Google Meet Bridge</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate font-mono text-[11px]">meet.google.com/stp-arch-9821</p>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded bg-surface-container text-on-surface font-label-stamp text-label-stamp uppercase tracking-wider hover:bg-surface-container-high transition-colors">
+        Regen
+      </button>
+</div>
+<!-- Technical Pre-checks -->
+<div class="space-y-space-sm pt-space-xs">
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<div class="relative flex items-center pt-0.5">
+<input checked="" class="w-4 h-4 rounded text-primary-container accent-primary-container bg-surface-container" type="checkbox"/>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium">Attach Requisition Architectural Focus &amp; gRPC Rubric</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Includes Stripe distributed systems evaluation scale (L6 benchmark).</p>
+</div>
+</label>
+<label class="flex items-start gap-space-sm cursor-pointer select-none">
+<div class="relative flex items-center pt-0.5">
+<input checked="" class="w-4 h-4 rounded text-primary-container accent-primary-container bg-surface-container" type="checkbox"/>
+</div>
+<div class="min-w-0 flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium">Share candidate verified repo citations with panel</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Includes Alex Vance's Raft consensus implementation &amp; Klarna ingress PRs.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Recruiter Editorial Invitation Copy -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md shadow-sm mb-space-lg">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">edit_note</span>
+<label class="font-headline-sm text-headline-sm text-on-surface" for="invitation-text">Candidate Dispatch Note</label>
+</div>
+<span class="font-label-stamp text-label-stamp uppercase text-on-surface-variant">Recruiter Signed</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm">
+      Tailored message delivered along with the calendar payload and architectural brief.
+    </p>
+<div class="relative">
+<textarea class="w-full rounded-lg bg-surface-container-low p-space-sm font-body-md text-body-md text-on-surface placeholder-secondary focus:outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary-container transition-all" id="invitation-text" rows="4">Hi Alex, the Stripe Payments Core team was deeply impressed with your Raft consensus contributions and Klarna ingress metrics. We would like to invite you to our 60-minute Technical Architecture session with Liam Chen.</textarea>
+<div class="flex items-center justify-between mt-space-xs px-1">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant">Markdown Formatted</span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant font-mono">248 / 600 chars</span>
+</div>
+</div>
+</div>
+<!-- Primary Scheduling Actions & Dispatch -->
+<div class="flex flex-col gap-space-sm">
+<button class="w-full h-12 rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 hover:bg-primary active:scale-[0.99] transition-all shadow-sm" id="confirm-dispatch-btn">
+<span>Confirm &amp; Dispatch Calendar Invites</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full h-11 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container-high transition-colors">
+      Save Scheduling Draft
+    </button>
+<!-- SLA & Spec Ledger Guarantee -->
+<div class="flex items-center justify-center gap-1.5 pt-space-xs text-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-primary">verified_user</span>
+<span class="font-label-stamp text-label-stamp tracking-normal text-on-surface-variant uppercase">
+        Cryptographic calendar invites dispatched with RFC 5545 iCalendar payload.
+      </span>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for slot selection
+  document.addEventListener('DOMContentLoaded', () => {
+    const slotContainer = document.getElementById('slot-container');
+    const dispatchBtn = document.getElementById('confirm-dispatch-btn');
+
+    if (slotContainer) {
+      const slots = slotContainer.querySelectorAll('.slot-option');
+      slots.forEach(slot => {
+        slot.addEventListener('click', () => {
+          slots.forEach(s => {
+            s.className = 'slot-option p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between cursor-pointer transition-all hover:bg-surface-container';
+            const iconWrap = s.querySelector('.rounded-full');
+            if (iconWrap) {
+              iconWrap.className = 'w-5 h-5 rounded-full bg-surface-container flex items-center justify-center shrink-0';
+              iconWrap.innerHTML = '<span class="w-2 h-2 rounded-full bg-outline-variant"></span>';
+            }
+            const timeText = s.querySelector('.font-label-lg');
+            if (timeText) {
+              timeText.className = 'font-label-lg text-label-lg text-on-surface font-semibold';
+            }
+            const chevron = s.querySelector('.material-symbols-outlined:last-child');
+            if (chevron) {
+              chevron.className = 'material-symbols-outlined text-outline-variant text-[20px]';
+              chevron.textContent = 'chevron_right';
+            }
+          });
+
+          // Set active state to clicked
+          slot.className = 'slot-option p-space-sm rounded-lg bg-primary-container text-on-primary flex items-center justify-between cursor-pointer shadow-sm';
+          const activeIcon = slot.querySelector('.rounded-full');
+          if (activeIcon) {
+            activeIcon.className = 'w-5 h-5 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0';
+            activeIcon.innerHTML = '<span class="material-symbols-outlined text-[15px] font-bold">check</span>';
+          }
+          const activeTime = slot.querySelector('.font-label-lg');
+          if (activeTime) {
+            activeTime.className = 'font-label-lg text-label-lg text-on-primary font-bold';
+          }
+          const activeChevron = slot.querySelector('.material-symbols-outlined:last-child');
+          if (activeChevron) {
+            activeChevron.className = 'material-symbols-outlined text-primary-fixed text-[20px]';
+            activeChevron.textContent = 'event_available';
+          }
+        });
+      });
+    }
+
+    if (dispatchBtn) {
+      dispatchBtn.addEventListener('click', () => {
+        const originalText = dispatchBtn.innerHTML;
+        dispatchBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span><span>Transmitting RFC 5545 Feed...</span>';
+        setTimeout(() => {
+          dispatchBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span><span>Invites Dispatched!</span>';
+          dispatchBtn.classList.remove('bg-primary-container');
+          dispatchBtn.classList.add('bg-primary');
+        }, 1100);
+      });
+    }
+  });
+</script></main></body></html>

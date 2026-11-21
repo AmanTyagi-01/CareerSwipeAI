@@ -110,6 +110,19 @@ class AuthNotifier extends StateNotifier<AsyncValue<UserModel?>> {
     }
   }
 
+  /// Marks onboarding complete and sets the user's final role in Firestore.
+  /// Updates local state so the router redirect fires immediately.
+  Future<void> completeOnboarding({required UserType role}) async {
+    try {
+      final updatedUser = await _authRepository.completeOnboarding(role: role);
+      state = AsyncValue.data(updatedUser);
+      AppLogger.info('AuthNotifier: onboarding complete, role=${role.name}', tag: 'AuthNotifier');
+    } catch (e, stackTrace) {
+      AppLogger.error('completeOnboarding failed', tag: 'AuthNotifier', error: e, stackTrace: stackTrace);
+      state = AsyncValue.error(e, stackTrace);
+    }
+  }
+
   Future<void> signOut() async {
     if (_operationInProgress) return;
     _operationInProgress = true;

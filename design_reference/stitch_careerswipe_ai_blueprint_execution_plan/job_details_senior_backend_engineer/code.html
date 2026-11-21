@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary-container": "#ff9375", "on-background": "#1a1c1c", "error-container": "#ffdad6", "outline-variant": "#c0c8c2", "on-error-container": "#93000a", "primary-fixed": "#bdedd3", "tertiary-fixed-dim": "#ffb5a0", "inverse-primary": "#a1d1b8", "on-secondary-fixed": "#161c21", "surface-container-highest": "#e2e2e2", "on-tertiary-fixed-variant": "#7d2c15", "secondary": "#585f65", "on-surface-variant": "#414944", "primary": "#023423", "surface-container": "#eeeeed", "on-error": "#ffffff", "on-primary-fixed-variant": "#224f3c", "secondary-container": "#dae0e7", "surface-dim": "#dadad9", "surface-tint": "#3b6752", "on-tertiary-fixed": "#3b0900", "tertiary-fixed": "#ffdbd1", "surface": "#f9f9f8", "primary-container": "#1e4b38", "surface-bright": "#f9f9f8", "on-primary-container": "#8bbaa2", "on-secondary-fixed-variant": "#41484d", "on-primary-fixed": "#002114", "secondary-fixed-dim": "#c0c7ce", "on-primary": "#ffffff", "outline": "#717973", "on-secondary-container": "#5c6369", "surface-container-low": "#f3f4f3", "background": "#f9f9f8", "on-secondary": "#ffffff", "error": "#ba1a1a", "inverse-on-surface": "#f1f1f0", "tertiary-container": "#782912", "inverse-surface": "#2f3130", "tertiary": "#5a1300", "surface-variant": "#e2e2e2", "secondary-fixed": "#dde3ea", "surface-container-lowest": "#ffffff", "primary-fixed-dim": "#a1d1b8", "surface-container-high": "#e8e8e7", "on-surface": "#1a1c1c", "on-tertiary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter": "1rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-xl": "2rem" }, "fontFamily": { "body-md": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "headline-xl": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "headline-lg": ["Newsreader"], "headline-md": ["Newsreader"], "headline-sm": ["Newsreader"], "label-stamp": ["Inter"], "label-md": ["Inter"], "label-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary selection:text-on-primary"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-2 flex items-center justify-center rounded text-on-surface hover:text-primary transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md text-on-surface truncate max-w-[200px]">Role Details</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex flex-col relative w-full pt-14 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-32">
+<!-- Top Utility Context Bar -->
+<div class="px-margin pt-space-md pb-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-space-xs bg-surface-container rounded font-label-stamp text-label-stamp text-on-surface uppercase tracking-wider">STRIPE</span>
+<span class="text-secondary font-label-md text-label-md">Payments Core Org</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button aria-label="Share Role" class="w-9 h-9 rounded flex items-center justify-center text-secondary hover:text-primary transition-colors" id="shareBtn">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<button aria-label="Bookmark Role" class="w-9 h-9 rounded flex items-center justify-center text-secondary hover:text-primary transition-colors" id="bookmarkBtn">
+<span class="material-symbols-outlined text-[20px]" id="bookmarkIcon">bookmark_border</span>
+</button>
+</div>
+</div>
+<!-- Role Identity Card -->
+<div class="px-margin pb-space-md">
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<span class="px-space-sm py-space-xs bg-primary-fixed text-on-primary-fixed-variant rounded font-label-stamp text-label-stamp uppercase tracking-widest">
+          Ref: STR-8821
+        </span>
+<span class="text-secondary font-body-sm text-body-sm">Posted 2 days ago</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface leading-tight mb-space-xs">
+        Senior Backend Engineer, Payments Core
+      </h1>
+<p class="font-body-md text-body-md text-secondary mb-space-md">
+        Stripe · Dublin, Ireland (Hybrid)
+      </p>
+<!-- Key Metadata Mosaic -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-sm mb-space-md">
+<div class="bg-surface-container-low p-space-sm rounded">
+<p class="font-label-md text-label-md text-secondary">Compensation</p>
+<p class="font-headline-sm text-headline-sm text-on-surface mt-0.5">€115k – €135k</p>
+<p class="font-body-sm text-body-sm text-secondary">Base + Stripe Equity</p>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded">
+<p class="font-label-md text-label-md text-secondary">Employment</p>
+<p class="font-label-lg text-label-lg text-on-surface mt-0.5">Full-time</p>
+<p class="font-body-sm text-body-sm text-primary flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Visa Synced
+          </p>
+</div>
+</div>
+<!-- Verified Fit Ledger Banner -->
+<div class="bg-surface-container-low rounded-lg p-space-md">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-lg text-label-lg text-on-surface">Strong Match</span>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary bg-primary-fixed/50 px-space-xs py-0.5 rounded">
+            6 OF 7 VERIFIED
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mb-space-sm">
+          High alignment with high-throughput settlement and distributed consensus.
+        </p>
+<button class="flex items-center gap-space-xs text-primary font-label-md text-label-md group" id="toggleLedgerBtn">
+<span>View profile alignment ledger</span>
+<span class="material-symbols-outlined text-[16px] transition-transform duration-200" id="ledgerCaret">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive ATS Grounded Evidence Panel -->
+<section class="px-margin mb-space-lg" id="atsEvidenceSection">
+<div class="flex items-baseline justify-between mb-space-sm">
+<h2 class="font-label-stamp text-label-stamp uppercase tracking-widest text-secondary">
+        Candidate Match Ledger
+      </h2>
+<span class="font-body-sm text-body-sm text-secondary">Grounded against resume v4.2</span>
+</div>
+<div class="space-y-space-sm">
+<!-- Evidence Match 1 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<h3 class="font-label-lg text-label-lg text-on-surface">Go &amp; Distributed Systems Architecture</h3>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary">MATCHED</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-space-xs">
+          Cross-referenced against: <span class="text-on-surface font-medium">Klarna Core Checkout</span>. Led refactor of transaction processing node scaling to 8.4k rps.
+        </p>
+</div>
+<!-- Evidence Match 2 -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<h3 class="font-label-lg text-label-lg text-on-surface">PostgreSQL Query Optimization &amp; Partitioning</h3>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary">MATCHED</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-space-xs">
+          Validated via: multi-region ledger partition project. Reduced p99 vacuum impact by 42% on 14TB multi-tenant stores.
+        </p>
+</div>
+<!-- Evidence Match 3 (Unverified) -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<h3 class="font-label-lg text-label-lg text-on-surface">gRPC / Protocol Buffers Contract Testing</h3>
+</div>
+<span class="font-label-stamp text-label-stamp text-secondary">UNVERIFIED</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary mt-space-xs">
+          Not explicitly cited in parsed resume history. Stripe Payments Core relies heavily on typed IDLs between internal services.
+        </p>
+</div>
+</div>
+</section>
+<!-- Editorial Role Overview -->
+<section class="px-margin mb-space-lg">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-space-xs">
+          Team &amp; Operational Reality
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          The Payments Core platform forms the fundamental ledger and settlement infrastructure for Stripe. When an enterprise customer charges a card, orchestrates split fees, or liquidates cross-border balances, this cluster executes the authoritative double-entry transition.
+        </p>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded">
+<div class="flex items-center justify-between text-secondary font-label-md text-label-md mb-1">
+<span>Engine Baseline</span>
+<span class="font-mono text-on-surface">12,400 rps sustained</span>
+</div>
+<div class="flex items-center justify-between text-secondary font-label-md text-label-md">
+<span>Availability Target</span>
+<span class="font-mono text-on-surface">99.999% SLA</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        You will join a focused cohort of 8 engineers distributed across Dublin and Seattle. We write clean, resilient Go code, interrogate query execution plans daily, and maintain strict verification standards around multi-region consensus and ledger consistency.
+      </p>
+</div>
+</section>
+<!-- Core Responsibilities -->
+<section class="px-margin mb-space-lg">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-space-md">
+        Core Responsibilities
+      </h2>
+<div class="space-y-space-md">
+<div class="flex items-start gap-space-sm">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Architect fault-tolerant payment ingestion APIs</p>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Ensure idempotency guarantees across unreliable global carrier networks and payment rails.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Lead database migration &amp; p99 query latency tuning</p>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Tune schema migrations, isolation levels, and storage engines for multi-region ledger clusters without downtime.</p>
+</div>
+</div>
+<div class="flex items-start gap-space-sm">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Collaborate with cross-functional platform domains</p>
+<p class="font-body-sm text-body-sm text-secondary mt-0.5">Partner with Risk, Sanctions Screening, and Treasury Settlement teams to integrate low-latency compliance checks.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Qualifications & Requirements -->
+<section class="px-margin mb-space-lg">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm space-y-space-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-space-sm">
+          Qualifications
+        </h2>
+<div class="space-y-space-sm">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-primary mt-1">check</span>
+<p class="font-body-md text-body-md text-on-surface">5+ years building and running critical backend microservices in Go, Rust, or Java.</p>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-primary mt-1">check</span>
+<p class="font-body-md text-body-md text-on-surface">Deep intuition for distributed systems: Raft/Paxos consensus, event streaming, and strict serializable storage engines.</p>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-primary mt-1">check</span>
+<p class="font-body-md text-body-md text-on-surface">Proven track record of managing production incidents, writing post-mortems, and improving MTTR.</p>
+</div>
+</div>
+</div>
+<div class="pt-space-sm bg-surface-container-low/60 p-space-sm rounded">
+<h3 class="font-label-stamp text-label-stamp uppercase tracking-widest text-secondary mb-space-xs">
+          Preferred Attributes
+        </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Prior experience inside payment gateways or clearing houses; active familiarity operating multi-cluster Kubernetes deployments with automated canary rollouts.
+        </p>
+</div>
+</div>
+</section>
+<!-- Office & Team Context Visual Card -->
+<div class="px-margin mb-space-lg">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<div class="w-full h-36 bg-cover bg-center" data-alt="A tranquil, minimalist modern architectural office interior in Dublin with natural wood tables, soft warm lighting, exposed concrete columns, deep spruce green potted plants, and an editorial calm design atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAMUHJqlOCFrgah6W8p353k_BFMqy6WDV8VBE-aN0Vbyt8F1OgkkoMFry2N6hMLaJ6xoAQb0NDCnlOfLGuQRTCv10GEhxenbHi7Fmb3RhJFBz7bZF5wjKf7mdxgJ3yFN7R7VyymdksVh7OPkJWochcEyfVceobtZHV1O8koQI26YfJOgOUEkszSimVqqBz3nUlG-R-snurbHFPiJvPaiFbyQmpepDmMY4wz4bVwPnk')"></div>
+<div class="p-space-md flex items-center justify-between">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">The Grand Canal Dock Campus</p>
+<p class="font-body-sm text-body-sm text-secondary">Silicon Docks, Dublin 2 · 2 days onsite / week</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">apartment</span>
+</div>
+</div>
+</div>
+<!-- Fixed Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md px-margin py-space-sm pb-safe shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
+<div class="max-w-md mx-auto flex items-center gap-space-sm">
+<button class="h-12 px-space-md rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-space-xs transition-colors shadow-sm flex-shrink-0" id="bottomSaveBtn">
+<span class="material-symbols-outlined text-[18px]" id="bottomBookmarkIcon">bookmark_border</span>
+<span id="bottomSaveText">Save</span>
+</button>
+<button class="flex-1 h-12 bg-primary-container hover:bg-primary active:scale-[0.99] text-on-primary rounded-lg font-label-lg text-label-lg flex items-center justify-center gap-space-xs transition-all shadow-sm" id="applyBtn">
+<span>Apply via CareerSwipe</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    const bookmarkBtn = document.getElementById('bookmarkBtn');
+    const bookmarkIcon = document.getElementById('bookmarkIcon');
+    const bottomSaveBtn = document.getElementById('bottomSaveBtn');
+    const bottomBookmarkIcon = document.getElementById('bottomBookmarkIcon');
+    const bottomSaveText = document.getElementById('bottomSaveText');
+    const shareBtn = document.getElementById('shareBtn');
+    const applyBtn = document.getElementById('applyBtn');
+    const toggleLedgerBtn = document.getElementById('toggleLedgerBtn');
+    const atsSection = document.getElementById('atsEvidenceSection');
+    const ledgerCaret = document.getElementById('ledgerCaret');
+
+    let saved = false;
+
+    function toggleSave() {
+      saved = !saved;
+      if (saved) {
+        bookmarkIcon.textContent = 'bookmark';
+        bookmarkIcon.classList.add('text-primary');
+        bookmarkIcon.style.fontVariationSettings = "'FILL' 1";
+
+        bottomBookmarkIcon.textContent = 'bookmark';
+        bottomBookmarkIcon.classList.add('text-primary');
+        bottomBookmarkIcon.style.fontVariationSettings = "'FILL' 1";
+        bottomSaveText.textContent = 'Saved';
+      } else {
+        bookmarkIcon.textContent = 'bookmark_border';
+        bookmarkIcon.classList.remove('text-primary');
+        bookmarkIcon.style.fontVariationSettings = "'FILL' 0";
+
+        bottomBookmarkIcon.textContent = 'bookmark_border';
+        bottomBookmarkIcon.classList.remove('text-primary');
+        bottomBookmarkIcon.style.fontVariationSettings = "'FILL' 0";
+        bottomSaveText.textContent = 'Save';
+      }
+    }
+
+    if (bookmarkBtn) bookmarkBtn.addEventListener('click', toggleSave);
+    if (bottomSaveBtn) bottomSaveBtn.addEventListener('click', toggleSave);
+
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        if (navigator.share) {
+          navigator.share({
+            title: 'Stripe — Senior Backend Engineer (Payments Core)',
+            text: 'Editorial match via CareerSwipe',
+            url: window.location.href,
+          }).catch(() => {});
+        } else {
+          const original = shareBtn.innerHTML;
+          shareBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-primary">done</span>';
+          setTimeout(() => {
+            shareBtn.innerHTML = original;
+          }, 1800);
+        }
+      });
+    }
+
+    if (toggleLedgerBtn && atsSection) {
+      toggleLedgerBtn.addEventListener('click', () => {
+        atsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        ledgerCaret.classList.toggle('rotate-180');
+      });
+    }
+
+    if (applyBtn) {
+      applyBtn.addEventListener('click', () => {
+        applyBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span><span>Preparing Dispatch...</span>';
+        setTimeout(() => {
+          applyBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check_circle</span><span>Application Dispatched</span>';
+          applyBtn.classList.remove('bg-primary-container');
+          applyBtn.classList.add('bg-primary');
+        }, 1200);
+      });
+    }
+  })();
+</script></main></body></html>

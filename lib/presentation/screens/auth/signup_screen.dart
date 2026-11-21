@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../../../data/models/user_model.dart';
 import '../../../presentation/providers/auth_provider.dart';
-import '../../../core/utils/app_utils.dart';
+import '../../widgets/editorial/editorial.dart';
 
+/// Candidate Registration Screen strictly adhering to Stitch specification:
+/// `design_reference/stitch_careerswipe_ai_blueprint_execution_plan/candidate_registration_careerswipe_ai`
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
 
@@ -18,18 +19,23 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
   bool _obscurePassword = true;
-  bool _obscureConfirm = true;
   bool _agreeToTerms = false;
-  UserType _selectedRole = UserType.talent;
+  String _selectedDomain = 'Systems & Backend Engineering';
+
+  final List<String> _domains = [
+    'Systems & Backend Engineering',
+    'Distributed Systems',
+    'ML Infrastructure',
+    'Site Reliability',
+    'Frontend Core',
+  ];
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -37,9 +43,14 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (!_agreeToTerms) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please agree to the terms and conditions'),
-          backgroundColor: Color(0xFFF59E0B),
+        SnackBar(
+          content: Text(
+            'Please verify agreement to the verified ledger terms.',
+            style: EditorialTypography.bodySm(color: Colors.white),
+          ),
+          backgroundColor: EditorialColors.alertUrgent,
+          behavior: SnackBarBehavior.floating,
+          shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
         ),
       );
       return;
@@ -50,514 +61,429 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
       _emailController.text.trim(),
       _passwordController.text,
       _nameController.text.trim(),
-      userType: _selectedRole,
-    );
-  }
-
-  Future<void> _signUpWithGoogle() async {
-    final authNotifier = ref.read(authNotifierProvider.notifier);
-    await authNotifier.signInWithGoogle();
-  }
-
-  InputDecoration _darkInputDecoration({
-    required String label,
-    required String hint,
-    required Widget prefixIcon,
-    Widget? suffixIcon,
-  }) {
-    return InputDecoration(
-      labelText: label,
-      hintText: hint,
-      prefixIcon: prefixIcon,
-      suffixIcon: suffixIcon,
-      labelStyle: const TextStyle(color: Color(0xFF94A3B8)),
-      hintStyle: const TextStyle(color: Color(0xFF94A3B8)),
-      filled: true,
-      fillColor: const Color(0xFF1A2035),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF232A3B)),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF232A3B)),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF8B5CF6), width: 2),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFFEF4444)),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFFEF4444), width: 2),
-      ),
+      userType: UserType.talent,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authNotifierProvider);
+    final isLoading = authState.isLoading;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = isDark ? EditorialColors.darkBackground : EditorialColors.paperBackground;
+    final surfaceColor = isDark ? EditorialColors.darkSurface : EditorialColors.paperSurface;
+    final hairlineColor = isDark ? EditorialColors.darkHairline : EditorialColors.paperHairline;
+    final textPrimary = isDark ? EditorialColors.darkTextPrimary : EditorialColors.paperTextPrimary;
+    final textSecondary = isDark ? EditorialColors.darkTextSecondary : EditorialColors.secondary;
 
     ref.listen(authNotifierProvider, (previous, next) {
       next.whenOrNull(
         data: (user) {
           if (user != null) {
-            context.go('/home');
+            // After registration, go to candidate onboarding flow
+            context.go('/auth/candidate-onboarding');
           }
         },
         error: (error, _) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(error.toString()),
-              backgroundColor: const Color(0xFFEF4444),
+              content: Text(
+                error.toString().replaceFirst(RegExp(r'^Exception:\s*'), ''),
+                style: EditorialTypography.bodySm(color: Colors.white),
+              ),
+              backgroundColor: EditorialColors.danger,
               behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: const RoundedRectangleBorder(borderRadius: EditorialRadii.roundedMd),
             ),
           );
         },
       );
     });
 
+    final password = _passwordController.text;
+    final hasMinLength = password.length >= 8;
+    final hasMixedCase = RegExp(r'(?=.*[a-z])(?=.*[A-Z])').hasMatch(password);
+    final hasNumberSymbol = RegExp(r'(?=.*[0-9!@#\$&*~])').hasMatch(password);
+
     return Scaffold(
-      backgroundColor: const Color(0xFF0A0E17),
-      body: Stack(
-        children: [
-          // Violet orb glow at top
-          Positioned(
-            top: -100,
-            right: -60,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    const Color(0xFF8B5CF6).withValues(alpha: 0.25),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
+      backgroundColor: bgColor,
+      appBar: AppBar(
+        backgroundColor: bgColor,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: textPrimary, size: 22.0),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/auth/login');
+            }
+          },
+        ),
+        centerTitle: true,
+        title: Text(
+          'CareerSwipe AI',
+          style: EditorialTypography.headlineSm(color: textPrimary),
+        ),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: EditorialSpacing.margin,
+              vertical: EditorialSpacing.spaceSm,
             ),
-          ),
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 500),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 480),
+              child: Form(
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 12),
-                    IconButton(
-                      onPressed: () => context.pop(),
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFFF1F5F9)),
-                    ),
-                    const SizedBox(height: 16),
-                    // Gradient title
-                    ShaderMask(
-                      shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                      ).createShader(bounds),
-                      child: const Text(
-                        'Create Account',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ).animate().fadeIn().slideY(begin: 0.2, end: 0),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Start your career journey with AI-powered insights',
-                      style: TextStyle(
-                        color: Color(0xFF94A3B8),
-                        fontSize: 15,
-                      ),
-                    ).animate().fadeIn(delay: 200.ms),
-                    const SizedBox(height: 32),
-
-                    // Form card
+                    // Top Protocol Metadata
                     Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF121622),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: const Color(0xFF232A3B)),
+                        color: isDark ? EditorialColors.darkContainerLow : EditorialColors.paperContainerLow,
+                        borderRadius: EditorialRadii.roundedSm,
+                        border: Border.all(color: hairlineColor, width: 1.0),
                       ),
-                      padding: const EdgeInsets.all(20),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'I am joining as:',
-                              style: TextStyle(
-                                color: Color(0xFFF1F5F9),
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                              ),
-                            ),
-                            const SizedBox(height: 12),
-                            // Pill toggle
-                            Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF1A2035),
-                                borderRadius: BorderRadius.circular(12),
-                                border: Border.all(color: const Color(0xFF232A3B)),
-                              ),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () => setState(() => _selectedRole = UserType.talent),
-                                      child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 200),
-                                        padding: const EdgeInsets.symmetric(vertical: 10),
-                                        decoration: BoxDecoration(
-                                          gradient: _selectedRole == UserType.talent
-                                              ? const LinearGradient(
-                                                  colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                                                )
-                                              : null,
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.school_outlined,
-                                              size: 16,
-                                              color: _selectedRole == UserType.talent
-                                                  ? Colors.white
-                                                  : const Color(0xFF94A3B8),
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Text(
-                                              'Candidate',
-                                              style: TextStyle(
-                                                color: _selectedRole == UserType.talent
-                                                    ? Colors.white
-                                                    : const Color(0xFF94A3B8),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () => setState(() => _selectedRole = UserType.recruiter),
-                                      child: AnimatedContainer(
-                                        duration: const Duration(milliseconds: 200),
-                                        padding: const EdgeInsets.symmetric(vertical: 10),
-                                        decoration: BoxDecoration(
-                                          gradient: _selectedRole == UserType.recruiter
-                                              ? const LinearGradient(
-                                                  colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                                                )
-                                              : null,
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.business_outlined,
-                                              size: 16,
-                                              color: _selectedRole == UserType.recruiter
-                                                  ? Colors.white
-                                                  : const Color(0xFF94A3B8),
-                                            ),
-                                            const SizedBox(width: 6),
-                                            Text(
-                                              'Recruiter',
-                                              style: TextStyle(
-                                                color: _selectedRole == UserType.recruiter
-                                                    ? Colors.white
-                                                    : const Color(0xFF94A3B8),
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 24),
-                            TextFormField(
-                              controller: _nameController,
-                              textInputAction: TextInputAction.next,
-                              style: const TextStyle(color: Color(0xFFF1F5F9)),
-                              decoration: _darkInputDecoration(
-                                label: 'Full Name',
-                                hint: 'Enter your full name',
-                                prefixIcon: const Icon(Icons.person_outline, color: Color(0xFF94A3B8)),
-                              ),
-                              validator: (value) => AppUtils.validateRequired(value, fieldName: 'Full name'),
-                            ),
-                            const SizedBox(height: 16),
-                            TextFormField(
-                              controller: _emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              textInputAction: TextInputAction.next,
-                              style: const TextStyle(color: Color(0xFFF1F5F9)),
-                              decoration: _darkInputDecoration(
-                                label: 'Email',
-                                hint: 'Enter your email',
-                                prefixIcon: const Icon(Icons.email_outlined, color: Color(0xFF94A3B8)),
-                              ),
-                              validator: AppUtils.validateEmail,
-                            ),
-                            const SizedBox(height: 16),
-                            TextFormField(
-                              controller: _passwordController,
-                              obscureText: _obscurePassword,
-                              textInputAction: TextInputAction.next,
-                              style: const TextStyle(color: Color(0xFFF1F5F9)),
-                              decoration: _darkInputDecoration(
-                                label: 'Password',
-                                hint: 'Create a strong password',
-                                prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF94A3B8)),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscurePassword
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                    color: const Color(0xFF94A3B8),
-                                  ),
-                                  onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 6.0,
+                                height: 6.0,
+                                decoration: const BoxDecoration(
+                                  color: EditorialColors.primary,
+                                  shape: BoxShape.circle,
                                 ),
                               ),
-                              validator: AppUtils.validatePassword,
-                            ),
-                            const SizedBox(height: 16),
-                            TextFormField(
-                              controller: _confirmPasswordController,
-                              obscureText: _obscureConfirm,
-                              textInputAction: TextInputAction.done,
-                              onFieldSubmitted: (_) => _signUp(),
-                              style: const TextStyle(color: Color(0xFFF1F5F9)),
-                              decoration: _darkInputDecoration(
-                                label: 'Confirm Password',
-                                hint: 'Confirm your password',
-                                prefixIcon: const Icon(Icons.lock_outline, color: Color(0xFF94A3B8)),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscureConfirm
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                    color: const Color(0xFF94A3B8),
-                                  ),
-                                  onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
-                                ),
+                              const SizedBox(width: 6.0),
+                              Text(
+                                'ZERO-SYNTHETIC PROTOCOL',
+                                style: EditorialTypography.labelStamp(color: textSecondary),
                               ),
-                              validator: (value) {
-                                if (value != _passwordController.text) {
-                                  return 'Passwords do not match';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: Checkbox(
-                                    value: _agreeToTerms,
-                                    onChanged: (value) => setState(() => _agreeToTerms = value ?? false),
-                                    activeColor: const Color(0xFF8B5CF6),
-                                    side: const BorderSide(color: Color(0xFF232A3B)),
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                const Expanded(
-                                  child: Text(
-                                    'I agree to the Terms of Service and Privacy Policy',
-                                    style: TextStyle(
-                                      color: Color(0xFF94A3B8),
-                                      fontSize: 13,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 24),
-                            // CTA button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 52,
-                              child: authState.isLoading
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                          colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Center(
-                                        child: SizedBox(
-                                          width: 24,
-                                          height: 24,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.white,
-                                            strokeWidth: 2,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        gradient: const LinearGradient(
-                                          colors: [Color(0xFF8B5CF6), Color(0xFF38BDF8)],
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: ElevatedButton(
-                                        onPressed: _signUp,
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.transparent,
-                                          shadowColor: Colors.transparent,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          'Create Account',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                          Text(
+                            'TIER-1 ARCHIVAL DOSSIER',
+                            style: EditorialTypography.labelStamp(color: EditorialColors.primary),
+                          ),
+                        ],
                       ),
-                    ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.3, end: 0),
-                    const SizedBox(height: 24),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
 
-                    // Divider
-                    const Row(
+                    // Editorial Header
+                    Text(
+                      'Establish your candidate dossier.',
+                      style: EditorialTypography.headlineXlMobile(color: textPrimary),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceXs),
+                    Text(
+                      'Direct cryptographic verification. No unverified third-party recruiters. Transparent compensation bands upfront.',
+                      style: EditorialTypography.bodyMd(color: textSecondary),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Candidate Legal Name
+                    Text(
+                      'CANDIDATE LEGAL NAME',
+                      style: EditorialTypography.labelStamp(color: textSecondary),
+                    ),
+                    const SizedBox(height: 6.0),
+                    EditorialTextField(
+                      controller: _nameController,
+                      hintText: 'First and last name',
+                      prefixIcon: Icon(Icons.person_outline, size: 18.0, color: textSecondary),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Full name is required';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
+
+                    // Work or University Email
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(child: Divider(color: Color(0xFF232A3B))),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            'or continue with',
-                            style: TextStyle(
-                              color: Color(0xFF94A3B8),
-                              fontSize: 13,
-                            ),
+                        Text(
+                          'INSTITUTIONAL OR WORK DOMAIN',
+                          style: EditorialTypography.labelStamp(color: textSecondary),
+                        ),
+                        Text(
+                          'Domain Validated',
+                          style: EditorialTypography.bodySm(
+                            color: EditorialColors.primary,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Expanded(child: Divider(color: Color(0xFF232A3B))),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 6.0),
+                    EditorialTextField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      hintText: 'alex.vance@alumni.tcd.ie',
+                      prefixIcon: Icon(Icons.alternate_email, size: 18.0, color: textSecondary),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Email is required';
+                        }
+                        if (!value.contains('@') || !value.contains('.')) {
+                          return 'Please enter a valid domain address';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 4.0),
+                    Text(
+                      'We verify institutional and corporate domains for tier-1 verified credential badges.',
+                      style: EditorialTypography.bodySm(color: textSecondary),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
 
-                    // Social buttons row
+                    // Primary Technical Domain Chips
+                    Text(
+                      'PRIMARY TECHNICAL DOMAIN',
+                      style: EditorialTypography.labelStamp(color: textSecondary),
+                    ),
+                    const SizedBox(height: 8.0),
+                    Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children: _domains.map((domain) {
+                        final isSelected = _selectedDomain == domain;
+                        return EditorialChip(
+                          label: domain,
+                          isSelected: isSelected,
+                          onTap: () => setState(() => _selectedDomain = domain),
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
+
+                    // Master Password
+                    Text(
+                      'DOSSIER MASTER PASSWORD',
+                      style: EditorialTypography.labelStamp(color: textSecondary),
+                    ),
+                    const SizedBox(height: 6.0),
+                    EditorialTextField(
+                      controller: _passwordController,
+                      obscureText: _obscurePassword,
+                      hintText: 'Minimum 8 characters with mixed symbols',
+                      prefixIcon: Icon(Icons.lock_outline, size: 18.0, color: textSecondary),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                          size: 18.0,
+                          color: textSecondary,
+                        ),
+                        onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
+                      ),
+                      onChanged: (_) => setState(() {}),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceSm),
+
+                    // Password Security Ledger Card
+                    Container(
+                      padding: const EdgeInsets.all(EditorialSpacing.spaceSm),
+                      decoration: BoxDecoration(
+                        color: surfaceColor,
+                        borderRadius: EditorialRadii.roundedMd,
+                        border: Border.all(color: hairlineColor, width: 1.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'ENTROPY ANALYSIS',
+                                style: EditorialTypography.labelStamp(color: textSecondary),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+                                decoration: BoxDecoration(
+                                  color: isDark ? EditorialColors.darkContainerMid : EditorialColors.primaryLight,
+                                  borderRadius: EditorialRadii.roundedSm,
+                                ),
+                                child: Text(
+                                  hasMinLength && hasMixedCase && hasNumberSymbol
+                                      ? 'CRYPTOGRAPHICALLY STRONG'
+                                      : 'ENTER CRITERIA',
+                                  style: EditorialTypography.labelStamp(
+                                    color: isDark ? EditorialColors.onPrimaryContainer : EditorialColors.primary,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8.0),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 3.0,
+                                  decoration: BoxDecoration(
+                                    color: hasMinLength ? EditorialColors.primary : hairlineColor,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 4.0),
+                              Expanded(
+                                child: Container(
+                                  height: 3.0,
+                                  decoration: BoxDecoration(
+                                    color: hasMixedCase ? EditorialColors.primary : hairlineColor,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 4.0),
+                              Expanded(
+                                child: Container(
+                                  height: 3.0,
+                                  decoration: BoxDecoration(
+                                    color: hasNumberSymbol ? EditorialColors.primary : hairlineColor,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8.0),
+                          _buildSecurityCheck(
+                            'Minimum 8 characters',
+                            hasMinLength,
+                            textPrimary,
+                            textSecondary,
+                          ),
+                          _buildSecurityCheck(
+                            'Mixed case characters',
+                            hasMixedCase,
+                            textPrimary,
+                            textSecondary,
+                          ),
+                          _buildSecurityCheck(
+                            'Numeric or symbolic components',
+                            hasNumberSymbol,
+                            textPrimary,
+                            textSecondary,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceMd),
+
+                    // Verification Consents Checkbox
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildSocialButton(
-                          icon: Icons.g_mobiledata,
-                          label: 'Google',
-                          onTap: _signUpWithGoogle,
+                        SizedBox(
+                          width: 24.0,
+                          height: 24.0,
+                          child: Checkbox(
+                            value: _agreeToTerms,
+                            activeColor: EditorialColors.primary,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
+                            onChanged: (val) => setState(() => _agreeToTerms = val ?? false),
+                          ),
                         ),
-                        const SizedBox(width: 16),
-                        _buildSocialButton(
-                          icon: Icons.apple,
-                          label: 'Apple',
-                          onTap: () {},
-                        ),
-                        const SizedBox(width: 16),
-                        _buildSocialButton(
-                          icon: Icons.link,
-                          label: 'LinkedIn',
-                          onTap: () {},
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: Text(
+                            'I consent to cryptographic dossier verification and agree to the Terms of Service & Privacy Protocol.',
+                            style: EditorialTypography.bodySm(color: textSecondary),
+                          ),
                         ),
                       ],
-                    ).animate().fadeIn(delay: 500.ms),
-                    const SizedBox(height: 32),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
 
-                    // Sign in link
+                    // Primary CTA
+                    EditorialButton(
+                      label: 'Initialize Verified Dossier',
+                      isLoading: isLoading,
+                      trailingIcon: const Icon(Icons.arrow_forward, size: 18.0, color: Colors.white),
+                      onPressed: _signUp,
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
+
+                    // Footer Link
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Already have an account? ',
-                            style: TextStyle(color: Color(0xFF94A3B8)),
+                          Text(
+                            'Already registered? ',
+                            style: EditorialTypography.bodyMd(color: textSecondary),
                           ),
                           GestureDetector(
-                            onTap: () => context.pop(),
-                            child: const Text(
-                              'Sign In',
-                              style: TextStyle(
-                                color: Color(0xFF8B5CF6),
+                            onTap: () => context.push('/auth/login'),
+                            child: Text(
+                              'Sign in to existing dossier',
+                              style: EditorialTypography.labelMd(
+                                color: EditorialColors.primary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ).animate().fadeIn(delay: 600.ms),
-                    const SizedBox(height: 40),
+                    ),
+                    const SizedBox(height: EditorialSpacing.spaceLg),
                   ],
                 ),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildSocialButton({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        decoration: BoxDecoration(
-          color: const Color(0xFF121622),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFF232A3B)),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: const Color(0xFFF1F5F9), size: 22),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: const TextStyle(
-                color: Color(0xFFF1F5F9),
-                fontWeight: FontWeight.w500,
-                fontSize: 13,
-              ),
+  Widget _buildSecurityCheck(
+    String label,
+    bool isMet,
+    Color textPrimary,
+    Color textSecondary,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Row(
+        children: [
+          Icon(
+            isMet ? Icons.check_circle : Icons.circle_outlined,
+            size: 14.0,
+            color: isMet ? EditorialColors.primary : textSecondary,
+          ),
+          const SizedBox(width: 6.0),
+          Text(
+            label,
+            style: EditorialTypography.bodySm(
+              color: isMet ? textPrimary : textSecondary,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

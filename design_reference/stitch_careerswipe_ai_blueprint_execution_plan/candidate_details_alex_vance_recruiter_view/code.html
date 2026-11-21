@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed-dim": "#a1d1b8", "surface-dim": "#dadad9", "inverse-on-surface": "#f1f1f0", "on-tertiary-fixed": "#3b0900", "surface-variant": "#e2e2e2", "tertiary-fixed-dim": "#ffb5a0", "on-surface-variant": "#414944", "surface-container-highest": "#e2e2e2", "surface-container-high": "#e8e8e7", "surface-container-low": "#f3f4f3", "tertiary-fixed": "#ffdbd1", "surface-container": "#eeeeed", "on-surface": "#1a1c1c", "secondary-fixed-dim": "#c0c7ce", "error-container": "#ffdad6", "on-primary-container": "#8bbaa2", "outline": "#717973", "inverse-primary": "#a1d1b8", "secondary": "#585f65", "on-secondary-container": "#5c6369", "surface-container-lowest": "#ffffff", "outline-variant": "#c0c8c2", "on-primary": "#ffffff", "surface-tint": "#3b6752", "on-primary-fixed-variant": "#224f3c", "tertiary-container": "#782912", "surface": "#f9f9f8", "on-secondary-fixed-variant": "#41484d", "on-error-container": "#93000a", "primary": "#023423", "on-tertiary": "#ffffff", "surface-bright": "#f9f9f8", "primary-container": "#1e4b38", "on-tertiary-fixed-variant": "#7d2c15", "on-secondary": "#ffffff", "background": "#f9f9f8", "on-secondary-fixed": "#161c21", "on-primary-fixed": "#002114", "on-tertiary-container": "#ff9375", "on-background": "#1a1c1c", "tertiary": "#5a1300", "primary-fixed": "#bdedd3", "secondary-fixed": "#dde3ea", "secondary-container": "#dae0e7", "on-error": "#ffffff", "error": "#ba1a1a", "inverse-surface": "#2f3130" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-md": "1rem" }, fontFamily: { "headline-lg": ["Newsreader"], "headline-md": ["Newsreader"], "body-sm": ["Inter"], "label-lg": ["Inter"], "headline-xl-mobile": ["Newsreader"], "headline-xl": ["Newsreader"], "label-stamp": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Newsreader"], "body-md": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "headline-lg": ["24px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "500" }], "headline-md": ["20px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }], "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.01em", fontWeight: "600" }], "headline-xl-mobile": ["28px", { lineHeight: "34px", letterSpacing: "-0.015em", fontWeight: "500" }], "headline-xl": ["34px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "500" }], "label-stamp": ["11px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "700" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "400" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="w-11 h-11 -ml-2 flex items-center justify-center rounded-lg text-on-surface hover:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back_ios_new</span></button><h1 class="font-headline-md text-headline-md text-on-surface truncate">Candidate Dossier</h1></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Share Candidate" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">share</span></button><button aria-label="More actions" class="w-11 h-11 flex items-center justify-center rounded-lg text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface flex-grow"><div class="flex flex-col w-full pb-10">
+<!-- Status Bar & Top Breadcrumb Indicator -->
+<div class="flex flex-col gap-space-xs mb-space-md pt-2">
+<div class="flex items-center justify-between">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase tracking-widest">
+        REQUISITION: SENIOR BACKEND (REQ-IRE-409)
+      </span>
+<span class="font-label-md text-body-sm text-secondary">EMEA Core</span>
+</div>
+<div class="flex items-center justify-between bg-primary-container/10 px-3 py-2 rounded-lg">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-stamp text-label-stamp text-primary-container">
+          94.8% SIGNAL MATCH · STAGE 3: TECH PANEL
+        </span>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary-container font-semibold">VERIFIED</span>
+</div>
+</div>
+<!-- Candidate Identity & Trust Header -->
+<div class="flex flex-col bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-md">
+<div class="flex items-start gap-space-md">
+<div class="relative shrink-0">
+<img class="w-16 h-16 rounded-xl object-cover" data-alt="Editorial close-up documentary portrait of Alex Vance, a 34-year-old Scandinavian-Irish engineer with short neat dark brown hair and glasses, wearing an unbuttoned charcoal wool overshirt in an understated Dublin engineering library with warm soft natural side lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCjMWEhr-Kql5VZsa_6RvA4cNYtp6zU0ClKGgmE2xne678Qwxza0xcrSyo5GGndOL88QvQxCoC9HbCnv4C5NhVm5CKEtLYW-BEE8gemfxL1Hh2f5d7fc3Vx_Qlsr6cxDbo-dLtVuk6iMuX7XTvK8uELAfDlgLZoNM20Hpzsb7ehg-Qn3jfy8lAwzFWUGyJ5T14vEo2aDWQDq_u9lXupMHTwDCknmtyQnbyffairOs"/>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary w-5 h-5 rounded-full flex items-center justify-center shadow">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+</div>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center justify-between gap-1">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface truncate">Alex Vance</h2>
+<span class="bg-surface-container px-2 py-0.5 rounded text-secondary font-label-stamp text-label-stamp shrink-0">GPG 0x4F92</span>
+</div>
+<p class="font-body-md text-body-md text-secondary font-medium">Senior Distributed Systems Engineer</p>
+<div class="flex items-center gap-space-xs text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">location_on</span>
+<span class="font-body-sm text-body-sm text-secondary truncate">Dublin, IE (EU Citizen) · Klarna (3.5y)</span>
+</div>
+</div>
+</div>
+<!-- Attestation Chips -->
+<div class="grid grid-cols-2 gap-2 mt-space-md pt-space-sm bg-surface-container-low p-2.5 rounded-lg">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-primary-container shrink-0">fingerprint</span>
+<span class="font-label-stamp text-label-stamp text-on-surface truncate">IDENTITY ATTESTED</span>
+</div>
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-primary-container shrink-0">terminal</span>
+<span class="font-label-stamp text-label-stamp text-on-surface truncate">SHA-256 COMMITS VERIFIED</span>
+</div>
+</div>
+<!-- Top Quick Actions -->
+<div class="grid grid-cols-2 gap-2 mt-space-md">
+<button class="flex items-center justify-center gap-1.5 bg-primary-container text-on-primary py-2.5 px-3 rounded-lg font-label-lg text-label-lg shadow-sm active:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span>Schedule Round</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 bg-surface-container-high text-on-surface py-2.5 px-3 rounded-lg font-label-lg text-label-lg active:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px] text-secondary">bolt</span>
+<span>Fast-Track</span>
+</button>
+</div>
+</div>
+<!-- Compensation Alignment Ledger -->
+<div class="flex flex-col bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary-container">account_balance</span>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase tracking-wider">COMPENSATION LEDGER</span>
+</div>
+<span class="bg-primary-fixed text-on-primary-fixed font-label-stamp text-label-stamp px-2 py-0.5 rounded">
+        100% IN-BUDGET
+      </span>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex justify-between items-baseline">
+<span class="font-body-sm text-body-sm text-secondary">Candidate Hard Floor</span>
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">€115,000 / yr</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-body-sm text-body-sm text-secondary">Stripe REQ-IRE-409 Band</span>
+<span class="font-label-lg text-label-lg text-on-surface">€115,000 – €140,000</span>
+</div>
+<!-- Visual Visual Meter Bar -->
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden mt-1">
+<div class="bg-primary-container h-full rounded-full" style="width: 78%"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] text-secondary">
+<span>Min €115k</span>
+<span class="font-semibold text-primary-container">Target Midpoint ~€128k</span>
+<span>Max €140k</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 mt-2.5 px-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container">policy</span>
+<p class="font-body-sm text-body-sm text-secondary">EU Pay Transparency Directive (2023/970) compliant record.</p>
+</div>
+</div>
+<!-- Algorithmic Evidence & Code Provenance -->
+<div class="flex flex-col bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary-container">data_object</span>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase tracking-wider">CODE PROVENANCE</span>
+</div>
+<a class="font-body-sm text-body-sm text-primary-container font-medium flex items-center gap-0.5" href="https://github.com">
+<span>github.com/alexvance</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+<div class="text-secondary font-body-sm text-body-sm mb-space-md">
+      Analyzed 1,482 public commits across high-concurrency systems and distributed state engines.
+    </div>
+<!-- Pillar 1 -->
+<div class="flex flex-col bg-surface-container-low p-3 rounded-lg mb-space-sm">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>
+<span class="font-label-lg text-label-lg text-on-surface">Go / Ingress Scale</span>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary-container bg-surface-container-lowest px-1.5 py-0.5 rounded font-bold">98% FIT</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary leading-snug">
+        Authored Klarna core ledger ingress pipeline processing 12k rps with sub-25ms p99 latency guarantees.
+      </p>
+</div>
+<!-- Pillar 2 -->
+<div class="flex flex-col bg-surface-container-low p-3 rounded-lg mb-space-sm">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary-container">check_circle</span>
+<span class="font-label-lg text-label-lg text-on-surface">Distributed Consensus (Raft)</span>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary-container bg-surface-container-lowest px-1.5 py-0.5 rounded font-bold">96% FIT</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary leading-snug">
+        Core creator of raft-log-compactor (340 stars on GitHub). Custom snapshot log compaction for state recovery.
+      </p>
+</div>
+<!-- Pillar 3 -->
+<div class="flex flex-col bg-surface-container-low p-3 rounded-lg mb-space-md">
+<div class="flex items-center justify-between mb-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">radio_button_unchecked</span>
+<span class="font-label-lg text-label-lg text-on-surface">gRPC &amp; Protobuf Schemas</span>
+</div>
+<span class="font-label-stamp text-label-stamp text-secondary bg-surface-container-lowest px-1.5 py-0.5 rounded font-bold">92% SIM</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary leading-snug">
+        Zero recent production public repos; candidate completed 45m blind CareerSwipe benchmark with zero schema drift violations.
+      </p>
+</div>
+<!-- Download Dossier Button -->
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container text-on-surface py-2.5 px-3 rounded-lg font-label-lg text-label-lg active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px] text-primary-container">verified_user</span>
+<span>Download Cryptographic ATS Audit (PDF)</span>
+</button>
+</div>
+<!-- Private Recruiter Notes & Evaluation Log -->
+<div class="flex flex-col bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary-container">lock</span>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase tracking-wider">INTERNAL EVALUATION</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">Committee Only</span>
+</div>
+<!-- Note 1 -->
+<div class="flex flex-col gap-1 bg-surface-container-low p-3 rounded-lg mb-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px] font-bold">
+            SK
+          </div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Sara Karlsson (You)</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">2h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-normal mt-1">
+        Alex passed initial async ledger challenge with flying colors. Architecture briefing scheduled Friday 14:00 UTC.
+      </p>
+</div>
+<!-- Note 2 -->
+<div class="flex flex-col gap-1 bg-surface-container-low p-3 rounded-lg mb-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-secondary text-on-secondary flex items-center justify-center text-[10px] font-bold">
+            LC
+          </div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Liam Chen (Staff Eng)</span>
+</div>
+<span class="font-body-sm text-body-sm text-secondary">5h ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-normal mt-1">
+        Strong grasp of multi-region WAL consensus. Let’s dig into split-brain edge cases and compaction backpressure during tech round.
+      </p>
+</div>
+<!-- Note Input Section -->
+<div class="flex flex-col gap-2" id="note-composer">
+<div class="relative">
+<textarea class="w-full bg-surface-container-low rounded-lg p-2.5 font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:bg-surface-container-lowest transition-all" id="evaluation-note-input" placeholder="Add internal evaluation note for hiring committee..." rows="2"></textarea>
+</div>
+<div class="flex justify-end gap-2">
+<button class="bg-primary-container text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md font-semibold active:bg-primary transition-colors flex items-center gap-1" id="save-note-btn">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Save Note</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Stage Progression Action Bar -->
+<div class="flex flex-col bg-surface-container-lowest p-space-md rounded-xl shadow-sm gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">PIPELINE DECISION</span>
+<span class="font-label-md text-label-md text-primary-container font-semibold">Active: Round 2 (Technical)</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full flex items-center justify-center gap-2 bg-primary-container text-on-primary py-3 rounded-lg font-label-lg text-label-lg font-semibold active:bg-primary shadow-sm transition-all" id="promote-btn">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+<span>Promote to Hiring Committee</span>
+</button>
+<div class="grid grid-cols-2 gap-2">
+<button class="flex items-center justify-center gap-1.5 bg-surface-container text-on-surface py-2.5 px-2 rounded-lg font-label-md text-label-md active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">inventory_2</span>
+<span>Archive</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 bg-error-container text-on-error-container py-2.5 px-2 rounded-lg font-label-md text-label-md active:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span>Reject (Feedback)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for the internal note submission
+  const noteInput = document.getElementById('evaluation-note-input');
+  const saveBtn = document.getElementById('save-note-btn');
+  const promoteBtn = document.getElementById('promote-btn');
+
+  if (saveBtn && noteInput) {
+    saveBtn.addEventListener('click', () => {
+      const val = noteInput.value.trim();
+      if (!val) return;
+      
+      const newCard = document.createElement('div');
+      newCard.className = "flex flex-col gap-1 bg-surface-container-low p-3 rounded-lg mb-space-sm";
+      newCard.innerHTML = `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <div class="w-5 h-5 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px] font-bold">
+              SK
+            </div>
+            <span class="font-label-md text-label-md text-on-surface font-semibold">Sara Karlsson (You)</span>
+          </div>
+          <span class="font-body-sm text-body-sm text-secondary">Just now</span>
+        </div>
+        <p class="font-body-md text-body-md text-on-surface leading-normal mt-1">` +
+        val.replace(/</g, "&lt;").replace(/>/g, "&gt;") +
+        `</p>
+      `;
+      
+      const composer = document.getElementById('note-composer');
+      composer.parentNode.insertBefore(newCard, composer);
+      noteInput.value = '';
+    });
+  }
+
+  if (promoteBtn) {
+    promoteBtn.addEventListener('click', function() {
+      this.classList.remove('bg-primary-container');
+      this.classList.add('bg-primary');
+      this.innerHTML = `
+        <span class="material-symbols-outlined text-[20px] text-primary-fixed">check_circle</span>
+        <span>Promoted to Committee (Dossier Dispatched)</span>
+      `;
+      this.disabled = true;
+    });
+  }
+</script></main></body></html>

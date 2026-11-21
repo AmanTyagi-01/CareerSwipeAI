@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#ffb5a0", "secondary": "#585f65", "primary": "#023423", "on-secondary": "#ffffff", "inverse-primary": "#a1d1b8", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#7d2c15", "surface-container-lowest": "#ffffff", "on-primary-container": "#8bbaa2", "inverse-surface": "#2f3130", "surface-bright": "#f9f9f8", "surface-tint": "#3b6752", "on-primary": "#ffffff", "on-primary-fixed": "#002114", "on-background": "#1a1c1c", "secondary-container": "#dae0e7", "tertiary": "#5a1300", "error": "#ba1a1a", "on-secondary-fixed-variant": "#41484d", "error-container": "#ffdad6", "on-surface": "#1a1c1c", "background": "#f9f9f8", "primary-container": "#1e4b38", "on-secondary-container": "#5c6369", "on-primary-fixed-variant": "#224f3c", "on-surface-variant": "#414944", "surface-container": "#eeeeed", "on-tertiary": "#ffffff", "surface-container-high": "#e8e8e7", "primary-fixed-dim": "#a1d1b8", "surface-container-highest": "#e2e2e2", "on-secondary-fixed": "#161c21", "on-error-container": "#93000a", "surface-dim": "#dadad9", "surface-container-low": "#f3f4f3", "primary-fixed": "#bdedd3", "outline": "#717973", "secondary-fixed-dim": "#c0c7ce", "inverse-on-surface": "#f1f1f0", "secondary-fixed": "#dde3ea", "tertiary-container": "#782912", "surface": "#f9f9f8", "tertiary-fixed": "#ffdbd1", "on-tertiary-container": "#ff9375", "surface-variant": "#e2e2e2", "outline-variant": "#c0c8c2", "on-tertiary-fixed": "#3b0900" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter": "1rem", "space-md": "1rem", "space-sm": "0.5rem", "margin": "1.25rem" }, "fontFamily": { "label-stamp": ["Inter"], "label-lg": ["Inter"], "headline-xl": ["Newsreader"], "headline-sm": ["Newsreader"], "label-md": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Newsreader"], "body-lg": ["Inter"], "headline-md": ["Newsreader"], "body-md": ["Inter"], "headline-xl-mobile": ["Newsreader"] }, "fontSize": { "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md flex flex-col min-h-screen antialiased"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Go back" class="w-11 h-11 -ml-space-sm flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[22px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md text-on-surface">Edit Profile</h1></div><div class="w-11 h-11 flex items-center justify-center"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-10">
+<!-- Unsaved Changes Floating Notice -->
+<div class="sticky top-2 z-40 mb-space-md w-full">
+<div class="bg-tertiary-container text-on-tertiary shadow-md rounded-lg p-space-sm px-space-md flex items-center justify-between transition-all duration-300">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span>
+<span class="font-label-stamp text-label-stamp tracking-wider truncate text-tertiary-fixed">UNSAVED CHANGES DETECTED (2 FIELDS EDITED)</span>
+</div>
+<button class="shrink-0 font-label-md text-label-md text-on-tertiary bg-tertiary px-space-sm py-1 rounded hover:opacity-90 transition-opacity" type="button">
+        Review Diff
+      </button>
+</div>
+</div>
+<!-- Editorial Section 1: Dossier Identity & Summary -->
+<section class="flex flex-col gap-space-md mb-space-xl">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Ledger Node 01</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Cryptographically Signed</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center justify-between pb-space-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Identity &amp; Core Parameters</h2>
+<span class="font-label-stamp text-label-stamp px-space-xs py-0.5 rounded bg-primary-fixed text-on-primary-fixed uppercase">Verified Talent</span>
+</div>
+<!-- Avatar & Gravatar Key -->
+<div class="flex items-center gap-space-md bg-surface-container-low p-space-md rounded-lg">
+<div class="relative shrink-0">
+<img class="w-16 h-16 rounded-lg object-cover shadow-sm" data-alt="Intense black and white editorial studio portrait of a senior male software engineer with short hair and direct gaze, high contrast lighting, neutral background, sharp focus, Leica 50mm style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8V3RUZUpy_rpZEEQ7hl_LlEgc0bfbNe83ulB86GjrJY9HcVL1KO5SbY3RPuwCCW2zxDjoj5vfYlmtGKE1DJFRdzSQATRebyUTGl488EQTs-7kR85wbyEfUX5MwjDaWiioWCPenP6Y_B8wPToYkq5j29LXaUh-qDHZqDjZx19U1gzoM2cfDKPHuRCnIfJ5IsD5QcNuu9i1J4Aha33UVXnEqBpSNrEHg2ZRlFuICIU"/>
+<span class="absolute -bottom-1 -right-1 bg-primary text-on-primary rounded-full p-0.5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+</span>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface truncate">Alex Vance</span>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Domain-Verified Mark">domain_verification</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary truncate">Key fingerprint: 9F2A...C401 (GPG)</p>
+<div class="flex items-center gap-space-sm mt-1">
+<button class="font-label-md text-label-md text-primary font-medium hover:underline flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">refresh</span> Replace Gravatar / Key
+            </button>
+</div>
+</div>
+</div>
+<!-- Form Inputs -->
+<div class="flex flex-col gap-space-md">
+<!-- Full Legal Name -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Full Legal Name</label>
+<span class="font-label-stamp text-label-stamp text-primary">Identity Attested</span>
+</div>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low text-on-surface rounded-lg px-space-md py-2.5 font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest transition-colors" type="text" value="Alex Vance"/>
+<span class="material-symbols-outlined absolute right-3 text-[18px] text-primary">check_circle</span>
+</div>
+</div>
+<!-- Headline / Target Role (Edited) -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Headline / Target Role</label>
+<span class="font-label-stamp text-label-stamp text-tertiary bg-tertiary-fixed px-1.5 py-0.5 rounded">Modified</span>
+</div>
+<input class="w-full bg-surface-container-lowest shadow-sm text-on-surface rounded-lg px-space-md py-2.5 font-body-md text-body-md focus:outline-none ring-1 ring-primary/20" type="text" value="Senior Distributed Systems &amp; Backend Engineer"/>
+<p class="font-body-sm text-body-sm text-secondary">Appears in algorithmic matching pipelines and candidate cards.</p>
+</div>
+<!-- Location -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Primary Location &amp; Mobility</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[18px] text-secondary">location_on</span>
+<input class="w-full bg-surface-container-low text-on-surface rounded-lg pl-10 pr-space-md py-2.5 font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest" type="text" value="Dublin, Ireland (Eligible: EU/UK/EEA)"/>
+</div>
+</div>
+<!-- Target Compensation Floor (Edited) -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Target Compensation Floor</label>
+<span class="font-label-stamp text-label-stamp text-tertiary bg-tertiary-fixed px-1.5 py-0.5 rounded">Modified</span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-[18px] text-primary">payments</span>
+<input class="w-full bg-surface-container-lowest shadow-sm text-on-surface rounded-lg pl-10 pr-space-md py-2.5 font-body-md text-body-md focus:outline-none ring-1 ring-primary/20 font-medium" type="text" value="€115,000 / year (Strict filter active)"/>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Opportunities with base comp below threshold will be silently bypassed.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Editorial Section 2: Verified Code & Provenance -->
+<section class="flex flex-col gap-space-md mb-space-xl">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Ledger Node 02</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-label-md text-label-md text-primary font-medium">SHA-256 Synced</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Verified Code Repositories</h2>
+<span class="font-label-stamp text-label-stamp px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant uppercase">GitHub v4 API</span>
+</div>
+<!-- GitHub Handle Connected Card -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded bg-on-surface flex items-center justify-center text-surface shrink-0">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface truncate">github.com/alexvance-systems</span>
+<span class="font-body-sm text-body-sm text-primary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 1,482 Public Commits Attested
+            </span>
+</div>
+</div>
+<button class="shrink-0 p-2 text-secondary hover:text-on-surface rounded-lg transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</button>
+</div>
+<!-- Primary Stack Tags -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Primary Runtimes &amp; Infrastructure</label>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<span class="inline-flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded font-label-md text-label-md text-on-surface">
+            Go (1.22+)
+            <button class="text-secondary hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded font-label-md text-label-md text-on-surface">
+            Rust
+            <button class="text-secondary hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded font-label-md text-label-md text-on-surface">
+            PostgreSQL
+            <button class="text-secondary hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1.5 bg-surface-container px-2.5 py-1 rounded font-label-md text-label-md text-on-surface">
+            C++
+            <button class="text-secondary hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</span>
+<button class="inline-flex items-center gap-1 bg-surface-container-high px-2.5 py-1 rounded font-label-md text-label-md text-primary font-medium hover:bg-surface-container-highest transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">add</span> Add Stack Tag
+          </button>
+</div>
+</div>
+<!-- Architectural Focus -->
+<div class="flex flex-col gap-1 mt-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Architectural Focus</label>
+<textarea class="w-full bg-surface-container-low text-on-surface rounded-lg p-space-md font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest" rows="2">Distributed consensus (Raft), high-throughput WAL, ACID transaction ledgers</textarea>
+</div>
+</div>
+</section>
+<!-- Editorial Section 3: Professional Experience (Editable Cards) -->
+<section class="flex flex-col gap-space-md mb-space-xl">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Ledger Node 03</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-label-md text-label-md text-secondary">2 Certified Nodes</span>
+</div>
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Professional Provenance</h2>
+<span class="font-label-stamp text-label-stamp text-secondary">CHRONOLOGICAL</span>
+</div>
+<!-- Card 1: Klarna -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-stamp text-label-stamp text-primary bg-primary-fixed px-1.5 py-0.5 rounded">CURRENT TENURE</span>
+<span class="font-label-md text-label-md text-secondary">2021 – Present</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mt-1">Senior Backend Engineer</h3>
+<span class="font-body-md text-body-md text-secondary">Klarna · Stockholm / Remote</span>
+</div>
+<button class="text-secondary hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-1">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase">Engineering Scope &amp; Yield</span>
+<p class="font-body-md text-body-md text-on-surface">12k rps Core Ledger ingress, sub-25ms p99. Zero data-loss partition resilience under chaos simulation tests.</p>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<button class="font-label-md text-label-md text-primary font-medium flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit Experience Details
+        </button>
+<button class="font-label-md text-label-md text-secondary flex items-center gap-1 hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[16px]">fingerprint</span> Re-verify Commits
+        </button>
+</div>
+</div>
+<!-- Card 2: Intercom -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded">PAST NODE</span>
+<span class="font-label-md text-label-md text-secondary">2018 – 2021</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mt-1">Systems Engineer</h3>
+<span class="font-body-md text-body-md text-secondary">Intercom · Dublin HQ</span>
+</div>
+<button class="text-secondary hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-1">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase">Engineering Scope &amp; Yield</span>
+<p class="font-body-md text-body-md text-on-surface">Multi-tenant queuing, Kafka partition scaling, backpressure control engines.</p>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<button class="font-label-md text-label-md text-primary font-medium flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit Experience Details
+        </button>
+<span class="font-label-stamp text-label-stamp text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">verified</span> ATTESTED
+        </span>
+</div>
+</div>
+<!-- Append Node Action Button -->
+<button class="w-full bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-lg text-label-lg py-3 rounded-lg flex items-center justify-center gap-space-sm transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">add_circle</span> Append Professional History Node
+    </button>
+</section>
+<!-- Editorial Section 4: Academic Credentials -->
+<section class="flex flex-col gap-space-md mb-space-xl">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Ledger Node 04</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-label-md text-label-md text-secondary">Academic Record</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-start justify-between">
+<div class="flex gap-space-md items-start">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[22px]">school</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">2014 – 2018</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Trinity College Dublin</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">B.Sc. Computer Science (First Class Honours)</p>
+<span class="font-body-sm text-body-sm text-primary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">verified_user</span> Institutional Seal Confirmed
+          </span>
+</div>
+</div>
+<button class="text-secondary hover:text-on-surface p-1" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</section>
+<!-- Editorial Section 5: Dossier Anonymization & Privacy -->
+<section class="flex flex-col gap-space-md mb-space-xl">
+<div class="flex items-baseline justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Ledger Node 05</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+</div>
+<span class="font-label-stamp text-label-stamp text-primary">ZERO-KNOWLEDGE PRIVACY</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between gap-space-md">
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex items-center gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Anonymize PII for Screening</h3>
+<span class="material-symbols-outlined text-[16px] text-primary" title="Anti-Bias Protocol">security</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+            Masks full legal name, avatar photo, and academic branding until mutual interest is sealed and interview dispatch is formally confirmed.
+          </p>
+</div>
+<!-- Privacy Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="bg-surface-container-low p-space-sm px-space-md rounded-lg flex items-center justify-between text-secondary">
+<span class="font-label-md text-label-md flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">visibility_off</span> Screening Pseudonym: <strong class="text-on-surface">Candidate #8491-SYS</strong>
+</span>
+<span class="font-label-stamp text-label-stamp text-primary bg-primary-fixed px-1.5 py-0.5 rounded">ACTIVE</span>
+</div>
+</div>
+</section>
+<!-- Editorial Section: System Attestation Seal -->
+<div class="bg-surface-container rounded-xl p-space-md mb-space-xl flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">token</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase">CareerSwipe AI Integrity Guarantee</span>
+<p class="font-body-sm text-body-sm text-secondary">All profile data points are compiled directly into vector embeddings for precision recruiter matching.</p>
+</div>
+</div>
+<!-- Bottom Action Tray -->
+<div class="flex items-center gap-space-md pt-space-sm border-t border-transparent">
+<button class="flex-1 py-3 px-space-md rounded-lg font-label-lg text-label-lg text-secondary bg-surface-container hover:bg-surface-container-high transition-colors text-center" type="button">
+      Cancel Discard
+    </button>
+<button class="flex-1 py-3 px-space-md rounded-lg font-label-lg text-label-lg text-on-primary bg-primary hover:bg-on-primary-fixed-variant transition-colors text-center shadow-md flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span> Commit Dossier Update
+    </button>
+</div>
+</div></main></body></html>

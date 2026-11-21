@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed": "#ffdbd1", "surface-container": "#eeeeed", "inverse-surface": "#2f3130", "surface-bright": "#f9f9f8", "on-error-container": "#93000a", "on-primary-fixed": "#002114", "error": "#ba1a1a", "on-secondary-fixed": "#161c21", "tertiary": "#5a1300", "error-container": "#ffdad6", "tertiary-fixed-dim": "#ffb5a0", "on-primary": "#ffffff", "on-surface-variant": "#414944", "on-secondary-fixed-variant": "#41484d", "on-primary-fixed-variant": "#224f3c", "on-tertiary": "#ffffff", "on-background": "#1a1c1c", "surface-dim": "#dadad9", "on-secondary-container": "#5c6369", "outline-variant": "#c0c8c2", "primary-fixed": "#bdedd3", "secondary": "#585f65", "inverse-on-surface": "#f1f1f0", "surface": "#f9f9f8", "on-tertiary-fixed-variant": "#7d2c15", "secondary-fixed": "#dde3ea", "surface-container-lowest": "#ffffff", "primary": "#023423", "inverse-primary": "#a1d1b8", "primary-fixed-dim": "#a1d1b8", "surface-tint": "#3b6752", "on-tertiary-container": "#ff9375", "on-surface": "#1a1c1c", "surface-container-low": "#f3f4f3", "on-error": "#ffffff", "background": "#f9f9f8", "tertiary-container": "#782912", "secondary-fixed-dim": "#c0c7ce", "secondary-container": "#dae0e7", "on-primary-container": "#8bbaa2", "surface-variant": "#e2e2e2", "on-secondary": "#ffffff", "outline": "#717973", "on-tertiary-fixed": "#3b0900", "surface-container-high": "#e8e8e7", "surface-container-highest": "#e2e2e2", "primary-container": "#1e4b38" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2rem", "gutter": "1rem", "margin": "1.25rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "label-lg": ["Inter"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "headline-lg": ["Newsreader"], "body-sm": ["Inter"], "label-md": ["Inter"], "label-stamp": ["Inter"], "headline-md": ["Newsreader"], "headline-xl": ["Newsreader"] }, "fontSize": { "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100%;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}body{min-height:max(884px,100dvh);}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface flex flex-col min-h-full font-body-md text-body-md antialiased"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary transition-colors -ml-2 shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-md text-headline-md tracking-tight text-on-surface truncate">Create Internship</h1></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Context actions" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[22px]">more_horiz</span></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-8">
+<!-- Fellowship Specification Tracker & Metadata -->
+<div class="px-margin pt-2 pb-4">
+<div class="flex items-center justify-between gap-space-sm mb-1.5">
+<span class="font-label-stamp text-label-stamp text-primary uppercase tracking-wider">
+        FELLOWSHIP SPECIFICATION · STEP 1 OF 3
+      </span>
+<span class="font-label-md text-label-md text-secondary">33% Completed</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-300" style="width: 33.3%;"></div>
+</div>
+</div>
+<!-- Editorial Research Context Card (Rich Visual Banner) -->
+<div class="px-margin mb-space-lg">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low shadow-sm">
+<div class="relative h-28 w-full overflow-hidden">
+<div class="bg-cover bg-center w-full h-full transform scale-105" data-alt="Editorial warm photograph of an academic engineering laboratory, clean white wooden desk with archival notes, research monographs, sleek computing terminal, warm morning daylight filtering through tall library windows, quiet tactile paper aesthetic with deep spruce tones and natural shadows" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA5lnth0-y-vzuB62w7BG7qAv-K2Feo5yJfqspilpSNBmzAydmdg6-p_nodI98-c4NGLZorUUAtQSm3n2QT7BDv0j1b5pU3Y-K3csRS2watuGu6in0FwM58GfCFzuoSLBdcIYJTD_5-ccoAqjc2Wu0SK2IrGGyQRGU3_ufAJWh3uC6yJSchRTVDAJmyA7jXxYcB3nUklWkIkJbEnEiFRtWeA_SdwrGhYh6RSi_yZXs')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/70 to-transparent"></div>
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded">
+<span class="font-label-stamp text-label-stamp text-primary-container tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">school</span>
+            DIRECTIVE 2025/FELLOW
+          </span>
+</div>
+</div>
+<div class="p-space-md pt-1">
+<div class="flex items-start gap-space-sm">
+<div class="w-7 h-7 rounded bg-primary-container text-on-primary flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-snug">
+              Academic &amp; Research Protocol
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">
+              All academic appointments on CareerSwipe require explicit living stipends, clear educational credit accreditation, and direct technical mentorship from staff researchers.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Intake Form Body -->
+<div class="px-margin flex flex-col gap-space-lg">
+<!-- Field 1: Internship / Fellowship Title -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-baseline justify-between">
+<label class="font-label-lg text-label-lg text-on-surface" for="fellowship-title">
+          Requisition &amp; Role Title
+        </label>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Required</span>
+</div>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-3.5 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface shadow-sm focus:outline-none focus:bg-surface-container-lowest focus:shadow-md transition-all" id="fellowship-title" type="text" value="Systems Research Intern — Distributed Storage"/>
+<span class="absolute right-3.5 material-symbols-outlined text-[18px] text-secondary pointer-events-none">edit_note</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+        Editorial convention: Domain · Subsystem focus · Cohort category.
+      </p>
+</div>
+<!-- Field 2: Target Academic Level -->
+<div class="flex flex-col gap-2">
+<div class="flex items-baseline justify-between">
+<label class="font-label-lg text-label-lg text-on-surface">Target Academic Standing</label>
+<span class="font-label-md text-label-md text-secondary">Select eligible</span>
+</div>
+<div class="flex flex-wrap gap-2" id="academic-chips">
+<button class="academic-chip h-9 px-3.5 rounded-lg font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm" type="button">
+<span>B.Sc. Final Year</span>
+</button>
+<button class="academic-chip h-9 px-3.5 rounded-lg font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all flex items-center gap-1.5 shadow-sm" type="button">
+<span>M.Sc. Systems / Thesis</span>
+</button>
+<button class="academic-chip active h-9 px-3.5 rounded-lg font-label-md text-label-md bg-primary text-on-primary shadow-sm flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Ph.D. Candidate</span>
+</button>
+</div>
+</div>
+<!-- Field 3: Fellowship Duration & Calendar -->
+<div class="flex flex-col gap-2">
+<label class="font-label-lg text-label-lg text-on-surface">Tenure &amp; Working Window</label>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-3">
+<!-- Duration Segmented Selector -->
+<div>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase block mb-2">Duration Term</span>
+<div class="grid grid-cols-3 gap-1.5 bg-surface-container-low p-1 rounded-lg">
+<button class="py-1.5 text-center font-label-md text-label-md rounded bg-surface-container-lowest text-on-surface shadow-xs" type="button">
+              12 Weeks
+            </button>
+<button class="py-1.5 text-center font-label-md text-label-md rounded text-secondary hover:text-on-surface transition-colors" type="button">
+              16 Weeks
+            </button>
+<button class="py-1.5 text-center font-label-md text-label-md rounded text-secondary hover:text-on-surface transition-colors" type="button">
+              6 Months
+            </button>
+</div>
+</div>
+<!-- Date Range Metrics Block -->
+<div class="pt-2 flex items-center justify-between bg-surface-container-low/70 rounded-lg p-3">
+<div class="flex flex-col min-w-0">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Cohort Start</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">June 2, 2025</span>
+</div>
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+<div class="flex flex-col text-right min-w-0">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Cohort End</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">August 22, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Field 4: Compensation & Living Stipend (Zero-Unpaid Pledge) -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="font-label-lg text-label-lg text-on-surface flex items-center gap-1.5">
+<span>Stipend &amp; Subsistence Allocation</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+</label>
+<span class="font-label-stamp text-label-stamp text-primary uppercase">Guaranteed</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Monthly Base Stipend -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Guaranteed Base Living Stipend</span>
+<span class="font-headline-md text-headline-md text-on-surface mt-0.5">€4,200 <span class="font-body-sm text-body-sm text-secondary">/ month</span></span>
+</div>
+<div class="px-2.5 py-1 rounded bg-primary-fixed text-on-primary-fixed font-label-stamp text-label-stamp uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">paid</span>
+            TIER 1 (EU CORE)
+          </div>
+</div>
+<div class="h-px w-full bg-surface-container-high"></div>
+<!-- Housing Toggle Row -->
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex flex-col min-w-0">
+<span class="font-label-lg text-label-lg text-on-surface">Relocation &amp; Housing Support</span>
+<span class="font-body-sm text-body-sm text-primary font-medium mt-0.5">
+              €1,200/mo Housing Allowance Included
+            </span>
+<span class="font-body-sm text-body-sm text-secondary mt-0.5">
+              Direct disbursement or provisioned researcher accommodation.
+            </span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input checked="" class="sr-only peer" id="housing-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Field 5: Academic Credit & Thesis Integration -->
+<div class="flex flex-col gap-2">
+<label class="font-label-lg text-label-lg text-on-surface">Academic Integration &amp; Mentorship</label>
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-3">
+<!-- ECTS Recognition -->
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">ECTS Credits Available</span>
+<span class="font-body-md text-body-md text-on-surface font-medium truncate">
+              30 ECTS (Recognized Academic Module)
+            </span>
+<span class="font-body-sm text-body-sm text-secondary">Pre-approved university credit transfers for university degree requirements.</span>
+</div>
+</div>
+<div class="h-px w-full bg-surface-container-high"></div>
+<!-- Mentorship Pairing -->
+<div class="flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-low text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">person_celebrate</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">Principal Technical Advisor</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">
+              Assigned Staff Systems Engineer
+            </span>
+<span class="font-body-sm text-body-sm text-secondary">
+              Includes 1:1 weekly architectural reviews and thesis co-advising sign-off.
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Field 6: Required Research Prerequisites (Tags) -->
+<div class="flex flex-col gap-2">
+<div class="flex items-baseline justify-between">
+<label class="font-label-lg text-label-lg text-on-surface">Required Research Competencies</label>
+<button class="font-label-md text-label-md text-primary hover:underline flex items-center gap-0.5" type="button">
+<span class="material-symbols-outlined text-[14px]">add</span> Add Domain
+        </button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-3.5 shadow-sm flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md">
+<span>Rust / C++</span>
+<button class="text-secondary hover:text-error transition-colors flex items-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md">
+<span>Distributed Consensus (Raft/Paxos)</span>
+<button class="text-secondary hover:text-error transition-colors flex items-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md">
+<span>Operating Systems / WAL</span>
+<button class="text-secondary hover:text-error transition-colors flex items-center" type="button">
+<span class="material-symbols-outlined text-[14px]">close</span>
+</button>
+</span>
+</div>
+</div>
+<!-- Verification & Transparency Checkbox -->
+<div class="mt-1 bg-surface-container-low p-4 rounded-xl flex items-start gap-3 shadow-xs">
+<div class="flex items-center h-5 mt-0.5">
+<input checked="" class="w-5 h-5 rounded text-primary focus:ring-0 accent-primary cursor-pointer" id="certify-pledge" type="checkbox"/>
+</div>
+<label class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed cursor-pointer select-none" for="certify-pledge">
+        I formally certify that this position provides educational value, direct technical mentorship, and complies with EU fair labor and paid internship regulations.
+      </label>
+</div>
+<!-- Bottom Action Bar & Reassurance -->
+<div class="flex flex-col gap-2.5 pt-2">
+<button class="w-full h-12 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99]" id="continue-btn" type="button">
+<span>Continue to Mentorship Roster</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full h-11 rounded-lg bg-transparent hover:bg-surface-container-low text-secondary font-label-lg text-label-lg flex items-center justify-center transition-colors" type="button">
+<span>Save Draft</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-center mt-1">
+<span class="material-symbols-outlined text-[14px] text-primary">lock</span>
+<span class="font-label-stamp text-label-stamp text-secondary uppercase">
+          Draft auto-saved · Fellow ID #884-D
+        </span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction for academic chip toggles
+  document.querySelectorAll('.academic-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chip.classList.toggle('active');
+      if (chip.classList.contains('active')) {
+        chip.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        chip.classList.add('bg-primary', 'text-on-primary');
+        if (!chip.querySelector('.material-symbols-outlined')) {
+          const icon = document.createElement('span');
+          icon.className = 'material-symbols-outlined text-[15px]';
+          icon.style.fontVariationSettings = "'FILL' 1";
+          icon.textContent = 'check_circle';
+          chip.insertBefore(icon, chip.firstChild);
+        }
+      } else {
+        chip.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        chip.classList.remove('bg-primary', 'text-on-primary');
+        const icon = chip.querySelector('.material-symbols-outlined');
+        if (icon) icon.remove();
+      }
+    });
+  });
+
+  // Tactile feedback on continue button click
+  const continueBtn = document.getElementById('continue-btn');
+  if (continueBtn) {
+    continueBtn.addEventListener('click', () => {
+      continueBtn.classList.add('opacity-90');
+      setTimeout(() => continueBtn.classList.remove('opacity-90'), 150);
+    });
+  }
+</script></main></body></html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-container": "#1e4b38", "on-primary-fixed-variant": "#224f3c", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#7d2c15", "on-surface-variant": "#414944", "secondary-container": "#dae0e7", "on-primary-fixed": "#002114", "outline-variant": "#c0c8c2", "surface-variant": "#e2e2e2", "surface-container-high": "#e8e8e7", "surface-dim": "#dadad9", "primary-fixed-dim": "#a1d1b8", "on-secondary-fixed": "#161c21", "surface-container": "#eeeeed", "on-tertiary": "#ffffff", "secondary-fixed-dim": "#c0c7ce", "primary-fixed": "#bdedd3", "tertiary-fixed-dim": "#ffb5a0", "on-tertiary-fixed": "#3b0900", "secondary": "#585f65", "on-secondary-container": "#5c6369", "on-secondary-fixed-variant": "#41484d", "error": "#ba1a1a", "on-secondary": "#ffffff", "on-error-container": "#93000a", "on-tertiary-container": "#ff9375", "tertiary-container": "#782912", "background": "#f9f9f8", "on-primary-container": "#8bbaa2", "inverse-surface": "#2f3130", "tertiary-fixed": "#ffdbd1", "inverse-primary": "#a1d1b8", "secondary-fixed": "#dde3ea", "inverse-on-surface": "#f1f1f0", "primary": "#023423", "surface-bright": "#f9f9f8", "tertiary": "#5a1300", "outline": "#717973", "on-error": "#ffffff", "surface-tint": "#3b6752", "surface-container-highest": "#e2e2e2", "on-surface": "#1a1c1c", "on-background": "#1a1c1c", "on-primary": "#ffffff", "surface-container-low": "#f3f4f3", "surface": "#f9f9f8", "error-container": "#ffdad6" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-xl": "2rem", "margin": "1.25rem", "space-sm": "0.5rem", "space-md": "1rem", "gutter": "1rem", "space-lg": "1.5rem" }, "fontFamily": { "headline-md": ["Newsreader"], "headline-sm": ["Newsreader"], "label-stamp": ["Inter"], "headline-lg": ["Newsreader"], "body-md": ["Inter"], "body-sm": ["Inter"], "label-lg": ["Inter"], "label-md": ["Inter"], "body-lg": ["Inter"], "headline-xl-mobile": ["Newsreader"], "headline-xl": ["Newsreader"] }, "fontSize": { "headline-md": ["20px", {"lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}], "label-stamp": ["11px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700"}], "headline-lg": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}], "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}], "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}], "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400"}], "headline-xl-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500"}], "headline-xl": ["34px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500"}] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-2 h-2 rounded-full bg-primary-container"></div><h1 class="font-headline-sm text-headline-sm text-on-surface">Interview Practice</h1></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="flex flex-col relative w-full pt-16 pb-20 bg-surface px-margin"><div class="flex flex-col w-full pb-8 space-y-space-md">
+<!-- Top Meta Badges & Session Info -->
+<div class="flex items-center justify-between pt-1">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 bg-surface-container rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase tracking-wider">Simulation Engine V2.4</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-1 bg-secondary-container rounded">
+<span class="material-symbols-outlined text-[14px] text-on-secondary-fixed">domain</span>
+<span class="font-label-stamp text-label-stamp text-on-secondary-fixed uppercase tracking-wider">Target: Stripe EMEA</span>
+</div>
+</div>
+<!-- Editorial Section Header -->
+<div class="space-y-1">
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight">Architectural Interview Practice</h2>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="font-label-md text-label-md font-semibold text-primary">Scenario 03 of 05</span>
+<span class="text-outline-variant">•</span>
+<p class="font-body-sm text-body-sm truncate">Distributed Ledger Idempotency &amp; Regional Partition Failure</p>
+</div>
+</div>
+<!-- Scenario Card: Tactile Editorial Warm Paper -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase">Scenario Specification</span>
+<span class="font-label-stamp text-label-stamp text-tertiary-container bg-error-container/40 px-1.5 py-0.5 rounded">High Severity</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface italic leading-snug">
+      “A customer initiates a cross-border payment webhook in Dublin while transatlantic replication to US-East experiences a 180ms network latency spike. Design an idempotent ledger mutation that guarantees zero duplicate debits while keeping local checkout latency under 60ms.”
+    </p>
+<!-- Evaluator Focus Module -->
+<div class="bg-surface-container-low p-space-sm rounded space-y-1.5">
+<div class="flex items-center gap-1.5 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Evaluator Focus Areas</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2 py-0.5 bg-surface-container-highest rounded text-on-surface-variant font-label-md text-label-md">Idempotency keys</span>
+<span class="px-2 py-0.5 bg-surface-container-highest rounded text-on-surface-variant font-label-md text-label-md">Raft log compaction</span>
+<span class="px-2 py-0.5 bg-surface-container-highest rounded text-on-surface-variant font-label-md text-label-md">2PC vs Async Outbox</span>
+</div>
+</div>
+</div>
+<!-- Input Mode Selector & Live Recorder Indicator -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<!-- Segmented Pill Control (No borders, tonal depth) -->
+<div class="inline-flex p-1 bg-surface-container rounded-lg" id="mode-toggle">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center gap-1.5" id="btn-voice" type="button">
+<span class="material-symbols-outlined text-[16px]">mic</span>
+          Voice
+        </button>
+<button class="px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all flex items-center gap-1.5" id="btn-text" type="button">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+          Text Mode
+        </button>
+</div>
+<!-- Live Voice Waveform Simulation Status -->
+<div class="flex items-center gap-2" id="voice-status">
+<div class="flex items-center gap-0.5 h-4">
+<span class="w-1 h-2.5 bg-primary-container rounded-full animate-pulse"></span>
+<span class="w-1 h-4 bg-primary-container rounded-full animate-pulse" style="animation-delay: 150ms;"></span>
+<span class="w-1 h-3 bg-primary-container rounded-full animate-pulse" style="animation-delay: 300ms;"></span>
+<span class="w-1 h-1.5 bg-primary-container rounded-full animate-pulse" style="animation-delay: 75ms;"></span>
+</div>
+<span class="font-label-md text-label-md font-medium text-primary-container">Voice Simulator: Ready</span>
+</div>
+</div>
+<!-- Candidate Draft Response Workspace -->
+<div class="space-y-2">
+<div class="flex items-center justify-between text-on-surface-variant">
+<label class="font-label-stamp text-label-stamp uppercase tracking-wider" for="response-draft">Candidate Formulation</label>
+<span class="font-body-sm text-body-sm text-secondary">3-Part Structural Rubric</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-sm space-y-2">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[15px]">info</span>
+<span class="font-body-sm text-body-sm">Frame response: Technical Rationale • Code Citation • Tradeoff Defense</span>
+</div>
+<textarea class="w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded p-space-sm placeholder-secondary focus:outline-none focus:ring-1 focus:ring-primary shadow-sm resize-none leading-relaxed" id="response-draft" rows="4">I would employ a deterministic idempotency key hashed at client ingress, stored immediately in local Redis with a distributed lease lock before writing to the write-ahead ledger. This isolates regional Dublin p99 SLA under 45ms while delegating transatlantic consensus to an asynchronous outbox worker pool.</textarea>
+</div>
+<div class="flex items-center justify-between px-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">auto_fix_high</span>
+          Key tokens: 46 words
+        </span>
+<button class="text-primary hover:text-primary-container font-label-md text-label-md font-medium flex items-center gap-0.5" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+          Re-analyze
+        </button>
+</div>
+</div>
+</div>
+<!-- Live Evaluator Scoring Rubric -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">fact_check</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Evaluator Scoring Rubric</h3>
+</div>
+<span class="font-label-stamp text-label-stamp px-2 py-0.5 bg-primary-fixed text-on-primary-fixed rounded font-semibold">2 of 3 Criteria Met</span>
+</div>
+<!-- Scannable Checklist Cards -->
+<div class="space-y-space-sm">
+<!-- Item 1 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span class="font-label-lg text-label-lg text-on-surface">Idempotency Guarantee</span>
+</div>
+<span class="font-label-stamp text-label-stamp px-2 py-0.5 rounded bg-primary-container text-on-primary">Exceeds Expectations</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-6">
+          Demonstrated clean adherence via deterministic ingress hash &amp; Klarna ledger design pattern.
+        </p>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary-container">pending</span>
+<span class="font-label-lg text-label-lg text-on-surface">Split-Brain Defense</span>
+</div>
+<span class="font-label-stamp text-label-stamp px-2 py-0.5 rounded bg-secondary-container text-on-secondary-fixed">Adequate</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-6">
+          Needs stronger Paxos/Raft consensus citation under severe cross-regional network partitions.
+        </p>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-low p-space-sm rounded-lg space-y-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span class="font-label-lg text-label-lg text-on-surface">Quantitative Metrics</span>
+</div>
+<span class="font-label-stamp text-label-stamp px-2 py-0.5 rounded bg-primary-fixed-dim text-on-primary-fixed">Strong</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant pl-6">
+          Directly referenced 45ms latency ceiling against the 60ms requirement constraint.
+        </p>
+</div>
+</div>
+</div>
+<!-- Recommended Trajectories / Follow-up Drills -->
+<div class="space-y-2">
+<span class="font-label-stamp text-label-stamp text-on-surface-variant uppercase tracking-wider px-1">Recommended Drills &amp; Intel</span>
+<div class="flex flex-col gap-2">
+<button class="w-full text-left bg-surface-container-lowest p-space-sm rounded-lg shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-between" type="button">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">network_check</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Simulate Network Partition Drill</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Stress-test dual-region split write reconciliations</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-secondary">arrow_forward</span>
+</button>
+<button class="w-full text-left bg-surface-container-lowest p-space-sm rounded-lg shadow-sm hover:bg-surface-container-low transition-colors flex items-center justify-between" type="button">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Review Stripe System Design Rubric</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Staff Engineer grading parameters for distributed state</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-secondary">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="pt-2 flex flex-col gap-2">
+<button class="w-full h-12 bg-primary text-on-primary font-label-lg text-label-lg rounded-lg shadow hover:bg-primary-container active:scale-[0.99] transition flex items-center justify-center gap-2" type="button">
+<span>Submit to AI Advisor for Feedback</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full h-11 bg-surface-container-lowest text-on-surface font-label-md text-label-md rounded-lg shadow-sm hover:bg-surface-container transition flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-secondary">bookmark_border</span>
+<span>Save Scenario Draft</span>
+</button>
+</div>
+</div>
+<script>
+  (function initPracticeScreen() {
+    const btnVoice = document.getElementById('btn-voice');
+    const btnText = document.getElementById('btn-text');
+    const voiceStatus = document.getElementById('voice-status');
+
+    if (btnVoice && btnText && voiceStatus) {
+      btnVoice.addEventListener('click', () => {
+        btnVoice.className = "px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center gap-1.5";
+        btnText.className = "px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all flex items-center gap-1.5";
+        voiceStatus.style.opacity = '1';
+      });
+
+      btnText.addEventListener('click', () => {
+        btnText.className = "px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center gap-1.5";
+        btnVoice.className = "px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all flex items-center gap-1.5";
+        voiceStatus.style.opacity = '0.35';
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-1px_8px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-label-md font-semibold"><div class="h-16 flex items-center justify-around px-margin"><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="swipe-deck" href="#"><span class="material-symbols-outlined text-[22px]">view_carousel</span><span class="font-label-md text-label-md">Decks</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="career-intelligence" href="#"><span class="material-symbols-outlined text-[22px]">insights</span><span class="font-label-md text-label-md">Intel</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] gap-space-xs transition-colors text-primary font-label-md font-semibold" data-path="interview-practice" href="#"><span class="material-symbols-outlined text-[22px]">record_voice_over</span><span class="font-label-md text-label-md">Practice</span></a><a class="flex flex-col items-center justify-center min-w-[44px] min-h-[44px] gap-space-xs text-on-surface-variant hover:text-on-surface transition-colors" data-path="profile-ledger" href="#"><span class="material-symbols-outlined text-[22px]">article</span><span class="font-label-md text-label-md">Ledger</span></a></div></nav></body></html>

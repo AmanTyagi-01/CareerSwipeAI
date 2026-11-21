@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary": "#5a1300", "on-background": "#1a1c1c", "surface-dim": "#dadad9", "primary-fixed-dim": "#a1d1b8", "on-primary": "#ffffff", "secondary-fixed-dim": "#c0c7ce", "secondary-container": "#dae0e7", "surface-variant": "#e2e2e2", "on-primary-container": "#8bbaa2", "surface-container": "#eeeeed", "on-secondary-fixed": "#161c21", "surface-container-low": "#f3f4f3", "on-surface-variant": "#414944", "on-error-container": "#93000a", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "primary-container": "#1e4b38", "on-surface": "#1a1c1c", "tertiary-container": "#782912", "on-tertiary-fixed": "#3b0900", "background": "#f9f9f8", "surface-tint": "#3b6752", "on-tertiary-container": "#ff9375", "error-container": "#ffdad6", "surface-bright": "#f9f9f8", "on-primary-fixed": "#002114", "surface-container-highest": "#e2e2e2", "outline": "#717973", "inverse-surface": "#2f3130", "tertiary-fixed-dim": "#ffb5a0", "surface-container-high": "#e8e8e7", "inverse-on-surface": "#f1f1f0", "secondary": "#585f65", "tertiary-fixed": "#ffdbd1", "surface": "#f9f9f8", "inverse-primary": "#a1d1b8", "on-tertiary-fixed-variant": "#7d2c15", "outline-variant": "#c0c8c2", "on-secondary-fixed-variant": "#41484d", "on-secondary-container": "#5c6369", "primary": "#023423", "on-error": "#ffffff", "secondary-fixed": "#dde3ea", "on-primary-fixed-variant": "#224f3c", "on-tertiary": "#ffffff", "primary-fixed": "#bdedd3", "on-secondary": "#ffffff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "margin": "1.25rem", "gutter": "1rem", "space-xl": "2rem", "space-md": "1rem" }, "fontFamily": { "label-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Newsreader"], "headline-xl-mobile": ["Newsreader"], "body-md": ["Inter"], "label-stamp": ["Inter"], "headline-md": ["Newsreader"], "headline-xl": ["Newsreader"], "headline-sm": ["Newsreader"] }, "fontSize": { "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-xl-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-stamp": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-xl": ["34px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }] } } } };</script><style>@layer base { html, body { min-height: 100%; margin: 0; padding: 0; } body { overscroll-behavior-y: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-14 px-margin flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-11 h-11 -ml-2 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight truncate max-w-[200px]">Help &amp; Support</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Dismiss" class="w-11 h-11 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="window.location.hash='#close'" type="button"><span class="material-symbols-outlined text-[22px]">close</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-14 pb-safe bg-surface"><div class="flex flex-col w-full px-margin pb-space-xl">
+<!-- Top Metadata & Editorial Title Section -->
+<div class="pt-space-md pb-space-lg flex flex-col">
+<div class="inline-flex items-center gap-space-xs self-start px-space-sm py-space-xs rounded bg-surface-container text-on-surface-variant font-label-stamp text-label-stamp uppercase tracking-wider mb-space-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container inline-block"></span>
+      Protocol Assistance · Support Ticket Ledger
+    </div>
+<h2 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface tracking-tight mb-space-xs">
+      How can we assist your talent dossier?
+    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Deterministic career identity diagnostics, verified audit trails, and encrypted candidate dispatch support.
+    </p>
+<!-- Tactical Search / Filter Bar -->
+<div class="relative mt-space-md w-full">
+<div class="absolute inset-y-0 left-0 pl-space-md flex items-center pointer-events-none text-secondary">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full h-11 pl-10 pr-space-md rounded-lg bg-surface-container-lowest text-on-surface placeholder:text-secondary font-body-md text-body-md outline-none shadow-sm focus:shadow-md transition-shadow" id="support-search" placeholder="Search telemetry codes, SLA clauses, or verification..." type="search"/>
+</div>
+</div>
+<!-- Visual Editorial Context Banner -->
+<div class="w-full rounded-xl overflow-hidden bg-surface-container-high relative mb-space-lg shadow-sm">
+<div class="w-full h-28 bg-cover bg-center relative" data-alt="Monochromatic high-angle archival photograph of a minimalist wood and matte slate workspace with printed cryptographic ledger pages, fountain pen, and precise engineering drafting tools under diffuse morning window light, subtle spruce green tint." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAFWAKeQJEGA1qVjd7_m2byKuoDb34lVOPlxAaJDKRzsFeMdsdiUjytATtznnAAkSLg2-V5d4PjLwU2R5AvfGR1HJA8WT8sb6Y376hgPbjAfksHuC_HjBHGb9T3gTuUa1IY9mbIsK8eIog1k5cAtlg1pQiEc7DVNR2G-HLKUQubfDPOnGo69KrGXwEQJzLzoKClZ6UhBKaKSRiXirW0Dsvg3mAJwCTuaRJPEYfgOp4')">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-high via-surface-container-high/40 to-transparent"></div>
+</div>
+<div class="p-space-md -mt-6 relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<div class="min-w-0">
+<span class="font-label-stamp text-label-stamp uppercase text-on-surface-variant block">Integrity Status</span>
+<span class="font-label-lg text-label-lg text-on-surface block truncate">Talent Dossier Cryptographically Sealed</span>
+</div>
+</div>
+<span class="px-space-sm py-space-xs rounded bg-surface-container text-primary font-label-md text-label-md shrink-0">Active Tier 1</span>
+</div>
+</div>
+<!-- Scannable Category Tiles (2x2 grid) -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Core Protocol Modules</h3>
+<span class="font-label-md text-label-md text-secondary">4 Categories</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Tile 1 -->
+<button class="group text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.98] flex flex-col justify-between h-36" type="button">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block mb-0.5 leading-tight">ATS Parsing &amp; Vectors</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block line-clamp-2">AST token extraction and semantic dossier embeddings</span>
+</div>
+</button>
+<!-- Tile 2 -->
+<button class="group text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.98] flex flex-col justify-between h-36" type="button">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">alt_route</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block mb-0.5 leading-tight">Verified Commits</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block line-clamp-2">GitHub provenance and cryptographic authorship sync</span>
+</div>
+</button>
+<!-- Tile 3 -->
+<button class="group text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.98] flex flex-col justify-between h-36" type="button">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block mb-0.5 leading-tight">Bands &amp; Pledges</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block line-clamp-2">Comp parity covenants and zero-discrepancy escrows</span>
+</div>
+</button>
+<!-- Tile 4 -->
+<button class="group text-left p-space-md rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-all active:scale-[0.98] flex flex-col justify-between h-36" type="button">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-primary-container group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<div>
+<span class="font-label-lg text-label-lg text-on-surface block mb-0.5 leading-tight">Ghosting SLA</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block line-clamp-2">48-hour response enforcement and penalty ledger</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Interactive FAQ Accordion -->
+<div class="mb-space-lg">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Protocol Inquiries (FAQ)</h3>
+<span class="font-label-stamp text-label-stamp text-secondary">DISPATCH v4.1</span>
+</div>
+<div class="flex flex-col gap-space-sm" id="faq-accordion-group">
+<!-- FAQ Item 1 (Expanded by default) -->
+<div class="rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden transition-all duration-200">
+<button aria-expanded="true" class="w-full p-space-md flex items-center justify-between text-left gap-space-md" onclick="toggleFaq('faq-1')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">01</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">How does the Zero-Synthetic filter evaluate my public commits?</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-secondary shrink-0 transition-transform duration-200 rotate-180" id="faq-1-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md pt-0 text-on-surface-variant font-body-md text-body-md block" id="faq-1">
+<div class="p-space-sm rounded-lg bg-surface-container-low mb-space-xs text-on-surface font-body-sm text-body-sm flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">verified</span>
+<span>Deterministic SHA-256 commit hash verification runs against remote mirror trees prior to vectorization.</span>
+</div>
+<p class="mt-space-xs">
+            Our pipeline utilizes deterministic AST parsing rather than generic probabilistic LLMs. Commits are checked against public cryptographic tree states, verifying GPG signatures and diff complexity. If anomalous synthetic code patterns or hallucinated repositories are detected, the ledger flags the item for manual peer consensus rather than generating synthetic fit metrics.
+          </p>
+</div>
+</div>
+<!-- FAQ Item 2 (Collapsed) -->
+<div class="rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden transition-all duration-200">
+<button aria-expanded="false" class="w-full p-space-md flex items-center justify-between text-left gap-space-md" onclick="toggleFaq('faq-2')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">02</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">What happens if a verified recruiter exceeds the 48-hour SLA?</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-secondary shrink-0 transition-transform duration-200" id="faq-2-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md pt-0 text-on-surface-variant font-body-md text-body-md hidden" id="faq-2">
+<p>
+            When an affirmative swipe match occurs, an immutable 48-hour countdown begins on the recruiter desk ledger. If no verified dispatch note or schedule link is registered within 48h 00m, the employer dossier undergoes an automatic Tier penalty rating drop on our talent market index, and your profile is returned untouched to the priority pool with zero impact on your visibility score.
+          </p>
+</div>
+</div>
+<!-- FAQ Item 3 (Collapsed) -->
+<div class="rounded-xl bg-surface-container-lowest shadow-sm overflow-hidden transition-all duration-200">
+<button aria-expanded="false" class="w-full p-space-md flex items-center justify-between text-left gap-space-md" onclick="toggleFaq('faq-3')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-stamp text-label-stamp px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant">03</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">How do I download my complete cryptographic audit PDF?</span>
+</div>
+<span class="material-symbols-outlined text-[20px] text-secondary shrink-0 transition-transform duration-200" id="faq-3-icon">expand_more</span>
+</button>
+<div class="px-space-md pb-space-md pt-0 text-on-surface-variant font-body-md text-body-md hidden" id="faq-3">
+<p>
+            You can export your complete cryptographic certificate directly via the Diagnostics Ledger below or under your Profile Security tab. Each export is compiled as an archival PDF/A document containing raw SHA-256 tree states, zero-knowledge attribute proofs, and timestamped recruiter viewing hashes.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Diagnostics & Telemetry Snapshot Card -->
+<div class="mb-space-lg rounded-xl bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm bg-surface-container-low px-space-sm py-space-xs rounded">
+<div class="flex items-center gap-space-xs text-primary-container">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-label-stamp text-label-stamp uppercase tracking-wider">Telemetry Snapshot</span>
+</div>
+<span class="inline-flex items-center gap-1 font-label-stamp text-label-stamp text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block animate-pulse"></span> LIVE
+      </span>
+</div>
+<!-- Data Rows -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between py-1 text-body-sm font-body-sm">
+<span class="text-on-surface-variant">App Version</span>
+<span class="font-mono text-on-surface font-medium bg-surface-container px-1.5 py-0.5 rounded">v4.11.0-SEC (Build 2025.03.28)</span>
+</div>
+<div class="flex items-center justify-between py-1 text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Device Relay</span>
+<span class="font-mono text-on-surface font-medium">Apple WebKit (TLS 1.3 Valid)</span>
+</div>
+<div class="flex items-center justify-between py-1 text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Network Latency</span>
+<span class="font-mono text-primary font-medium flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span> 22ms to eu-west-1 node
+        </span>
+</div>
+<div class="flex items-center justify-between py-1 text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Local Ledger Hash</span>
+<span class="font-mono text-secondary text-[10px] truncate max-w-[170px]">0x9b4f2c019d...e5a2</span>
+</div>
+</div>
+</div>
+<!-- Direct Support Actions -->
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<!-- Spruce Green CTA -->
+<button class="w-full h-12 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-sm hover:bg-primary-container active:scale-[0.99] transition-all" onclick="handleOpenTicket()" type="button">
+<span class="material-symbols-outlined text-[20px]">add_task</span>
+      Open Secure Support Ticket
+    </button>
+<!-- Secondary Button -->
+<button class="w-full h-12 rounded-lg bg-surface-container text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-space-xs hover:bg-surface-container-high active:scale-[0.99] transition-all" onclick="handleExportTelemetry()" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+      Export Diagnostic Telemetry Log
+    </button>
+</div>
+<!-- Footer Certification Stamp -->
+<div class="pt-space-sm pb-space-md flex flex-col items-center justify-center text-center">
+<div class="flex items-center gap-1.5 text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary">policy</span>
+<span class="font-label-stamp text-label-stamp uppercase tracking-widest text-on-surface-variant">CareerSwipe AI Trust &amp; Safety Desk</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+      SOC2 Type II Certified · Zero Non-Deterministic Ledger Claims
+    </p>
+</div>
+<!-- Toast Notification Container for interactions -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 px-space-md py-space-sm rounded-lg bg-inverse-surface text-inverse-on-surface font-body-sm text-body-sm shadow-xl opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center gap-space-xs" id="support-toast">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed">check_circle</span>
+<span id="toast-message">Telemetry ledger exported successfully.</span>
+</div>
+</div>
+<script>
+  function toggleFaq(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id + '-icon');
+    const button = el.previousElementSibling;
+    
+    if (!el) return;
+    
+    const isHidden = el.classList.contains('hidden');
+    if (isHidden) {
+      el.classList.remove('hidden');
+      el.classList.add('block');
+      button.setAttribute('aria-expanded', 'true');
+      icon.classList.add('rotate-180');
+    } else {
+      el.classList.remove('block');
+      el.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+      icon.classList.remove('rotate-180');
+    }
+  }
+
+  function showSupportToast(text) {
+    const toast = document.getElementById('support-toast');
+    const msg = document.getElementById('toast-message');
+    if (!toast || !msg) return;
+    
+    msg.textContent = text;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+    
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2800);
+  }
+
+  function handleOpenTicket() {
+    showSupportToast('Secure ticket draft initialized with telemetry payload.');
+  }
+
+  function handleExportTelemetry() {
+    showSupportToast('Diagnostic log (SHA-256 verified) exported.');
+  }
+</script></main></body></html>

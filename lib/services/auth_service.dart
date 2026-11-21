@@ -493,6 +493,42 @@ class AuthService {
     return userModel;
   }
 
+  /// Marks a user's profile as complete and sets their final role.
+  /// Writes `isProfileComplete: true` and `userType` to Firestore.
+  /// Safe to call when Firebase is not configured (mock path).
+  Future<UserModel?> completeOnboarding({required UserType role}) async {
+    if (_auth == null) {
+      // Mock / no-Firebase path
+      if (_mockUser != null) {
+        _mockUser = _mockUser!.copyWith(
+          isProfileComplete: true,
+          userType: role,
+          updatedAt: DateTime.now(),
+        );
+        _mockAuthStateController.add(null);
+        AppLogger.info('Mock onboarding complete, role: ${role.name}', tag: 'AuthService');
+      }
+      return _mockUser;
+    }
+
+    final user = _auth?.currentUser;
+    if (user == null) {
+      AppLogger.warning('completeOnboarding called with no current user', tag: 'AuthService');
+      return null;
+    }
+
+    final updates = <String, dynamic>{
+      'isProfileComplete': true,
+      'userType': role.name,
+      'updatedAt': Timestamp.fromDate(DateTime.now()),
+    };
+
+    await _firestore!.collection('users').doc(user.uid).update(updates);
+    AppLogger.info('Onboarding complete for ${user.uid}, role: ${role.name}', tag: 'AuthService');
+
+    return _getOrCreateUserModel(user);
+  }
+
   Future<void> _updateLastLogin(String userId) async {
     if (_firestore == null) return;
     try {
