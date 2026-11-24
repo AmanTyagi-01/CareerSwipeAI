@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import '../../../config/theme.dart';
 
-/// The official CareerSwipe AI brand logo widget.
-/// Renders the signature geometric delta "A" ribbon emblem in
-/// vibrant violet-to-cyan gradient with optional neon glow.
+/// CareerSwipe AI Brand Emblem (Editorial Utility)
+///
+/// Features:
+/// - Crisp geometric delta "A" monogram in Spruce Green palette (#1E4B38)
+/// - Subtly elevated on tactile paper surface
+/// - Clean vector geometry with zero artificial neon blur
 class AppBrandLogo extends StatelessWidget {
   final double size;
   final bool showGlow;
@@ -11,43 +15,37 @@ class AppBrandLogo extends StatelessWidget {
   const AppBrandLogo({
     super.key,
     this.size = 48,
-    this.showGlow = true,
+    this.showGlow = false,
     this.animated = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
       width: size,
       height: size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          if (showGlow)
-            Container(
-              width: size * 0.85,
-              height: size * 0.85,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF8B5CF6).withValues(alpha: 0.45),
-                    blurRadius: size * 0.45,
-                    spreadRadius: size * 0.1,
-                  ),
-                  BoxShadow(
-                    color: const Color(0xFF06B6D4).withValues(alpha: 0.35),
-                    blurRadius: size * 0.35,
-                    spreadRadius: size * 0.05,
-                  ),
-                ],
-              ),
-            ),
-          CustomPaint(
-            size: Size(size, size),
-            painter: _BrandLogoPainter(),
-          ),
-        ],
+      decoration: BoxDecoration(
+        color: isDark
+            ? EditorialColors.darkSurface
+            : EditorialColors.paperSurface,
+        borderRadius: BorderRadius.circular(size * 0.22),
+        border: Border.all(
+          color: isDark
+              ? EditorialColors.darkHairline
+              : EditorialColors.paperHairline,
+          width: 1.0,
+        ),
+        boxShadow: isDark
+            ? EditorialElevation.paperCardDark
+            : EditorialElevation.paperCard,
+      ),
+      child: Center(
+        child: CustomPaint(
+          size: Size(size * 0.65, size * 0.65),
+          painter: _BrandLogoPainter(),
+        ),
       ),
     );
   }
@@ -59,65 +57,53 @@ class _BrandLogoPainter extends CustomPainter {
     final w = size.width;
     final h = size.height;
 
-    // Outer ribbon gradient (violet to cyan)
-    final gradient1 = const LinearGradient(
+    // Spruce green gradient (primary to dark spruce)
+    final gradient = const LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [
-        Color(0xFFA78BFA), // light violet
-        Color(0xFF7C3AED), // vivid violet
-        Color(0xFF4F46E5), // indigo
+        EditorialColors.primary,
+        EditorialColors.primaryDark,
       ],
     ).createShader(Rect.fromLTWH(0, 0, w, h));
 
-    // Crossbar / foreground ribbon gradient (cyan to teal)
-    final gradient2 = const LinearGradient(
-      begin: Alignment.bottomLeft,
-      end: Alignment.topRight,
-      colors: [
-        Color(0xFF06B6D4), // cyan
-        Color(0xFF38BDF8), // sky
-        Color(0xFFA78BFA), // violet
-      ],
-    ).createShader(Rect.fromLTWH(0, 0, w, h));
-
-    final paint1 = Paint()
-      ..shader = gradient1
-      ..style = PaintingStyle.fill
-      ..isAntiAlias = true;
-
-    final paint2 = Paint()
-      ..shader = gradient2
+    final paint = Paint()
+      ..shader = gradient
       ..style = PaintingStyle.fill
       ..isAntiAlias = true;
 
     // Left apex down-stroke of the stylized delta "A"
     final leftPath = Path()
       ..moveTo(w * 0.50, h * 0.10)
-      ..lineTo(w * 0.15, h * 0.86)
-      ..lineTo(w * 0.35, h * 0.86)
-      ..lineTo(w * 0.50, h * 0.45)
+      ..lineTo(w * 0.15, h * 0.88)
+      ..lineTo(w * 0.38, h * 0.88)
+      ..lineTo(w * 0.50, h * 0.48)
       ..close();
 
-    // Right apex down-stroke of the stylized delta "A"
+    // Right apex down-stroke
     final rightPath = Path()
       ..moveTo(w * 0.50, h * 0.10)
-      ..lineTo(w * 0.50, h * 0.45)
-      ..lineTo(w * 0.65, h * 0.86)
-      ..lineTo(w * 0.85, h * 0.86)
+      ..lineTo(w * 0.85, h * 0.88)
+      ..lineTo(w * 0.62, h * 0.88)
+      ..lineTo(w * 0.50, h * 0.48)
       ..close();
 
-    // The forward dynamic cross-wing ribbon (gives the 'Swipe' feel)
-    final swipeWing = Path()
-      ..moveTo(w * 0.22, h * 0.64)
-      ..lineTo(w * 0.78, h * 0.52)
-      ..lineTo(w * 0.84, h * 0.64)
-      ..lineTo(w * 0.32, h * 0.76)
+    // Horizontal bridge / chevron crossbar in sage (#8BBAA2)
+    final bridgePath = Path()
+      ..moveTo(w * 0.28, h * 0.68)
+      ..lineTo(w * 0.72, h * 0.68)
+      ..lineTo(w * 0.64, h * 0.56)
+      ..lineTo(w * 0.36, h * 0.56)
       ..close();
 
-    canvas.drawPath(leftPath, paint1);
-    canvas.drawPath(rightPath, paint1);
-    canvas.drawPath(swipeWing, paint2);
+    final bridgePaint = Paint()
+      ..color = EditorialColors.onPrimaryContainer
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+
+    canvas.drawPath(leftPath, paint);
+    canvas.drawPath(rightPath, paint);
+    canvas.drawPath(bridgePath, bridgePaint);
   }
 
   @override

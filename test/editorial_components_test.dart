@@ -8,10 +8,15 @@
 // - EditorialChip
 // - FactsMatrix2x2
 // - SignalFitBadge & GroundedMatchLedger
+// - Re-skinned shared widgets: GlassCard, PrimaryButton, GlassButton, AppLoadingIndicator
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:career_swipe_ai/config/theme.dart';
 import 'package:career_swipe_ai/presentation/widgets/editorial/editorial.dart';
+import 'package:career_swipe_ai/presentation/widgets/common/glass_card.dart';
+import 'package:career_swipe_ai/presentation/widgets/common/custom_buttons.dart';
+import 'package:career_swipe_ai/presentation/widgets/common/loading_indicator.dart';
 
 void main() {
   setUpAll(() {
@@ -34,6 +39,16 @@ void main() {
       expect(EditorialRadii.tier3, equals(16.0));
     });
 
+    test('AppTheme and AppColors seamlessly map to Editorial tokens', () {
+      expect(AppTheme.primaryColor, equals(EditorialColors.primary));
+      expect(AppColors.darkPrimary, equals(EditorialColors.primary));
+      expect(AppColors.lightBackground, equals(EditorialColors.paperBackground));
+      expect(AppColors.darkBackground, equals(EditorialColors.darkBackground));
+      expect(AppRadii.sm, equals(4.0));
+      expect(AppRadii.md, equals(8.0));
+      expect(AppRadii.lg, equals(16.0));
+    });
+
     testWidgets('EditorialCard renders child with 16px radius and border',
         (tester) async {
       await tester.pumpWidget(
@@ -48,6 +63,85 @@ void main() {
 
       expect(find.text('Card Content'), findsOneWidget);
       expect(find.byType(EditorialCard), findsOneWidget);
+    });
+
+    testWidgets('GlassCard renders as tactile paper card and responds to tap',
+        (tester) async {
+      var tapped = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: Scaffold(
+            body: GlassCard(
+              onTap: () => tapped = true,
+              child: const Text('Paper Card Content'),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Paper Card Content'), findsOneWidget);
+      await tester.tap(find.byType(GlassCard));
+      await tester.pump();
+      expect(tapped, isTrue);
+    });
+
+    testWidgets('PrimaryButton renders with Spruce green and triggers tap',
+        (tester) async {
+      var pressed = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: Scaffold(
+            body: PrimaryButton(
+              text: 'Save and Continue',
+              onPressed: () => pressed = true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Save and Continue'), findsOneWidget);
+      await tester.tap(find.byType(PrimaryButton));
+      await tester.pump();
+      expect(pressed, isTrue);
+    });
+
+    testWidgets('GlassButton renders as outlined paper button and triggers tap',
+        (tester) async {
+      var pressed = false;
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: Scaffold(
+            body: GlassButton(
+              text: 'Dismiss',
+              onPressed: () => pressed = true,
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Dismiss'), findsOneWidget);
+      await tester.tap(find.byType(GlassButton));
+      await tester.pump();
+      expect(pressed, isTrue);
+    });
+
+    testWidgets('AppLoadingIndicator renders with message', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.light,
+          home: const Scaffold(
+            body: AppLoadingIndicator(
+              message: 'Parsing ATS tokens...',
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Parsing ATS tokens...'), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
     testWidgets('EditorialButton renders primary and triggers tap',

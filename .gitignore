@@ -56,6 +56,9 @@ linux/flutter/generated_plugin_registrant.cc
 linux/flutter/generated_plugin_registrant.h
 linux/flutter/generated_plugins.cmake
 
+# Local blueprint junction/symlink
+blueprint/
+
 # Environment
 .env
 .env.local

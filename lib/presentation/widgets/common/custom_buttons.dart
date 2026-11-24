@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../config/theme.dart';
 
+/// Primary Call-To-Action Button (Editorial Utility)
+///
+/// Features:
+/// - Spruce Green background (#1E4B38)
+/// - Pure White typography (#FFFFFF, Inter w600)
+/// - Tier 2 radius (8px: EditorialRadii.roundedMd)
+/// - Flat tactile elevation (0dp)
 class PrimaryButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -22,15 +30,28 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? double.infinity,
-      height: height ?? 56,
+      height: height ?? 50.0,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: EditorialColors.primary,
+          foregroundColor: EditorialColors.onPrimary,
+          disabledBackgroundColor:
+              EditorialColors.primary.withValues(alpha: 0.4),
+          disabledForegroundColor: Colors.white.withValues(alpha: 0.7),
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          shape: const RoundedRectangleBorder(
+            borderRadius: EditorialRadii.roundedMd,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        ),
         child: isLoading
             ? const SizedBox(
-                width: 24,
-                height: 24,
+                width: 22,
+                height: 22,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
+                  strokeWidth: 2.2,
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
               )
@@ -45,6 +66,8 @@ class PrimaryButton extends StatelessWidget {
                   Flexible(
                     child: Text(
                       text,
+                      style:
+                          EditorialTypography.labelLg(color: Colors.white),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -55,6 +78,13 @@ class PrimaryButton extends StatelessWidget {
   }
 }
 
+/// Secondary / Outlined Button (Editorial Utility)
+///
+/// Replaces the legacy glass button with a tactile paper outlined button:
+/// - 1px structural hairline border (#E5E5E2 / #2F3235)
+/// - Paper container or surface fill
+/// - Tier 2 radius (8px: EditorialRadii.roundedMd)
+/// - Inter w600 typography
 class GlassButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -78,29 +108,40 @@ class GlassButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final effectiveTextColor = textColor ??
+        (isDark
+            ? EditorialColors.darkTextPrimary
+            : EditorialColors.paperTextPrimary);
 
     return SizedBox(
       width: width ?? double.infinity,
-      height: height ?? 56,
+      height: height ?? 50.0,
       child: OutlinedButton(
         onPressed: isLoading ? null : onPressed,
         style: OutlinedButton.styleFrom(
           backgroundColor: isDark
-              ? Colors.white.withValues(alpha: 0.1)
-              : Colors.black.withValues(alpha: 0.05),
+              ? EditorialColors.darkContainerLow
+              : EditorialColors.paperSurface,
+          foregroundColor: effectiveTextColor,
+          elevation: 0,
           side: BorderSide(
             color: isDark
-                ? Colors.white.withValues(alpha: 0.2)
-                : Colors.black.withValues(alpha: 0.1),
-            width: 1.5,
+                ? EditorialColors.darkHairline
+                : EditorialColors.paperHairline,
+            width: 1.0,
           ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: EditorialRadii.roundedMd,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
         ),
         child: isLoading
-            ? const SizedBox(
-                width: 24,
-                height: 24,
+            ? SizedBox(
+                width: 22,
+                height: 22,
                 child: CircularProgressIndicator(
-                  strokeWidth: 2,
+                  strokeWidth: 2.2,
+                  valueColor: AlwaysStoppedAnimation<Color>(effectiveTextColor),
                 ),
               )
             : Row(
@@ -114,7 +155,8 @@ class GlassButton extends StatelessWidget {
                   Flexible(
                     child: Text(
                       text,
-                      style: TextStyle(color: textColor),
+                      style: EditorialTypography.labelLg(
+                          color: effectiveTextColor),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -125,6 +167,13 @@ class GlassButton extends StatelessWidget {
   }
 }
 
+/// Social Provider Auth Button (Editorial Utility)
+///
+/// Features:
+/// - 1px structural hairline border
+/// - Paper container background
+/// - Tier 2 radius (8px)
+/// - Inter w600 label
 class SocialButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -143,22 +192,48 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final effectiveTextColor = textColor ??
+        (isDark
+            ? EditorialColors.darkTextPrimary
+            : EditorialColors.paperTextPrimary);
+
     return SizedBox(
       width: double.infinity,
-      height: 56,
+      height: 50.0,
       child: OutlinedButton.icon(
         onPressed: onPressed,
         icon: Image.asset(
           iconPath,
-          width: 24,
-          height: 24,
-          errorBuilder: (context, error, stackTrace) =>
-              const Icon(Icons.account_circle),
+          width: 20,
+          height: 20,
+          errorBuilder: (context, error, stackTrace) => Icon(
+            Icons.account_circle_outlined,
+            size: 20,
+            color: effectiveTextColor,
+          ),
         ),
-        label: Text(text),
+        label: Text(
+          text,
+          style: EditorialTypography.labelLg(color: effectiveTextColor),
+        ),
         style: OutlinedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          foregroundColor: textColor ?? Theme.of(context).colorScheme.onSurface,
+          backgroundColor: backgroundColor ??
+              (isDark
+                  ? EditorialColors.darkContainerLow
+                  : EditorialColors.paperSurface),
+          foregroundColor: effectiveTextColor,
+          elevation: 0,
+          side: BorderSide(
+            color: isDark
+                ? EditorialColors.darkHairline
+                : EditorialColors.paperHairline,
+            width: 1.0,
+          ),
+          shape: const RoundedRectangleBorder(
+            borderRadius: EditorialRadii.roundedMd,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
         ),
       ),
     );

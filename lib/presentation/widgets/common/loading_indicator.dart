@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import '../../../config/theme.dart';
 
+/// Editorial Utility Loading Indicator
+///
+/// - Uses Spruce Green (#1E4B38) for circular indicator
+/// - Inter typography for loading message
 class AppLoadingIndicator extends StatelessWidget {
   final double size;
   final Color? color;
@@ -8,13 +12,16 @@ class AppLoadingIndicator extends StatelessWidget {
 
   const AppLoadingIndicator({
     super.key,
-    this.size = 48,
+    this.size = 40,
     this.color,
     this.message,
   });
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final effectiveColor = color ?? EditorialColors.primary;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -22,22 +29,19 @@ class AppLoadingIndicator extends StatelessWidget {
           width: size,
           height: size,
           child: CircularProgressIndicator(
-            strokeWidth: 3,
-            valueColor: AlwaysStoppedAnimation<Color>(
-              color ?? AppTheme.primaryColor,
-            ),
+            strokeWidth: 2.5,
+            valueColor: AlwaysStoppedAnimation<Color>(effectiveColor),
           ),
         ),
         if (message != null) ...[
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           Text(
             message!,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .onSurface
-                      .withValues(alpha: 0.6),
-                ),
+            style: EditorialTypography.bodyMd(
+              color: isDark
+                  ? EditorialColors.darkTextSecondary
+                  : EditorialColors.paperTextSecondary,
+            ),
             textAlign: TextAlign.center,
           ),
         ],
@@ -46,6 +50,9 @@ class AppLoadingIndicator extends StatelessWidget {
   }
 }
 
+/// Editorial Utility Skeleton Loader
+///
+/// Subtle paper container skeleton with 8px radius
 class SkeletonLoading extends StatelessWidget {
   final double width;
   final double height;
@@ -60,11 +67,15 @@ class SkeletonLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.5),
+        color: isDark
+            ? EditorialColors.darkContainerMid
+            : EditorialColors.paperContainerMid,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: const SizedBox(),

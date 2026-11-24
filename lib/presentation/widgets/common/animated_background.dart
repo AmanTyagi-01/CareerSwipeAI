@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../../../config/theme.dart';
 
+/// Editorial Utility Minimal Canvas Background
+///
+/// Replaces bright neon purple/cyan glowing particles with a clean,
+/// archival paper (#FBFBFA / #F9F9F8) or rich charcoal (#121314) canvas
+/// with optional subtle tonal atmosphere.
 class AnimatedBackground extends StatefulWidget {
   final Widget child;
   final int particleCount;
@@ -10,7 +16,7 @@ class AnimatedBackground extends StatefulWidget {
   const AnimatedBackground({
     super.key,
     required this.child,
-    this.particleCount = 20,
+    this.particleCount = 12,
   });
 
   @override
@@ -36,7 +42,7 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
 
     for (int i = 0; i < count; i++) {
       final controller = AnimationController(
-        duration: Duration(seconds: 3 + _random.nextInt(5)),
+        duration: Duration(seconds: 4 + _random.nextInt(6)),
         vsync: this,
       );
 
@@ -49,12 +55,12 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
       _particles.add(Particle(
         x: _random.nextDouble(),
         y: _random.nextDouble(),
-        size: 2 + _random.nextDouble() * 4,
-        speed: 0.2 + _random.nextDouble() * 0.5,
-        opacity: 0.1 + _random.nextDouble() * 0.3,
+        size: 2 + _random.nextDouble() * 3,
+        speed: 0.1 + _random.nextDouble() * 0.3,
+        opacity: 0.03 + _random.nextDouble() * 0.06,
         color: _random.nextBool()
-            ? const Color(0xFF6366F1)
-            : const Color(0xFF06B6D4),
+            ? EditorialColors.primary
+            : EditorialColors.secondary,
       ));
 
       controller.repeat(reverse: true);
@@ -71,65 +77,44 @@ class _AnimatedBackgroundState extends State<AnimatedBackground>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Stack(
       children: [
-        // Gradient background
+        // Editorial paper canvas
         Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: Theme.of(context).brightness == Brightness.dark
-                  ? [
-                      const Color(0xFF0F172A),
-                      const Color(0xFF1E293B),
-                      const Color(0xFF0F172A)
-                    ]
-                  : [
-                      const Color(0xFFF8FAFC),
-                      const Color(0xFFEEF2FF),
-                      const Color(0xFFF8FAFC)
-                    ],
-            ),
-          ),
+          color: isDark
+              ? EditorialColors.darkBackground
+              : EditorialColors.paperBackground,
         ),
-        // Animated particles
-        ...List.generate(_animations.length, (index) {
-          return AnimatedBuilder(
-            animation: _animations[index],
-            builder: (context, child) {
-              final particle = _particles[index];
-              final offset = _animations[index].value * particle.speed;
+        // Subtle tonal ambient particles
+        if (_animations.isNotEmpty)
+          ...List.generate(_animations.length, (index) {
+            return AnimatedBuilder(
+              animation: _animations[index],
+              builder: (context, child) {
+                final particle = _particles[index];
+                final progress = _animations[index].value;
 
-              return Positioned(
-                left: (particle.x + offset * 0.1) *
-                    MediaQuery.of(context).size.width,
-                top: (particle.y + offset * 0.15) *
-                    MediaQuery.of(context).size.height,
-                child: Container(
-                  width: particle.size,
-                  height: particle.size,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: particle.color.withValues(
-                      alpha: particle.opacity *
-                          (0.5 + 0.5 * sin(_animations[index].value * pi * 2)),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: particle.color
-                            .withValues(alpha: particle.opacity * 0.5),
-                        blurRadius: particle.size * 2,
-                        spreadRadius: particle.size * 0.5,
+                return Positioned(
+                  left: MediaQuery.of(context).size.width * particle.x,
+                  top: MediaQuery.of(context).size.height *
+                      (particle.y + progress * 0.08) %
+                      MediaQuery.of(context).size.height,
+                  child: Container(
+                    width: particle.size,
+                    height: particle.size,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: particle.color.withValues(
+                        alpha: particle.opacity * (0.8 + progress * 0.2),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
-        }),
-        // Main content
+                );
+              },
+            );
+          }),
         widget.child,
       ],
     );
